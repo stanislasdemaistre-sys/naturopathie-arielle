@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audit Horizon Santé — Flux & Équilibre</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<style>
+:root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;font-weight:300;min-height:100vh}
+.app{max-width:780px;margin:0 auto;padding:40px 24px 80px}
+.header{text-align:center;margin-bottom:48px;animation:fadeUp .8s ease-out}
+.header-logo{font-family:var(--fd);font-size:1.4rem;color:var(--bp);margin-bottom:8px}.header-logo span{color:var(--do)}
+.header-title{font-family:var(--fd);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:400;color:var(--bp);line-height:1.2;margin-bottom:12px}
+.header-title em{font-style:italic;color:var(--vs)}
+.header-subtitle{font-size:.95rem;color:var(--tx-l);max-width:520px;margin:0 auto}
+.intro-card{background:var(--wh);border-radius:var(--rl);padding:48px 40px;text-align:center;box-shadow:0 20px 60px rgba(27,77,92,.06);border:1px solid rgba(27,77,92,.04);animation:fadeUp .8s ease-out .2s both}
+.intro-emoji{font-size:3rem;margin-bottom:20px}
+.intro-card h2{font-family:var(--fd);font-size:1.5rem;color:var(--bp);font-weight:400;margin-bottom:12px}
+.intro-card>p{font-size:.92rem;color:var(--tx-l);max-width:460px;margin:0 auto 8px;line-height:1.7}
+.intro-details{display:flex;justify-content:center;gap:32px;margin:24px 0 32px;flex-wrap:wrap}
+.intro-detail{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--tx-l)}
+.intro-detail .icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.intro-detail:nth-child(1) .icon{background:var(--vs-p)}.intro-detail:nth-child(2) .icon{background:var(--do-p)}.intro-detail:nth-child(3) .icon{background:rgba(27,77,92,.08)}
+.child-form{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;text-align:left}
+.form-group label{display:block;font-size:.78rem;font-weight:500;color:var(--bp);margin-bottom:6px;letter-spacing:.5px}
+.form-group input,.form-group select{width:100%;padding:12px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);transition:border-color .3s;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:var(--vs)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 36px;border-radius:50px;font-family:var(--fb);font-size:.9rem;font-weight:500;letter-spacing:.3px;cursor:pointer;border:none;transition:all .4s cubic-bezier(.22,1,.36,1)}
+.btn-primary{background:var(--bp);color:var(--cr)}.btn-primary:hover{background:var(--bp-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
+.btn-secondary{background:transparent;color:var(--bp);border:1.5px solid var(--cr-d)}.btn-secondary:hover{border-color:var(--vs);background:var(--wh)}
+.btn-gold{background:var(--do);color:var(--bp-d);font-weight:600}.btn-gold:hover{background:var(--do-l);transform:translateY(-2px)}
+.progress-wrap{margin-bottom:40px;animation:fadeIn .5s ease}
+.progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.progress-step{font-size:.78rem;font-weight:500;color:var(--do);letter-spacing:1px}
+.progress-category{font-size:.78rem;color:var(--tx-l)}
+.progress-bar{height:4px;background:var(--cr-d);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--vs),var(--do));border-radius:4px;transition:width .6s cubic-bezier(.22,1,.36,1)}
+.question-card{background:var(--wh);border-radius:var(--rl);padding:48px 40px;box-shadow:0 20px 60px rgba(27,77,92,.06);border:1px solid rgba(27,77,92,.04)}
+.question-petal-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:50px;font-size:.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px;background:var(--vs-p);color:var(--bp)}
+.question-text{font-family:var(--fd);font-size:1.4rem;color:var(--bp);font-weight:400;line-height:1.4;margin-bottom:28px}
+.options-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+.option-item{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--cr);border:1.5px solid transparent;border-radius:var(--rs);cursor:pointer;transition:all .3s ease;user-select:none}
+.option-item:hover{border-color:var(--vs-l);background:var(--vs-p)}.option-item.selected{border-color:var(--vs);background:var(--vs-p)}
+.option-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--vs-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.option-item.selected .option-radio{border-color:var(--vs);background:var(--vs)}
+.option-item.selected .option-radio::after{content:'';width:6px;height:6px;background:var(--wh);border-radius:50%}
+.option-text{font-size:.88rem;color:var(--tx);font-weight:400;line-height:1.4}
+.question-nav{display:flex;justify-content:space-between;align-items:center}
+.slide-enter{animation:slideIn .5s cubic-bezier(.22,1,.36,1) both}
+@keyframes slideIn{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.results-wrap{animation:fadeUp .8s ease-out}
+.results-header{text-align:center;margin-bottom:48px}
+.results-header h2{font-family:var(--fd);font-size:2rem;color:var(--bp);font-weight:400;margin-bottom:8px}
+.results-header h2 em{font-style:italic;color:var(--vs)}
+.results-child-name{font-size:.85rem;color:var(--tx-l)}
+.fleur-section{background:var(--wh);border-radius:var(--rl);padding:48px 32px;text-align:center;margin-bottom:28px;box-shadow:0 20px 60px rgba(27,77,92,.06);border:1px solid rgba(27,77,92,.04)}
+.fleur-label{font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:32px}
+.fleur-container{position:relative;width:380px;height:380px;margin:0 auto}
+@media(max-width:480px){.fleur-container{width:300px;height:300px}}
+.fleur-svg{width:100%;height:100%}
+.petal{transition:all .6s cubic-bezier(.22,1,.36,1);cursor:pointer}.petal:hover{filter:brightness(1.08)}
+.petal-outline{fill:none;stroke:transparent;stroke-width:2;transition:stroke .4s ease}
+.petal-outline.alert{stroke:var(--do);stroke-width:2.5;stroke-dasharray:6 3}
+.petal-score-label{font-family:var(--fd);font-size:20px;font-weight:600;fill:#fff;pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.petal-name-label{font-family:var(--fb);font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;fill:#fff;pointer-events:none;text-anchor:middle;dominant-baseline:central;opacity:.8}
+.fleur-tooltip{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:380px;background:var(--wh);border:1px solid var(--cr-d);border-radius:var(--r);padding:22px 26px;box-shadow:0 16px 48px rgba(27,77,92,.12);text-align:left;opacity:0;pointer-events:none;transition:all .35s cubic-bezier(.22,1,.36,1);z-index:10}
+.fleur-tooltip.visible{opacity:1;pointer-events:auto;bottom:-28px}
+.tooltip-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.tooltip-icon{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.tooltip-name{font-family:var(--fd);font-size:1.1rem;font-weight:500;color:var(--bp)}
+.tooltip-score{font-size:.78rem;font-weight:500;margin-left:auto}
+.tooltip-desc{font-size:.84rem;color:var(--tx-l);line-height:1.6;margin-bottom:10px}
+.tooltip-solutions{font-size:.8rem;padding:10px 14px;border-radius:8px;line-height:1.6;background:var(--cr)}
+.tooltip-solutions strong{color:var(--bp);font-weight:500}
+.tooltip-advice{font-size:.78rem;padding:8px 14px;border-radius:8px;line-height:1.5;margin-top:8px}
+.tooltip-advice.good{background:var(--ok-p);color:#3D6B3A}.tooltip-advice.watch{background:var(--do-p);color:#7A5F2A}.tooltip-advice.alert{background:var(--al-p);color:#8B4040}
+.fleur-message{margin-top:48px;font-family:var(--fd);font-size:1.15rem;color:var(--bp);font-weight:400;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.6}
+.fleur-hint{margin-top:12px;font-size:.78rem;color:var(--tx-l)}
+.alerts-section{background:var(--wh);border-radius:var(--rl);padding:36px;margin-bottom:28px;box-shadow:0 8px 32px rgba(27,77,92,.04);border:1px solid rgba(27,77,92,.04)}
+.alerts-title{font-family:var(--fd);font-size:1.3rem;color:var(--bp);margin-bottom:20px}
+.alert-item{display:flex;align-items:flex-start;gap:14px;padding:16px;border-radius:var(--rs);margin-bottom:10px}
+.alert-item:last-child{margin-bottom:0}
+.alert-item.level-alert{background:var(--al-p)}.alert-item.level-watch{background:var(--do-p)}.alert-item.level-good{background:var(--ok-p)}
+.alert-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.alert-item.level-alert .alert-dot{background:var(--al)}.alert-item.level-watch .alert-dot{background:var(--do)}.alert-item.level-good .alert-dot{background:var(--ok)}
+.alert-text h4{font-size:.88rem;font-weight:500;color:var(--tx);margin-bottom:2px}
+.alert-text p{font-size:.8rem;color:var(--tx-l);line-height:1.5}
+.oligo-suggestion{background:linear-gradient(135deg,var(--bp),var(--bp-l));border-radius:var(--rl);padding:40px;color:var(--cr);text-align:center;margin-bottom:28px}
+.oligo-suggestion h3{font-family:var(--fd);font-size:1.4rem;font-weight:400;margin-bottom:12px}
+.oligo-suggestion p{font-size:.9rem;color:rgba(250,247,242,.7);max-width:480px;margin:0 auto 24px;line-height:1.7}
+.oligo-minerals{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+.mineral-tag{padding:6px 14px;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);font-size:.78rem;color:var(--cr)}
+.results-cta{text-align:center;padding:24px 0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.results-cta .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.results-cta p{font-size:.82rem;color:var(--tx-l)}
+.hidden{display:none!important}
+@media(max-width:640px){.app{padding:24px 16px 60px}.intro-card,.question-card,.fleur-section,.alerts-section{padding:28px 20px}.child-form{grid-template-columns:1fr}.intro-details{flex-direction:column;align-items:center;gap:12px}.question-text{font-size:1.15rem}.oligo-suggestion{padding:28px 20px}.fleur-tooltip{width:300px}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div id="screen-intro">
+    <div class="header">
+      <div class="header-logo">Flux <span>&</span> Équilibre</div>
+      <h1 class="header-title">Audit <em>Horizon Santé</em></h1>
+      <p class="header-subtitle">Découvrez comment aider votre enfant à se sentir mieux au quotidien. Comprenez ses besoins en 3 minutes.</p>
+    </div>
+    <div class="intro-card">
+      <div class="intro-emoji">🌿</div>
+      <h2>Bilan de vitalité en 15 questions</h2>
+      <p>Ce questionnaire explore 5 dimensions concrètes : sommeil, surcharges, stress, immunité et confiance. Les résultats dessinent la Fleur de Vitalité de votre enfant et orientent vers les solutions adaptées.</p>
+      <div class="intro-details">
+        <div class="intro-detail"><div class="icon">🕐</div><span>3 minutes</span></div>
+        <div class="intro-detail"><div class="icon">🌸</div><span>15 questions</span></div>
+        <div class="intro-detail"><div class="icon">🔒</div><span>Confidentiel</span></div>
+      </div>
+      <div class="child-form">
+        <div class="form-group"><label>Prénom de l'enfant</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
+        <div class="form-group"><label>Âge</label><select id="childAge"><option value="">Sélectionner</option><option>3-5 ans</option><option>6-8 ans</option><option>9-11 ans</option><option>12-14 ans</option><option>15-17 ans</option><option>18-25 ans</option></select></div>
+      </div>
+      <button class="btn btn-primary" onclick="startAudit()">Commencer l'audit <span>→</span></button>
+    </div>
+  </div>
+  <div id="screen-questions" class="hidden">
+    <div class="progress-wrap"><div class="progress-info"><span class="progress-step" id="progressStep"></span><span class="progress-category" id="progressCat"></span></div><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div></div>
+    <div id="questionContainer"></div>
+  </div>
+  <div id="screen-results" class="hidden"></div>
+</div>
+<script>
+// ═══════════════════════════════════════════════════════════════
+// AUDIT HORIZON SANTÉ — V3 MASTER RECTIFICATION
+// 15 questions × 4 réponses (0-3), score charge /9 par pétale
+// Approche naturo de terrain : émonctoires, surcharges, intestin
+// ═══════════════════════════════════════════════════════════════
+
+const QUESTIONS = [
+  // ── SOMMEIL (3 questions, 4 réponses chacune) ──
+  {id:'som1',petale:'sommeil',texte:"Comment se passent les nuits de votre enfant ?",
+    options:[
+      {texte:"Il s'endort vite et dort d'une traite toute la nuit",val:0},
+      {texte:"L'endormissement prend un peu de temps, mais le sommeil est correct",val:1},
+      {texte:"Réveil difficile le matin, il lui faut beaucoup de temps pour émerger",val:2},
+      {texte:"Sommeil très agité : cauchemars fréquents, réveils multiples ou insomnies",val:3}
+    ]},
+  {id:'som2',petale:'sommeil',texte:"Au réveil, quel est son niveau d'énergie ?",
+    options:[
+      {texte:"Il se lève seul, de bonne humeur, prêt pour la journée",val:0},
+      {texte:"Il a besoin d'un petit temps de mise en route mais ça va",val:1},
+      {texte:"Il est souvent fatigué même après une nuit complète",val:2},
+      {texte:"Il est épuisé au réveil, impossible de le lever sans conflit",val:3}
+    ]},
+  {id:'som3',petale:'sommeil',texte:"Observe-t-on des rituels perturbés autour du coucher ?",
+    options:[
+      {texte:"Non, il a un rythme régulier et apaisé",val:0},
+      {texte:"Écrans le soir ou coucher un peu tardif, mais ça se gère",val:1},
+      {texte:"Il repousse le coucher, a peur du noir ou demande votre présence",val:2},
+      {texte:"Le coucher est une source de tension quotidienne",val:3}
+    ]},
+
+  // ── ÉCLAT / SURCHARGES (émonctoires : Foie, Peau, Intestins) ──
+  {id:'ecl1',petale:'eclat',texte:"Comment est l'état de sa peau actuellement ?",
+    options:[
+      {texte:"Peau nette, sans imperfection particulière",val:0},
+      {texte:"Quelques boutons ou rougeurs occasionnels",val:1},
+      {texte:"Peau grasse, imperfections régulières ou eczéma récurrent",val:2},
+      {texte:"Acné marquée, eczéma étendu ou peau très réactive au moindre changement",val:3}
+    ]},
+  {id:'ecl2',petale:'eclat',texte:"Comment se comporte sa digestion au quotidien ?",
+    options:[
+      {texte:"Digestion fluide, aucune plainte",val:0},
+      {texte:"Quelques ballonnements après les repas, rien d'alarmant",val:1},
+      {texte:"Ballonnements fréquents, transit irrégulier ou maux de ventre réguliers",val:2},
+      {texte:"Douleurs digestives récurrentes, constipation chronique ou diarrhées fréquentes",val:3}
+    ]},
+  {id:'ecl3',petale:'eclat',texte:"Remarquez-vous des signes de surcharge (teint, haleine, langue) ?",
+    options:[
+      {texte:"Teint frais, aucun signe particulier",val:0},
+      {texte:"Teint un peu terne par moments, cernes légères",val:1},
+      {texte:"Teint brouillé, langue chargée le matin ou mauvaise haleine fréquente",val:2},
+      {texte:"Plusieurs signes combinés : teint gris, transpiration forte, langue très chargée",val:3}
+    ]},
+
+  // ── SÉRÉNITÉ (stress, système nerveux) ──
+  {id:'ser1',petale:'serenite',texte:"Comment réagit-il face à une situation stressante (contrôle, conflit, rentrée) ?",
+    options:[
+      {texte:"Il gère bien, reste calme et s'adapte rapidement",val:0},
+      {texte:"Un peu d'appréhension au début, mais ça passe",val:1},
+      {texte:"Inquiet avant l'école ou les évaluations, signes physiques visibles (maux de ventre, agitation)",val:2},
+      {texte:"Crises d'angoisse, blocage complet ou évitement systématique",val:3}
+    ]},
+  {id:'ser2',petale:'serenite',texte:"Comment gère-t-il ses émotions au quotidien ?",
+    options:[
+      {texte:"Il sait exprimer ce qu'il ressent avec des mots",val:0},
+      {texte:"Il a parfois du mal, mais on arrive à en parler",val:1},
+      {texte:"Réactions disproportionnées : colères soudaines, pleurs intenses ou repli sur soi",val:2},
+      {texte:"Il explose ou se ferme complètement, impossible de communiquer",val:3}
+    ]},
+  {id:'ser3',petale:'serenite',texte:"Son corps manifeste-t-il du stress (somatisation) ?",
+    options:[
+      {texte:"Aucune manifestation physique liée au stress",val:0},
+      {texte:"Quelques maux de tête ou de ventre en période d'examen",val:1},
+      {texte:"Maux physiques récurrents avant les événements stressants",val:2},
+      {texte:"Manifestations physiques quasi permanentes (tics, ongles rongés, douleurs chroniques)",val:3}
+    ]},
+
+  // ── IMMUNITÉ (terrain, flore, résistance) ──
+  {id:'imm1',petale:'immunite',texte:"Combien de fois a-t-il été malade ces 6 derniers mois ?",
+    options:[
+      {texte:"0 à 1 fois, il résiste bien",val:0},
+      {texte:"2 à 3 fois, dans la normale saisonnière",val:1},
+      {texte:"4 à 5 fois, souvent enrhumé ou fatigué",val:2},
+      {texte:"Plus de 5 fois, infections à répétition ou traitements antibiotiques fréquents",val:3}
+    ]},
+  {id:'imm2',petale:'immunite',texte:"Comment récupère-t-il après une maladie ou un coup de fatigue ?",
+    options:[
+      {texte:"Récupération rapide, il rebondit vite",val:0},
+      {texte:"Quelques jours de plus que la moyenne pour se remettre",val:1},
+      {texte:"Convalescence longue, rechutes fréquentes",val:2},
+      {texte:"Fatigue persistante après chaque épisode, il enchaîne les infections",val:3}
+    ]},
+  {id:'imm3',petale:'immunite',texte:"Présente-t-il des signes d'allergie ou d'intolérance alimentaire ?",
+    options:[
+      {texte:"Aucune allergie ni sensibilité connue",val:0},
+      {texte:"Allergies saisonnières légères, bien gérées",val:1},
+      {texte:"Allergies régulières nécessitant un traitement, ou suspicion d'intolérance alimentaire",val:2},
+      {texte:"Allergies multiples, intolérances diagnostiquées ou terrain atopique marqué",val:3}
+    ]},
+
+  // ── CONFIANCE (estime de soi, ancrage) ──
+  {id:'conf1',petale:'confiance',texte:"Comment se positionne-t-il face à un défi ou une difficulté ?",
+    options:[
+      {texte:"Il fonce, il aime essayer de nouvelles choses",val:0},
+      {texte:"Il hésite un peu mais finit par se lancer",val:1},
+      {texte:"Il doute beaucoup, il a besoin d'être rassuré avant d'agir",val:2},
+      {texte:"Il refuse ou dit « je suis nul, je n'y arriverai pas »",val:3}
+    ]},
+  {id:'conf2',petale:'confiance',texte:"Comment se sent-il dans ses relations avec les autres enfants ?",
+    options:[
+      {texte:"Il a de bons amis et se sent bien dans le groupe",val:0},
+      {texte:"Globalement à l'aise, avec quelques hauts et bas normaux",val:1},
+      {texte:"Il se sent souvent à l'écart, différent ou pas à sa place",val:2},
+      {texte:"Il est isolé, moqué, ou évite activement les interactions",val:3}
+    ]},
+  {id:'conf3',petale:'confiance',texte:"Comment est son rapport à son corps et à son image ?",
+    options:[
+      {texte:"Il est à l'aise avec son corps, ne s'en préoccupe pas",val:0},
+      {texte:"Quelques remarques sur son apparence, mais rien d'envahissant",val:1},
+      {texte:"Complexes visibles, il se compare souvent ou se dévalorise",val:2},
+      {texte:"Mal-être corporel marqué qui impacte son quotidien (se cache, refuse certaines activités)",val:3}
+    ]}
+];
+
+// ── Configuration des 5 pétales (approche naturo de terrain) ──
+const PETALS = {
+  sommeil:{label:'Sommeil',icone:'🌙',bg:'#1B4D5C',
+    description:"Évalue la qualité de la récupération nocturne. Le sommeil conditionne la croissance, la mémoire et la régulation nerveuse de l'enfant.",
+    solutions:"Rythmes de vie réguliers, hygiène du coucher, Réflexologie palmaire (réconfort et apaisement), compléments ciblés (Magnésium, Mélisse).",
+    mineraux:['Magnésium','Calcium','Lithium']},
+  eclat:{label:'Éclat',icone:'✨',bg:'#C4A265',
+    description:"Indicateur du travail des émonctoires (Foie, Peau, Intestins). Un pétale en alerte signale que le corps a du mal à éliminer ses surcharges : toxines, déchets métaboliques.",
+    solutions:"Drainage naturopathique (plantes hépatiques, chardon-marie), hygiène alimentaire, Réflexologie plantaire (protocole détox foie-intestins), probiotiques ciblés.",
+    mineraux:['Zinc','Soufre','Sélénium','Potassium']},
+  serenite:{label:'Sérénité',icone:'🕊️',bg:'#8FA98B',
+    description:"Évalue le niveau de stress et l'état du système nerveux. Ce pétale révèle si l'enfant est envahi par des inquiétudes, des blocages émotionnels ou des tensions somatisées.",
+    solutions:"Kinésiologie (identification et libération des blocages), Fleurs de Bach personnalisées, Réflexologie crânienne ou faciale (lâcher-prise), techniques de respiration.",
+    mineraux:['Magnésium','Lithium','Phosphore']},
+  immunite:{label:'Immunité',icone:'🛡️',bg:'#2A6B7E',
+    description:"Représente la résistance globale du terrain et l'état de la flore intestinale. Un système immunitaire fragile est souvent lié à un déséquilibre du microbiote et à des carences minérales.",
+    solutions:"Rééquilibrage alimentaire, probiotiques et prébiotiques, Oligoscan (mesure précise des minéraux et métaux lourds), compléments immunité (Zinc, Vitamine D, Échinacée).",
+    mineraux:['Zinc','Cuivre','Sélénium','Fer']},
+  confiance:{label:'Confiance',icone:'💪',bg:'#6B5B8D',
+    description:"Observe l'estime de soi et la capacité à s'affirmer. Le manque de confiance peut être lié à des mémoires émotionnelles, un ancrage insuffisant ou un déséquilibre hormonal.",
+    solutions:"Kinésiologie (travail sur les mémoires du corps), Fleurs de Bach (Larch, Mimulus), Réflexologie faciale (recentrage), huiles essentielles d'ancrage (Laurier noble).",
+    mineraux:['Iode','Zinc','Fer']}
+};
+
+const SUGGESTION = {
+  eclat:'Ses émonctoires (foie, peau, intestins) semblent surchargés. Un drainage naturopathique et une séance de Réflexologie plantaire détox sont recommandés.',
+  immunite:'Son terrain immunitaire est fragile. Un bilan Oligoscan permettrait de mesurer précisément les carences minérales et la présence de métaux lourds.',
+  serenite:'Son système nerveux est sous tension. Une séance de Kinésiologie et un protocole Fleurs de Bach pourraient identifier et libérer les blocages émotionnels.',
+  confiance:"L'estime de soi a besoin d'être nourrie. La Kinésiologie et la Réflexologie faciale l'aideraient à retrouver son ancrage.",
+  sommeil:'La qualité du sommeil impacte tout le reste. Un ajustement des rythmes de vie et une séance de Réflexologie palmaire apporteraient un réconfort immédiat.'
+};
+
+function elision(p){
+  const c=p.charAt(0).toLowerCase();
+  // Consonnes: pas d'élision (de Thaïs, de Léa ne s'élide pas car accent)
+  // Voyelles pures: d'Emma, d'Alice, d'Olivia
+  // Exception: les h aspirés restent "de Hugo"
+  const hAspire=['hugo','héloïse','henri','hector'];
+  if(hAspire.includes(p.toLowerCase())) return "de ";
+  return 'aeiouyàâäéèêëïîôùûüœæ'.includes(c) ? "d'" : "de ";
+}
+
+let state={childName:'',childAge:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};
+let activeTooltipPetal=null;
+
+function startAudit(){
+  const n=document.getElementById('childName').value.trim();
+  if(!n){document.getElementById('childName').style.borderColor='#D4786A';document.getElementById('childName').focus();return;}
+  state.childName=n;state.childAge=document.getElementById('childAge').value;
+  document.getElementById('screen-intro').classList.add('hidden');
+  document.getElementById('screen-questions').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q=QUESTIONS[state.currentQ],total=QUESTIONS.length,petal=PETALS[q.petale];
+  document.getElementById('progressStep').textContent=`Question ${state.currentQ+1} / ${total}`;
+  document.getElementById('progressCat').textContent=petal.label;
+  document.getElementById('progressFill').style.width=(state.currentQ/total*100)+'%';
+  const sel=state.answers[q.id];
+  document.getElementById('questionContainer').innerHTML=`
+    <div class="question-card slide-enter">
+      <div class="question-petal-badge">${petal.icone} ${petal.label}</div>
+      <div class="question-text">${q.texte}</div>
+      <div class="options-list">
+        ${q.options.map((o,i)=>`<div class="option-item ${sel===i?'selected':''}" onclick="selectOption(${i})">
+          <div class="option-radio"></div>
+          <span class="option-text">${o.texte}</span>
+        </div>`).join('')}
+      </div>
+      <div class="question-nav">
+        ${state.currentQ>0?'<button class="btn btn-secondary" onclick="prevQ()">← Précédent</button>':'<div></div>'}
+        <button class="btn btn-primary" onclick="nextQ()" ${sel===undefined?'style="opacity:.4;pointer-events:none"':''}>${state.currentQ===total-1?'Voir les résultats 🌿':'Suivant →'}</button>
+      </div>
+    </div>`;
+}
+function selectOption(i){state.answers[QUESTIONS[state.currentQ].id]=i;renderQuestion();}
+function prevQ(){if(state.currentQ>0){state.currentQ--;renderQuestion();}}
+function nextQ(){if(state.answers[QUESTIONS[state.currentQ].id]===undefined)return;if(state.currentQ<QUESTIONS.length-1){state.currentQ++;renderQuestion();}else showResults();}
+
+// ── SCORING: charge par pétale 0-9, via 3 questions × (0-3) ──
+function calcCharges(){
+  const c={};
+  for(const k of Object.keys(PETALS)){
+    let t=0;QUESTIONS.filter(q=>q.petale===k).forEach(q=>{const i=state.answers[q.id];if(i!==undefined)t+=q.options[i].val;});c[k]=t;
+  }return c;
+}
+// Conversion visuelle: charge sur 9
+// 0-2: Vert Sauge 100% (équilibre)
+// 3-5: Vert Sauge 50% (à surveiller)
+// 6-9: 50% + liseré Doré (alerte → message cabinet)
+function lvl(c){return c<=2?'good':c<=5?'watch':'alert';}
+function opac(c){return c<=2?1.0:0.50;}
+function toScore(c){return Math.round(Math.max(0,(9-c)/9*100));}
+
+function showResults(){
+  document.getElementById('screen-questions').classList.add('hidden');
+  document.getElementById('screen-results').classList.remove('hidden');
+  const charges=calcCharges();state._charges=charges;
+  const el=elision(state.childName);
+  const cx=190,cy=190,keys=['sommeil','eclat','serenite','immunite','confiance'],angs=[-90,-18,54,126,198];
+
+  function ppath(a){const r=72,rad=a*Math.PI/180,r1=rad-.49,r2=rad+.49;
+    return`M ${cx+Math.cos(r1)*38} ${cy+Math.sin(r1)*38} Q ${cx+Math.cos(r1)*(60+r*.7)} ${cy+Math.sin(r1)*(60+r*.7)} ${cx+Math.cos(rad)*(82+r)} ${cy+Math.sin(rad)*(82+r)} Q ${cx+Math.cos(r2)*(60+r*.7)} ${cy+Math.sin(r2)*(60+r*.7)} ${cx+Math.cos(r2)*38} ${cy+Math.sin(r2)*38} Z`;}
+
+  let svg='';
+  keys.forEach((k,i)=>{const c=charges[k],p=PETALS[k],a=angs[i],rad=a*Math.PI/180,o=opac(c),isA=c>=6,s=toScore(c);
+    const ld=82+72*.52,lx=cx+Math.cos(rad)*ld,ly=cy+Math.sin(rad)*ld;
+    const sd=82+72*.28,sx=cx+Math.cos(rad)*sd,sy=cy+Math.sin(rad)*sd;
+    svg+=`<g class="petal" onclick="showTip('${k}')">
+      <path d="${ppath(a)}" fill="${p.bg}" opacity="${o}"/><path d="${ppath(a)}" class="petal-outline ${isA?'alert':''}"/>
+      <text class="petal-score-label" x="${sx}" y="${sy}">${s}</text>
+      <text class="petal-name-label" x="${lx}" y="${ly}">${p.label}</text></g>`;});
+
+  const gs=Math.round(keys.reduce((s,k)=>s+toScore(charges[k]),0)/5);state._globalScore=gs;
+  const worst=keys.reduce((w,k)=>charges[k]>charges[w]?k:w,keys[0]);state._worstPetal=worst;
+  const alertP=keys.filter(k=>lvl(charges[k])==='alert'),watchP=keys.filter(k=>lvl(charges[k])==='watch');
+
+  // Emonctoires pré-identifiés
+  const emonctoires=[];
+  if(charges.eclat>=6)emonctoires.push('Foie','Peau','Intestins');
+  else if(charges.eclat>=3)emonctoires.push('Surcharges légères');
+
+  let msg;
+  if(!alertP.length&&watchP.length<=1)msg=`Les résultats ${el}${state.childName} sont encourageants. L'organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser sa vitalité.`;
+  else if(!alertP.length)msg=`Plusieurs axes méritent attention chez ${state.childName}. Un accompagnement naturopathique doux permettrait de rééquilibrer le terrain en profondeur.`;
+  else msg=`Les résultats ${el}${state.childName} indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément les déséquilibres et de proposer un protocole adapté.`;
+
+  const needOligo=alertP.concat(watchP).some(k=>k==='eclat'||k==='immunite');
+  const needKinesio=alertP.concat(watchP).some(k=>k==='serenite'||k==='confiance');
+  const mins=[...new Set(alertP.concat(watchP).flatMap(k=>PETALS[k].mineraux))];
+
+  document.getElementById('screen-results').innerHTML=`
+    <div class="results-wrap">
+      <div class="results-header"><h2>Bilan ${el}<em>${state.childName}</em></h2>
+        <div class="results-child-name">${state.childAge||''} — Réalisé le ${new Date().toLocaleDateString('fr-FR')}</div></div>
+      <div class="fleur-section" id="fleurSection">
+        <div class="fleur-label">Fleur de Vitalité</div>
+        <div class="fleur-container" id="fleurContainer">
+          <svg class="fleur-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" id="fleurSvg">${svg}
+            <circle cx="${cx}" cy="${cy}" r="32" fill="#FAF7F2" stroke="#B5CBB1" stroke-width="2"/>
+            <text x="${cx}" y="${cy-5}" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="500" fill="#1B4D5C">${gs}</text>
+            <text x="${cx}" y="${cy+12}" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#5A6E68" letter-spacing="1.5">VITALITÉ</text></svg>
+          <div class="fleur-tooltip" id="fleurTooltip"></div></div>
+        <p class="fleur-hint">Cliquez sur un pétale pour voir l'analyse et les solutions</p>
+        <p class="fleur-message">${msg}</p></div>
+
+      ${(alertP.length||watchP.length)?`<div class="alerts-section"><div class="alerts-title">🌿 Analyse et solutions recommandées</div>
+        ${keys.sort((a,b)=>charges[b]-charges[a]).map(k=>{const c=charges[k],p=PETALS[k],l=lvl(c),s=toScore(c);
+          const st=l==='good'?'Bon équilibre':l==='watch'?'À accompagner':"Zone d'attention";
+          const adv=l==='good'?'Maintenir les bonnes habitudes en place.':SUGGESTION[k];
+          return`<div class="alert-item level-${l}"><div class="alert-dot"></div><div class="alert-text">
+            <h4>${p.icone} ${p.label} — ${s}/100 · ${st}</h4><p>${adv}</p></div></div>`;}).join('')}</div>`:''}
+
+      ${needOligo?`<div class="oligo-suggestion"><h3>🔬 Bilan Oligoscan recommandé</h3>
+        <p>Les pétales Éclat et/ou Immunité ${el}${state.childName} indiquent un terrain déséquilibré. L'Oligoscan mesure en 30 secondes l'état de 20 minéraux et 14 métaux lourds pour un protocole de reminéralisation précis.</p>
+        <div class="oligo-minerals">${mins.slice(0,8).map(m=>`<span class="mineral-tag">${m}</span>`).join('')}</div>
+        <button class="btn btn-gold" onclick="alert('Redirection vers la prise de rendez-vous — à connecter')">Prendre rendez-vous pour un Oligoscan →</button></div>`:''}
+
+      ${needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#6B5B8D,#1B4D5C)"><h3>🦋 Kinésiologie et Fleurs de Bach</h3>
+        <p>Les pétales Sérénité et/ou Confiance ${el}${state.childName} révèlent des tensions émotionnelles. La Kinésiologie permet d'identifier les blocages et les Fleurs de Bach accompagnent le rééquilibrage en douceur.</p>
+        <button class="btn btn-gold" onclick="alert('Redirection — à connecter')">Découvrir la Kinésiologie →</button></div>`:''}
+
+      ${!needOligo&&!needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
+        <p>${state.childName} montre un bel équilibre global. Un suivi naturopathique léger permettrait de consolider cette dynamique.</p>
+        <button class="btn btn-gold" onclick="alert('Redirection — à connecter')">Découvrir nos accompagnements →</button></div>`:''}
+
+      <div class="results-cta"><div class="btn-row">
+        <button class="btn btn-primary" onclick="generatePDF()">📄 Télécharger la synthèse PDF</button>
+        <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire l'audit</button></div>
+        <p>Ces résultats orientent vers un bilan approfondi au cabinet. Ils ne constituent pas un diagnostic médical.</p></div>
+    </div>`;
+
+  requestAnimationFrame(()=>{setTimeout(()=>{document.querySelectorAll('.petal').forEach((p,i)=>{p.style.opacity='0';p.style.transition='opacity .8s ease '+(i*.15)+'s';requestAnimationFrame(()=>{p.style.opacity='1';});});},200);});
+
+  // Auto-create CRM data object for interconnection
+  window.__auditResult = {
+    childName:state.childName, childAge:state.childAge, date:new Date().toISOString(),
+    charges, globalScore:gs, worstPetal:worst,
+    zones: keys.filter(k=>lvl(charges[k])!=='good').map(k=>({petale:k,charge:charges[k],level:lvl(charges[k])})),
+    emonctoires, suggestOligo:needOligo, suggestKinesio:needKinesio
+  };
+}
+
+function showTip(k){
+  const tt=document.getElementById('fleurTooltip');
+  if(activeTooltipPetal===k){tt.classList.remove('visible');activeTooltipPetal=null;return;}
+  activeTooltipPetal=k;const p=PETALS[k],c=state._charges[k],s=toScore(c),l=lvl(c);
+  const lc=l==='good'?'var(--ok)':l==='watch'?'var(--do)':'var(--al)';
+  const adv=l==='good'?'Bon équilibre — maintenir les habitudes en place.':(SUGGESTION[k]);
+  tt.innerHTML=`<div class="tooltip-header"><div class="tooltip-icon" style="background:${p.bg}20">${p.icone}</div>
+    <div class="tooltip-name">${p.label}</div><div class="tooltip-score" style="color:${lc}">${s}/100</div></div>
+    <div class="tooltip-desc">${p.description}</div>
+    <div class="tooltip-solutions"><strong>Solutions :</strong> ${p.solutions}</div>
+    <div class="tooltip-advice ${l}">${adv}</div>`;
+  tt.classList.add('visible');
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.petal')&&!e.target.closest('.fleur-tooltip')){const t=document.getElementById('fleurTooltip');if(t){t.classList.remove('visible');activeTooltipPetal=null;}}});
+
+// ═══ PDF ═══
+function generatePDF(){
+  const{jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});
+  const W=210,M=20,el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
+  const BP=[27,77,92],VS=[143,169,139],DO=[196,162,101],CR=[250,247,242],TX=[44,62,58],TL=[90,110,104];
+
+  doc.setFillColor(...BP);doc.rect(0,0,W,42,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(...CR);doc.text('Flux & Équilibre',M,18);
+  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...DO);doc.text('Naturopathie · Kinésiologie · Réflexologie',M,26);
+  doc.setTextColor(200,220,220);doc.text(new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}),W-M,18,{align:'right'});
+
+  doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(...BP);doc.text("Mon Chemin vers l'Équilibre",W/2,58,{align:'center'});
+  doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(...TL);
+  doc.text(`Bilan ${el}${state.childName}${state.childAge?' — '+state.childAge:''}`,W/2,67,{align:'center'});
+  doc.setDrawColor(...DO);doc.setLineWidth(.5);doc.line(W/2-30,72,W/2+30,72);
+
+  const fcx=W/2,fcy=108,keys=['sommeil','eclat','serenite','immunite','confiance'],angs=[-90,-18,54,126,198];
+  const pcol={sommeil:BP,eclat:DO,serenite:VS,immunite:[42,107,126],confiance:[107,91,141]};
+  keys.forEach((k,i)=>{const c=ch[k],a=angs[i]*Math.PI/180,d=24,px=fcx+Math.cos(a)*d,py=fcy+Math.sin(a)*d;
+    const o=c<=2?1:c<=5?.5:.35,co=pcol[k];
+    doc.setFillColor(Math.round(co[0]+(255-co[0])*(1-o)),Math.round(co[1]+(255-co[1])*(1-o)),Math.round(co[2]+(255-co[2])*(1-o)));
+    doc.circle(px,py,18,'F');
+    if(c>=6){doc.setDrawColor(...DO);doc.setLineWidth(1);doc.circle(px,py,19,'S');}
+    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);doc.text(String(toScore(c)),px,py-1,{align:'center'});
+    doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.text(PETALS[k].label.toUpperCase(),px,py+5,{align:'center'});
+  });
+  doc.setFillColor(...CR);doc.setDrawColor(...VS);doc.setLineWidth(.5);doc.circle(fcx,fcy,10,'FD');
+  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text(String(gs),fcx,fcy+1,{align:'center'});
+
+  let y=142;
+  doc.setFillColor(250,247,242);doc.roundedRect(M,y-4,W-2*M,52,4,4,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...BP);doc.text(`${wp.label} — Axe prioritaire`,M+8,y+6);
+  doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(...TL);
+  doc.text(doc.splitTextToSize(wp.description,W-2*M-16),M+8,y+14);
+  doc.setFont('helvetica','italic');doc.setFontSize(8);doc.setTextColor(...DO);
+  doc.text(doc.splitTextToSize('Solutions : '+wp.solutions,W-2*M-16),M+8,y+30);
+
+  y=202;doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...BP);doc.text('Synthèse des 5 dimensions',M,y);y+=8;
+  keys.forEach(k=>{const c=ch[k],s=toScore(c),l=lvl(c);
+    const bc=l==='good'?[123,175,110]:l==='watch'?DO:[212,120,106];
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...TX);doc.text(PETALS[k].label,M,y+3);
+    doc.setFillColor(230,230,225);doc.roundedRect(M+35,y-1,90,5,2,2,'F');
+    doc.setFillColor(...bc);doc.roundedRect(M+35,y-1,Math.max(2,90*s/100),5,2,2,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...bc);doc.text(s+'/100',M+130,y+3);y+=10;});
+
+  y=260;doc.setDrawColor(...DO);doc.setLineWidth(.3);doc.line(M,y,W-M,y);y+=8;
+  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text('Arielle de Maistre',M,y);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TL);
+  doc.text('Naturopathe · Kinésiologue · Réflexologue',M,y+5);
+  doc.text('Cabinet de Sainte-Consorce (69280)',M,y+10);
+  doc.text('+33 6 51 14 07 26 · arielle.de.maistre@gmail.com',M,y+15);
+  doc.setFillColor(...DO);doc.roundedRect(W/2-35,y+22,70,10,5,5,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(15,53,64);doc.text('Prendre rendez-vous',W/2,y+28.5,{align:'center'});
+  doc.setFont('helvetica','italic');doc.setFontSize(6.5);doc.setTextColor(170,170,170);
+  doc.text("Ce bilan oriente vers un accompagnement au cabinet. Il ne constitue pas un diagnostic médical.",W/2,292,{align:'center'});
+  doc.save(`Mon_Chemin_Equilibre_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`);
+}
+
+function resetAudit(){state={childName:'',childAge:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};activeTooltipPetal=null;
+  document.getElementById('screen-results').classList.add('hidden');document.getElementById('screen-intro').classList.remove('hidden');
+  document.getElementById('childName').value='';document.getElementById('childAge').value='';window.scrollTo({top:0,behavior:'smooth'});}
+document.addEventListener('keydown',e=>{if(document.getElementById('screen-questions').classList.contains('hidden'))return;
+  if(e.key>='1'&&e.key<='4')selectOption(parseInt(e.key)-1);if(e.key==='Enter')nextQ();if(e.key==='ArrowLeft')prevQ();});
+</script>
+</body>
+</html>

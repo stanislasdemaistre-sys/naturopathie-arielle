@@ -1,0 +1,626 @@
+// ═══════════════════════════════════════════════════════════════
+// Flux & Équilibre — Schéma Prisma
+// CRM Naturopathie Enfant / Adolescent
+// Arielle de Maistre
+// ═══════════════════════════════════════════════════════════════
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────
+// 1. AUTHENTIFICATION & THÉRAPEUTE
+// ─────────────────────────────────────────────
+
+model Therapeute {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  nom       String
+  prenom    String
+  telephone String?
+  photoUrl  String?
+  role      Role     @default(PRATICIEN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  familles  Famille[]
+  seances   Seance[]
+  protocoles Protocole[]
+  fichesConseil FicheConseil[]
+
+  @@map("therapeutes")
+}
+
+enum Role {
+  PRATICIEN
+  ADMIN
+}
+
+// ─────────────────────────────────────────────
+// 2. FAMILLES & PATIENTS
+// ─────────────────────────────────────────────
+
+model Famille {
+  id        String   @id @default(cuid())
+  nom       String   // Nom de famille
+  email     String?
+  telephone String?
+  adresse   String?
+  ville     String?
+  codePostal String?
+  notes     String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  therapeuteId String
+  therapeute   Therapeute @relation(fields: [therapeuteId], references: [id])
+  parents      Parent[]
+  enfants      Enfant[]
+
+  @@map("familles")
+}
+
+model Parent {
+  id        String   @id @default(cuid())
+  prenom    String
+  email     String?
+  telephone String?
+  lienParente LienParente @default(MERE)
+  createdAt DateTime @default(now())
+
+  familleId String
+  famille   Famille @relation(fields: [familleId], references: [id], onDelete: Cascade)
+
+  @@map("parents")
+}
+
+enum LienParente {
+  MERE
+  PERE
+  TUTEUR
+  AUTRE
+}
+
+model Enfant {
+  id            String      @id @default(cuid())
+  prenom        String
+  dateNaissance DateTime
+  sexe          Sexe
+  photoUrl      String?
+  notes         String?     @db.Text
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  familleId     String
+  famille       Famille     @relation(fields: [familleId], references: [id], onDelete: Cascade)
+
+  bilansOligoscan  BilanOligoscan[]
+  seances          Seance[]
+  protocoles       ProtocoleEnfant[]
+  auditsHorizon    AuditHorizon[]
+  kpiVitalite      KpiVitalite[]
+  fichesConseil    FicheConseil[]
+
+  @@map("enfants")
+}
+
+enum Sexe {
+  MASCULIN
+  FEMININ
+}
+
+// ─────────────────────────────────────────────
+// 3. BILANS OLIGOSCAN
+// ─────────────────────────────────────────────
+// Stocke les résultats bruts + scores calculés
+// Permet la comparaison visuelle T0 vs T+3 mois
+
+model BilanOligoscan {
+  id          String   @id @default(cuid())
+  dateExamen  DateTime
+  commentaire String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  enfantId    String
+  enfant      Enfant   @relation(fields: [enfantId], references: [id], onDelete: Cascade)
+
+  // Résultats détaillés
+  mineraux     ResultatMineral[]
+  metauxLourds ResultatMetalLourd[]
+  ratios       ResultatRatio[]
+
+  // Scores synthétiques
+  scoreDeficiences     Float?  // 0-100, % de déficiences
+  scoreExces           Float?  // 0-100, % d'excès
+  scoreIntoxication    Float?  // 0-100, intoxication métaux lourds
+  stressOxydatifAgression  Float? // % agression oxydative
+  stressOxydatifProtection Float? // % protection oxydative
+
+  @@map("bilans_oligoscan")
+}
+
+model ResultatMineral {
+  id       String @id @default(cuid())
+
+  mineral  MineralType
+  symbole  String       // Ex: "Ca", "Mg", "Zn"
+  resultat Float
+  normeBas Float
+  normeHaut Float
+  statut   StatutResultat
+
+  bilanId  String
+  bilan    BilanOligoscan @relation(fields: [bilanId], references: [id], onDelete: Cascade)
+
+  @@unique([bilanId, mineral])
+  @@map("resultats_mineraux")
+}
+
+enum MineralType {
+  CALCIUM
+  MAGNESIUM
+  PHOSPHORE
+  SILICIUM
+  SODIUM
+  POTASSIUM
+  CUIVRE
+  ZINC
+  FER
+  MANGANESE
+  CHROME
+  VANADIUM
+  BORE
+  COBALT
+  MOLYBDENE
+  IODE
+  LITHIUM
+  GERMANIUM
+  SELENIUM
+  SOUFRE
+}
+
+enum StatutResultat {
+  BAS_MOINS    // Très bas
+  BAS          // Bas
+  NORMAL       // Normal
+  OK           // OK (dans la norme haute)
+  HAUT         // Haut
+  HAUT_PLUS    // Très haut / Excès
+}
+
+model ResultatMetalLourd {
+  id       String @id @default(cuid())
+
+  metal    MetalLourdType
+  symbole  String
+  resultat Float
+  statut   StatutMetalLourd
+
+  bilanId  String
+  bilan    BilanOligoscan @relation(fields: [bilanId], references: [id], onDelete: Cascade)
+
+  @@unique([bilanId, metal])
+  @@map("resultats_metaux_lourds")
+}
+
+enum MetalLourdType {
+  ALUMINIUM
+  ANTIMOINE
+  ARGENT
+  ARSENIC
+  BARYUM
+  BERYLLIUM
+  BISMUTH
+  CADMIUM
+  MERCURE
+  NICKEL
+  PLATINE
+  PLOMB
+  THALLIUM
+  THORIUM
+}
+
+enum StatutMetalLourd {
+  NORMAL
+  HAUT_MOINS
+  HAUT
+  HAUT_PLUS
+  EXCES
+}
+
+model ResultatRatio {
+  id       String @id @default(cuid())
+
+  ratio    RatioType   // Ex: Ca/Mg, Ca/P, K/Na, Cu/Zn
+  valeur   Float
+  normeBas Float
+  normeHaut Float
+  statut   StatutRatio
+
+  bilanId  String
+  bilan    BilanOligoscan @relation(fields: [bilanId], references: [id], onDelete: Cascade)
+
+  @@unique([bilanId, ratio])
+  @@map("resultats_ratios")
+}
+
+enum RatioType {
+  CA_MG
+  CA_P
+  K_NA
+  CU_ZN
+}
+
+enum StatutRatio {
+  BAS
+  OK
+  HAUT
+  DEFICIENCE  // Indique une carence spécifique
+  EXCES       // Indique un excès spécifique
+}
+
+// ─────────────────────────────────────────────
+// 4. SÉANCES (Kinésiologie, Réflexologie, Naturopathie)
+// ─────────────────────────────────────────────
+
+model Seance {
+  id            String      @id @default(cuid())
+  date          DateTime
+  typeSeance    TypeSeance
+  dureeMinutes  Int         @default(60)
+  motif         String?     @db.Text
+  compte_rendu  String?     @db.Text
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  enfantId      String
+  enfant        Enfant      @relation(fields: [enfantId], references: [id], onDelete: Cascade)
+  therapeuteId  String
+  therapeute    Therapeute  @relation(fields: [therapeuteId], references: [id])
+
+  // Détails spécifiques par type
+  detailKinesio     DetailKinesio?
+  detailReflexo     DetailReflexo?
+  detailNaturo      DetailNaturo?
+
+  @@map("seances")
+}
+
+enum TypeSeance {
+  KINESIO
+  REFLEXO
+  NATURO
+  BILAN_INITIAL
+  SUIVI
+}
+
+model DetailKinesio {
+  id                String   @id @default(cuid())
+  emotionsIdentifiees String[] // Ex: ["peur de l'échec", "colère refoulée"]
+  testMusculaires    String?  @db.Text
+  corrections        String?  @db.Text  // Corrections effectuées
+  fleursRecommandees String[] // Fleurs de Bach suggérées
+
+  seanceId String @unique
+  seance   Seance @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+
+  @@map("details_kinesio")
+}
+
+model DetailReflexo {
+  id              String   @id @default(cuid())
+  zonesTraitees   String[] // Ex: ["plexus solaire", "surrénales", "intestins"]
+  observations    String?  @db.Text
+  sensibilites    String[] // Zones particulièrement sensibles
+
+  seanceId String @unique
+  seance   Seance @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+
+  @@map("details_reflexo")
+}
+
+model DetailNaturo {
+  id                String   @id @default(cuid())
+  bilanVital        String?  @db.Text
+  conseilsHygiene   String?  @db.Text  // Sommeil, alimentation, activité
+  complementsSuggeres String[] // Noms des compléments
+
+  seanceId String @unique
+  seance   Seance @relation(fields: [seanceId], references: [id], onDelete: Cascade)
+
+  @@map("details_naturo")
+}
+
+// ─────────────────────────────────────────────
+// 5. PROTOCOLES & BASE PATHOLOGIES/BIENFAITS
+// ─────────────────────────────────────────────
+
+model Pathologie {
+  id          String   @id @default(cuid())
+  nom         String   @unique  // Ex: "Acné inflammatoire"
+  categorie   CategoriePatho
+  description String?  @db.Text
+  icone       String?  // Emoji ou nom d'icône
+
+  // Les 3 leviers (issus du CRM Excel)
+  levierNaturo   String?  @db.Text  // Remèdes, labs
+  levierKinesio  String?  @db.Text  // Axe émotionnel
+  levierOligo    String?  @db.Text  // Minéraux clés
+
+  protocoles  Protocole[]
+
+  @@map("pathologies")
+}
+
+enum CategoriePatho {
+  PEAU
+  STRESS_EMOTIONNEL
+  IMMUNITE
+  SOMMEIL
+  DIGESTIF
+  FATIGUE
+  CONFIANCE
+  HYPERSENSIBILITE
+  ALLERGIES
+}
+
+model Protocole {
+  id          String   @id @default(cuid())
+  nom         String   // Ex: "Protocole Acné – Phase 1 (Détox)"
+  description String?  @db.Text
+  dureeJours  Int?     // Durée recommandée en jours
+  priorite    Int      @default(1) // Ordre de priorité
+  actif       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  pathologieId  String
+  pathologie    Pathologie @relation(fields: [pathologieId], references: [id])
+  therapeuteId  String
+  therapeute    Therapeute @relation(fields: [therapeuteId], references: [id])
+
+  remedes        ProtoRemede[]
+  enfantsAssignes ProtocoleEnfant[]
+
+  @@map("protocoles")
+}
+
+model Remede {
+  id           String     @id @default(cuid())
+  nom          String     // Ex: "Zinc bisglycinate"
+  typeRemede   TypeRemede
+  laboratoire  String?    // Labo favori d'Arielle
+  description  String?    @db.Text
+  precautions  String?    @db.Text
+  lienAchat    String?    // URL vers le produit
+
+  protocoles   ProtoRemede[]
+
+  @@map("remedes")
+}
+
+enum TypeRemede {
+  COMPLEMENT
+  FLEUR_DE_BACH
+  HUILE_ESSENTIELLE
+  HOMEOPATHIE
+  GEMMOTHERAPIE
+  PHYTOTHERAPIE
+  PROBIOTIQUE
+  VITAMINE
+  AUTRE
+}
+
+// Table de liaison Protocole ↔ Remède avec posologie
+model ProtoRemede {
+  id          String @id @default(cuid())
+  posologie   String // Ex: "1 gélule matin et soir"
+  dureeJours  Int?   // Durée spécifique pour ce remède
+  moment      String? // Ex: "Au réveil", "Avant le coucher"
+  notes       String?
+
+  protocoleId String
+  protocole   Protocole @relation(fields: [protocoleId], references: [id], onDelete: Cascade)
+  remedeId    String
+  remede      Remede    @relation(fields: [remedeId], references: [id])
+
+  @@unique([protocoleId, remedeId])
+  @@map("proto_remedes")
+}
+
+// Assignation d'un protocole à un enfant spécifique
+model ProtocoleEnfant {
+  id          String   @id @default(cuid())
+  dateDebut   DateTime
+  dateFin     DateTime?
+  statut      StatutProtocole @default(EN_COURS)
+  observationsParent String? @db.Text
+  observationsThera  String? @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  enfantId    String
+  enfant      Enfant    @relation(fields: [enfantId], references: [id], onDelete: Cascade)
+  protocoleId String
+  protocole   Protocole @relation(fields: [protocoleId], references: [id])
+
+  @@map("protocoles_enfants")
+}
+
+enum StatutProtocole {
+  EN_COURS
+  TERMINE
+  INTERROMPU
+  EN_ATTENTE
+}
+
+// ─────────────────────────────────────────────
+// 6. AUDIT HORIZON SANTÉ (Questionnaire dynamique)
+// ─────────────────────────────────────────────
+
+model AuditHorizon {
+  id          String   @id @default(cuid())
+  dateAudit   DateTime @default(now())
+  completedAt DateTime?
+
+  // Scores calculés (0-100)
+  scoreStress     Float?
+  scoreSommeil    Float?
+  scoreImmunite   Float?
+  scorePeau       Float?
+  scoreConfiance  Float?
+  scoreDigestif   Float?
+  scoreEnergie    Float?
+
+  // Score global de Résilience (pondéré)
+  scoreResilience Float?
+
+  // Suggestions générées
+  suggestOligoscan  Boolean @default(false)
+  zonesAlerte       String[]  // Ex: ["stress", "peau"]
+
+  enfantId    String
+  enfant      Enfant @relation(fields: [enfantId], references: [id], onDelete: Cascade)
+
+  reponses    ReponseAudit[]
+
+  @@map("audits_horizon")
+}
+
+model QuestionAudit {
+  id          String   @id @default(cuid())
+  texte       String   @db.Text
+  categorie   CategorieAudit
+  ordre       Int
+  coefficient Float    @default(1.0) // Pondération pour le score
+  actif       Boolean  @default(true)
+
+  options     OptionAudit[]
+  reponses    ReponseAudit[]
+
+  @@map("questions_audit")
+}
+
+enum CategorieAudit {
+  STRESS
+  SOMMEIL
+  IMMUNITE
+  PEAU
+  CONFIANCE
+  DIGESTIF
+  ENERGIE
+}
+
+model OptionAudit {
+  id         String @id @default(cuid())
+  texte      String
+  icone      String?  // Emoji
+  valeur     Int      // Score numérique (0 = optimal, 3 = alerte)
+  ordre      Int
+
+  questionId String
+  question   QuestionAudit @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  reponses   ReponseAudit[]
+
+  @@map("options_audit")
+}
+
+model ReponseAudit {
+  id         String @id @default(cuid())
+
+  auditId    String
+  audit      AuditHorizon @relation(fields: [auditId], references: [id], onDelete: Cascade)
+  questionId String
+  question   QuestionAudit @relation(fields: [questionId], references: [id])
+  optionId   String
+  option     OptionAudit @relation(fields: [optionId], references: [id])
+
+  @@unique([auditId, questionId])
+  @@map("reponses_audit")
+}
+
+// ─────────────────────────────────────────────
+// 7. KPI DE VITALITÉ (Suivi dans le temps)
+// ─────────────────────────────────────────────
+
+model KpiVitalite {
+  id        String   @id @default(cuid())
+  date      DateTime
+  type      TypeKpi
+  valeur    Int      // Score 1-10
+  note      String?
+
+  enfantId  String
+  enfant    Enfant   @relation(fields: [enfantId], references: [id], onDelete: Cascade)
+
+  @@map("kpi_vitalite")
+}
+
+enum TypeKpi {
+  SOMMEIL
+  PEAU
+  CONFIANCE
+  ENERGIE
+  SERENITE
+  DIGESTION
+  IMMUNITE
+}
+
+// ─────────────────────────────────────────────
+// 8. FICHES DE CONSEILS (Générateur PDF)
+// ─────────────────────────────────────────────
+
+model FicheConseil {
+  id           String   @id @default(cuid())
+  titre        String
+  contenu      Json     // Structure JSON pour le template PDF
+  pdfUrl       String?  // URL du PDF généré
+  envoyeParMail Boolean @default(false)
+  dateEnvoi    DateTime?
+  createdAt    DateTime @default(now())
+
+  enfantId     String
+  enfant       Enfant     @relation(fields: [enfantId], references: [id], onDelete: Cascade)
+  therapeuteId String
+  therapeute   Therapeute @relation(fields: [therapeuteId], references: [id])
+
+  @@map("fiches_conseil")
+}
+
+// ─────────────────────────────────────────────
+// 9. FLEURS DE BACH (Référentiel)
+// ─────────────────────────────────────────────
+
+model FleurDeBach {
+  id          String @id @default(cuid())
+  numero      Int    @unique // 1-38 + Rescue
+  nom         String @unique
+  nomLatin    String
+  groupe      GroupeBach
+  description String  @db.Text  // Description poétique
+  indication  String  @db.Text  // À qui elle s'adresse
+  icone       String? // Emoji
+
+  @@map("fleurs_de_bach")
+}
+
+enum GroupeBach {
+  PEUR
+  INCERTITUDE
+  INTERET_INSUFFISANT
+  SOLITUDE
+  HYPERSENSIBILITE
+  DECOURAGEMENT
+  SOUCI_EXCESSIF
+  URGENCE
+}

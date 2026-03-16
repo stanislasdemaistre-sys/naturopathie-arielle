@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carnet de Cheminement — Flux & Équilibre CRM</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:16px;--rs:10px;--rl:24px}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:var(--fb);color:var(--tx);background:#F5F3EE;line-height:1.6;font-weight:300}
+.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.sidebar{background:var(--bp-d);color:var(--cr);padding:24px 16px;display:flex;flex-direction:column;gap:4px}
+.sidebar-logo{font-family:var(--fd);font-size:1.2rem;padding:0 8px 16px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:8px}.sidebar-logo span{color:var(--do)}
+.sidebar-section{font-size:.6rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--do);padding:14px 8px 4px;font-weight:500}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--rs);font-size:.82rem;color:rgba(250,247,242,.6);cursor:pointer;transition:all .2s;text-decoration:none}
+.sidebar-item:hover,.sidebar-item.active{background:rgba(255,255,255,.08);color:var(--cr)}.sidebar-item.active{background:rgba(143,169,139,.15);color:var(--vs-l)}
+.sidebar-item .icon{width:18px;text-align:center;font-size:.9rem}
+.sidebar-spacer{flex:1}
+.sidebar-user{display:flex;align-items:center;gap:10px;padding:12px 8px 0;border-top:1px solid rgba(255,255,255,.06);font-size:.8rem}
+.sidebar-avatar{width:30px;height:30px;border-radius:8px;background:var(--vs);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:600;color:var(--wh)}
+.main{padding:28px 32px;overflow-y:auto;max-height:100vh}
+.main-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px}
+.main-title{font-family:var(--fd);font-size:1.7rem;color:var(--bp);font-weight:400}.main-title em{font-style:italic;color:var(--vs)}
+.main-subtitle{font-size:.82rem;color:var(--tx-l);margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:50px;font-family:var(--fb);font-size:.8rem;font-weight:500;cursor:pointer;border:none;transition:all .3s}
+.btn-sm{padding:7px 14px;font-size:.76rem}
+.btn-p{background:var(--bp);color:var(--cr)}.btn-p:hover{background:var(--bp-l)}
+.btn-s{background:var(--wh);color:var(--bp);border:1px solid var(--cr-d)}.btn-s:hover{border-color:var(--vs)}
+.btn-g{background:var(--do);color:var(--bp-d);font-weight:600}.btn-g:hover{background:var(--do-l)}
+.card{background:var(--wh);border-radius:var(--rl);padding:24px;box-shadow:0 4px 20px rgba(27,77,92,.04);border:1px solid rgba(27,77,92,.04);margin-bottom:16px}
+.card-title{font-family:var(--fd);font-size:1.1rem;color:var(--bp);font-weight:500;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.card-label{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:10px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.patient-header{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--wh);border-radius:var(--rl);margin-bottom:20px;box-shadow:0 4px 20px rgba(27,77,92,.04)}
+.patient-avatar{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--vs),var(--bp-l));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:600;color:var(--wh)}
+.patient-info h3{font-family:var(--fd);font-size:1.15rem;color:var(--bp);font-weight:500}.patient-info p{font-size:.78rem;color:var(--tx-l)}
+.patient-header select{margin-left:auto;padding:8px 12px;border:1px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.8rem;color:var(--tx);background:var(--wh);outline:none;cursor:pointer}
+.patient-header .mini-fleur{margin-left:auto;width:80px;height:80px}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:50px;font-size:.68rem;font-weight:500}
+.badge-good{background:var(--ok-p);color:#3D6B3A}.badge-watch{background:var(--do-p);color:#7A5F2A}.badge-alert{background:var(--al-p);color:#8B4040}
+.kpi-card{background:var(--cr);border-radius:var(--r);padding:16px;text-align:center}
+.kpi-value{font-family:var(--fd);font-size:1.7rem;color:var(--bp);font-weight:500}.kpi-label{font-size:.7rem;color:var(--tx-l);margin-top:2px}
+.kpi-trend{font-size:.7rem;font-weight:500;margin-top:3px}.kpi-trend.up{color:var(--ok)}.kpi-trend.down{color:var(--al)}.kpi-trend.stable{color:var(--do)}
+.tabs{display:flex;gap:3px;margin-bottom:16px;background:var(--cr);border-radius:var(--rs);padding:3px;width:fit-content}
+.tab{padding:7px 16px;border-radius:7px;font-size:.78rem;font-weight:500;color:var(--tx-l);cursor:pointer;transition:all .2s;border:none;background:transparent}
+.tab.active{background:var(--wh);color:var(--bp);box-shadow:0 2px 8px rgba(27,77,92,.06)}
+/* Oligo comparison table */
+.oligo-table{width:100%;border-collapse:separate;border-spacing:0 4px}
+.oligo-table th{font-size:.68rem;font-weight:500;color:var(--tx-l);text-transform:uppercase;letter-spacing:1px;padding:6px 8px;text-align:left}
+.oligo-table td{padding:8px;font-size:.82rem;background:var(--cr);vertical-align:middle}
+.oligo-table tr td:first-child{border-radius:8px 0 0 8px;font-weight:500;color:var(--bp)}
+.oligo-table tr td:last-child{border-radius:0 8px 8px 0}
+.oligo-table input{width:70px;padding:6px 8px;border:1.5px solid var(--cr-d);border-radius:6px;font-family:var(--fb);font-size:.82rem;text-align:center;outline:none;background:var(--wh)}
+.oligo-table input:focus{border-color:var(--vs)}
+.arrow-up{color:var(--ok);font-weight:600}.arrow-down{color:var(--al);font-weight:600}.arrow-stable{color:var(--tx-l)}
+/* Emonctoire assessment */
+.emonctoire-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.emonctoire-card{background:var(--cr);border-radius:var(--r);padding:16px;border:1.5px solid var(--cr-d);transition:border-color .3s}
+.emonctoire-card.saturated{border-color:var(--al)}
+.emonctoire-card h4{font-family:var(--fd);font-size:1rem;color:var(--bp);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.emonctoire-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.emonctoire-label{font-size:.78rem;color:var(--tx-l)}
+.emonctoire-select{padding:5px 8px;border:1px solid var(--cr-d);border-radius:6px;font-family:var(--fb);font-size:.76rem;background:var(--wh);color:var(--tx);outline:none}
+.emonctoire-gauge{height:6px;background:var(--cr-d);border-radius:6px;overflow:hidden;margin-top:8px}
+.emonctoire-gauge-fill{height:100%;border-radius:6px;transition:width .6s ease}
+/* Emotion tags */
+.emotion-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.emotion-tag{padding:4px 11px;border-radius:50px;font-size:.73rem;background:var(--cr);border:1px solid var(--cr-d);color:var(--tx);cursor:pointer;transition:all .2s}
+.emotion-tag:hover,.emotion-tag.active{background:var(--do-p);border-color:var(--do);color:var(--bp)}
+.emotion-input{display:flex;gap:8px;margin-top:10px}
+.emotion-input input{flex:1;padding:7px 14px;border:1.5px solid var(--cr-d);border-radius:50px;font-family:var(--fb);font-size:.8rem;outline:none}
+.emotion-input input:focus{border-color:var(--vs)}
+/* Timeline */
+.timeline{position:relative;padding-left:22px}.timeline::before{content:'';position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--cr-d)}
+.timeline-item{position:relative;margin-bottom:16px;padding-left:18px}
+.timeline-dot{position:absolute;left:-19px;top:4px;width:12px;height:12px;border-radius:50%;border:2px solid var(--wh);box-shadow:0 0 0 2px var(--vs)}
+.timeline-dot.oligo{background:var(--bp)}.timeline-dot.kinesio{background:var(--do)}.timeline-dot.reflexo{background:var(--vs)}.timeline-dot.naturo{background:#6B5B8D}
+.timeline-date{font-size:.7rem;color:var(--tx-l)}.timeline-content{font-size:.82rem;color:var(--tx);margin-top:2px}.timeline-type{font-size:.66rem;font-weight:500;text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.save-indicator{position:fixed;bottom:20px;right:20px;background:var(--bp);color:var(--cr);padding:10px 20px;border-radius:50px;font-size:.8rem;font-weight:500;opacity:0;transform:translateY(10px);transition:all .4s;z-index:100;pointer-events:none}
+.save-indicator.show{opacity:1;transform:translateY(0)}
+@media(max-width:1024px){.grid-2{grid-template-columns:1fr}.emonctoire-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:16px}.grid-3{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="shell">
+<nav class="sidebar">
+  <div class="sidebar-logo">Flux <span>&</span> Équilibre</div>
+  <div class="sidebar-section">Patients</div>
+  <a class="sidebar-item active"><span class="icon">📋</span>Carnet de Cheminement</a>
+  <a class="sidebar-item"><span class="icon">👨‍👩‍👧</span>Familles</a>
+  <a class="sidebar-item"><span class="icon">🌿</span>Audits Horizon</a>
+  <div class="sidebar-section">Outils</div>
+  <a class="sidebar-item"><span class="icon">🔬</span>Bilans Oligoscan</a>
+  <a class="sidebar-item"><span class="icon">🌼</span>Protocoles & Remèdes</a>
+  <a class="sidebar-item"><span class="icon">🌸</span>Fleurs de Bach</a>
+  <a class="sidebar-item"><span class="icon">📄</span>Fiches Conseils</a>
+  <div class="sidebar-section">Boutique</div>
+  <a class="sidebar-item"><span class="icon">📚</span>Guide Acné</a>
+  <div class="sidebar-spacer"></div>
+  <div class="sidebar-user"><div class="sidebar-avatar">AM</div><div><div style="font-weight:500;font-size:.8rem">Arielle</div><div style="font-size:.68rem;opacity:.5">Praticienne</div></div></div>
+</nav>
+
+<main class="main">
+  <div class="main-header">
+    <div><h1 class="main-title">Carnet de <em>Cheminement</em></h1><p class="main-subtitle">Suivi naturopathique global — Oligoscan · Émonctoires · Émotions · Fleur de Vitalité</p></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-s" onclick="importAudit()">📥 Importer un audit</button><button class="btn btn-p" onclick="showSave()">💾 Sauvegarder</button></div>
+  </div>
+
+  <!-- Patient Header with mini Fleur -->
+  <div class="patient-header">
+    <div class="patient-avatar" id="pAvatar">LD</div>
+    <div class="patient-info"><h3 id="pName">Léa Dupont</h3><p id="pMeta">12 ans · Suivie depuis mars 2025 · <span class="badge badge-watch">2 protocoles actifs</span></p></div>
+    <select id="pSelect" onchange="switchPatient(this.value)"><option value="lea">Léa Dupont</option><option value="hugo">Hugo Martin</option><option value="emma">Emma Bernard</option></select>
+    <svg class="mini-fleur" viewBox="0 0 100 100" id="miniFleur"></svg>
+  </div>
+
+  <!-- KPIs -->
+  <div class="grid-3" style="margin-bottom:16px">
+    <div class="kpi-card"><div class="kpi-value" id="kV">72</div><div class="kpi-label">Score Vitalité</div><div class="kpi-trend up" id="kT">↑ +8 depuis T0</div></div>
+    <div class="kpi-card"><div class="kpi-value">4</div><div class="kpi-label">Séances réalisées</div><div class="kpi-trend stable">2 Kiné · 1 Réflexo · 1 Naturo</div></div>
+    <div class="kpi-card"><div class="kpi-value">2</div><div class="kpi-label">Protocoles actifs</div><div class="kpi-trend stable">Acné + Sommeil</div></div>
+  </div>
+
+  <div class="grid-2">
+  <!-- LEFT -->
+  <div>
+    <!-- Émonctoires Assessment -->
+    <div class="card">
+      <div class="card-label">Évaluation manuelle</div>
+      <div class="card-title">🫁 Saturation des Émonctoires</div>
+      <div class="emonctoire-grid" id="emonGrid"></div>
+    </div>
+
+    <!-- Oligoscan Comparison -->
+    <div class="card">
+      <div class="card-label">Comparaison Oligoscan</div>
+      <div class="card-title">🔬 Superposition T0 → T+3 mois</div>
+      <div class="tabs"><button class="tab active" onclick="switchOTab('min',this)">Minéraux</button><button class="tab" onclick="switchOTab('met',this)">Métaux lourds</button></div>
+      <div id="oligoMin"><table class="oligo-table" id="oligoMinTable"></table></div>
+      <div id="oligoMet" style="display:none"><table class="oligo-table" id="oligoMetTable"></table></div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn btn-sm btn-p" onclick="showSave()">💾 Enregistrer le bilan</button>
+        <button class="btn btn-sm btn-s" onclick="clearOligo()">Réinitialiser</button>
+      </div>
+    </div>
+
+    <!-- Emotions -->
+    <div class="card">
+      <div class="card-label">Kinésiologie</div>
+      <div class="card-title">🦋 Émotions identifiées en séance</div>
+      <div class="emotion-tags" id="emoTags"></div>
+      <div class="emotion-input"><input id="newEmo" placeholder="Ajouter une émotion..."/><button class="btn btn-sm btn-p" onclick="addEmo()">+</button></div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div>
+    <!-- Fleur Comparison side by side -->
+    <div class="card">
+      <div class="card-label">Évolution</div>
+      <div class="card-title">🌸 Fleur de Vitalité T0 → T+3</div>
+      <div style="display:grid;grid-template-columns:1fr 40px 1fr;align-items:center">
+        <div style="text-align:center"><div style="font-size:.72rem;color:var(--tx-l);margin-bottom:6px" id="lT0">Mars 2025</div><svg viewBox="0 0 200 200" style="width:100%;max-width:180px" id="fT0"></svg></div>
+        <div style="text-align:center;font-size:1.4rem;color:var(--do)">→</div>
+        <div style="text-align:center"><div style="font-size:.72rem;color:var(--tx-l);margin-bottom:6px" id="lT1">Juin 2025</div><svg viewBox="0 0 200 200" style="width:100%;max-width:180px" id="fT1"></svg></div>
+      </div>
+      <div style="display:flex;justify-content:center;gap:8px;margin-top:12px;flex-wrap:wrap" id="fDeltas"></div>
+    </div>
+
+    <!-- Mineral Profile Bars -->
+    <div class="card">
+      <div class="card-label">Profil actuel</div>
+      <div class="card-title">📊 Derniers résultats minéraux</div>
+      <div id="mBars"></div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="card">
+      <div class="card-label">Historique</div>
+      <div class="card-title">📅 Dernières séances</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot oligo"></div><div class="timeline-date">15 juin 2025</div><div class="timeline-content">Bilan Oligoscan T+3 — Zinc ↑, Magnésium stabilisé</div><div class="timeline-type" style="color:var(--bp)">Oligoscan</div></div>
+        <div class="timeline-item"><div class="timeline-dot kinesio"></div><div class="timeline-date">8 juin 2025</div><div class="timeline-content">Travail sur l'image corporelle — Fleur de Bach Larch</div><div class="timeline-type" style="color:var(--do)">Kinésiologie</div></div>
+        <div class="timeline-item"><div class="timeline-dot reflexo"></div><div class="timeline-date">25 mai 2025</div><div class="timeline-content">Réflexologie plantaire détox : foie + intestins</div><div class="timeline-type" style="color:var(--vs)">Réflexologie</div></div>
+        <div class="timeline-item"><div class="timeline-dot oligo"></div><div class="timeline-date">15 mars 2025</div><div class="timeline-content">Bilan initial T0 — Carence Zinc et Magnésium, excès Cuivre</div><div class="timeline-type" style="color:var(--bp)">Oligoscan</div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+</main>
+</div>
+<div class="save-indicator" id="saveInd">✓ Données sauvegardées</div>
+
+<script>
+const P={
+  lea:{name:'Léa Dupont',age:12,init:'LD',since:'mars 2025',
+    oT0:{Ca:530,Mg:25,P:129,Zn:165,Fe:10,Cu:22,Se:1.7,Mn:0.49,Cr:0.37,S:51,Li:0.088,I:0.10},
+    oT1:{Ca:545,Mg:38,P:140,Zn:180,Fe:12,Cu:20,Se:2.0,Mn:0.52,Cr:0.40,S:55,Li:0.095,I:0.12},
+    norms:{Ca:[279,598],Mg:[30.5,75.7],P:[144,199],Zn:[125,155],Fe:[5,15],Cu:[11,28],Se:[0.95,1.77],Mn:[0.31,0.75],Cr:[0.02,1.21],S:[48.1,52.8],Li:[0.052,0.13],I:[0.32,0.59]},
+    metT0:{Al:0.009,Hg:0.018,Pb:0.007,Cd:0.013,As:0.005,Ni:0.004,Ba:0.008,Tl:0.001},
+    metT1:{Al:0.007,Hg:0.015,Pb:0.006,Cd:0.011,As:0.004,Ni:0.003,Ba:0.007,Tl:0.001},
+    pT0:{sommeil:5,eclat:7,serenite:3,immunite:4,confiance:6},pT1:{sommeil:2,eclat:4,serenite:1,immunite:2,confiance:3},
+    emo:['Peur de l\'échec','Image corporelle','Colère refoulée'],gT0:52,gT1:72,
+    emonc:{foie:{langue:2,digestion:2,nausees:1},intestins:{ballonnements:2,transit:2,gaz:1},peau:{type:2,cicatrisation:1,reactivity:2}}},
+  hugo:{name:'Hugo Martin',age:15,init:'HM',since:'janvier 2025',
+    oT0:{Ca:480,Mg:28,P:135,Zn:120,Fe:8,Cu:25,Se:1.2,Mn:0.35,Cr:0.30,S:48,Li:0.060,I:0.08},
+    oT1:{Ca:510,Mg:35,P:142,Zn:145,Fe:11,Cu:22,Se:1.5,Mn:0.45,Cr:0.38,S:50,Li:0.080,I:0.11},
+    norms:{Ca:[279,598],Mg:[30.5,75.7],P:[144,199],Zn:[125,155],Fe:[5,15],Cu:[11,28],Se:[0.95,1.77],Mn:[0.31,0.75],Cr:[0.02,1.21],S:[48.1,52.8],Li:[0.052,0.13],I:[0.32,0.59]},
+    metT0:{Al:0.012,Hg:0.022,Pb:0.009,Cd:0.015,As:0.006,Ni:0.005,Ba:0.009,Tl:0.002},
+    metT1:{Al:0.010,Hg:0.019,Pb:0.008,Cd:0.012,As:0.005,Ni:0.004,Ba:0.008,Tl:0.001},
+    pT0:{sommeil:6,eclat:5,serenite:7,immunite:3,confiance:5},pT1:{sommeil:3,eclat:3,serenite:4,immunite:2,confiance:3},
+    emo:['Blocages cognitifs','Surmenage','Peur de l\'échec'],gT0:44,gT1:64,
+    emonc:{foie:{langue:1,digestion:2,nausees:0},intestins:{ballonnements:2,transit:1,gaz:2},peau:{type:1,cicatrisation:1,reactivity:1}}},
+  emma:{name:'Emma Bernard',age:9,init:'EB',since:'avril 2025',
+    oT0:{Ca:560,Mg:40,P:150,Zn:140,Fe:13,Cu:18,Se:1.8,Mn:0.55,Cr:0.42,S:50,Li:0.090,I:0.15},
+    oT1:{Ca:570,Mg:42,P:155,Zn:148,Fe:14,Cu:17,Se:1.9,Mn:0.58,Cr:0.45,S:51,Li:0.095,I:0.18},
+    norms:{Ca:[279,598],Mg:[30.5,75.7],P:[144,199],Zn:[125,155],Fe:[5,15],Cu:[11,28],Se:[0.95,1.77],Mn:[0.31,0.75],Cr:[0.02,1.21],S:[48.1,52.8],Li:[0.052,0.13],I:[0.32,0.59]},
+    metT0:{Al:0.005,Hg:0.010,Pb:0.004,Cd:0.008,As:0.003,Ni:0.002,Ba:0.005,Tl:0.001},
+    metT1:{Al:0.004,Hg:0.008,Pb:0.003,Cd:0.007,As:0.002,Ni:0.002,Ba:0.004,Tl:0.001},
+    pT0:{sommeil:2,eclat:3,serenite:2,immunite:2,confiance:3},pT1:{sommeil:1,eclat:1,serenite:1,immunite:1,confiance:2},
+    emo:['Timidité sociale'],gT0:74,gT1:87,
+    emonc:{foie:{langue:0,digestion:0,nausees:0},intestins:{ballonnements:1,transit:0,gaz:0},peau:{type:0,cicatrisation:0,reactivity:0}}}
+};
+const PTLS={sommeil:{label:'Sommeil',bg:'#1B4D5C'},eclat:{label:'Éclat',bg:'#C4A265'},serenite:{label:'Sérénité',bg:'#8FA98B'},immunite:{label:'Immunité',bg:'#2A6B7E'},confiance:{label:'Confiance',bg:'#6B5B8D'}};
+const ML=['Ca','Mg','P','Zn','Fe','Cu','Se','Mn','Cr','S','Li','I'];
+const MN={Ca:'Calcium',Mg:'Magnésium',P:'Phosphore',Zn:'Zinc',Fe:'Fer',Cu:'Cuivre',Se:'Sélénium',Mn:'Manganèse',Cr:'Chrome',S:'Soufre',Li:'Lithium',I:'Iode'};
+const MTL=['Al','Hg','Pb','Cd','As','Ni','Ba','Tl'];
+const MTN={Al:'Aluminium',Hg:'Mercure',Pb:'Plomb',Cd:'Cadmium',As:'Arsenic',Ni:'Nickel',Ba:'Baryum',Tl:'Thallium'};
+let cur='lea';
+function toS(c){return Math.round(Math.max(0,(9-c)/9*100));}
+function switchPatient(id){cur=id;const p=P[id];document.getElementById('pName').textContent=p.name;document.getElementById('pMeta').innerHTML=`${p.age} ans · Suivie depuis ${p.since} · <span class="badge badge-watch">${Object.keys(p.pT1).filter(k=>p.pT1[k]>=3).length} zones à surveiller</span>`;document.getElementById('pAvatar').textContent=p.init;renderAll();}
+function renderAll(){renderMiniFleur();renderFleurCompare();renderOligoTable();renderMBars();renderEmonctoires();renderEmotions();updateKPIs();}
+
+function drawFleur(svgEl,pd,gs){
+  const cx=100,cy=100,ks=['sommeil','eclat','serenite','immunite','confiance'],as=[-90,-18,54,126,198];let h='';
+  ks.forEach((k,i)=>{const c=pd[k],a=as[i]*Math.PI/180,r=36,o=c<=2?1:c<=5?.5:.35,isA=c>=6;
+    const r1=a-.49,r2=a+.49;
+    const path=`M ${cx+Math.cos(r1)*20} ${cy+Math.sin(r1)*20} Q ${cx+Math.cos(r1)*(30+r*.7)} ${cy+Math.sin(r1)*(30+r*.7)} ${cx+Math.cos(a)*(42+r)} ${cy+Math.sin(a)*(42+r)} Q ${cx+Math.cos(r2)*(30+r*.7)} ${cy+Math.sin(r2)*(30+r*.7)} ${cx+Math.cos(r2)*20} ${cy+Math.sin(r2)*20} Z`;
+    h+=`<path d="${path}" fill="${PTLS[k].bg}" opacity="${o}"/>`;
+    if(isA)h+=`<path d="${path}" fill="none" stroke="#C4A265" stroke-width="1.5" stroke-dasharray="4 2"/>`;
+    const sd=42+r*.28,sx=cx+Math.cos(a)*sd,sy=cy+Math.sin(a)*sd;
+    h+=`<text x="${sx}" y="${sy}" text-anchor="middle" dominant-baseline="central" font-family="Georgia" font-size="10" font-weight="600" fill="#fff">${toS(c)}</text>`;
+    const ld=42+r*.52,lx=cx+Math.cos(a)*ld,ly=cy+Math.sin(a)*ld;
+    h+=`<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="central" font-family="sans-serif" font-size="5" fill="#fff" opacity=".75" letter-spacing="1">${PTLS[k].label}</text>`;
+  });
+  h+=`<circle cx="${cx}" cy="${cy}" r="16" fill="#FAF7F2" stroke="#B5CBB1" stroke-width="1.5"/>`;
+  h+=`<text x="${cx}" y="${cy-2}" text-anchor="middle" font-family="Georgia" font-size="10" font-weight="500" fill="#1B4D5C">${gs}</text>`;
+  h+=`<text x="${cx}" y="${cy+7}" text-anchor="middle" font-family="sans-serif" font-size="4" fill="#5A6E68" letter-spacing="1">VITALITÉ</text>`;
+  svgEl.innerHTML=h;
+}
+
+function renderMiniFleur(){const p=P[cur];drawFleur(document.getElementById('miniFleur'),p.pT1,p.gT1);}
+function renderFleurCompare(){const p=P[cur];drawFleur(document.getElementById('fT0'),p.pT0,p.gT0);drawFleur(document.getElementById('fT1'),p.pT1,p.gT1);
+  let d='';['sommeil','eclat','serenite','immunite','confiance'].forEach(k=>{const delta=toS(p.pT1[k])-toS(p.pT0[k]);
+    d+=`<span class="badge ${delta>0?'badge-good':delta<0?'badge-alert':'badge-watch'}">${PTLS[k].label} ${delta>0?'+':''}${delta}</span>`;});
+  document.getElementById('fDeltas').innerHTML=d;}
+
+function renderOligoTable(){
+  const p=P[cur];let h='<tr><th>Minéral</th><th>T0</th><th>T+3</th><th>Norme</th><th>Évol.</th></tr>';
+  ML.forEach(m=>{const v0=p.oT0[m],v1=p.oT1[m],n=p.norms[m],d=v1-v0;
+    const arrow=d>0?`<span class="arrow-up">↑ +${d.toFixed(d>=1?0:2)}</span>`:d<0?`<span class="arrow-down">↓ ${d.toFixed(d<=-1?0:2)}</span>`:'<span class="arrow-stable">= stable</span>';
+    const status=v1<n[0]?'color:var(--al)':v1>n[1]?'color:var(--do)':'color:var(--ok)';
+    h+=`<tr><td>${MN[m]}</td><td>${v0}</td><td><input value="${v1}" onchange="updateMin('${m}',this.value)" style="${status}"/></td><td style="font-size:.72rem;color:var(--tx-l)">${n[0]}–${n[1]}</td><td>${arrow}</td></tr>`;});
+  document.getElementById('oligoMinTable').innerHTML=h;
+  // Metals
+  let mh='<tr><th>Métal</th><th>T0</th><th>T+3</th><th>Évol.</th></tr>';
+  MTL.forEach(m=>{const v0=p.metT0[m],v1=p.metT1[m],d=v1-v0;
+    const arrow=d<0?`<span class="arrow-up">↓ ${d.toFixed(4)}</span>`:d>0?`<span class="arrow-down">↑ +${d.toFixed(4)}</span>`:'<span class="arrow-stable">= stable</span>';
+    mh+=`<tr><td>${MTN[m]}</td><td>${v0}</td><td><input value="${v1}" style="width:80px"/></td><td>${arrow}</td></tr>`;});
+  document.getElementById('oligoMetTable').innerHTML=mh;
+}
+function switchOTab(t,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+  document.getElementById('oligoMin').style.display=t==='min'?'':'none';document.getElementById('oligoMet').style.display=t==='met'?'':'none';}
+function updateMin(m,v){P[cur].oT1[m]=parseFloat(v)||0;renderOligoTable();renderMBars();}
+function clearOligo(){ML.forEach(m=>P[cur].oT1[m]=0);renderOligoTable();renderMBars();}
+
+function renderMBars(){const p=P[cur];let h='';ML.forEach(m=>{const v=p.oT1[m],n=p.norms[m];
+  const pct=Math.min(100,Math.max(0,(v-n[0]*.3)/(n[1]*1.3-n[0]*.3)*100));
+  const nL=(n[0]-n[0]*.3)/(n[1]*1.3-n[0]*.3)*100,nH=(n[1]-n[0]*.3)/(n[1]*1.3-n[0]*.3)*100;
+  const c=v<n[0]?'var(--al)':v>n[1]?'var(--do)':'var(--ok)';
+  h+=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div style="width:65px;font-size:.76rem;font-weight:500">${MN[m]}</div>
+    <div style="flex:1;position:relative;height:5px;background:var(--cr-d);border-radius:5px"><div style="position:absolute;left:${nL}%;width:${nH-nL}%;height:100%;background:var(--ok-p);border-radius:5px"></div>
+    <div style="position:absolute;left:0;width:${pct}%;height:100%;background:${c};border-radius:5px;transition:width .8s"></div></div>
+    <div style="width:42px;font-size:.72rem;color:var(--tx-l);text-align:right">${v}</div></div>`;});
+  document.getElementById('mBars').innerHTML=h;}
+
+function renderEmonctoires(){
+  const p=P[cur],e=p.emonc;
+  const foieScore=Object.values(e.foie).reduce((a,b)=>a+b,0),intScore=Object.values(e.intestins).reduce((a,b)=>a+b,0),peauScore=Object.values(e.peau).reduce((a,b)=>a+b,0);
+  const opts=['Normal','Léger','Modéré','Sévère'];
+  function row(label,val,key,organ){return`<div class="emonctoire-row"><span class="emonctoire-label">${label}</span><select class="emonctoire-select" onchange="updateEmonc('${organ}','${key}',this.value)">${opts.map((o,i)=>`<option value="${i}" ${val===i?'selected':''}>${o}</option>`).join('')}</select></div>`;}
+  function gauge(score,max){const pct=score/max*100;const c=pct<=33?'var(--ok)':pct<=66?'var(--do)':'var(--al)';return`<div class="emonctoire-gauge"><div class="emonctoire-gauge-fill" style="width:${pct}%;background:${c}"></div></div>`;}
+
+  document.getElementById('emonGrid').innerHTML=`
+    <div class="emonctoire-card ${foieScore>=4?'saturated':''}"><h4>🫁 Foie</h4>
+      ${row('Langue chargée',e.foie.langue,'langue','foie')}
+      ${row('Digestion lourde',e.foie.digestion,'digestion','foie')}
+      ${row('Nausées matinales',e.foie.nausees,'nausees','foie')}
+      ${gauge(foieScore,9)}<div style="font-size:.7rem;color:var(--tx-l);margin-top:4px;text-align:center">${foieScore}/9</div></div>
+    <div class="emonctoire-card ${intScore>=4?'saturated':''}"><h4>🦠 Intestins</h4>
+      ${row('Ballonnements',e.intestins.ballonnements,'ballonnements','intestins')}
+      ${row('Transit irrégulier',e.intestins.transit,'transit','intestins')}
+      ${row('Gaz / flatulences',e.intestins.gaz,'gaz','intestins')}
+      ${gauge(intScore,9)}<div style="font-size:.7rem;color:var(--tx-l);margin-top:4px;text-align:center">${intScore}/9</div></div>
+    <div class="emonctoire-card ${peauScore>=4?'saturated':''}"><h4>🧴 Peau</h4>
+      ${row('Type acné/eczéma',e.peau.type,'type','peau')}
+      ${row('Cicatrisation',e.peau.cicatrisation,'cicatrisation','peau')}
+      ${row('Réactivité cutanée',e.peau.reactivity,'reactivity','peau')}
+      ${gauge(peauScore,9)}<div style="font-size:.7rem;color:var(--tx-l);margin-top:4px;text-align:center">${peauScore}/9</div></div>`;
+}
+function updateEmonc(organ,key,val){P[cur].emonc[organ][key]=parseInt(val);renderEmonctoires();}
+
+function renderEmotions(){const allEmo=['Peur de l\'échec','Image corporelle','Colère refoulée','Insécurité nocturne','Séparation','Mental envahissant','Blocages cognitifs','Surmenage','Timidité sociale','Hypersensibilité'];
+  document.getElementById('emoTags').innerHTML=allEmo.map(e=>`<span class="emotion-tag ${P[cur].emo.includes(e)?'active':''}" onclick="this.classList.toggle('active')">${e}</span>`).join('');}
+function addEmo(){const i=document.getElementById('newEmo');if(!i.value.trim())return;const t=document.createElement('span');t.className='emotion-tag active';t.textContent=i.value.trim();t.onclick=function(){this.classList.toggle('active');};document.getElementById('emoTags').appendChild(t);i.value='';}
+
+function updateKPIs(){const p=P[cur];document.getElementById('kV').textContent=p.gT1;const d=p.gT1-p.gT0;
+  document.getElementById('kT').textContent=`${d>=0?'↑':'↓'} ${d>=0?'+':''}${d} depuis T0`;document.getElementById('kT').className=`kpi-trend ${d>0?'up':d<0?'down':'stable'}`;}
+
+function importAudit(){
+  if(window.opener&&window.opener.__auditResult){
+    const r=window.opener.__auditResult;alert(`Import réussi : ${r.childName}\nScore: ${r.globalScore}\nZones: ${r.zones.map(z=>z.petale).join(', ')}\nÉmonctoires surchargés: ${r.emonctoires.join(', ')||'Aucun'}`);
+  } else {alert('Pour importer, ouvrez cet écran depuis la page de résultats de l\'Audit.\n\nEn production, l\'import se fera automatiquement via la base de données (Prisma).');}
+}
+
+function showSave(){const el=document.getElementById('saveInd');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
+renderAll();
+</script>
+</body>
+</html>
