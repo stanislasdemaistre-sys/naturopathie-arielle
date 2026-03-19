@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Méthode — Flux & Équilibre · Naturopathie · Fleurs de Bach · Réflexologie · Kinésiologie</title>
+<meta name="description" content="Quatre approches complémentaires pour une vision globale de la personne : Naturopathie, Fleurs de Bach, Réflexologie et Kinésiologie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bleu-petrole: #1B4D5C;
+  --bleu-petrole-deep: #0F3540;
+  --bleu-petrole-light: #2A6B7E;
+  --vert-sauge: #8FA98B;
+  --vert-sauge-light: #B5CBB1;
+  --vert-sauge-pale: #D6E4D3;
+  --dore: #C4A265;
+  --dore-light: #D4BA8A;
+  --dore-pale: #F0E6D2;
+  --creme: #FAF7F2;
+  --creme-dark: #F0EBE3;
+  --blanc: #FFFFFF;
+  --texte: #2C3E3A;
+  --texte-light: #5A6E68;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 32px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--texte);
+  background: var(--creme);
+  line-height: 1.7;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 14px 0;
+  background: rgba(250, 247, 242, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 30px rgba(27, 77, 92, 0.06);
+  transition: all 0.4s ease;
+}
+nav .container { display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.logo-icon { width: 38px; height: 38px; }
+.logo-icon svg { width: 100%; height: 100%; }
+.logo-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--bleu-petrole); }
+.logo-text span { color: var(--dore); font-weight: 300; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--dore);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--dore); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--dore); }
+.nav-cta {
+  background: var(--bleu-petrole) !important;
+  color: var(--creme) !important;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+.nav-cta:hover { background: var(--bleu-petrole-light) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.mobile-toggle span { width: 22px; height: 1.5px; background: var(--bleu-petrole); display: block; transition: all 0.3s; }
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(135deg, var(--bleu-petrole-deep) 0%, var(--bleu-petrole) 50%, var(--bleu-petrole-light) 100%);
+  padding: 160px 0 100px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,162,101,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143,169,139,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(196,162,101,0.15);
+  border: 1px solid rgba(196,162,101,0.3);
+  color: var(--dore-light);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--blanc);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.hero h1 em { font-style: italic; color: var(--vert-sauge-light); }
+.hero-sub {
+  font-size: 1.1rem;
+  color: rgba(250,247,242,0.75);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ─── TABS BAR ─── */
+.tabs-bar {
+  position: sticky;
+  top: 66px;
+  z-index: 50;
+  background: var(--blanc);
+  border-bottom: 1px solid rgba(27,77,92,0.08);
+  box-shadow: 0 4px 20px rgba(27,77,92,0.06);
+}
+.tabs-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs-inner::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 18px 24px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--texte-light);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2.5px;
+  background: var(--dore);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.tab-btn:hover { color: var(--bleu-petrole); }
+.tab-btn.active {
+  color: var(--bleu-petrole);
+  font-weight: 500;
+  background: rgba(27,77,92,0.03);
+}
+.tab-btn.active::after { transform: scaleX(1); }
+
+/* ─── TAB CONTENT ─── */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ─── SECTION INSIDE TABS ─── */
+.tab-section { padding: 80px 0; }
+.tab-section-alt { background: var(--blanc); }
+.tab-section-dark { background: var(--bleu-petrole); }
+
+.sub-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+.sub-heading em { font-style: italic; color: var(--vert-sauge); }
+
+.sub-intro {
+  font-size: 1rem;
+  color: var(--texte-light);
+  line-height: 1.8;
+  max-width: 680px;
+  margin-bottom: 48px;
+}
+
+/* ─── PRINCIPLE GRID ─── */
+.principle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+.principle-text p {
+  font-size: 0.97rem;
+  color: var(--texte);
+  line-height: 1.85;
+  margin-bottom: 18px;
+}
+.principle-text p:last-child { margin-bottom: 0; }
+.principle-text strong { color: var(--bleu-petrole); font-weight: 500; }
+.principle-callout {
+  background: var(--bleu-petrole);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  color: var(--creme);
+  position: relative;
+  overflow: hidden;
+}
+.principle-callout::before {
+  content: '❝';
+  position: absolute;
+  top: -12px; left: 18px;
+  font-size: 5rem;
+  color: rgba(196,162,101,0.12);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+.principle-callout blockquote {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.65;
+  color: rgba(250,247,242,0.9);
+  position: relative;
+}
+
+/* ─── TOOLS GRID ─── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.tool-card {
+  background: var(--creme-dark);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  border: 1px solid rgba(27,77,92,0.06);
+  transition: all 0.3s ease;
+}
+.tool-card:hover {
+  background: var(--blanc);
+  box-shadow: 0 8px 32px rgba(27,77,92,0.08);
+  transform: translateY(-2px);
+}
+.tool-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.tool-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--bleu-petrole);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.tool-desc { font-size: 0.85rem; color: var(--texte-light); line-height: 1.6; }
+
+/* ─── SÉANCE BLOCK ─── */
+.seance-block {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  box-shadow: 0 8px 40px rgba(27,77,92,0.06);
+  border: 1px solid rgba(27,77,92,0.05);
+}
+.seance-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--creme-dark);
+}
+.seance-step:last-child { border-bottom: none; }
+.seance-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bleu-petrole);
+  color: var(--creme);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.seance-text strong {
+  color: var(--bleu-petrole);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.92rem;
+}
+.seance-text p { font-size: 0.86rem; color: var(--texte-light); line-height: 1.6; }
+
+/* ─── PUBLIC GRID ─── */
+.public-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+.public-item {
+  background: var(--blanc);
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 1px solid rgba(27,77,92,0.06);
+}
+.public-item-age {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.public-item-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--bleu-petrole);
+  margin-bottom: 12px;
+}
+.public-item ul { list-style: none; }
+.public-item ul li {
+  font-size: 0.84rem;
+  color: var(--texte-light);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--creme-dark);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.public-item ul li:last-child { border-bottom: none; }
+.public-item ul li::before { content: '✦'; color: var(--dore); font-size: 0.6rem; margin-top: 5px; flex-shrink: 0; }
+
+/* ─── FAMILLES ÉMOTIONNELLES ─── */
+.familles-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.famille-card {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  padding: 22px 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.famille-card:hover {
+  background: rgba(255,255,255,0.14);
+  border-color: rgba(196,162,101,0.4);
+  transform: translateY(-3px);
+}
+.famille-emoji { font-size: 1.8rem; margin-bottom: 8px; }
+.famille-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--creme);
+  font-weight: 400;
+}
+
+/* ─── SUB TABS (Réflexologie) ─── */
+.sub-tabs-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid rgba(27,77,92,0.1);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.sub-tabs-bar::-webkit-scrollbar { display: none; }
+.sub-tab-btn {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 12px 20px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--texte-light);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.sub-tab-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 2px;
+  background: var(--bleu-petrole);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.sub-tab-btn:hover { color: var(--bleu-petrole); }
+.sub-tab-btn.active { color: var(--bleu-petrole); font-weight: 500; }
+.sub-tab-btn.active::after { transform: scaleX(1); }
+.sub-tab-content { display: none; }
+.sub-tab-content.active { display: block; }
+
+/* ─── REFLEX LAYOUT ─── */
+.reflex-layout {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.reflex-svg-wrap { text-align: center; }
+.reflex-legend {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.74rem;
+  color: var(--texte-light);
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.treat-list { list-style: none; }
+.treat-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.88rem;
+  color: var(--texte);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--creme-dark);
+}
+.treat-list li:last-child { border-bottom: none; }
+.treat-list li::before { content: '→'; color: var(--vert-sauge); flex-shrink: 0; margin-top: 2px; }
+.reflex-sub-label {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--bleu-petrole);
+  margin: 24px 0 12px;
+}
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--bleu-petrole); color: var(--creme);
+  padding: 16px 36px; border-radius: 50px;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+  text-decoration: none; transition: all 0.3s ease; letter-spacing: 0.3px;
+}
+.btn-primary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(27,77,92,0.2); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent; color: var(--bleu-petrole);
+  padding: 16px 36px; border-radius: 50px;
+  border: 1.5px solid var(--bleu-petrole);
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 400;
+  text-decoration: none; transition: all 0.3s ease;
+}
+.btn-secondary:hover { background: var(--bleu-petrole); color: var(--creme); }
+
+/* ─── CTA ─── */
+.cta-section {
+  background: linear-gradient(135deg, var(--dore-pale) 0%, var(--creme) 60%);
+  padding: 96px 0;
+  text-align: center;
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--bleu-petrole);
+  margin-bottom: 16px;
+}
+.cta-title em { font-style: italic; color: var(--vert-sauge); }
+.cta-section p { font-size: 1rem; color: var(--texte-light); line-height: 1.75; max-width: 520px; margin: 0 auto 40px; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bleu-petrole-deep);
+  color: rgba(250,247,242,0.5);
+  padding: 48px 0 32px;
+}
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--creme); }
+.footer-logo span { color: var(--dore); }
+.footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--dore); }
+.footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .principle-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .familles-grid { grid-template-columns: repeat(2, 1fr); }
+  .reflex-layout { grid-template-columns: 1fr; gap: 32px; }
+  .reflex-svg-wrap { display: flex; align-items: flex-start; gap: 24px; text-align: left; }
+  .reflex-legend { flex-direction: row; flex-wrap: wrap; gap: 6px 16px; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .tabs-inner { padding: 0 20px; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  .hero { padding: 120px 0 72px; }
+  .tab-section { padding: 56px 0; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .public-grid { grid-template-columns: 1fr; }
+  .seance-block { padding: 28px 20px; }
+  .familles-grid { grid-template-columns: repeat(2, 1fr); }
+  .cta-buttons { flex-direction: column; align-items: center; }
+}
+
+/* Texte justifié */
+.principle-text p, .sub-intro, .seance-text p, .reflex-desc, .tool-desc {
+  text-align: justify;
+  hyphens: auto;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav id="nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
+          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
+          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
+        </svg>
+      </div>
+      <div class="logo-text">Flux <span>&</span> Équilibre</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/methode" class="active">Méthode</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/audit" class="nav-cta">Audit Santé</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner animate-in">
+      <div class="hero-badge">
+        Naturopathie · Fleurs de Bach · Réflexologie · Kinésiologie
+      </div>
+      <h1>La Méthode <em>Flux & Équilibre</em></h1>
+      <p class="hero-sub">Quatre approches complémentaires, une vision globale de la personne</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TABS BAR ══════ -->
+<div class="tabs-bar" id="tabsBar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="showTab('naturo', this)">🌿 Naturopathie</button>
+    <button class="tab-btn" onclick="showTab('bach', this)">🌼 Fleurs de Bach</button>
+    <button class="tab-btn" onclick="showTab('reflex', this)">🤲 Réflexologie</button>
+    <button class="tab-btn" onclick="showTab('kinesio', this)">🦋 Kinésiologie</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB 1 — NATUROPATHIE                      -->
+<!-- ══════════════════════════════════════════ -->
+<div id="tab-naturo" class="tab-content active">
+
+  <!-- C'EST QUOI -->
+  <div class="tab-section">
+    <div class="container">
+      <div class="section-label">La naturopathie</div>
+      <div class="principle-grid animate-in">
+        <div>
+          <h2 class="sub-heading">Traiter la <em>cause</em>,<br>pas le symptôme</h2>
+          <p class="sub-intro">La naturopathie est une médecine de terrain qui considère l'être humain dans sa globalité — corps, émotions, mode de vie.</p>
+          <div class="principle-text">
+            <p>Sa philosophie fondamentale : <strong>le corps possède une intelligence de guérison innée</strong>. La maladie n'est pas un ennemi à combattre mais un signal à décoder. Le rôle du naturopathe est de créer les conditions pour que cette intelligence s'exprime.</p>
+            <p>Plutôt que de supprimer les symptômes, la naturopathie cherche à renforcer le <strong>terrain</strong> — cet ensemble de prédispositions biologiques, émotionnelles et environnementales qui détermine notre état de santé global.</p>
+            <p>C'est une approche de <strong>prévention et d'accompagnement</strong>, complémentaire à la médecine conventionnelle, particulièrement adaptée aux enfants et adolescents dont les organismes sont en plein développement.</p>
+          </div>
+        </div>
+        <div class="principle-callout">
+          <blockquote>
+            « Le corps n'est pas une machine à réparer — c'est un système vivant à accompagner. La naturopathie lui donne les ressources pour se réguler lui-même. »
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LES OUTILS -->
+  <div class="tab-section tab-section-alt">
+    <div class="container">
+      <div class="section-label">Les outils</div>
+      <h2 class="sub-heading">Six approches pour <em>nourrir le terrain</em></h2>
+      <div class="tools-grid">
+        <div class="tool-card animate-in">
+          <div class="tool-icon">🥗</div>
+          <div class="tool-name">Nutrition & micronutrition</div>
+          <p class="tool-desc">L'alimentation comme premier médicament. Identifier les carences, les intolérances, optimiser les apports pour chaque profil.</p>
+        </div>
+        <div class="tool-card animate-in" style="transition-delay:0.05s">
+          <div class="tool-icon">🌿</div>
+          <div class="tool-name">Phytothérapie</div>
+          <p class="tool-desc">Les plantes médicinales pour soutenir les fonctions physiologiques : immunité, digestion, sommeil, équilibre nerveux.</p>
+        </div>
+        <div class="tool-card animate-in" style="transition-delay:0.1s">
+          <div class="tool-icon">🪴</div>
+          <div class="tool-name">Gemmothérapie</div>
+          <p class="tool-desc">Les bourgeons et jeunes pousses, riches en facteurs de croissance. Action sur le drainage et la régénération cellulaire.</p>
+        </div>
+        <div class="tool-card animate-in" style="transition-delay:0.15s">
+          <div class="tool-icon">🔬</div>
+          <div class="tool-name">Oligothérapie</div>
+          <p class="tool-desc">Les oligo-éléments et minéraux essentiels au bon fonctionnement enzymatique : zinc, magnésium, sélénium, fer…</p>
+        </div>
+        <div class="tool-card animate-in" style="transition-delay:0.2s">
+          <div class="tool-icon">🌸</div>
+          <div class="tool-name">Aromathérapie</div>
+          <p class="tool-desc">Les huiles essentielles pour leurs propriétés anti-infectieuses, apaisantes, stimulantes — en usage externe ou interne.</p>
+        </div>
+        <div class="tool-card animate-in" style="transition-delay:0.25s">
+          <div class="tool-icon">💧</div>
+          <div class="tool-name">Hydrothérapie</div>
+          <p class="tool-desc">L'eau comme outil thérapeutique : bains, douches alternées, bains de pieds — pour stimuler la circulation et le drainage.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN SÉANCE -->
+  <div class="tab-section">
+    <div class="container" style="max-width:880px">
+      <div class="section-label">En séance avec moi</div>
+      <h2 class="sub-heading" style="margin-bottom:32px">Comment se passe<br><em>un accompagnement</em> ?</h2>
+      <div class="seance-block animate-in">
+        <div class="seance-step">
+          <div class="seance-num">01</div>
+          <div class="seance-text">
+            <strong>Bilan initial — 1h30</strong>
+            <p>Anamnèse complète : histoire de vie, habitudes alimentaires, antécédents, rythmes. Évaluation du terrain physique et émotionnel. Proposition d'un protocole sur-mesure.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">02</div>
+          <div class="seance-text">
+            <strong>Protocole personnalisé</strong>
+            <p>Alliance d'alimentation adaptée, de plantes et de compléments ciblés selon les besoins identifiés. Chaque protocole est unique et évolutif.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">03</div>
+          <div class="seance-text">
+            <strong>Suivi toutes les 3 à 4 semaines</strong>
+            <p>Ajustement du protocole selon l'évolution. Le corps change — le protocole s'adapte. Un accompagnement sur la durée pour des résultats en profondeur.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CE QUE ÇA ACCOMPAGNE -->
+  <div class="tab-section tab-section-alt">
+    <div class="container">
+      <div class="section-label">Ce que ça accompagne</div>
+      <h2 class="sub-heading" style="margin-bottom:32px">Selon <em>chaque âge</em></h2>
+      <div class="public-grid">
+        <div class="public-item animate-in">
+          <div class="public-item-age">6 – 12 ans · Enfants</div>
+          <div class="public-item-title">🌱 Fondations</div>
+          <ul>
+            <li>Immunité fragilisée, infections récurrentes</li>
+            <li>Troubles digestifs, ventre douloureux</li>
+            <li>Difficultés de sommeil</li>
+            <li>Comportement, concentration, HPI</li>
+          </ul>
+        </div>
+        <div class="public-item animate-in" style="transition-delay:0.1s">
+          <div class="public-item-age">13 – 18 ans · Adolescents</div>
+          <div class="public-item-title">🌀 Transitions</div>
+          <ul>
+            <li>Acné, problèmes de peau hormonaux</li>
+            <li>Dérèglements hormonaux, endométriose</li>
+            <li>Fatigue, poids, rapport à l'alimentation</li>
+            <li>Stress des examens, blocages cognitifs</li>
+          </ul>
+        </div>
+        <div class="public-item animate-in" style="transition-delay:0.2s">
+          <div class="public-item-age">20 – 30 ans · Adultes</div>
+          <div class="public-item-title">⚡ Ancrage</div>
+          <ul>
+            <li>Stress chronique, surcharge mentale</li>
+            <li>Burnout ou prévention du burnout</li>
+            <li>Fatigue persistante, récupération difficile</li>
+            <li>Immunité et vulnérabilités récurrentes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-naturo -->
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB 2 — FLEURS DE BACH                    -->
+<!-- ══════════════════════════════════════════ -->
+<div id="tab-bach" class="tab-content">
+
+  <!-- C'EST QUOI -->
+  <div class="tab-section">
+    <div class="container">
+      <div class="section-label">Les fleurs de Bach</div>
+      <div class="principle-grid animate-in">
+        <div>
+          <h2 class="sub-heading">38 élixirs pour<br><em>38 états émotionnels</em></h2>
+          <p class="sub-intro">Créées par le Dr Edward Bach dans les années 1930, les fleurs de Bach agissent sur les émotions qui fragilisent le terrain physique.</p>
+          <div class="principle-text">
+            <p>Le Dr Bach postulait que <strong>toute maladie a une origine émotionnelle</strong>. En identifiant 38 états émotionnels fondamentaux — peur, incertitude, solitude, découragement — il a créé 38 élixirs floraux correspondants.</p>
+            <p>Ces élixirs agissent en douceur sur <strong>l'équilibre émotionnel</strong>, permettant au corps de retrouver sa capacité d'autorégulation. Ils n'ont pas de contre-indications et sont <strong>compatibles avec tout traitement</strong>, y compris allopathique.</p>
+            <p>Particulièrement efficaces chez les <strong>enfants et adolescents sensibles</strong>, ils offrent un langage pour nommer et transformer des états intérieurs parfois difficiles à verbaliser.</p>
+          </div>
+        </div>
+        <div class="principle-callout" style="background:linear-gradient(135deg, var(--bleu-petrole-deep), var(--bleu-petrole))">
+          <blockquote>
+            « Les Fleurs de Bach ne traitent pas la maladie — elles traitent la personne. Elles élèvent nos vibrations et ouvrent la voie à la guérison. »
+            <cite style="display:block;margin-top:16px;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--dore);font-style:normal;font-family:var(--font-body)">— Dr Edward Bach</cite>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LES 7 FAMILLES -->
+  <div class="tab-section tab-section-dark">
+    <div class="container">
+      <div class="section-label" style="color:var(--dore)">Les 7 familles</div>
+      <h2 class="sub-heading" style="color:var(--creme);margin-bottom:8px">Sept états émotionnels,<br><em style="color:var(--dore-light)">trente-huit réponses</em></h2>
+      <p style="color:rgba(250,247,242,0.65);font-size:0.95rem;margin-bottom:0;line-height:1.8">Chaque famille correspond à un état intérieur. Les élixirs travaillent à la racine, pas en surface.</p>
+      <div class="familles-grid">
+        <div class="famille-card animate-in">
+          <div class="famille-emoji">😰</div>
+          <div class="famille-name">Peur</div>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Craintes, angoisses, phobies</p>
+        </div>
+        <div class="famille-card animate-in" style="transition-delay:0.05s">
+          <div class="famille-emoji">😶</div>
+          <div class="famille-name">Incertitude</div>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Doutes, indécision, manque de confiance</p>
+        </div>
+        <div class="famille-card animate-in" style="transition-delay:0.1s">
+          <div class="famille-emoji">😔</div>
+          <div class="famille-name">Manque d'intérêt</div>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Rêverie, passé, absentéisme intérieur</p>
+        </div>
+        <div class="famille-card animate-in" style="transition-delay:0.15s">
+          <div class="famille-emoji">🤍</div>
+          <div class="famille-name">Solitude</div>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Isolement, repli, incompréhension</p>
+        </div>
+        <div class="famille-card animate-in" style="transition-delay:0.2s">
+          <div class="famille-emoji">🤯</div>
+          <div class="famille-name">Hypersensibilité</div>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Influence des autres, pensées intrusives</p>
+        </div>
+        <div class="famille-card animate-in" style="transition-delay:0.25s">
+          <div class="famille-emoji">😤</div>
+          <div class="famille-name">Découragement</div>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Désespoir, culpabilité, sentiment d'échec</p>
+        </div>
+        <div class="famille-card animate-in" style="transition-delay:0.3s">
+          <div class="famille-emoji">🤝</div>
+          <div class="famille-name">Souci des autres</div>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Surprotection, impatience, tolérance</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN SÉANCE -->
+  <div class="tab-section">
+    <div class="container" style="max-width:880px">
+      <div class="section-label">En séance avec moi</div>
+      <h2 class="sub-heading" style="margin-bottom:32px">Un flacon <em>sur-mesure</em></h2>
+      <div class="seance-block animate-in">
+        <div class="seance-step">
+          <div class="seance-num">01</div>
+          <div class="seance-text">
+            <strong>Exploration douce des états émotionnels actuels</strong>
+            <p>Par la conversation et l'observation, j'identifie les états émotionnels dominants — ceux qui épuisent l'énergie vitale et fragilisent le terrain.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">02</div>
+          <div class="seance-text">
+            <strong>Sélection personnalisée — 5 à 7 fleurs maximum</strong>
+            <p>Un flacon de traitement contient au maximum 7 fleurs pour être efficace. La sélection est précise, ciblée, et révisée à chaque séance.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">03</div>
+          <div class="seance-text">
+            <strong>Préparation d'un flacon de traitement — 4 semaines</strong>
+            <p>À prendre 4 fois par jour, quelques gouttes. Simple, agréable, adapté à tous les âges — y compris les très jeunes enfants.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">04</div>
+          <div class="seance-text">
+            <strong>Réévaluation à chaque séance</strong>
+            <p>Les états émotionnels évoluent. Le flacon est adapté au fil des séances, reflétant le mouvement intérieur de la personne accompagnée.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CE QUE ÇA ACCOMPAGNE -->
+  <div class="tab-section tab-section-alt">
+    <div class="container">
+      <div class="section-label">Ce que ça accompagne</div>
+      <h2 class="sub-heading" style="margin-bottom:32px">Particulièrement adapté aux <em>transitions</em></h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div class="public-item animate-in">
+          <div class="public-item-title">🧒 Enfants & adolescents sensibles</div>
+          <ul>
+            <li>Anxiété de séparation, peurs nocturnes</li>
+            <li>Chocs émotionnels (séparation parentale, déménagement, deuil)</li>
+            <li>Manque de confiance, timidité excessive</li>
+            <li>Difficultés d'adaptation scolaire, refus d'école</li>
+          </ul>
+        </div>
+        <div class="public-item animate-in" style="transition-delay:0.1s">
+          <div class="public-item-title">🌀 États émotionnels complexes</div>
+          <ul>
+            <li>Colère, frustration, impatience chronique</li>
+            <li>Épuisement émotionnel, burnout parental</li>
+            <li>Grandes transitions de vie (divorce, déménagement, rentrée)</li>
+            <li>Deuils, pertes de personnes ou d'animaux</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-bach -->
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB 3 — RÉFLEXOLOGIE                      -->
+<!-- ══════════════════════════════════════════ -->
+<div id="tab-reflex" class="tab-content">
+
+  <div class="tab-section">
+    <div class="container">
+      <div class="section-label">La réflexologie</div>
+      <h2 class="sub-heading" style="margin-bottom:8px">Le corps <em>parle</em><br>à travers ses zones réflexes</h2>
+      <p class="sub-intro">Chaque organe, chaque partie du corps possède une zone réflexe — sur les pieds, les mains, le visage ou le crâne. Stimuler ces zones, c'est réveiller l'organe correspondant.</p>
+
+      <!-- SOUS-ONGLETS -->
+      <div class="sub-tabs-bar">
+        <button class="sub-tab-btn active" onclick="showSubTab('plantaire', this)">🦶 Plantaire</button>
+        <button class="sub-tab-btn" onclick="showSubTab('palmaire', this)">🖐️ Palmaire</button>
+        <button class="sub-tab-btn" onclick="showSubTab('faciale', this)">😌 Faciale</button>
+        <button class="sub-tab-btn" onclick="showSubTab('cranienne', this)">🧠 Crânienne</button>
+      </div>
+
+      <!-- PLANTAIRE -->
+      <div id="sub-plantaire" class="sub-tab-content active">
+        <div class="reflex-layout">
+          <div class="reflex-svg-wrap">
+            <svg viewBox="0 0 100 230" width="130" xmlns="http://www.w3.org/2000/svg">
+              <path d="M38,222 Q12,202 18,155 L20,82 Q22,32 38,20 Q50,10 62,20 Q72,30 70,82 L72,155 Q78,202 52,222 Z" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
+              <ellipse cx="50" cy="38" rx="16" ry="18" fill="#1B4D5C" opacity="0.72"/>
+              <text x="50" y="38" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Tête</text>
+              <ellipse cx="49" cy="90" rx="18" ry="24" fill="#8FA98B" opacity="0.72"/>
+              <text x="49" y="90" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Thorax</text>
+              <ellipse cx="49" cy="142" rx="19" ry="22" fill="#C4A265" opacity="0.72"/>
+              <text x="49" y="142" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Digestion</text>
+              <ellipse cx="50" cy="188" rx="21" ry="18" fill="#2A6B7E" opacity="0.68"/>
+              <text x="50" y="188" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Pelvis</text>
+            </svg>
+            <div class="reflex-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Tête & sinus</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Thorax & poumons</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Digestion & foie</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Pelvis & émonctoires</div>
+            </div>
+          </div>
+          <div>
+            <h3 class="sub-heading">Réflexologie <em>plantaire</em></h3>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">La voûte plantaire est une véritable carte du corps. En travaillant des points précis sous le pied, on stimule les organes correspondants et favorise leur drainage et leur rééquilibrage.</p>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Les pieds concentrent des milliers de terminaisons nerveuses — ce qui les rend particulièrement réactifs et efficaces pour ce travail réflexe.</p>
+            <div class="reflex-sub-label">En séance</div>
+            <ul class="treat-list">
+              <li>Durée : 45 à 60 minutes</li>
+              <li>Pression avec le pouce : ni douloureuse, ni superficielle</li>
+              <li>Sensation de chaleur et de circulation pendant la séance</li>
+              <li>Légèreté, détente profonde et parfois somnolence après</li>
+            </ul>
+            <div class="reflex-sub-label">Ce que ça accompagne</div>
+            <ul class="treat-list">
+              <li>Troubles digestifs, transit, constipation</li>
+              <li>Tensions musculaires et douleurs dorsales</li>
+              <li>Fatigue chronique et récupération difficile</li>
+              <li>Stress scolaire et préparation aux examens</li>
+              <li>Immunité fragilisée (protocole détox foie-intestins)</li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- /sub-plantaire -->
+
+      <!-- PALMAIRE -->
+      <div id="sub-palmaire" class="sub-tab-content">
+        <div class="reflex-layout">
+          <div class="reflex-svg-wrap">
+            <svg viewBox="0 0 100 200" width="120" xmlns="http://www.w3.org/2000/svg">
+              <rect x="22" y="85" width="56" height="96" rx="10" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
+              <rect x="24" y="22" width="11" height="66" rx="5.5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
+              <rect x="38" y="14" width="11" height="74" rx="5.5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
+              <rect x="52" y="17" width="11" height="70" rx="5.5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
+              <rect x="66" y="27" width="10" height="60" rx="5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
+              <rect x="25" y="23" width="9" height="26" rx="4.5" fill="#2A6B7E" opacity="0.65"/>
+              <rect x="39" y="15" width="9" height="26" rx="4.5" fill="#2A6B7E" opacity="0.65"/>
+              <rect x="53" y="18" width="9" height="26" rx="4.5" fill="#2A6B7E" opacity="0.65"/>
+              <rect x="67" y="28" width="8" height="23" rx="4" fill="#2A6B7E" opacity="0.65"/>
+              <ellipse cx="50" cy="108" rx="20" ry="13" fill="#1B4D5C" opacity="0.68"/>
+              <text x="50" y="108" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Thorax</text>
+              <ellipse cx="50" cy="133" rx="22" ry="14" fill="#C4A265" opacity="0.68"/>
+              <text x="50" y="133" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Digestion</text>
+              <ellipse cx="50" cy="160" rx="22" ry="15" fill="#8FA98B" opacity="0.68"/>
+              <text x="50" y="160" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Pelvis</text>
+            </svg>
+            <div class="reflex-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Tête & cerveau</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Thorax & cœur</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Digestion</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Pelvis</div>
+            </div>
+          </div>
+          <div>
+            <h3 class="sub-heading">Réflexologie <em>palmaire</em></h3>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">Comme pour le pied, la paume porte une carte réflexe complète du corps. La réflexologie palmaire est plus douce, idéale pour les enfants, et peut s'auto-pratiquer entre les séances.</p>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Elle est particulièrement utilisée pour l'apaisement émotionnel et nerveux — les mains étant directement reliées au système nerveux autonome.</p>
+            <div class="reflex-sub-label">En séance</div>
+            <ul class="treat-list">
+              <li>Durée : 30 à 45 minutes</li>
+              <li>Pression douce avec le pouce et l'index</li>
+              <li>Sensation de chaleur dans les mains et dans le corps</li>
+              <li>Particulièrement apaisante et très accessible</li>
+            </ul>
+            <div class="reflex-sub-label">Ce que ça accompagne</div>
+            <ul class="treat-list">
+              <li>Anxiété, stress, agitation nerveuse</li>
+              <li>Troubles du sommeil chez l'enfant</li>
+              <li>Maux de tête, migraines légères</li>
+              <li>Accompagnement émotionnel doux pour les plus jeunes</li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- /sub-palmaire -->
+
+      <!-- FACIALE -->
+      <div id="sub-faciale" class="sub-tab-content">
+        <div class="reflex-layout">
+          <div class="reflex-svg-wrap">
+            <svg viewBox="0 0 100 150" width="120" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="50" cy="75" rx="40" ry="52" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
+              <ellipse cx="50" cy="32" rx="30" ry="18" fill="#1B4D5C" opacity="0.7"/>
+              <text x="50" y="32" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Frontal</text>
+              <ellipse cx="50" cy="62" rx="28" ry="16" fill="#8FA98B" opacity="0.7"/>
+              <text x="50" y="62" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Sinus</text>
+              <ellipse cx="50" cy="88" rx="22" ry="14" fill="#C4A265" opacity="0.7"/>
+              <text x="50" y="88" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Nez</text>
+              <ellipse cx="50" cy="114" rx="28" ry="17" fill="#2A6B7E" opacity="0.7"/>
+              <text x="50" y="114" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Mâchoire</text>
+            </svg>
+            <div class="reflex-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Zone frontale</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Sinus & yeux</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Nez & pommettes</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Mâchoire & gorge</div>
+            </div>
+          </div>
+          <div>
+            <h3 class="sub-heading">Réflexologie <em>faciale</em></h3>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">Le visage est une zone réflexe d'une finesse remarquable. Les points faciaux permettent d'agir sur le physique (sinus, mâchoire, tensions cervicales) et sur le mental (recentrage, clarté).</p>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">La réflexologie faciale est aussi une invitation à reconnaître les tensions stockées dans le visage et à les relâcher en conscience.</p>
+            <div class="reflex-sub-label">En séance</div>
+            <ul class="treat-list">
+              <li>Durée : 30 à 45 minutes</li>
+              <li>Pression légère avec les doigts — aucune douleur</li>
+              <li>Sensation de décompression au niveau des sinus et du crâne</li>
+              <li>Apaisement mental et clarté après la séance</li>
+            </ul>
+            <div class="reflex-sub-label">Ce que ça accompagne</div>
+            <ul class="treat-list">
+              <li>Sinusite, allergies, encombrement ORL</li>
+              <li>Tensions de mâchoire, bruxisme</li>
+              <li>Maux de tête, migraines</li>
+              <li>Anxiété et manque de concentration</li>
+              <li>Recentrage émotionnel et lâcher-prise</li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- /sub-faciale -->
+
+      <!-- CRÂNIENNE -->
+      <div id="sub-cranienne" class="sub-tab-content">
+        <div class="reflex-layout">
+          <div class="reflex-svg-wrap">
+            <svg viewBox="0 0 110 130" width="130" xmlns="http://www.w3.org/2000/svg">
+              <path d="M55,8 Q92,8 97,50 Q100,82 82,106 Q72,122 55,122 Q38,122 26,108 Q14,94 14,68 Q14,28 55,8 Z" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
+              <ellipse cx="60" cy="28" rx="26" ry="17" fill="#1B4D5C" opacity="0.7"/>
+              <text x="60" y="28" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Sommet</text>
+              <ellipse cx="84" cy="60" rx="13" ry="22" fill="#8FA98B" opacity="0.7"/>
+              <text x="84" y="60" text-anchor="middle" dominant-baseline="central" fill="white" font-size="6.5" font-family="sans-serif" font-weight="500">Temple</text>
+              <ellipse cx="30" cy="65" rx="15" ry="24" fill="#C4A265" opacity="0.7"/>
+              <text x="30" y="65" text-anchor="middle" dominant-baseline="central" fill="white" font-size="6.5" font-family="sans-serif" font-weight="500">Occiput</text>
+              <ellipse cx="57" cy="100" rx="24" ry="16" fill="#2A6B7E" opacity="0.7"/>
+              <text x="57" y="100" text-anchor="middle" dominant-baseline="central" fill="white" font-size="6.5" font-family="sans-serif" font-weight="500">Crânio-sacré</text>
+            </svg>
+            <div class="reflex-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Sommet</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Zones temporales</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Zone occipitale</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Zone crânio-sacrée</div>
+            </div>
+          </div>
+          <div>
+            <h3 class="sub-heading">Réflexologie <em>crânienne</em></h3>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">La réflexologie crânienne agit sur le système nerveux central via les sutures crâniennes. C'est une approche profonde et très apaisante, particulièrement efficace pour les profils hyperactifs ou très stressés.</p>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Elle s'inspire de l'ostéopathie crânio-sacrée et travaille sur les rythmes subtils du liquide cérébrospinal, libérant les tensions profondes accumulées.</p>
+            <div class="reflex-sub-label">En séance</div>
+            <ul class="treat-list">
+              <li>Durée : 45 à 60 minutes</li>
+              <li>Pression très légère, presque imperceptible</li>
+              <li>État méditatif profond fréquent pendant la séance</li>
+              <li>Sensation de légèreté crânienne et de clarté mentale après</li>
+            </ul>
+            <div class="reflex-sub-label">Ce que ça accompagne</div>
+            <ul class="treat-list">
+              <li>Migraines chroniques, céphalées de tension</li>
+              <li>Troubles du sommeil profond</li>
+              <li>Hyperactivité, difficultés de concentration (TDAH, HPI)</li>
+              <li>Stress post-traumatique, chocs nerveux</li>
+              <li>Épuisement mental et surcharge cognitive</li>
+            </ul>
+          </div>
+        </div>
+      </div><!-- /sub-cranienne -->
+
+    </div>
+  </div>
+
+</div><!-- /tab-reflex -->
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB 4 — KINÉSIOLOGIE                      -->
+<!-- ══════════════════════════════════════════ -->
+<div id="tab-kinesio" class="tab-content">
+
+  <!-- C'EST QUOI -->
+  <div class="tab-section">
+    <div class="container">
+      <div class="section-label">La kinésiologie</div>
+      <div class="principle-grid animate-in">
+        <div>
+          <h2 class="sub-heading">Le corps comme <em>baromètre</em><br>émotionnel et mental</h2>
+          <p class="sub-intro">La kinésiologie utilise le test musculaire pour établir un dialogue direct avec le système nerveux — et libérer ce qui bloque.</p>
+          <div class="principle-text">
+            <p>Née dans les années 1960, fondée sur l'ostéopathie et la médecine traditionnelle chinoise, la kinésiologie part d'un constat : <strong>le corps stocke les émotions</strong>. Stress, peurs, traumatismes légers — tout cela laisse des traces dans le système neuro-musculaire.</p>
+            <p>Le <strong>test musculaire</strong> permet de lire ces traces sans avoir besoin de les verbaliser. Un dialogue direct, précis, que le corps mène avec lui-même — avec le kinésiologue comme guide.</p>
+            <p>Ce qui est remarquable : <strong>il n'est pas nécessaire de "comprendre" intellectuellement</strong> pour libérer un blocage. Le corps sait ce dont il a besoin — la kinésiologie lui donne l'espace pour s'exprimer.</p>
+          </div>
+        </div>
+        <div class="principle-callout" style="background:linear-gradient(135deg, #3D2B6B, #1B4D5C)">
+          <blockquote>
+            « Souvent, les personnes repartent d'une séance avec une sensation de légèreté inexplicable — comme si un poids avait été déposé sans qu'elles aient eu besoin de le nommer. »
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EN SÉANCE -->
+  <div class="tab-section tab-section-alt">
+    <div class="container" style="max-width:880px">
+      <div class="section-label">En séance avec moi</div>
+      <h2 class="sub-heading" style="margin-bottom:8px">Une atmosphère <em>rassurante</em>,<br>une approche non-invasive</h2>
+      <p style="font-size:0.95rem;color:var(--texte-light);margin-bottom:32px;line-height:1.8">Pas de matériel intimidant, pas de déshabillage, pas de douleur. Juste une conversation entre vous et votre système nerveux — que je guide avec douceur.</p>
+      <div class="seance-block animate-in">
+        <div class="seance-step">
+          <div class="seance-num">01</div>
+          <div class="seance-text">
+            <strong>Habillé(e), allongé(e) confortablement</strong>
+            <p>La séance se déroule sur une table de massage, avec tous vos vêtements. L'atmosphère est calme, la musique douce. Aucun inconfort.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">02</div>
+          <div class="seance-text">
+            <strong>Le test musculaire — doux et précis</strong>
+            <p>En testant la résistance de votre bras, j'établis un dialogue avec votre système nerveux. Ni douloureux ni contraignant — juste une légère pression, un instant.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">03</div>
+          <div class="seance-text">
+            <strong>Identification et libération des blocages</strong>
+            <p>Par des techniques douces — points énergétiques, mouvements oculaires, balayages — les blocages identifiés sont travaillés et libérés progressivement.</p>
+          </div>
+        </div>
+        <div class="seance-step">
+          <div class="seance-num">04</div>
+          <div class="seance-text">
+            <strong>Légèreté et clarté après la séance</strong>
+            <p>Beaucoup de personnes ressentent une profonde légèreté, parfois une douce somnolence. Des rêves actifs dans les jours suivants sont courants — le corps continue de travailler.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CE QUE ÇA ACCOMPAGNE -->
+  <div class="tab-section">
+    <div class="container">
+      <div class="section-label">Ce que ça accompagne</div>
+      <h2 class="sub-heading" style="margin-bottom:32px">Blocages <em>persistants</em>,<br>réponses en profondeur</h2>
+      <div class="public-grid">
+        <div class="public-item animate-in">
+          <div class="public-item-age">Émotionnel</div>
+          <div class="public-item-title">🔓 Libérer</div>
+          <ul>
+            <li>Blocages émotionnels persistants</li>
+            <li>Stress et anxiété chroniques</li>
+            <li>Phobies et peurs limitantes</li>
+            <li>Chocs émotionnels non digérés</li>
+          </ul>
+        </div>
+        <div class="public-item animate-in" style="transition-delay:0.1s">
+          <div class="public-item-age">Cognitif</div>
+          <div class="public-item-title">🧠 Déverrouiller</div>
+          <ul>
+            <li>Difficultés d'apprentissage</li>
+            <li>Manque de concentration, TDAH</li>
+            <li>HPI et profils atypiques</li>
+            <li>Dyslexie et troubles "dys"</li>
+          </ul>
+        </div>
+        <div class="public-item animate-in" style="transition-delay:0.2s">
+          <div class="public-item-age">Identitaire</div>
+          <div class="public-item-title">✨ Ancrer</div>
+          <ul>
+            <li>Manque de confiance en soi</li>
+            <li>Affirmation et assertivité</li>
+            <li>Douleurs chroniques d'origine émotionnelle</li>
+            <li>Épuisement sans cause médicale identifiée</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-kinesio -->
+
+</main>
+
+<!-- ══════ CTA FINAL ══════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center">Prêt(e) à commencer ?</div>
+    <h2 class="cta-title">
+      Ces 4 approches se complètent<br>et <em>s'adaptent à votre situation</em>
+    </h2>
+    <p>Commencez par l'Audit Santé pour identifier les priorités — ou contactez-moi directement pour toute question.</p>
+    <div class="cta-buttons">
+      <a href="/audit" class="btn-primary">Commencer l'Audit Santé →</a>
+      <a href="mailto:arielle.de.maistre@gmail.com" class="btn-secondary">Poser une question</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Flux <span>&</span> Équilibre</div>
+      <ul class="footer-links">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/methode">Méthode</a></li>
+        <li><a href="/about">À propos</a></li>
+        <li><a href="/audit">Audit Santé</a></li>
+        <li><a href="mailto:arielle.de.maistre@gmail.com">Contact</a></li>
+        <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      © 2026 Flux & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── TABS PRINCIPAUX ──
+function showTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  btn.classList.add('active');
+  // Trigger animation for newly visible elements
+  document.querySelectorAll('#tab-' + tabId + ' .animate-in:not(.visible)').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+// ── SOUS-ONGLETS RÉFLEXOLOGIE ──
+function showSubTab(subId, btn) {
+  document.querySelectorAll('.sub-tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sub-' + subId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── ANIMATIONS AU SCROLL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+// ── NAV SCROLL ──
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  navEl.style.boxShadow = window.scrollY > 40
+    ? '0 4px 30px rgba(27,77,92,0.1)'
+    : '0 1px 30px rgba(27,77,92,0.06)';
+});
+
+// ── MOBILE NAV ──
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';
+  }
+});
+</script>
+
+</body>
+</html>

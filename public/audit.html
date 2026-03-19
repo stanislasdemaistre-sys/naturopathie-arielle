@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Audit Horizon Santé — Flux & Équilibre</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="/jspdf.min.js"></script>
 <style>
 :root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
@@ -99,11 +99,54 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
 .results-cta .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .results-cta p{font-size:.82rem;color:var(--tx-l)}
 .hidden{display:none!important}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 0;background:rgba(250,247,242,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(27,77,92,0.06);transition:all .4s ease}
+nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo-icon{width:34px;height:34px}
+.nav-logo-icon svg{width:100%;height:100%}
+.nav-logo-text{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem;font-weight:400;color:#1B4D5C}
+.nav-logo-text span{color:#C4A265;font-weight:300}
+.nav-list{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-list a{font-family:'Outfit',system-ui,sans-serif;font-size:.85rem;font-weight:400;color:#1B4D5C;text-decoration:none;letter-spacing:.5px;position:relative;transition:color .3s}
+.nav-list a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:#C4A265;transition:width .3s ease}
+.nav-list a:hover{color:#C4A265}
+.nav-list a:hover::after{width:100%}
+.nav-list .nav-cta-btn{background:#1B4D5C!important;color:#FAF7F2!important;padding:10px 24px;border-radius:50px;font-size:.82rem!important;font-weight:500!important;transition:all .3s ease!important}
+.nav-list .nav-cta-btn:hover{background:#2A6B7E!important;transform:translateY(-1px)}
+.nav-list .nav-cta-btn::after{display:none!important}
+.nav-list .nav-active{color:#C4A265!important}
+.nav-list .nav-active::after{width:100%!important}
+.nav-mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-mobile-toggle span{width:22px;height:1.5px;background:#1B4D5C;display:block;transition:all .3s}
 @media(max-width:640px){.app{padding:24px 16px 60px}.intro-card,.question-card,.fleur-section,.alerts-section{padding:28px 20px}.child-form{grid-template-columns:1fr}.intro-details{flex-direction:column;align-items:center;gap:12px}.question-text{font-size:1.15rem}.oligo-suggestion{padding:28px 20px}.fleur-tooltip{width:300px}}
 </style>
 </head>
 <body>
-<div class="app" id="app">
+<nav id="auditNav">
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
+          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
+          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
+        </svg>
+      </div>
+      <div class="nav-logo-text">Flux <span>&</span> Équilibre</div>
+    </a>
+    <ul class="nav-list">
+      <li><a href="/methode">Méthode</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/audit" class="nav-cta-btn nav-active">Audit Santé</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="app" id="app" style="padding-top:100px">
   <div id="screen-intro">
     <div class="header">
       <div class="header-logo">Flux <span>&</span> Équilibre</div>
@@ -120,8 +163,9 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
         <div class="intro-detail"><div class="icon">🔒</div><span>Confidentiel</span></div>
       </div>
       <div class="child-form">
-        <div class="form-group"><label>Prénom de l'enfant</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
+        <div class="form-group"><label for="childName" id="labelChildName">Prénom de l'enfant</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
         <div class="form-group"><label>Âge</label><select id="childAge"><option value="">Sélectionner</option><option>3-5 ans</option><option>6-8 ans</option><option>9-11 ans</option><option>12-14 ans</option><option>15-17 ans</option><option>18-25 ans</option></select></div>
+        <div class="form-group" style="grid-column:1/-1"><label id="labelClientEmail">Votre email (optionnel — pour recevoir le bilan PDF)</label><input type="email" id="clientEmail" placeholder="Ex : sophie@email.com" /></div>
       </div>
       <button class="btn btn-primary" onclick="startAudit()">Commencer l'audit <span>→</span></button>
     </div>
@@ -139,120 +183,152 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
 // Approche naturo de terrain : émonctoires, surcharges, intestin
 // ═══════════════════════════════════════════════════════════════
 
+function isAdult(){return['15-17 ans','18-25 ans'].includes(state.childAge);}
+
 const QUESTIONS = [
   // ── SOMMEIL (3 questions, 4 réponses chacune) ──
-  {id:'som1',petale:'sommeil',texte:"Comment se passent les nuits de votre enfant ?",
+  {id:'som1',petale:'sommeil',
+    texte:"Comment se passent les nuits de votre enfant ?",
+    texteAdulte:"Comment se passent tes nuits ?",
     options:[
-      {texte:"Il s'endort vite et dort d'une traite toute la nuit",val:0},
-      {texte:"L'endormissement prend un peu de temps, mais le sommeil est correct",val:1},
-      {texte:"Réveil difficile le matin, il lui faut beaucoup de temps pour émerger",val:2},
-      {texte:"Sommeil très agité : cauchemars fréquents, réveils multiples ou insomnies",val:3}
+      {texte:"Il s'endort vite et dort d'une traite toute la nuit",texteAdulte:"Tu t'endors vite et tu dors d'une traite toute la nuit",val:0},
+      {texte:"L'endormissement prend un peu de temps, mais le sommeil est correct",texteAdulte:"L'endormissement prend un peu de temps, mais ton sommeil est correct",val:1},
+      {texte:"Réveil difficile le matin, il lui faut beaucoup de temps pour émerger",texteAdulte:"Le réveil est difficile le matin, il te faut beaucoup de temps pour émerger",val:2},
+      {texte:"Sommeil très agité : cauchemars fréquents, réveils multiples ou insomnies",texteAdulte:"Ton sommeil est très agité : cauchemars fréquents, réveils multiples ou insomnies",val:3}
     ]},
-  {id:'som2',petale:'sommeil',texte:"Au réveil, quel est son niveau d'énergie ?",
+  {id:'som2',petale:'sommeil',
+    texte:"Au réveil, quel est son niveau d'énergie ?",
+    texteAdulte:"Au réveil, quel est ton niveau d'énergie ?",
     options:[
-      {texte:"Il se lève seul, de bonne humeur, prêt pour la journée",val:0},
-      {texte:"Il a besoin d'un petit temps de mise en route mais ça va",val:1},
-      {texte:"Il est souvent fatigué même après une nuit complète",val:2},
-      {texte:"Il est épuisé au réveil, impossible de le lever sans conflit",val:3}
+      {texte:"Il se lève seul, de bonne humeur, prêt pour la journée",texteAdulte:"Tu te lèves seul·e, de bonne humeur, prêt·e pour la journée",val:0},
+      {texte:"Il a besoin d'un petit temps de mise en route mais ça va",texteAdulte:"Tu as besoin d'un petit temps de mise en route mais ça va",val:1},
+      {texte:"Il est souvent fatigué même après une nuit complète",texteAdulte:"Tu es souvent fatigué·e même après une nuit complète",val:2},
+      {texte:"Il est épuisé au réveil, impossible de le lever sans conflit",texteAdulte:"Tu es épuisé·e au réveil, impossible de te lever sans difficulté",val:3}
     ]},
-  {id:'som3',petale:'sommeil',texte:"Observe-t-on des rituels perturbés autour du coucher ?",
+  {id:'som3',petale:'sommeil',
+    texte:"Observe-t-on des rituels perturbés autour du coucher ?",
+    texteAdulte:"Tu as des rituels perturbés autour du coucher ?",
     options:[
-      {texte:"Non, il a un rythme régulier et apaisé",val:0},
-      {texte:"Écrans le soir ou coucher un peu tardif, mais ça se gère",val:1},
-      {texte:"Il repousse le coucher, a peur du noir ou demande votre présence",val:2},
-      {texte:"Le coucher est une source de tension quotidienne",val:3}
+      {texte:"Non, il a un rythme régulier et apaisé",texteAdulte:"Non, tu as un rythme régulier et apaisé",val:0},
+      {texte:"Écrans le soir ou coucher un peu tardif, mais ça se gère",texteAdulte:"Écrans le soir ou coucher un peu tardif, mais ça se gère",val:1},
+      {texte:"Il repousse le coucher, a peur du noir ou demande votre présence",texteAdulte:"Tu repousses le coucher, tu as du mal à t'endormir seul·e",val:2},
+      {texte:"Le coucher est une source de tension quotidienne",texteAdulte:"Le coucher est une source de tension quotidienne pour toi",val:3}
     ]},
 
   // ── ÉCLAT / SURCHARGES (émonctoires : Foie, Peau, Intestins) ──
-  {id:'ecl1',petale:'eclat',texte:"Comment est l'état de sa peau actuellement ?",
+  {id:'ecl1',petale:'eclat',
+    texte:"Comment est l'état de sa peau actuellement ?",
+    texteAdulte:"Comment est l'état de ta peau actuellement ?",
     options:[
-      {texte:"Peau nette, sans imperfection particulière",val:0},
-      {texte:"Quelques boutons ou rougeurs occasionnels",val:1},
-      {texte:"Peau grasse, imperfections régulières ou eczéma récurrent",val:2},
-      {texte:"Acné marquée, eczéma étendu ou peau très réactive au moindre changement",val:3}
+      {texte:"Peau nette, sans imperfection particulière",texteAdulte:"Peau nette, sans imperfection particulière",val:0},
+      {texte:"Quelques boutons ou rougeurs occasionnels",texteAdulte:"Quelques boutons ou rougeurs occasionnels",val:1},
+      {texte:"Peau grasse, imperfections régulières ou eczéma récurrent",texteAdulte:"Peau grasse, imperfections régulières ou eczéma récurrent",val:2},
+      {texte:"Acné marquée, eczéma étendu ou peau très réactive au moindre changement",texteAdulte:"Acné marquée, eczéma étendu ou peau très réactive au moindre changement",val:3}
     ]},
-  {id:'ecl2',petale:'eclat',texte:"Comment se comporte sa digestion au quotidien ?",
+  {id:'ecl2',petale:'eclat',
+    texte:"Comment se comporte sa digestion au quotidien ?",
+    texteAdulte:"Comment se comporte ta digestion au quotidien ?",
     options:[
-      {texte:"Digestion fluide, aucune plainte",val:0},
-      {texte:"Quelques ballonnements après les repas, rien d'alarmant",val:1},
-      {texte:"Ballonnements fréquents, transit irrégulier ou maux de ventre réguliers",val:2},
-      {texte:"Douleurs digestives récurrentes, constipation chronique ou diarrhées fréquentes",val:3}
+      {texte:"Digestion fluide, aucune plainte",texteAdulte:"Digestion fluide, aucune plainte",val:0},
+      {texte:"Quelques ballonnements après les repas, rien d'alarmant",texteAdulte:"Quelques ballonnements après les repas, rien d'alarmant",val:1},
+      {texte:"Ballonnements fréquents, transit irrégulier ou maux de ventre réguliers",texteAdulte:"Ballonnements fréquents, transit irrégulier ou maux de ventre réguliers",val:2},
+      {texte:"Douleurs digestives récurrentes, constipation chronique ou diarrhées fréquentes",texteAdulte:"Douleurs digestives récurrentes, constipation chronique ou diarrhées fréquentes",val:3}
     ]},
-  {id:'ecl3',petale:'eclat',texte:"Remarquez-vous des signes de surcharge (teint, haleine, langue) ?",
+  {id:'ecl3',petale:'eclat',
+    texte:"Remarquez-vous des signes de surcharge (teint, haleine, langue) ?",
+    texteAdulte:"Tu remarques des signes de surcharge (teint, haleine, langue) ?",
     options:[
-      {texte:"Teint frais, aucun signe particulier",val:0},
-      {texte:"Teint un peu terne par moments, cernes légères",val:1},
-      {texte:"Teint brouillé, langue chargée le matin ou mauvaise haleine fréquente",val:2},
-      {texte:"Plusieurs signes combinés : teint gris, transpiration forte, langue très chargée",val:3}
+      {texte:"Teint frais, aucun signe particulier",texteAdulte:"Teint frais, aucun signe particulier",val:0},
+      {texte:"Teint un peu terne par moments, cernes légères",texteAdulte:"Teint un peu terne par moments, cernes légères",val:1},
+      {texte:"Teint brouillé, langue chargée le matin ou mauvaise haleine fréquente",texteAdulte:"Teint brouillé, langue chargée le matin ou mauvaise haleine fréquente",val:2},
+      {texte:"Plusieurs signes combinés : teint gris, transpiration forte, langue très chargée",texteAdulte:"Plusieurs signes combinés : teint gris, transpiration forte, langue très chargée",val:3}
     ]},
 
   // ── SÉRÉNITÉ (stress, système nerveux) ──
-  {id:'ser1',petale:'serenite',texte:"Comment réagit-il face à une situation stressante (contrôle, conflit, rentrée) ?",
+  {id:'ser1',petale:'serenite',
+    texte:"Comment réagit-il face à une situation stressante (contrôle, conflit, rentrée) ?",
+    texteAdulte:"Comment réagis-tu face à une situation stressante (exam, conflit, changement) ?",
     options:[
-      {texte:"Il gère bien, reste calme et s'adapte rapidement",val:0},
-      {texte:"Un peu d'appréhension au début, mais ça passe",val:1},
-      {texte:"Inquiet avant l'école ou les évaluations, signes physiques visibles (maux de ventre, agitation)",val:2},
-      {texte:"Crises d'angoisse, blocage complet ou évitement systématique",val:3}
+      {texte:"Il gère bien, reste calme et s'adapte rapidement",texteAdulte:"Tu gères bien, tu restes calme et tu t'adaptes rapidement",val:0},
+      {texte:"Un peu d'appréhension au début, mais ça passe",texteAdulte:"Un peu d'appréhension au début, mais ça passe",val:1},
+      {texte:"Inquiet avant l'école ou les évaluations, signes physiques visibles (maux de ventre, agitation)",texteAdulte:"Tu te sens inquiet·e avant les évaluations ou les événements, signes physiques visibles",val:2},
+      {texte:"Crises d'angoisse, blocage complet ou évitement systématique",texteAdulte:"Crises d'angoisse, blocage complet ou évitement systématique",val:3}
     ]},
-  {id:'ser2',petale:'serenite',texte:"Comment gère-t-il ses émotions au quotidien ?",
+  {id:'ser2',petale:'serenite',
+    texte:"Comment gère-t-il ses émotions au quotidien ?",
+    texteAdulte:"Comment gères-tu tes émotions au quotidien ?",
     options:[
-      {texte:"Il sait exprimer ce qu'il ressent avec des mots",val:0},
-      {texte:"Il a parfois du mal, mais on arrive à en parler",val:1},
-      {texte:"Réactions disproportionnées : colères soudaines, pleurs intenses ou repli sur soi",val:2},
-      {texte:"Il explose ou se ferme complètement, impossible de communiquer",val:3}
+      {texte:"Il sait exprimer ce qu'il ressent avec des mots",texteAdulte:"Tu sais exprimer ce que tu ressens avec des mots",val:0},
+      {texte:"Il a parfois du mal, mais on arrive à en parler",texteAdulte:"Tu as parfois du mal, mais tu arrives à en parler",val:1},
+      {texte:"Réactions disproportionnées : colères soudaines, pleurs intenses ou repli sur soi",texteAdulte:"Réactions disproportionnées : colères soudaines, pleurs intenses ou repli sur toi",val:2},
+      {texte:"Il explose ou se ferme complètement, impossible de communiquer",texteAdulte:"Tu exploses ou tu te fermes complètement, impossible de communiquer",val:3}
     ]},
-  {id:'ser3',petale:'serenite',texte:"Son corps manifeste-t-il du stress (somatisation) ?",
+  {id:'ser3',petale:'serenite',
+    texte:"Son corps manifeste-t-il du stress (somatisation) ?",
+    texteAdulte:"Ton corps manifeste-t-il du stress (somatisation) ?",
     options:[
-      {texte:"Aucune manifestation physique liée au stress",val:0},
-      {texte:"Quelques maux de tête ou de ventre en période d'examen",val:1},
-      {texte:"Maux physiques récurrents avant les événements stressants",val:2},
-      {texte:"Manifestations physiques quasi permanentes (tics, ongles rongés, douleurs chroniques)",val:3}
+      {texte:"Aucune manifestation physique liée au stress",texteAdulte:"Aucune manifestation physique liée au stress",val:0},
+      {texte:"Quelques maux de tête ou de ventre en période d'examen",texteAdulte:"Quelques maux de tête ou de ventre en période d'examen",val:1},
+      {texte:"Maux physiques récurrents avant les événements stressants",texteAdulte:"Maux physiques récurrents avant les événements stressants",val:2},
+      {texte:"Manifestations physiques quasi permanentes (tics, ongles rongés, douleurs chroniques)",texteAdulte:"Manifestations physiques quasi permanentes (tics, ongles rongés, douleurs chroniques)",val:3}
     ]},
 
   // ── IMMUNITÉ (terrain, flore, résistance) ──
-  {id:'imm1',petale:'immunite',texte:"Combien de fois a-t-il été malade ces 6 derniers mois ?",
+  {id:'imm1',petale:'immunite',
+    texte:"Combien de fois a-t-il été malade ces 6 derniers mois ?",
+    texteAdulte:"Combien de fois as-tu été malade ces 6 derniers mois ?",
     options:[
-      {texte:"0 à 1 fois, il résiste bien",val:0},
-      {texte:"2 à 3 fois, dans la normale saisonnière",val:1},
-      {texte:"4 à 5 fois, souvent enrhumé ou fatigué",val:2},
-      {texte:"Plus de 5 fois, infections à répétition ou traitements antibiotiques fréquents",val:3}
+      {texte:"0 à 1 fois, il résiste bien",texteAdulte:"0 à 1 fois, tu résistes bien",val:0},
+      {texte:"2 à 3 fois, dans la normale saisonnière",texteAdulte:"2 à 3 fois, dans la normale saisonnière",val:1},
+      {texte:"4 à 5 fois, souvent enrhumé ou fatigué",texteAdulte:"4 à 5 fois, souvent enrhumé·e ou fatigué·e",val:2},
+      {texte:"Plus de 5 fois, infections à répétition ou traitements antibiotiques fréquents",texteAdulte:"Plus de 5 fois, infections à répétition ou traitements antibiotiques fréquents",val:3}
     ]},
-  {id:'imm2',petale:'immunite',texte:"Comment récupère-t-il après une maladie ou un coup de fatigue ?",
+  {id:'imm2',petale:'immunite',
+    texte:"Comment récupère-t-il après une maladie ou un coup de fatigue ?",
+    texteAdulte:"Comment récupères-tu après une maladie ou un coup de fatigue ?",
     options:[
-      {texte:"Récupération rapide, il rebondit vite",val:0},
-      {texte:"Quelques jours de plus que la moyenne pour se remettre",val:1},
-      {texte:"Convalescence longue, rechutes fréquentes",val:2},
-      {texte:"Fatigue persistante après chaque épisode, il enchaîne les infections",val:3}
+      {texte:"Récupération rapide, il rebondit vite",texteAdulte:"Récupération rapide, tu rebondis vite",val:0},
+      {texte:"Quelques jours de plus que la moyenne pour se remettre",texteAdulte:"Quelques jours de plus que la moyenne pour te remettre",val:1},
+      {texte:"Convalescence longue, rechutes fréquentes",texteAdulte:"Convalescence longue, rechutes fréquentes",val:2},
+      {texte:"Fatigue persistante après chaque épisode, il enchaîne les infections",texteAdulte:"Fatigue persistante après chaque épisode, tu enchaînes les infections",val:3}
     ]},
-  {id:'imm3',petale:'immunite',texte:"Présente-t-il des signes d'allergie ou d'intolérance alimentaire ?",
+  {id:'imm3',petale:'immunite',
+    texte:"Présente-t-il des signes d'allergie ou d'intolérance alimentaire ?",
+    texteAdulte:"Tu as des allergies ou des intolérances alimentaires ?",
     options:[
-      {texte:"Aucune allergie ni sensibilité connue",val:0},
-      {texte:"Allergies saisonnières légères, bien gérées",val:1},
-      {texte:"Allergies régulières nécessitant un traitement, ou suspicion d'intolérance alimentaire",val:2},
-      {texte:"Allergies multiples, intolérances diagnostiquées ou terrain atopique marqué",val:3}
+      {texte:"Aucune allergie ni sensibilité connue",texteAdulte:"Aucune allergie ni sensibilité connue",val:0},
+      {texte:"Allergies saisonnières légères, bien gérées",texteAdulte:"Allergies saisonnières légères, bien gérées",val:1},
+      {texte:"Allergies régulières nécessitant un traitement, ou suspicion d'intolérance alimentaire",texteAdulte:"Allergies régulières nécessitant un traitement, ou suspicion d'intolérance alimentaire",val:2},
+      {texte:"Allergies multiples, intolérances diagnostiquées ou terrain atopique marqué",texteAdulte:"Allergies multiples, intolérances diagnostiquées ou terrain atopique marqué",val:3}
     ]},
 
   // ── CONFIANCE (estime de soi, ancrage) ──
-  {id:'conf1',petale:'confiance',texte:"Comment se positionne-t-il face à un défi ou une difficulté ?",
+  {id:'conf1',petale:'confiance',
+    texte:"Comment se positionne-t-il face à un défi ou une difficulté ?",
+    texteAdulte:"Comment te positionnes-tu face à un défi ou une difficulté ?",
     options:[
-      {texte:"Il fonce, il aime essayer de nouvelles choses",val:0},
-      {texte:"Il hésite un peu mais finit par se lancer",val:1},
-      {texte:"Il doute beaucoup, il a besoin d'être rassuré avant d'agir",val:2},
-      {texte:"Il refuse ou dit « je suis nul, je n'y arriverai pas »",val:3}
+      {texte:"Il fonce, il aime essayer de nouvelles choses",texteAdulte:"Tu fonces, tu aimes essayer de nouvelles choses",val:0},
+      {texte:"Il hésite un peu mais finit par se lancer",texteAdulte:"Tu hésites un peu mais tu finis par te lancer",val:1},
+      {texte:"Il doute beaucoup, il a besoin d'être rassuré avant d'agir",texteAdulte:"Tu doutes beaucoup, tu as besoin d'être rassuré·e avant d'agir",val:2},
+      {texte:"Il refuse ou dit « je suis nul, je n'y arriverai pas »",texteAdulte:"Tu refuses ou tu te dis « je suis nul·le, je n'y arriverai pas »",val:3}
     ]},
-  {id:'conf2',petale:'confiance',texte:"Comment se sent-il dans ses relations avec les autres enfants ?",
+  {id:'conf2',petale:'confiance',
+    texte:"Comment se sent-il dans ses relations avec les autres enfants ?",
+    texteAdulte:"Comment te sens-tu dans tes relations avec les autres ?",
     options:[
-      {texte:"Il a de bons amis et se sent bien dans le groupe",val:0},
-      {texte:"Globalement à l'aise, avec quelques hauts et bas normaux",val:1},
-      {texte:"Il se sent souvent à l'écart, différent ou pas à sa place",val:2},
-      {texte:"Il est isolé, moqué, ou évite activement les interactions",val:3}
+      {texte:"Il a de bons amis et se sent bien dans le groupe",texteAdulte:"Tu as de bons amis et tu te sens bien dans le groupe",val:0},
+      {texte:"Globalement à l'aise, avec quelques hauts et bas normaux",texteAdulte:"Globalement à l'aise, avec quelques hauts et bas normaux",val:1},
+      {texte:"Il se sent souvent à l'écart, différent ou pas à sa place",texteAdulte:"Tu te sens souvent à l'écart, différent·e ou pas à ta place",val:2},
+      {texte:"Il est isolé, moqué, ou évite activement les interactions",texteAdulte:"Tu es isolé·e ou tu évites activement les interactions",val:3}
     ]},
-  {id:'conf3',petale:'confiance',texte:"Comment est son rapport à son corps et à son image ?",
+  {id:'conf3',petale:'confiance',
+    texte:"Comment est son rapport à son corps et à son image ?",
+    texteAdulte:"Comment es-tu dans ton rapport à ton corps et à ton image ?",
     options:[
-      {texte:"Il est à l'aise avec son corps, ne s'en préoccupe pas",val:0},
-      {texte:"Quelques remarques sur son apparence, mais rien d'envahissant",val:1},
-      {texte:"Complexes visibles, il se compare souvent ou se dévalorise",val:2},
-      {texte:"Mal-être corporel marqué qui impacte son quotidien (se cache, refuse certaines activités)",val:3}
+      {texte:"Il est à l'aise avec son corps, ne s'en préoccupe pas",texteAdulte:"Tu es à l'aise avec ton corps, tu ne t'en préoccupes pas",val:0},
+      {texte:"Quelques remarques sur son apparence, mais rien d'envahissant",texteAdulte:"Quelques remarques sur ton apparence, mais rien d'envahissant",val:1},
+      {texte:"Complexes visibles, il se compare souvent ou se dévalorise",texteAdulte:"Des complexes visibles, tu te compares souvent ou tu te dévalorise",val:2},
+      {texte:"Mal-être corporel marqué qui impacte son quotidien (se cache, refuse certaines activités)",texteAdulte:"Un mal-être corporel marqué qui impacte ton quotidien (tu te caches, tu refuses certaines activités)",val:3}
     ]}
 ];
 
@@ -298,13 +374,13 @@ function elision(p){
   return 'aeiouyàâäéèêëïîôùûüœæ'.includes(c) ? "d'" : "de ";
 }
 
-let state={childName:'',childAge:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};
+let state={childName:'',childAge:'',clientEmail:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};
 let activeTooltipPetal=null;
 
 function startAudit(){
   const n=document.getElementById('childName').value.trim();
   if(!n){document.getElementById('childName').style.borderColor='#D4786A';document.getElementById('childName').focus();return;}
-  state.childName=n;state.childAge=document.getElementById('childAge').value;
+  state.childName=n;state.childAge=document.getElementById('childAge').value;state.clientEmail=document.getElementById('clientEmail').value.trim();
   document.getElementById('screen-intro').classList.add('hidden');
   document.getElementById('screen-questions').classList.remove('hidden');
   renderQuestion();
@@ -319,11 +395,11 @@ function renderQuestion(){
   document.getElementById('questionContainer').innerHTML=`
     <div class="question-card slide-enter">
       <div class="question-petal-badge">${petal.icone} ${petal.label}</div>
-      <div class="question-text">${q.texte}</div>
+      <div class="question-text">${isAdult()&&q.texteAdulte?q.texteAdulte:q.texte}</div>
       <div class="options-list">
         ${q.options.map((o,i)=>`<div class="option-item ${sel===i?'selected':''}" onclick="selectOption(${i})">
           <div class="option-radio"></div>
-          <span class="option-text">${o.texte}</span>
+          <span class="option-text">${isAdult()&&o.texteAdulte?o.texteAdulte:o.texte}</span>
         </div>`).join('')}
       </div>
       <div class="question-nav">
@@ -380,9 +456,15 @@ function showResults(){
   else if(charges.eclat>=3)emonctoires.push('Surcharges légères');
 
   let msg;
-  if(!alertP.length&&watchP.length<=1)msg=`Les résultats ${el}${state.childName} sont encourageants. L'organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser sa vitalité.`;
-  else if(!alertP.length)msg=`Plusieurs axes méritent attention chez ${state.childName}. Un accompagnement naturopathique doux permettrait de rééquilibrer le terrain en profondeur.`;
-  else msg=`Les résultats ${el}${state.childName} indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément les déséquilibres et de proposer un protocole adapté.`;
+  if(isAdult()){
+    if(!alertP.length&&watchP.length<=1)msg=`Tes résultats sont encourageants, ${state.childName}. Ton organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser ta vitalité.`;
+    else if(!alertP.length)msg=`Plusieurs axes méritent ton attention, ${state.childName}. Un accompagnement naturopathique doux permettrait de rééquilibrer ton terrain en profondeur.`;
+    else msg=`Tes résultats, ${state.childName}, indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément tes déséquilibres et de proposer un protocole adapté.`;
+  } else {
+    if(!alertP.length&&watchP.length<=1)msg=`Les résultats ${el}${state.childName} sont encourageants. L'organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser sa vitalité.`;
+    else if(!alertP.length)msg=`Plusieurs axes méritent attention chez ${state.childName}. Un accompagnement naturopathique doux permettrait de rééquilibrer le terrain en profondeur.`;
+    else msg=`Les résultats ${el}${state.childName} indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément les déséquilibres et de proposer un protocole adapté.`;
+  }
 
   const needOligo=alertP.concat(watchP).some(k=>k==='eclat'||k==='immunite');
   const needKinesio=alertP.concat(watchP).some(k=>k==='serenite'||k==='confiance');
@@ -411,17 +493,17 @@ function showResults(){
             <h4>${p.icone} ${p.label} — ${s}/100 · ${st}</h4><p>${adv}</p></div></div>`;}).join('')}</div>`:''}
 
       ${needOligo?`<div class="oligo-suggestion"><h3>🔬 Bilan Oligoscan recommandé</h3>
-        <p>Les pétales Éclat et/ou Immunité ${el}${state.childName} indiquent un terrain déséquilibré. L'Oligoscan mesure en 30 secondes l'état de 20 minéraux et 14 métaux lourds pour un protocole de reminéralisation précis.</p>
+        <p>${isAdult()?`Tes pétales Éclat et/ou Immunité indiquent un terrain déséquilibré, ${state.childName}.`:`Les pétales Éclat et/ou Immunité ${el}${state.childName} indiquent un terrain déséquilibré.`} L'Oligoscan mesure en 30 secondes l'état de 20 minéraux et 14 métaux lourds pour un protocole de reminéralisation précis.</p>
         <div class="oligo-minerals">${mins.slice(0,8).map(m=>`<span class="mineral-tag">${m}</span>`).join('')}</div>
-        <button class="btn btn-gold" onclick="alert('Redirection vers la prise de rendez-vous — à connecter')">Prendre rendez-vous pour un Oligoscan →</button></div>`:''}
+        <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous pour un Oligoscan →</button></div>`:''}
 
       ${needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#6B5B8D,#1B4D5C)"><h3>🦋 Kinésiologie et Fleurs de Bach</h3>
-        <p>Les pétales Sérénité et/ou Confiance ${el}${state.childName} révèlent des tensions émotionnelles. La Kinésiologie permet d'identifier les blocages et les Fleurs de Bach accompagnent le rééquilibrage en douceur.</p>
-        <button class="btn btn-gold" onclick="alert('Redirection — à connecter')">Découvrir la Kinésiologie →</button></div>`:''}
+        <p>${isAdult()?`Tes pétales Sérénité et/ou Confiance révèlent des tensions émotionnelles, ${state.childName}.`:`Les pétales Sérénité et/ou Confiance ${el}${state.childName} révèlent des tensions émotionnelles.`} La Kinésiologie permet d'identifier les blocages et les Fleurs de Bach accompagnent le rééquilibrage en douceur.</p>
+        <button class="btn btn-gold" onclick="window.location='/methode'">Découvrir la Kinésiologie →</button></div>`:''}
 
       ${!needOligo&&!needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
-        <p>${state.childName} montre un bel équilibre global. Un suivi naturopathique léger permettrait de consolider cette dynamique.</p>
-        <button class="btn btn-gold" onclick="alert('Redirection — à connecter')">Découvrir nos accompagnements →</button></div>`:''}
+        <p>${isAdult()?`Tu montres un bel équilibre global, ${state.childName}.`:`${state.childName} montre un bel équilibre global.`} Un suivi naturopathique léger permettrait de consolider cette dynamique.</p>
+        <button class="btn btn-gold" onclick="window.location='/audit';resetAudit()">Découvrir nos accompagnements →</button></div>`:''}
 
       <div class="results-cta"><div class="btn-row">
         <button class="btn btn-primary" onclick="generatePDF()">📄 Télécharger la synthèse PDF</button>
@@ -433,11 +515,12 @@ function showResults(){
 
   // Auto-create CRM data object for interconnection
   window.__auditResult = {
-    childName:state.childName, childAge:state.childAge, date:new Date().toISOString(),
+    childName:state.childName, childAge:state.childAge, clientEmail:state.clientEmail, date:new Date().toISOString(),
     charges, globalScore:gs, worstPetal:worst,
     zones: keys.filter(k=>lvl(charges[k])!=='good').map(k=>({petale:k,charge:charges[k],level:lvl(charges[k])})),
     emonctoires, suggestOligo:needOligo, suggestKinesio:needKinesio
   };
+  fetch('/api/audit-result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window.__auditResult)}).catch(()=>{});
 }
 
 function showTip(k){
@@ -457,6 +540,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.petal')&&!e.target.
 
 // ═══ PDF ═══
 function generatePDF(){
+  if(!window.jspdf){alert('La bibliothèque PDF est en cours de chargement. Réessayez dans quelques secondes.');return;}
   const{jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});
   const W=210,M=20,el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
   const BP=[27,77,92],VS=[143,169,139],DO=[196,162,101],CR=[250,247,242],TX=[44,62,58],TL=[90,110,104];
@@ -510,14 +594,47 @@ function generatePDF(){
   doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(15,53,64);doc.text('Prendre rendez-vous',W/2,y+28.5,{align:'center'});
   doc.setFont('helvetica','italic');doc.setFontSize(6.5);doc.setTextColor(170,170,170);
   doc.text("Ce bilan oriente vers un accompagnement au cabinet. Il ne constitue pas un diagnostic médical.",W/2,292,{align:'center'});
-  doc.save(`Mon_Chemin_Equilibre_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`);
+  const filename=`Mon_Chemin_Equilibre_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`;
+  doc.save(filename);
+  // Envoi email si email renseigné ou envoi de copie à Arielle dans tous les cas
+  try{
+    const pdfBase64=doc.output('datauristring').split(',')[1];
+    const r=window.__auditResult;
+    fetch('/api/send-audit-pdf',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({...r,pdfBase64})
+    }).then(res=>res.json()).then(d=>{
+      if(d.ok&&d.sentToClient&&r.clientEmail){
+        const t=document.createElement('div');
+        t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1B4D5C;color:#FAF7F2;padding:12px 24px;border-radius:50px;font-size:.85rem;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.2)';
+        t.textContent='📧 Bilan envoyé à '+r.clientEmail;
+        document.body.appendChild(t);setTimeout(()=>t.remove(),4000);
+      }
+    }).catch(()=>{});
+  }catch(e){}
 }
 
-function resetAudit(){state={childName:'',childAge:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};activeTooltipPetal=null;
+function resetAudit(){state={childName:'',childAge:'',clientEmail:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};activeTooltipPetal=null;
   document.getElementById('screen-results').classList.add('hidden');document.getElementById('screen-intro').classList.remove('hidden');
-  document.getElementById('childName').value='';document.getElementById('childAge').value='';window.scrollTo({top:0,behavior:'smooth'});}
+  document.getElementById('childName').value='';document.getElementById('childAge').value='';document.getElementById('clientEmail').value='';window.scrollTo({top:0,behavior:'smooth'});}
+document.getElementById('childAge').addEventListener('change',e=>{
+  const adult=['15-17 ans','18-25 ans'].includes(e.target.value);
+  document.getElementById('labelChildName').textContent=adult?'Ton prénom':'Prénom de l\'enfant';
+  document.getElementById('childName').placeholder=adult?'Ex : Camille':'Ex : Léa';
+  document.getElementById('labelClientEmail').textContent=adult?'Ton email (optionnel — pour recevoir ton bilan PDF)':'Votre email (optionnel — pour recevoir le bilan PDF)';
+});
 document.addEventListener('keydown',e=>{if(document.getElementById('screen-questions').classList.contains('hidden'))return;
   if(e.key>='1'&&e.key<='4')selectOption(parseInt(e.key)-1);if(e.key==='Enter')nextQ();if(e.key==='ArrowLeft')prevQ();});
+// Nav mobile
+const mobileToggle=document.querySelector('.nav-mobile-toggle');
+if(mobileToggle){mobileToggle.addEventListener('click',()=>{
+  const nl=document.querySelector('.nav-list');
+  if(nl.style.display==='flex'){nl.style.display='';}
+  else{nl.style.cssText='display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';}
+});}
+// Nav responsive hide
+const mq=window.matchMedia('(max-width:768px)');
+function handleMq(e){if(e.matches){const nl=document.querySelector('.nav-list');if(nl)nl.style.display='none';const mt=document.querySelector('.nav-mobile-toggle');if(mt)mt.style.display='flex';}else{const nl=document.querySelector('.nav-list');if(nl)nl.style.display='';const mt=document.querySelector('.nav-mobile-toggle');if(mt)mt.style.display='none';}}
+mq.addEventListener('change',handleMq);handleMq(mq);
 </script>
 </body>
 </html>

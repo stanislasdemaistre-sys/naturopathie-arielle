@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Flux & Équilibre</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;font-weight:300;min-height:100vh}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 0;background:rgba(250,247,242,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(27,77,92,0.06);transition:all .4s ease}
+nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
+.nav-logo-icon{width:34px;height:34px}
+.nav-logo-icon svg{width:100%;height:100%}
+.nav-logo-text{font-family:var(--fd);font-size:1.3rem;font-weight:400;color:var(--bp)}
+.nav-logo-text span{color:var(--do);font-weight:300}
+.nav-list{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-list a{font-family:var(--fb);font-size:.85rem;font-weight:400;color:var(--bp);text-decoration:none;letter-spacing:.5px;position:relative;transition:color .3s}
+.nav-list a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--do);transition:width .3s ease}
+.nav-list a:hover{color:var(--do)}.nav-list a:hover::after{width:100%}
+.nav-list .nav-cta-btn{background:var(--bp)!important;color:var(--cr)!important;padding:10px 24px;border-radius:50px;font-size:.82rem!important;font-weight:500!important;transition:all .3s ease!important}
+.nav-list .nav-cta-btn:hover{background:var(--bp-l)!important;transform:translateY(-1px)}
+.nav-list .nav-cta-btn::after{display:none!important}
+.nav-list .nav-active{color:var(--do)!important}.nav-list .nav-active::after{width:100%!important}
+.nav-mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.nav-mobile-toggle span{width:22px;height:1.5px;background:var(--bp);display:block;transition:all .3s}
+
+.page-wrap{max-width:700px;margin:0 auto;padding:120px 24px 80px}
+
+.hero-section{text-align:center;margin-bottom:48px;animation:fadeUp .8s ease-out}
+.hero-eyebrow{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:16px}
+.hero-title{font-family:var(--fd);font-size:clamp(2rem,5vw,3rem);font-weight:400;color:var(--bp);line-height:1.2;margin-bottom:16px}
+.hero-title em{font-style:italic;color:var(--vs)}
+.hero-subtitle{font-size:.95rem;color:var(--tx-l);max-width:480px;margin:0 auto}
+
+.contact-card{background:var(--wh);border-radius:var(--rl);padding:48px 44px;box-shadow:0 20px 60px rgba(27,77,92,.07);border:1px solid rgba(27,77,92,.04);animation:fadeUp .8s ease-out .15s both}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:.78rem;font-weight:500;color:var(--bp);letter-spacing:.5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);transition:border-color .3s;outline:none;resize:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--vs);background:var(--wh)}
+.form-group textarea{min-height:120px;line-height:1.6}
+.form-group select{cursor:pointer}
+
+.btn-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 40px;border-radius:50px;font-family:var(--fb);font-size:.9rem;font-weight:500;letter-spacing:.3px;cursor:pointer;border:none;background:var(--bp);color:var(--cr);transition:all .4s cubic-bezier(.22,1,.36,1);margin-top:8px}
+.btn-submit:hover{background:var(--bp-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
+.btn-submit:disabled{opacity:.55;pointer-events:none}
+
+.form-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:24px}
+.form-note{font-size:.8rem;color:var(--tx-l)}
+
+.success-msg{display:none;background:var(--ok-p);border:1px solid var(--ok);border-radius:var(--rs);padding:20px 24px;margin-top:24px;animation:fadeUp .5s ease-out}
+.success-msg.visible{display:block}
+.success-msg h4{font-family:var(--fd);font-size:1.1rem;color:var(--bp);font-weight:400;margin-bottom:4px}
+.success-msg p{font-size:.85rem;color:var(--tx-l)}
+
+.error-msg{display:none;background:var(--al-p);border:1px solid var(--al);border-radius:var(--rs);padding:16px 20px;margin-top:16px;font-size:.85rem;color:#8B4040}
+.error-msg.visible{display:block}
+
+footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80px}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand .logo-text{font-family:var(--fd);color:var(--cr);font-size:1.4rem;margin-bottom:12px;display:block}
+.footer-brand p{color:rgba(250,247,242,.5);font-size:.85rem;line-height:1.7;max-width:280px}
+.footer-col h4{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:16px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:9px}
+.footer-col a{color:rgba(250,247,242,.5);text-decoration:none;font-size:.85rem;transition:color .3s}
+.footer-col a:hover{color:var(--cr)}
+.footer-col li:not(:has(a)){color:rgba(250,247,242,.5);font-size:.85rem}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px}
+.footer-bottom p{font-size:.75rem;color:rgba(250,247,242,.3);text-align:center}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:640px){.page-wrap{padding:90px 16px 60px}.contact-card{padding:28px 20px}.form-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr;gap:28px}}
+@media(max-width:768px){.nav-list{display:none}.nav-mobile-toggle{display:flex}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">
+        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
+          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
+          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
+        </svg>
+      </div>
+      <div class="nav-logo-text">Flux <span>&</span> Équilibre</div>
+    </a>
+    <ul class="nav-list">
+      <li><a href="/methode">Méthode</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/audit">Audit Santé</a></li>
+      <li><a href="/contact" class="nav-cta-btn nav-active">Contact</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="hero-section">
+    <div class="hero-eyebrow">Flux & Équilibre</div>
+    <h1 class="hero-title">Prendre <em>contact</em></h1>
+    <p class="hero-subtitle">Une question, une demande de renseignements ou une suite à votre audit ? Arielle vous répond personnellement.</p>
+  </div>
+
+  <div class="contact-card">
+    <form id="contactForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="prenom">Prénom *</label>
+          <input type="text" id="prenom" name="prenom" placeholder="Ex : Sophie" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" placeholder="Ex : sophie@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="ageEnfant">Âge de l'enfant / adolescent</label>
+          <select id="ageEnfant" name="ageEnfant">
+            <option value="">Non concerné</option>
+            <option>3-5 ans</option>
+            <option>6-8 ans</option>
+            <option>9-11 ans</option>
+            <option>12-14 ans</option>
+            <option>15-17 ans</option>
+            <option>18-25 ans</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="objet">Objet *</label>
+          <select id="objet" name="objet" required>
+            <option value="">Sélectionner</option>
+            <option>Premier contact</option>
+            <option>Demande de renseignements</option>
+            <option>Suite à l'audit Horizon Santé</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" placeholder="Décrivez votre situation ou posez votre question…" required></textarea>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <span class="form-note">* Champs obligatoires — réponse sous 48 h</span>
+        <button type="submit" class="btn-submit" id="submitBtn">Envoyer →</button>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        <h4>🌿 Message envoyé !</h4>
+        <p>Merci, votre message a bien été reçu. Arielle vous répondra dans les meilleurs délais.</p>
+      </div>
+      <div class="error-msg" id="errorMsg">
+        Une erreur est survenue lors de l'envoi. Merci de réessayer ou d'envoyer un email directement à Arielle.
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">Flux & Équilibre</span>
+        <p>Un accompagnement global et doux pour les enfants, adolescents et jeunes adultes par Arielle de Maistre.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/methode">La Méthode</a></li>
+          <li><a href="/about">À propos</a></li>
+          <li><a href="/audit">Audit Santé</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/methode">Naturopathie</a></li>
+          <li><a href="/methode">Kinésiologie</a></li>
+          <li><a href="/methode">Réflexologie</a></li>
+          <li><a href="/audit">Bilan Oligoscan</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Cabinet</h4>
+        <ul>
+          <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
+          <li>Sainte-Consorce (69280)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Flux & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const form = document.getElementById('contactForm');
+const submitBtn = document.getElementById('submitBtn');
+const successMsg = document.getElementById('successMsg');
+const errorMsg = document.getElementById('errorMsg');
+
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  const prenom = document.getElementById('prenom').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const objet = document.getElementById('objet').value;
+  const message = document.getElementById('message').value.trim();
+
+  if (!prenom || !email || !objet || !message) {
+    [document.getElementById('prenom'), document.getElementById('email'),
+     document.getElementById('objet'), document.getElementById('message')]
+      .forEach(el => { if (!el.value.trim()) el.style.borderColor = '#D4786A'; });
+    return;
+  }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Envoi…';
+  errorMsg.classList.remove('visible');
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prenom,
+        email,
+        ageEnfant: document.getElementById('ageEnfant').value || null,
+        objet,
+        message
+      })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      form.querySelectorAll('input,select,textarea').forEach(el => el.disabled = true);
+      submitBtn.style.display = 'none';
+      successMsg.classList.add('visible');
+    } else {
+      throw new Error('server error');
+    }
+  } catch {
+    errorMsg.classList.add('visible');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Envoyer →';
+  }
+});
+
+// Remove error border on focus
+form.querySelectorAll('input,select,textarea').forEach(el => {
+  el.addEventListener('focus', () => { el.style.borderColor = ''; });
+});
+
+// Nav mobile
+const mobileToggle = document.querySelector('.nav-mobile-toggle');
+if (mobileToggle) {
+  mobileToggle.addEventListener('click', () => {
+    const nl = document.querySelector('.nav-list');
+    if (nl.style.display === 'flex') { nl.style.display = ''; }
+    else { nl.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;'; }
+  });
+}
+const mq = window.matchMedia('(max-width:768px)');
+function handleMq(e) {
+  const nl = document.querySelector('.nav-list');
+  const mt = document.querySelector('.nav-mobile-toggle');
+  if (e.matches) { if (nl) nl.style.display = 'none'; if (mt) mt.style.display = 'flex'; }
+  else { if (nl) nl.style.display = ''; if (mt) mt.style.display = 'none'; }
+}
+mq.addEventListener('change', handleMq);
+handleMq(mq);
+</script>
+</body>
+</html>

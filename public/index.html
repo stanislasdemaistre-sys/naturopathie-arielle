@@ -1111,6 +1111,12 @@ footer {
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
   .apropos-quote-card { position: relative; bottom: auto; right: auto; margin-top: 20px; }
 }
+
+/* Texte justifié */
+.hero-desc, .parcours-text p, .step-desc, .public-desc, .guide-content p {
+  text-align: justify;
+  hyphens: auto;
+}
 </style>
 </head>
 <body>
@@ -1118,7 +1124,7 @@ footer {
 <!-- ══════ NAV ══════ -->
 <nav id="nav">
   <div class="container">
-    <a href="#" class="logo">
+    <a href="/" class="logo">
       <div class="logo-icon">
         <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
@@ -1131,10 +1137,11 @@ footer {
       <div class="logo-text">Flux <span>&</span> Équilibre</div>
     </a>
     <ul class="nav-links">
-      <li><a href="#methode">Méthode</a></li>
-      <li><a href="#apropos">À propos</a></li>
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/methode">Méthode</a></li>
       <li><a href="#bach">Fleurs de Bach</a></li>
-      <li><a href="#audit">Audit Santé</a></li>
+      <li><a href="/audit">Audit Santé</a></li>
       <li><a href="#guide" class="nav-cta">Le Guide Acné</a></li>
     </ul>
     <button class="mobile-toggle" aria-label="Menu">
@@ -1160,11 +1167,11 @@ footer {
         Un accompagnement global et doux pour les enfants, adolescents et jeunes adultes. Libérer les émotions, nourrir le corps, redonner confiance.
       </p>
       <div class="hero-actions">
-        <a href="#audit" class="btn-primary">
+        <a href="/audit" class="btn-primary">
           Commencer l'Audit Santé
           <span class="arrow">→</span>
         </a>
-        <a href="#methode" class="btn-secondary">
+        <a href="/methode" class="btn-secondary">
           Découvrir la méthode ↓
         </a>
       </div>
@@ -1474,7 +1481,7 @@ footer {
         <div class="section-label">Nouveau Guide</div>
         <h3>Acné & Éclat :<br><em>Le Protocole Intégral</em></h3>
         <p>Le guide complet pour accompagner votre ado vers une peau apaisée. Naturopathie, alimentation, gestion du stress et routines douces.</p>
-        <a href="#" class="btn-gold">
+        <a href="/contact" class="btn-gold">
           Découvrir le guide
           <span>→</span>
         </a>
@@ -1500,19 +1507,19 @@ footer {
       <div class="footer-col">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="#methode">La Méthode</a></li>
-          <li><a href="#apropos">À propos</a></li>
+          <li><a href="/methode">La Méthode</a></li>
+          <li><a href="/about">À propos</a></li>
           <li><a href="#bach">Fleurs de Bach</a></li>
-          <li><a href="#audit">Audit Santé</a></li>
+          <li><a href="/audit">Audit Santé</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Services</h4>
         <ul>
-          <li><a href="#">Naturopathie</a></li>
-          <li><a href="#">Kinésiologie</a></li>
-          <li><a href="#">Réflexologie</a></li>
-          <li><a href="#">Bilan Oligoscan</a></li>
+          <li><a href="/methode">Naturopathie</a></li>
+          <li><a href="/methode">Kinésiologie</a></li>
+          <li><a href="/methode">Réflexologie</a></li>
+          <li><a href="/audit">Bilan Oligoscan</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1520,16 +1527,12 @@ footer {
         <ul>
           <li><a href="mailto:arielle.de.maistre@gmail.com">Email</a></li>
           <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
-          <li><a href="#">Sainte-Consorce (69)</a></li>
+          <li>Sainte-Consorce (69)</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 Flux & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
-      <div class="footer-socials">
-        <a href="#" aria-label="Instagram">𝕀</a>
-        <a href="#" aria-label="Facebook">𝔽</a>
-      </div>
     </div>
   </div>
 </footer>

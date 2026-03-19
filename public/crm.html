@@ -81,6 +81,17 @@
 .save-indicator.show{opacity:1;transform:translateY(0)}
 @media(max-width:1024px){.grid-2{grid-template-columns:1fr}.emonctoire-grid{grid-template-columns:1fr}}
 @media(max-width:768px){.shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:16px}.grid-3{grid-template-columns:1fr 1fr}}
+/* ── Nouvelle séance panel ── */
+.seance-panel{background:var(--wh);border-radius:var(--rl);padding:24px;box-shadow:0 4px 20px rgba(27,77,92,.04);border:1.5px solid var(--do);margin-bottom:16px}
+.seance-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.seance-row.three{grid-template-columns:1fr 1fr 1fr}
+.seance-group label{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--do);font-weight:500;display:block;margin-bottom:5px}
+.seance-input,.seance-select,.seance-textarea{width:100%;padding:8px 12px;border:1.5px solid var(--cr-d);border-radius:8px;font-family:var(--fb);font-size:.82rem;color:var(--tx);background:var(--wh);outline:none;transition:border-color .2s}
+.seance-input:focus,.seance-select:focus,.seance-textarea:focus{border-color:var(--vs)}
+.seance-textarea{resize:vertical;min-height:70px}
+.seance-reminder{background:var(--do-p);border:1px solid rgba(196,162,101,.3);border-radius:8px;padding:12px 16px;margin-top:4px}
+.seance-reminder-label{font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:4px}
+.seance-reminder-text{font-size:.82rem;color:var(--tx)}
 </style>
 </head>
 <body>
@@ -105,7 +116,7 @@
 <main class="main">
   <div class="main-header">
     <div><h1 class="main-title">Carnet de <em>Cheminement</em></h1><p class="main-subtitle">Suivi naturopathique global — Oligoscan · Émonctoires · Émotions · Fleur de Vitalité</p></div>
-    <div style="display:flex;gap:8px"><button class="btn btn-s" onclick="importAudit()">📥 Importer un audit</button><button class="btn btn-p" onclick="showSave()">💾 Sauvegarder</button></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-s" onclick="importAudit()">📥 Importer un audit</button><button class="btn btn-g btn-sm" onclick="toggleNewSeance()">➕ Nouvelle séance</button><button class="btn btn-p" onclick="showSave()">💾 Sauvegarder</button></div>
   </div>
 
   <!-- Patient Header with mini Fleur -->
@@ -121,6 +132,94 @@
     <div class="kpi-card"><div class="kpi-value" id="kV">72</div><div class="kpi-label">Score Vitalité</div><div class="kpi-trend up" id="kT">↑ +8 depuis T0</div></div>
     <div class="kpi-card"><div class="kpi-value">4</div><div class="kpi-label">Séances réalisées</div><div class="kpi-trend stable">2 Kiné · 1 Réflexo · 1 Naturo</div></div>
     <div class="kpi-card"><div class="kpi-value">2</div><div class="kpi-label">Protocoles actifs</div><div class="kpi-trend stable">Acné + Sommeil</div></div>
+  </div>
+
+  <!-- Nouvelle séance panel -->
+  <div class="seance-panel" id="newSeancePanel" style="display:none">
+    <div class="card-title" style="margin-bottom:16px">➕ Nouvelle séance — <span id="pNameSeance" style="color:var(--vs)">Léa Dupont</span></div>
+    <div class="seance-row">
+      <div class="seance-group">
+        <label>Type de séance</label>
+        <select class="seance-select" id="seanceType" onchange="onSeanceTypeChange(this.value)">
+          <option value="">Choisir un type...</option>
+          <option value="bilan">Bilan Initial</option>
+          <option value="suivi">Séance de Suivi</option>
+        </select>
+      </div>
+      <div class="seance-group">
+        <label>Date</label>
+        <input type="date" class="seance-input" id="seanceDate">
+      </div>
+    </div>
+    <div class="seance-row">
+      <div class="seance-group">
+        <label>Durée (minutes)</label>
+        <input type="number" class="seance-input" id="seanceDuree" value="" min="15" step="15" placeholder="—">
+      </div>
+      <div class="seance-group">
+        <label>Approche</label>
+        <select class="seance-select" id="seanceApproche">
+          <option value="">Choisir...</option>
+          <option value="naturo">Naturopathie</option>
+          <option value="kinesio">Kinésiologie</option>
+          <option value="reflexo">Réflexologie</option>
+          <option value="oligo">Oligoscan</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Champs spécifiques Bilan Initial -->
+    <div id="bilanFields" style="display:none">
+      <div class="seance-row">
+        <div class="seance-group" style="grid-column:1/-1">
+          <label>Résultats Oligoscan (optionnel)</label>
+          <textarea class="seance-textarea" id="oligoscanBilan" placeholder="Saisir les valeurs ou observations issues du bilan Oligoscan si disponibles..."></textarea>
+        </div>
+      </div>
+      <div class="seance-row">
+        <div class="seance-group" style="grid-column:1/-1">
+          <label>Anamnèse & objectifs définis</label>
+          <textarea class="seance-textarea" id="anamnese" placeholder="Résumé de l'anamnèse et des objectifs convenus avec le patient..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Champs spécifiques Séance de Suivi -->
+    <div id="suiviFields" style="display:none">
+      <div class="seance-row">
+        <div class="seance-group">
+          <label>Ressenti du patient</label>
+          <textarea class="seance-textarea" id="ressentiPatient" placeholder="Comment le patient décrit-il son état depuis la dernière séance ?"></textarea>
+        </div>
+        <div class="seance-group">
+          <label>Tolérance au protocole</label>
+          <textarea class="seance-textarea" id="toleranceProtocole" placeholder="Réactions aux plantes, compléments, exercices prescrits..."></textarea>
+        </div>
+      </div>
+      <div class="seance-row">
+        <div class="seance-group">
+          <label>Évolution des symptômes</label>
+          <textarea class="seance-textarea" id="evolutionSymptomes" placeholder="Amélioration, stagnation ou aggravation des symptômes ciblés..."></textarea>
+        </div>
+        <div class="seance-group">
+          <label>Nouveaux signes</label>
+          <textarea class="seance-textarea" id="nouveauxSignes" placeholder="Nouveaux symptômes, changements de terrain, signaux émergents..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rappel suggéré -->
+    <div id="rappelBlock" style="display:none;margin-bottom:12px">
+      <div class="seance-reminder">
+        <div class="seance-reminder-label">Rappel suggéré</div>
+        <div class="seance-reminder-text" id="rappelText"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-p" onclick="enregistrerSeance()">💾 Enregistrer la séance</button>
+      <button class="btn btn-s" onclick="toggleNewSeance()">Annuler</button>
+    </div>
   </div>
 
   <div class="grid-2">
@@ -203,6 +302,7 @@ const P={
     metT1:{Al:0.007,Hg:0.015,Pb:0.006,Cd:0.011,As:0.004,Ni:0.003,Ba:0.007,Tl:0.001},
     pT0:{sommeil:5,eclat:7,serenite:3,immunite:4,confiance:6},pT1:{sommeil:2,eclat:4,serenite:1,immunite:2,confiance:3},
     emo:['Peur de l\'échec','Image corporelle','Colère refoulée'],gT0:52,gT1:72,
+    bilanDone:true,
     emonc:{foie:{langue:2,digestion:2,nausees:1},intestins:{ballonnements:2,transit:2,gaz:1},peau:{type:2,cicatrisation:1,reactivity:2}}},
   hugo:{name:'Hugo Martin',age:15,init:'HM',since:'janvier 2025',
     oT0:{Ca:480,Mg:28,P:135,Zn:120,Fe:8,Cu:25,Se:1.2,Mn:0.35,Cr:0.30,S:48,Li:0.060,I:0.08},
@@ -212,6 +312,7 @@ const P={
     metT1:{Al:0.010,Hg:0.019,Pb:0.008,Cd:0.012,As:0.005,Ni:0.004,Ba:0.008,Tl:0.001},
     pT0:{sommeil:6,eclat:5,serenite:7,immunite:3,confiance:5},pT1:{sommeil:3,eclat:3,serenite:4,immunite:2,confiance:3},
     emo:['Blocages cognitifs','Surmenage','Peur de l\'échec'],gT0:44,gT1:64,
+    bilanDone:true,
     emonc:{foie:{langue:1,digestion:2,nausees:0},intestins:{ballonnements:2,transit:1,gaz:2},peau:{type:1,cicatrisation:1,reactivity:1}}},
   emma:{name:'Emma Bernard',age:9,init:'EB',since:'avril 2025',
     oT0:{Ca:560,Mg:40,P:150,Zn:140,Fe:13,Cu:18,Se:1.8,Mn:0.55,Cr:0.42,S:50,Li:0.090,I:0.15},
@@ -221,6 +322,7 @@ const P={
     metT1:{Al:0.004,Hg:0.008,Pb:0.003,Cd:0.007,As:0.002,Ni:0.002,Ba:0.004,Tl:0.001},
     pT0:{sommeil:2,eclat:3,serenite:2,immunite:2,confiance:3},pT1:{sommeil:1,eclat:1,serenite:1,immunite:1,confiance:2},
     emo:['Timidité sociale'],gT0:74,gT1:87,
+    bilanDone:false,
     emonc:{foie:{langue:0,digestion:0,nausees:0},intestins:{ballonnements:1,transit:0,gaz:0},peau:{type:0,cicatrisation:0,reactivity:0}}}
 };
 const PTLS={sommeil:{label:'Sommeil',bg:'#1B4D5C'},eclat:{label:'Éclat',bg:'#C4A265'},serenite:{label:'Sérénité',bg:'#8FA98B'},immunite:{label:'Immunité',bg:'#2A6B7E'},confiance:{label:'Confiance',bg:'#6B5B8D'}};
@@ -230,7 +332,7 @@ const MTL=['Al','Hg','Pb','Cd','As','Ni','Ba','Tl'];
 const MTN={Al:'Aluminium',Hg:'Mercure',Pb:'Plomb',Cd:'Cadmium',As:'Arsenic',Ni:'Nickel',Ba:'Baryum',Tl:'Thallium'};
 let cur='lea';
 function toS(c){return Math.round(Math.max(0,(9-c)/9*100));}
-function switchPatient(id){cur=id;const p=P[id];document.getElementById('pName').textContent=p.name;document.getElementById('pMeta').innerHTML=`${p.age} ans · Suivie depuis ${p.since} · <span class="badge badge-watch">${Object.keys(p.pT1).filter(k=>p.pT1[k]>=3).length} zones à surveiller</span>`;document.getElementById('pAvatar').textContent=p.init;renderAll();}
+function switchPatient(id){cur=id;const p=P[id];document.getElementById('pName').textContent=p.name;document.getElementById('pMeta').innerHTML=`${p.age} ans · Suivie depuis ${p.since} · <span class="badge badge-watch">${Object.keys(p.pT1).filter(k=>p.pT1[k]>=3).length} zones à surveiller</span>`;document.getElementById('pAvatar').textContent=p.init;const ns=document.getElementById('pNameSeance');if(ns)ns.textContent=p.name;renderAll();}
 function renderAll(){renderMiniFleur();renderFleurCompare();renderOligoTable();renderMBars();renderEmonctoires();renderEmotions();updateKPIs();}
 
 function drawFleur(svgEl,pd,gs){
@@ -326,6 +428,67 @@ function importAudit(){
 }
 
 function showSave(){const el=document.getElementById('saveInd');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
+
+// ── Nouvelle séance ──
+function toggleNewSeance(){
+  const panel=document.getElementById('newSeancePanel');
+  const visible=panel.style.display!=='none';
+  panel.style.display=visible?'none':'block';
+  if(!visible){
+    document.getElementById('seanceDate').value=new Date().toISOString().split('T')[0];
+    document.getElementById('seanceType').value='';
+    document.getElementById('seanceDuree').value='';
+    document.getElementById('bilanFields').style.display='none';
+    document.getElementById('suiviFields').style.display='none';
+    document.getElementById('rappelBlock').style.display='none';
+    document.getElementById('pNameSeance').textContent=P[cur].name;
+    panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+
+function onSeanceTypeChange(type){
+  const bilanF=document.getElementById('bilanFields');
+  const suiviF=document.getElementById('suiviFields');
+  const rappelB=document.getElementById('rappelBlock');
+  const duree=document.getElementById('seanceDuree');
+  bilanF.style.display=type==='bilan'?'block':'none';
+  suiviF.style.display=type==='suivi'?'block':'none';
+  if(type==='bilan'){duree.value=90;}
+  else if(type==='suivi'){duree.value=60;}
+  else{duree.value='';}
+  if(type){
+    rappelB.style.display='block';
+    const p=P[cur];
+    const txt=document.getElementById('rappelText');
+    if(p.bilanDone){
+      txt.textContent='📅 Oligoscan à 3 mois — Contrôle minéraux & métaux lourds recommandé 3 mois après le bilan initial';
+    } else {
+      txt.textContent='📅 Bilan de vitalité trimestriel — Première évaluation globale Oligoscan à planifier';
+    }
+  } else {
+    rappelB.style.display='none';
+  }
+}
+
+function enregistrerSeance(){
+  const type=document.getElementById('seanceType').value;
+  if(!type){alert('Veuillez choisir un type de séance.');return;}
+  const date=document.getElementById('seanceDate').value||new Date().toISOString().split('T')[0];
+  const duree=document.getElementById('seanceDuree').value;
+  const approche=document.getElementById('seanceApproche').value;
+  const typeLabel=type==='bilan'?'Bilan Initial':'Séance de Suivi';
+  const dateF=new Date(date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
+  // Mark bilan as done if this is a bilan
+  if(type==='bilan') P[cur].bilanDone=true;
+  showSave();
+  document.getElementById('newSeancePanel').style.display='none';
+  // Show confirmation
+  const saveEl=document.getElementById('saveInd');
+  saveEl.textContent=`✓ ${typeLabel} enregistrée — ${dateF}${duree?' ('+duree+' min)':''}`;
+  saveEl.classList.add('show');
+  setTimeout(()=>{saveEl.classList.remove('show');saveEl.textContent='✓ Données sauvegardées';},3000);
+}
+
 renderAll();
 </script>
 </body>

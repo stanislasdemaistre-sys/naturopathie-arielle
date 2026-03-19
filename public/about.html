@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À propos — Arielle de Maistre · Flux & Équilibre</title>
+<meta name="description" content="Ingénieure de formation, maman de 3 enfants, Arielle de Maistre accompagne enfants, adolescents et jeunes adultes avec la naturopathie, la kinésiologie et la réflexologie.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bleu-petrole: #1B4D5C;
+  --bleu-petrole-deep: #0F3540;
+  --bleu-petrole-light: #2A6B7E;
+  --vert-sauge: #8FA98B;
+  --vert-sauge-light: #B5CBB1;
+  --vert-sauge-pale: #D6E4D3;
+  --dore: #C4A265;
+  --dore-light: #D4BA8A;
+  --dore-pale: #F0E6D2;
+  --creme: #FAF7F2;
+  --creme-dark: #F0EBE3;
+  --blanc: #FFFFFF;
+  --texte: #2C3E3A;
+  --texte-light: #5A6E68;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 32px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--texte);
+  background: var(--creme);
+  line-height: 1.7;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--bleu-petrole);
+}
+.section-title em { font-style: italic; color: var(--vert-sauge); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 14px 0;
+  background: rgba(250, 247, 242, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 30px rgba(27, 77, 92, 0.06);
+  transition: all 0.4s ease;
+}
+nav .container { display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.logo-icon { width: 38px; height: 38px; }
+.logo-icon svg { width: 100%; height: 100%; }
+.logo-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--bleu-petrole); }
+.logo-text span { color: var(--dore); font-weight: 300; }
+.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--dore);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--dore); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--dore); }
+.nav-cta {
+  background: var(--bleu-petrole) !important;
+  color: var(--creme) !important;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+.nav-cta:hover { background: var(--bleu-petrole-light) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.mobile-toggle span { width: 22px; height: 1.5px; background: var(--bleu-petrole); display: block; transition: all 0.3s; }
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(135deg, var(--bleu-petrole-deep) 0%, var(--bleu-petrole) 50%, var(--bleu-petrole-light) 100%);
+  padding: 140px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,162,101,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143,169,139,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(196,162,101,0.15);
+  border: 1px solid rgba(196,162,101,0.3);
+  color: var(--dore-light);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dore); display: inline-block; }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 400;
+  color: var(--blanc);
+  line-height: 1.15;
+  margin-bottom: 28px;
+}
+.hero h1 em { font-style: italic; color: var(--vert-sauge-light); }
+.hero-citation {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: rgba(250,247,242,0.75);
+  line-height: 1.6;
+  border-left: 2px solid var(--dore);
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+.hero-photo-wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+.hero-photo {
+  width: 360px;
+  height: 440px;
+  border-radius: 200px 200px 140px 140px;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 0 8px rgba(196,162,101,0.2);
+}
+.hero-photo-placeholder {
+  width: 360px;
+  height: 440px;
+  border-radius: 200px 200px 140px 140px;
+  background: linear-gradient(160deg, var(--vert-sauge) 0%, var(--bleu-petrole-light) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 0 8px rgba(196,162,101,0.2);
+}
+.hero-photo-placeholder span {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 2px;
+}
+.hero-photo-deco {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(196,162,101,0.12);
+  border: 1px solid rgba(196,162,101,0.25);
+  color: var(--dore-light);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+}
+
+/* ─── SECTIONS COMMUNES ─── */
+.section { padding: 96px 0; }
+.section-alt { background: var(--blanc); }
+.section-dark { background: var(--bleu-petrole); }
+.section-dore { background: var(--dore-pale); }
+
+/* ─── PARCOURS ─── */
+.parcours-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 48px;
+}
+.parcours-text p {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--texte);
+  margin-bottom: 20px;
+}
+.parcours-text p:last-child { margin-bottom: 0; }
+.parcours-text strong { color: var(--bleu-petrole); font-weight: 500; }
+.parcours-callout {
+  background: var(--bleu-petrole);
+  color: var(--creme);
+  padding: 36px;
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+.parcours-callout::before {
+  content: '❝';
+  position: absolute;
+  top: -10px; left: 20px;
+  font-size: 5rem;
+  color: rgba(196,162,101,0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+.parcours-callout blockquote {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(250,247,242,0.9);
+  position: relative;
+}
+.parcours-callout cite {
+  display: block;
+  margin-top: 16px;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-style: normal;
+  font-family: var(--font-body);
+}
+.parcours-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 400;
+  background: var(--creme-dark);
+  color: var(--bleu-petrole);
+  border: 1px solid rgba(27,77,92,0.1);
+}
+
+/* ─── TIMELINE CV ─── */
+.timeline-cv {
+  margin-top: 56px;
+  position: relative;
+}
+.timeline-cv::before {
+  content: '';
+  position: absolute;
+  left: 32px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--dore), var(--vert-sauge), var(--bleu-petrole-light));
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 28px;
+  margin-bottom: 48px;
+  position: relative;
+}
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-dot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 6px;
+}
+.timeline-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 3px solid var(--blanc);
+  box-shadow: 0 0 0 3px var(--dore);
+  background: var(--dore);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.timeline-dot.sauge { background: var(--vert-sauge); box-shadow: 0 0 0 3px var(--vert-sauge); }
+.timeline-dot.bleu { background: var(--bleu-petrole-light); box-shadow: 0 0 0 3px var(--bleu-petrole-light); }
+.timeline-card {
+  background: var(--blanc);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  box-shadow: 0 4px 24px rgba(27,77,92,0.06);
+  border: 1px solid rgba(27,77,92,0.05);
+  transition: box-shadow 0.3s ease;
+}
+.timeline-card:hover { box-shadow: 0 8px 40px rgba(27,77,92,0.1); }
+.timeline-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.timeline-card-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--bleu-petrole);
+  font-weight: 500;
+}
+.timeline-card-school { font-size: 0.82rem; color: var(--texte-light); margin-top: 2px; }
+.timeline-badge {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: var(--dore-pale);
+  color: var(--bleu-petrole);
+  white-space: nowrap;
+}
+.timeline-badge.sauge { background: var(--vert-sauge-pale); }
+.timeline-badge.bleu { background: rgba(42,107,126,0.1); }
+.timeline-card-desc { font-size: 0.9rem; color: var(--texte); line-height: 1.65; margin-bottom: 16px; }
+.stages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+.stage-card {
+  background: var(--creme);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  border: 1px solid rgba(196,162,101,0.15);
+}
+.stage-icon { font-size: 1.2rem; margin-bottom: 6px; }
+.stage-title { font-size: 0.78rem; font-weight: 500; color: var(--bleu-petrole); margin-bottom: 4px; }
+.stage-desc { font-size: 0.72rem; color: var(--texte-light); line-height: 1.5; }
+
+/* ─── ACTIVITE ─── */
+.activite-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+.activite-card {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(27,77,92,0.05);
+  border: 1px solid rgba(27,77,92,0.05);
+}
+.activite-card.dark {
+  background: var(--bleu-petrole);
+  color: var(--creme);
+}
+.activite-icon { font-size: 2rem; margin-bottom: 16px; }
+.activite-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 16px;
+  color: var(--bleu-petrole);
+}
+.activite-card.dark .activite-title { color: var(--creme); }
+.activite-text { font-size: 0.92rem; line-height: 1.75; color: var(--texte); }
+.activite-card.dark .activite-text { color: rgba(250,247,242,0.8); }
+.activite-list { list-style: none; margin-top: 14px; }
+.activite-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  margin-bottom: 10px;
+  color: var(--texte);
+  line-height: 1.5;
+}
+.activite-card.dark .activite-list li { color: rgba(250,247,242,0.8); }
+.activite-list li::before { content: '✦'; color: var(--dore); flex-shrink: 0; font-size: 0.65rem; margin-top: 5px; }
+
+/* ─── DEROULÉ ─── */
+.deroulement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.deroulement-step {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  position: relative;
+  box-shadow: 0 4px 24px rgba(27,77,92,0.05);
+  border: 1px solid rgba(27,77,92,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.deroulement-step:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(27,77,92,0.1); }
+.step-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--dore-pale);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.step-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--bleu-petrole);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.step-duration {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.step-desc { font-size: 0.88rem; color: var(--texte-light); line-height: 1.7; }
+.step-list { list-style: none; margin-top: 12px; }
+.step-list li {
+  font-size: 0.83rem;
+  color: var(--texte-light);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--creme-dark);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before { content: '→'; color: var(--vert-sauge); font-size: 0.75rem; margin-top: 3px; flex-shrink: 0; }
+.step-connector {
+  display: none;
+}
+
+/* ─── PUBLICS ─── */
+.publics-section { background: var(--bleu-petrole); }
+.publics-section .section-title { color: var(--creme); }
+.publics-section .section-label { color: var(--dore); }
+.publics-intro { font-size: 1rem; color: rgba(250,247,242,0.7); margin-top: 16px; max-width: 600px; line-height: 1.75; }
+.publics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.public-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  transition: all 0.3s ease;
+}
+.public-card:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(196,162,101,0.4);
+  transform: translateY(-4px);
+}
+.public-icon {
+  font-size: 2.2rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.public-age {
+  font-size: 0.68rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.public-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--creme);
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+.public-desc { font-size: 0.85rem; color: rgba(250,247,242,0.65); line-height: 1.7; margin-bottom: 18px; }
+.public-problems { list-style: none; }
+.public-problems li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.82rem;
+  color: rgba(250,247,242,0.75);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.public-problems li:last-child { border-bottom: none; }
+.public-problems li::before {
+  content: '✦';
+  color: var(--dore);
+  font-size: 0.58rem;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  background: linear-gradient(135deg, var(--dore-pale) 0%, var(--creme) 60%);
+  padding: 96px 0;
+  text-align: center;
+}
+.cta-section .section-title { margin-bottom: 16px; }
+.cta-section p { font-size: 1rem; color: var(--texte-light); line-height: 1.75; max-width: 520px; margin: 0 auto 40px; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bleu-petrole);
+  color: var(--creme);
+  padding: 16px 36px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+.btn-primary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(27,77,92,0.2); }
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--bleu-petrole);
+  padding: 16px 36px;
+  border-radius: 50px;
+  border: 1.5px solid var(--bleu-petrole);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover { background: var(--bleu-petrole); color: var(--creme); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bleu-petrole-deep);
+  color: rgba(250,247,242,0.5);
+  padding: 48px 0 32px;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--creme); }
+.footer-logo span { color: var(--dore); }
+.footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--dore); }
+.footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-photo-wrap { justify-content: flex-start; }
+  .parcours-grid { grid-template-columns: 1fr; }
+  .stages-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  .section { padding: 64px 0; }
+  .hero { padding: 100px 0 60px; }
+  .hero-photo, .hero-photo-placeholder { width: 100%; max-width: 300px; height: 360px; }
+  .activite-grid { grid-template-columns: 1fr; }
+  .deroulement-grid { grid-template-columns: 1fr; }
+  .publics-grid { grid-template-columns: 1fr; }
+  .stages-grid { grid-template-columns: 1fr; }
+  .timeline-cv::before { left: 20px; }
+  .timeline-item { grid-template-columns: 50px 1fr; gap: 16px; }
+  .timeline-card-header { flex-direction: column; }
+}
+
+/* Texte justifié */
+.parcours-text p, .timeline-card-desc, .activite-text, .step-desc, .public-desc {
+  text-align: justify;
+  hyphens: auto;
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav id="nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
+          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
+          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
+        </svg>
+      </div>
+      <div class="logo-text">Flux <span>&</span> Équilibre</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/methode">Méthode</a></li>
+      <li><a href="/about" class="active">À propos</a></li>
+      <li><a href="/audit" class="nav-cta">Audit Santé</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════ SECTION 1 : HERO ══════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left animate-in">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Naturopathie · Kinésiologie · Réflexologie
+        </div>
+        <h1>
+          Arielle de Maistre,<br>
+          <em>thérapeute en conscience</em>
+        </h1>
+        <p class="hero-citation">
+          « Le corps sait guérir, il suffit de lui en donner les moyens. »
+        </p>
+        <div class="parcours-pills">
+          <span class="pill" style="background:rgba(143,169,139,0.15);color:var(--vert-sauge-light);border-color:rgba(143,169,139,0.2)">🌿 Naturopathe certifiée FEDE</span>
+          <span class="pill" style="background:rgba(143,169,139,0.15);color:var(--vert-sauge-light);border-color:rgba(143,169,139,0.2)">🦋 Kinésiologue</span>
+          <span class="pill" style="background:rgba(143,169,139,0.15);color:var(--vert-sauge-light);border-color:rgba(143,169,139,0.2)">🤲 Réflexologue QUALIOPI</span>
+          <span class="pill" style="background:rgba(143,169,139,0.15);color:var(--vert-sauge-light);border-color:rgba(143,169,139,0.2)">📍 Sainte-Consorce (69)</span>
+        </div>
+      </div>
+      <div class="hero-photo-wrap animate-in" style="transition-delay:0.2s">
+        <picture>
+          <source srcset="arielle.jpg" type="image/jpeg">
+          <img src="arielle.jpg" alt="Arielle de Maistre, naturopathe" class="hero-photo"
+               onerror="this.parentElement.innerHTML='<div class=\'hero-photo-placeholder\'><span>A.M.</span></div>'">
+        </picture>
+        <div class="hero-photo-deco">Thérapeute · Sainte-Consorce (69)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SECTION 2 : MON PARCOURS ══════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Mon parcours</div>
+    <h2 class="section-title">D'ingénieure chimiste<br>à <em>thérapeute en conscience</em></h2>
+
+    <div class="parcours-grid">
+      <div class="parcours-text animate-in">
+        <p>
+          <strong>Diplômée en génie chimique</strong>, j'ai exercé pendant dix ans dans le secteur de l'énergie. Pendant ces années passées à optimiser des processus industriels, j'ai progressivement pris conscience d'un paradoxe : nous savons si bien écouter les signaux d'une machine, mais nous avons perdu l'habitude d'écouter ceux de notre propre corps.
+        </p>
+        <p>
+          Les <strong>expatriations au Sultanat d'Oman et au Maroc</strong> ont été une révélation. Loin de nos systèmes de santé occidentaux, j'ai découvert les médecines naturelles — leur efficacité douce, leur rapport au vivant, leur manière d'aborder la personne dans sa globalité. Ces cultures m'ont appris que le corps n'est pas une machine à réparer, mais un système vivant à accompagner.
+        </p>
+        <p>
+          <strong>Maman de trois enfants</strong>, j'ai naturellement testé ces approches sur mes propres enfants — pour les petits maux du quotidien, les angoisses du primaire, les bouleversements de l'adolescence. Les résultats m'ont convaincue : la naturopathie peut corriger bien des déséquilibres <em>avant</em> d'avoir recours à la médecine allopathique. Le corps envoie des signaux d'alerte ; il suffit de savoir les lire.
+        </p>
+        <div class="parcours-pills">
+          <span class="pill">👩‍🔬 Ingénieure chimiste</span>
+          <span class="pill">🌍 Oman · Maroc</span>
+          <span class="pill">👨‍👩‍👧‍👦 3 enfants</span>
+          <span class="pill">🌿 Spécialiste enfants/ados</span>
+          <span class="pill">🧠 HPI · Endométriose</span>
+        </div>
+      </div>
+      <div class="animate-in" style="transition-delay:0.15s">
+        <div class="parcours-callout">
+          <blockquote>
+            « Ma conviction profonde : la prévention par la naturopathie avant la médecine allopathique. Le corps envoie des signaux d'alerte que nous pouvons apprendre à corriger. »
+            <cite>— Arielle de Maistre</cite>
+          </blockquote>
+        </div>
+        <div style="margin-top:24px;background:var(--creme-dark);border-radius:var(--radius);padding:24px">
+          <div class="section-label" style="margin-bottom:10px">Spécialisation</div>
+          <p style="font-size:0.9rem;color:var(--texte);line-height:1.7">
+            Accompagnement dédié aux <strong>enfants et adolescents</strong> : stress scolaire, anxiété, troubles du sommeil, HPI, changements hormonaux, endométriose, acné, estime de soi.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SECTION 3 : CV / FORMATIONS ══════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">Formations & certifications</div>
+    <h2 class="section-title">Un parcours <em>rigoureux</em><br>au service du vivant</h2>
+
+    <div class="timeline-cv">
+
+      <!-- Naturopathie -->
+      <div class="timeline-item animate-in">
+        <div class="timeline-dot-wrap">
+          <div class="timeline-dot"></div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <div>
+              <div class="timeline-card-title">Naturopathie certifiante</div>
+              <div class="timeline-card-school">CERFPA Nice — Centre Européen de Recherche et de Formation en Plantes et Aromathérapie</div>
+            </div>
+            <span class="timeline-badge">3 ans · Certification FEDE</span>
+          </div>
+          <p class="timeline-card-desc">
+            Formation approfondie en naturopathie avec certification agréée par le Conseil de l'Europe et l'UNESCO (Fédération Européenne des Écoles). Programme incluant 3 stages pratiques de 5 jours chacun :
+          </p>
+          <div class="stages-grid">
+            <div class="stage-card">
+              <div class="stage-icon">🌸</div>
+              <div class="stage-title">Stage Aromathérapie</div>
+              <div class="stage-desc">+40 pathologies courantes (acné, anxiété, sommeil…), huiles essentielles & hydrolats, modes d'application, interactions médicamenteuses</div>
+            </div>
+            <div class="stage-card">
+              <div class="stage-icon">🌼</div>
+              <div class="stage-title">Stage Fleurs de Bach</div>
+              <div class="stage-desc">38 élixirs floraux, 7 catégories émotionnelles, rétablissement de l'équilibre intérieur et de l'harmonie émotionnelle</div>
+            </div>
+            <div class="stage-card">
+              <div class="stage-icon">🌿</div>
+              <div class="stage-title">Stage Biothérapies</div>
+              <div class="stage-desc">Nutrition, micronutrition, phytothérapie, gemmothérapie, hydrothérapie, oligothérapie, approches énergétiques</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Réflexologie -->
+      <div class="timeline-item animate-in" style="transition-delay:0.1s">
+        <div class="timeline-dot-wrap">
+          <div class="timeline-dot sauge"></div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <div>
+              <div class="timeline-card-title">Réflexologie globale</div>
+              <div class="timeline-card-school">Mélodie des Sens, Nantes</div>
+            </div>
+            <span class="timeline-badge sauge">Certifié QUALIOPI</span>
+          </div>
+          <p class="timeline-card-desc">
+            Formation certifiante en réflexologie globale couvrant l'ensemble des zones réflexes du corps. Techniques approfondies pour travailler sur les systèmes nerveux, hormonal, digestif et immunitaire.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+            <span class="pill">🦶 Plantaire</span>
+            <span class="pill">🖐️ Palmaire</span>
+            <span class="pill">😌 Faciale</span>
+            <span class="pill">🧠 Cranio-faciale</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kinésiologie -->
+      <div class="timeline-item animate-in" style="transition-delay:0.2s">
+        <div class="timeline-dot-wrap">
+          <div class="timeline-dot bleu"></div>
+        </div>
+        <div class="timeline-card">
+          <div class="timeline-card-header">
+            <div>
+              <div class="timeline-card-title">Kinésiologie</div>
+              <div class="timeline-card-school">Spécialisation en cours</div>
+            </div>
+            <span class="timeline-badge bleu">En formation</span>
+          </div>
+          <p class="timeline-card-desc">
+            La kinésiologie utilise le test musculaire pour identifier et libérer les blocages émotionnels, mentaux et physiques. Une approche douce et précise, particulièrement efficace pour les enfants et adolescents en période de transition.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+            <span class="pill">🦋 Test musculaire</span>
+            <span class="pill">🧠 Blocages émotionnels</span>
+            <span class="pill">✨ Équilibre énergétique</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SECTION 4 : MON ACTIVITÉ & MES OBJECTIFS ══════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Mon activité</div>
+    <h2 class="section-title">Travailler sur le <em>terrain</em>,<br>pas les symptômes</h2>
+
+    <div class="activite-grid">
+      <div class="activite-card animate-in">
+        <div class="activite-icon">🌿</div>
+        <div class="activite-title">Ce que je fais</div>
+        <p class="activite-text">
+          Un accompagnement global corps et esprit, qui associe trois approches complémentaires pour agir sur les causes profondes des déséquilibres — et non seulement sur leurs manifestations.
+        </p>
+        <ul class="activite-list">
+          <li>Naturopathie — alimentation, plantes, rythmes de vie</li>
+          <li>Kinésiologie — libération des blocages émotionnels et mentaux</li>
+          <li>Réflexologie — stimulation des zones réflexes pour rééquilibrer les systèmes</li>
+          <li>Fleurs de Bach — harmonisation émotionnelle</li>
+          <li>Protocoles personnalisés à domicile entre les séances</li>
+        </ul>
+      </div>
+      <div class="activite-card dark animate-in" style="transition-delay:0.1s">
+        <div class="activite-icon">🎯</div>
+        <div class="activite-title">Mon objectif</div>
+        <p class="activite-text">
+          Redonner au corps ses capacités d'autorégulation. Chaque organisme possède une intelligence innée de guérison — mon rôle est de créer les conditions pour qu'elle s'exprime pleinement.
+        </p>
+        <ul class="activite-list">
+          <li>Identifier les causes profondes, pas gérer les symptômes</li>
+          <li>Restaurer l'équilibre minéral et émotionnel</li>
+          <li>Autonomiser le patient dans sa santé quotidienne</li>
+          <li>Prévenir plutôt que guérir</li>
+          <li>Accompagner dans la durée, avec bienveillance</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SECTION 5 : DÉROULÉ D'UN ACCOMPAGNEMENT ══════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">Déroulé</div>
+    <h2 class="section-title">Un accompagnement en<br><em>trois temps</em></h2>
+
+    <div class="deroulement-grid">
+
+      <div class="deroulement-step animate-in">
+        <div class="step-number">01</div>
+        <div class="step-icon">🔍</div>
+        <div class="step-title">Bilan initial</div>
+        <div class="step-duration">1h30 — Première consultation</div>
+        <p class="step-desc">Une rencontre approfondie pour comprendre l'histoire de la personne dans sa globalité.</p>
+        <ul class="step-list">
+          <li>Anamnèse complète : histoire de vie, habitudes, antécédents</li>
+          <li>Évaluation du terrain physique et émotionnel</li>
+          <li>Bilan Oligoscan (minéraux & métaux lourds) si indiqué</li>
+          <li>Définition des objectifs de l'accompagnement</li>
+          <li>Proposition d'un protocole personnalisé</li>
+        </ul>
+      </div>
+
+      <div class="deroulement-step animate-in" style="transition-delay:0.1s">
+        <div class="step-number">02</div>
+        <div class="step-icon">🌿</div>
+        <div class="step-title">Séances de suivi</div>
+        <div class="step-duration">45 à 60 min — Toutes les 3-4 semaines</div>
+        <p class="step-desc">Des séances régulières pour ajuster le protocole et approfondir le travail.</p>
+        <ul class="step-list">
+          <li>Suivi de l'évolution des symptômes</li>
+          <li>Alternance des 3 approches selon les besoins</li>
+          <li>Travail émotionnel (kinésiologie, Fleurs de Bach)</li>
+          <li>Ajustements nutritionnels et phytothérapeutiques</li>
+          <li>Séances de réflexologie ciblées</li>
+        </ul>
+      </div>
+
+      <div class="deroulement-step animate-in" style="transition-delay:0.2s">
+        <div class="step-number">03</div>
+        <div class="step-icon">🏡</div>
+        <div class="step-title">Programme à domicile</div>
+        <div class="step-duration">Au quotidien — Entre les séances</div>
+        <p class="step-desc">Des outils concrets pour prolonger les bénéfices au quotidien et développer l'autonomie.</p>
+        <ul class="step-list">
+          <li>Protocole alimentaire adapté à l'âge et aux besoins</li>
+          <li>Plantes et compléments sélectionnés</li>
+          <li>Exercices de régulation émotionnelle</li>
+          <li>Fleurs de Bach prescrites</li>
+          <li>Rituels du matin et du soir</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SECTION 6 : LES 3 PUBLICS ══════ -->
+<section class="section publics-section">
+  <div class="container">
+    <div class="section-label">Qui j'accompagne</div>
+    <h2 class="section-title">Trois publics,<br><em>une même conviction</em></h2>
+    <p class="publics-intro">
+      Chaque âge a ses défis, ses émotions, ses besoins spécifiques. Mon accompagnement s'adapte à la réalité de chaque personne, avec des outils choisis pour chaque étape de vie.
+    </p>
+
+    <div class="publics-grid">
+
+      <div class="public-card animate-in">
+        <span class="public-icon">🌱</span>
+        <div class="public-age">6 – 12 ans</div>
+        <div class="public-title">Les Enfants</div>
+        <p class="public-desc">Via les parents, pour poser de bonnes bases dès l'enfance et accompagner les petits maux avec douceur et efficacité.</p>
+        <ul class="public-problems">
+          <li>Immunité fragilisée et infections récurrentes</li>
+          <li>Troubles du sommeil et cauchemars</li>
+          <li>Problèmes digestifs (ventre, transit)</li>
+          <li>Anxiété de séparation et peurs</li>
+          <li>Comportement, concentration, HPI</li>
+        </ul>
+      </div>
+
+      <div class="public-card animate-in" style="transition-delay:0.1s">
+        <span class="public-icon">🌀</span>
+        <div class="public-age">13 – 18 ans</div>
+        <div class="public-title">Les Adolescents</div>
+        <p class="public-desc">La période des bouleversements hormonaux, des pressions scolaires et de la construction identitaire — un moment clé pour accompagner en profondeur.</p>
+        <ul class="public-problems">
+          <li>Acné et problèmes de peau hormonaux</li>
+          <li>Stress des examens et blocages cognitifs</li>
+          <li>Confiance en soi et image corporelle</li>
+          <li>Poids et rapport à l'alimentation</li>
+          <li>Dérèglements hormonaux, endométriose</li>
+        </ul>
+      </div>
+
+      <div class="public-card animate-in" style="transition-delay:0.2s">
+        <span class="public-icon">⚡</span>
+        <div class="public-age">20 – 30 ans</div>
+        <div class="public-title">Les Jeunes Professionnels</div>
+        <p class="public-desc">L'entrée dans la vie professionnelle et personnelle avec ses exigences, ses accélérations, ses doutes — pour ne pas attendre que le corps crie.</p>
+        <ul class="public-problems">
+          <li>Stress chronique et surcharge mentale</li>
+          <li>Fatigue persistante et récupération difficile</li>
+          <li>Burnout ou prévention du burnout</li>
+          <li>Confiance en soi et affirmation</li>
+          <li>Immunité et vulnérabilités récurrentes</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ SECTION 7 : CTA ══════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center">Prêt(e) à commencer ?</div>
+    <h2 class="section-title" style="text-align:center">
+      Un premier pas vers<br><em>votre équilibre</em>
+    </h2>
+    <p>
+      Commencez par l'Audit Santé pour identifier les zones à soutenir en priorité — ou contactez-moi directement pour toute question.
+    </p>
+    <div class="cta-buttons">
+      <a href="/audit" class="btn-primary">
+        Faire l'Audit Santé
+        <span>→</span>
+      </a>
+      <a href="/contact" class="btn-secondary">
+        Me contacter
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Flux <span>&</span> Équilibre</div>
+      <ul class="footer-links">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/about">À propos</a></li>
+        <li><a href="/audit">Audit Santé</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      © 2026 Flux & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
+    </div>
+  </div>
+</footer>
+
+<script>
+// Nav scroll effect
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 40) {
+    navEl.style.boxShadow = '0 4px 30px rgba(27,77,92,0.1)';
+  } else {
+    navEl.style.boxShadow = '0 1px 30px rgba(27,77,92,0.06)';
+  }
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+// Mobile nav toggle
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);';
+  }
+});
+</script>
+</body>
+</html>
