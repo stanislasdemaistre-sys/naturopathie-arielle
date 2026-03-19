@@ -118,7 +118,31 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 .nav-list .nav-active::after{width:100%!important}
 .nav-mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
 .nav-mobile-toggle span{width:22px;height:1.5px;background:#1B4D5C;display:block;transition:all .3s}
-@media(max-width:640px){.app{padding:24px 16px 60px}.intro-card,.question-card,.fleur-section,.alerts-section{padding:28px 20px}.child-form{grid-template-columns:1fr}.intro-details{flex-direction:column;align-items:center;gap:12px}.question-text{font-size:1.15rem}.oligo-suggestion{padding:28px 20px}.fleur-tooltip{width:300px}}
+.success-screen{text-align:center;max-width:500px;margin:60px auto;padding:60px 40px;background:var(--wh);border-radius:var(--rl);box-shadow:0 20px 60px rgba(27,77,92,.08);animation:fadeUp .8s ease-out}
+.success-icon{font-size:4rem;margin-bottom:24px}
+.success-screen h2{font-family:var(--fd);font-size:1.8rem;color:var(--bp);font-weight:400;margin-bottom:16px}
+.success-screen p{font-size:.92rem;color:var(--tx-l);margin-bottom:8px;line-height:1.7}
+.success-sub{font-style:italic}
+.success-rdv{margin-top:28px;display:inline-block;text-decoration:none}
+.email-row{width:100%;max-width:400px}
+.email-row input{width:100%;padding:12px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);outline:none;transition:border-color .3s}
+.email-row input:focus{border-color:var(--vs)}
+@media(max-width:640px){
+  .app{padding:24px 16px 60px}
+  .intro-card,.question-card,.fleur-section,.alerts-section{padding:28px 20px}
+  .child-form{grid-template-columns:1fr}
+  .intro-details{flex-direction:column;align-items:center;gap:12px}
+  .question-text{font-size:1.15rem}
+  .oligo-suggestion{padding:28px 20px}
+  .fleur-tooltip{width:calc(100vw - 48px);left:50%;transform:translateX(-50%)}
+  .fleur-tooltip.visible{bottom:-20px}
+  .results-cta .btn-row{flex-direction:column;align-items:stretch}
+  .results-cta .btn-row .btn{width:100%}
+  .email-row{max-width:100%}
+  .success-screen{padding:40px 24px;margin:32px auto}
+  .oligo-minerals{gap:6px}
+  .mineral-tag{font-size:.72rem;padding:4px 10px}
+}
 </style>
 </head>
 <body>
@@ -137,9 +161,12 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
       <div class="nav-logo-text">Flux <span>&</span> Équilibre</div>
     </a>
     <ul class="nav-list">
-      <li><a href="/methode">Méthode</a></li>
+      <li><a href="/">Accueil</a></li>
       <li><a href="/about">À propos</a></li>
-      <li><a href="/audit" class="nav-cta-btn nav-active">Audit Santé</a></li>
+      <li><a href="/methode">Méthode</a></li>
+      <li><a href="/audit" class="nav-active">Audit Santé</a></li>
+      <li><a href="/#guide">Guide Acné</a></li>
+      <li><a href="/contact">Contact</a></li>
     </ul>
     <button class="nav-mobile-toggle" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -165,7 +192,6 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
       <div class="child-form">
         <div class="form-group"><label for="childName" id="labelChildName">Prénom de l'enfant</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
         <div class="form-group"><label>Âge</label><select id="childAge"><option value="">Sélectionner</option><option>3-5 ans</option><option>6-8 ans</option><option>9-11 ans</option><option>12-14 ans</option><option>15-17 ans</option><option>18-25 ans</option></select></div>
-        <div class="form-group" style="grid-column:1/-1"><label id="labelClientEmail">Votre email (optionnel — pour recevoir le bilan PDF)</label><input type="email" id="clientEmail" placeholder="Ex : sophie@email.com" /></div>
       </div>
       <button class="btn btn-primary" onclick="startAudit()">Commencer l'audit <span>→</span></button>
     </div>
@@ -176,6 +202,16 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
   </div>
   <div id="screen-results" class="hidden"></div>
 </div>
+<footer style="background:#0F3540;padding:20px 24px;font-family:'Outfit',system-ui,sans-serif;margin-top:40px">
+  <div style="max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <span style="font-family:'Cormorant Garamond',Georgia,serif;color:#FAF7F2;font-size:1.05rem">Flux <span style="color:#C4A265">&</span> Équilibre</span>
+    <span style="color:rgba(250,247,242,.45);font-size:.8rem">Sainte-Consorce (69280) · +33 6 51 14 07 26</span>
+    <div style="display:flex;align-items:center;gap:14px">
+      <a href="/mentions" style="color:rgba(250,247,242,.45);text-decoration:none;font-size:.78rem">Mentions légales</a>
+      <a href="/crm" style="color:rgba(196,162,101,.7);border:1px solid rgba(196,162,101,.3);padding:3px 11px;border-radius:20px;text-decoration:none;font-size:.72rem">Espace Praticienne</a>
+    </div>
+  </div>
+</footer>
 <script>
 // ═══════════════════════════════════════════════════════════════
 // AUDIT HORIZON SANTÉ — V3 MASTER RECTIFICATION
@@ -380,7 +416,7 @@ let activeTooltipPetal=null;
 function startAudit(){
   const n=document.getElementById('childName').value.trim();
   if(!n){document.getElementById('childName').style.borderColor='#D4786A';document.getElementById('childName').focus();return;}
-  state.childName=n;state.childAge=document.getElementById('childAge').value;state.clientEmail=document.getElementById('clientEmail').value.trim();
+  state.childName=n;state.childAge=document.getElementById('childAge').value;
   document.getElementById('screen-intro').classList.add('hidden');
   document.getElementById('screen-questions').classList.remove('hidden');
   renderQuestion();
@@ -510,9 +546,11 @@ function showResults(){
         <p>${isAdult()?`Tu montres un bel équilibre global, ${state.childName}.`:`${state.childName} montre un bel équilibre global.`} Un suivi naturopathique léger permettrait de consolider cette dynamique.</p>
         <button class="btn btn-gold" onclick="window.location='/audit';resetAudit()">Découvrir nos accompagnements →</button></div>`:''}
 
-      <div class="results-cta"><div class="btn-row">
-        <button class="btn btn-primary" onclick="generatePDF()">📄 Télécharger la synthèse PDF</button>
-        <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire l'audit</button></div>
+      <div class="results-cta">
+        <div class="email-row"><input type="email" id="resultEmail" placeholder="Votre email pour recevoir le bilan PDF (optionnel)" /></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" onclick="generatePDF()">📄 Télécharger et envoyer le bilan</button>
+          <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire l'audit</button></div>
         <p>Ces résultats orientent vers un bilan approfondi au cabinet. Ils ne constituent pas un diagnostic médical.</p></div>
     </div>`;
 
@@ -549,32 +587,34 @@ function generatePDF(){
   const{jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});
   const W=210,M=20,el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
   const BP=[27,77,92],VS=[143,169,139],DO=[196,162,101],CR=[250,247,242],TX=[44,62,58],TL=[90,110,104];
+  const clientEmail=document.getElementById('resultEmail')?.value.trim()||'';window.__auditResult.clientEmail=clientEmail;
 
-  doc.setFillColor(...BP);doc.rect(0,0,W,42,'F');
+  doc.setFillColor(...BP);doc.rect(0,0,W,38,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(...CR);doc.text('Flux & Équilibre',M,18);
   doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...DO);doc.text('Naturopathie · Kinésiologie · Réflexologie',M,26);
   doc.setTextColor(200,220,220);doc.text(new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}),W-M,18,{align:'right'});
 
-  doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(...BP);doc.text("Mon Chemin vers l'Équilibre",W/2,58,{align:'center'});
+  doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(...BP);doc.text("Mon Chemin vers l'Équilibre",W/2,50,{align:'center'});
   doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(...TL);
-  doc.text(`Bilan ${el}${state.childName}${state.childAge?' — '+state.childAge:''}`,W/2,67,{align:'center'});
-  doc.setDrawColor(...DO);doc.setLineWidth(.5);doc.line(W/2-30,72,W/2+30,72);
+  doc.text(`Bilan ${el}${state.childName}${state.childAge?' — '+state.childAge:''}`,W/2,59,{align:'center'});
+  doc.setDrawColor(...DO);doc.setLineWidth(.5);doc.line(W/2-30,63,W/2+30,63);
 
-  const fcx=W/2,fcy=108,keys=['sommeil','eclat','serenite','immunite','confiance'],angs=[-90,-18,54,126,198];
+  const fcx=W/2,fcy=103,keys=['sommeil','eclat','serenite','immunite','confiance'],angs=[-90,-18,54,126,198];
   const pcol={sommeil:BP,eclat:DO,serenite:VS,immunite:[42,107,126],confiance:[107,91,141]};
-  keys.forEach((k,i)=>{const c=ch[k],a=angs[i]*Math.PI/180,d=24,px=fcx+Math.cos(a)*d,py=fcy+Math.sin(a)*d;
-    const o=c<=2?1:c<=5?.5:.35,co=pcol[k];
+  keys.forEach((k,i)=>{const c=ch[k],a=angs[i]*Math.PI/180,d=22,px=fcx+Math.cos(a)*d,py=fcy+Math.sin(a)*d;
+    const o=c<=2?1:c<=5?.55:.25,co=pcol[k];
     doc.setFillColor(Math.round(co[0]+(255-co[0])*(1-o)),Math.round(co[1]+(255-co[1])*(1-o)),Math.round(co[2]+(255-co[2])*(1-o)));
-    doc.circle(px,py,18,'F');
-    if(c>=6){doc.setDrawColor(...DO);doc.setLineWidth(1);doc.circle(px,py,19,'S');}
+    doc.circle(px,py,15,'F');
+    if(c>=6){doc.setDrawColor(...DO);doc.setLineWidth(1);doc.circle(px,py,16,'S');}
     doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);doc.text(String(toScore(c)),px,py-1,{align:'center'});
     doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.text(PETALS[k].label.toUpperCase(),px,py+5,{align:'center'});
   });
-  doc.setFillColor(...CR);doc.setDrawColor(...VS);doc.setLineWidth(.5);doc.circle(fcx,fcy,10,'FD');
+  doc.setFillColor(...CR);doc.setDrawColor(...VS);doc.setLineWidth(.5);doc.circle(fcx,fcy,9,'FD');
   doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text(String(gs),fcx,fcy+1,{align:'center'});
+  doc.setFontSize(6);doc.setTextColor(...TL);doc.text('● Pétale plein = Équilibre   ○ Pétale vide = Zone de vigilance',W/2,146,{align:'center'});
 
-  let y=142;
-  doc.setFillColor(250,247,242);doc.roundedRect(M,y-4,W-2*M,52,4,4,'F');
+  let y=152;
+  doc.setFillColor(250,247,242);doc.roundedRect(M,y-4,W-2*M,46,4,4,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...BP);doc.text(`${wp.label} — Axe prioritaire`,M+8,y+6);
   doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(...TL);
   doc.text(doc.splitTextToSize(wp.description,W-2*M-16),M+8,y+14);
@@ -614,8 +654,13 @@ function generatePDF(){
       doc.text(lines,cols[i]+2,y+4.5);});
     y+=rh;});
 
+  y+=8;
+  doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(...VS);doc.text("Un premier pas vers l'équilibre.",W/2,y,{align:'center'});
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
+  doc.text('Ces résultats orientent vers un accompagnement personnalisé au cabinet.',W/2,y+6,{align:'center'});y+=16;
+
   // Si le contenu déborde, ajouter une page
-  if(y>250){doc.addPage();y=20;}
+  if(y>270){doc.addPage();y=20;}
   doc.setDrawColor(...DO);doc.setLineWidth(.3);doc.line(M,y,W-M,y);y+=8;
   doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text('Arielle de Maistre',M,y);
   doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TL);
@@ -625,7 +670,7 @@ function generatePDF(){
   doc.setFillColor(...DO);doc.roundedRect(W/2-35,y+22,70,10,5,5,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(15,53,64);doc.text('Prendre rendez-vous',W/2,y+28.5,{align:'center'});
   doc.setFont('helvetica','italic');doc.setFontSize(6.5);doc.setTextColor(170,170,170);
-  doc.text("Ce bilan oriente vers un accompagnement au cabinet. Il ne constitue pas un diagnostic médical.",W/2,292,{align:'center'});
+  doc.text("Ce bilan oriente vers un accompagnement au cabinet. Il ne constitue pas un diagnostic médical.",W/2,y+36,{align:'center'});
   const filename=`Mon_Chemin_Equilibre_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`;
   doc.save(filename);
   // Envoi email si email renseigné ou envoi de copie à Arielle dans tous les cas
@@ -635,11 +680,16 @@ function generatePDF(){
     fetch('/api/send-audit-pdf',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({...r,pdfBase64})
     }).then(res=>res.json()).then(d=>{
-      if(d.ok&&d.sentToClient&&r.clientEmail){
-        const t=document.createElement('div');
-        t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1B4D5C;color:#FAF7F2;padding:12px 24px;border-radius:50px;font-size:.85rem;z-index:9999;box-shadow:0 8px 32px rgba(0,0,0,.2)';
-        t.textContent='📧 Bilan envoyé à '+r.clientEmail;
-        document.body.appendChild(t);setTimeout(()=>t.remove(),4000);
+      if(d.ok&&d.sentToClient&&clientEmail){
+        document.getElementById('screen-results').innerHTML=`
+          <div class="success-screen">
+            <div class="success-icon">🌿</div>
+            <h2>Votre bilan a été envoyé !</h2>
+            <p>Un exemplaire PDF a été transmis à <strong>${clientEmail}</strong>.</p>
+            <p class="success-sub">Arielle de Maistre vous répondra personnellement dans les meilleurs délais.</p>
+            <a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet →</a>
+            <button class="btn btn-secondary" onclick="resetAudit()" style="margin-top:12px">🔄 Refaire l'audit</button>
+          </div>`;
       }
     }).catch(()=>{});
   }catch(e){}
@@ -647,12 +697,11 @@ function generatePDF(){
 
 function resetAudit(){state={childName:'',childAge:'',clientEmail:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};activeTooltipPetal=null;
   document.getElementById('screen-results').classList.add('hidden');document.getElementById('screen-intro').classList.remove('hidden');
-  document.getElementById('childName').value='';document.getElementById('childAge').value='';document.getElementById('clientEmail').value='';window.scrollTo({top:0,behavior:'smooth'});}
+  document.getElementById('childName').value='';document.getElementById('childAge').value='';window.scrollTo({top:0,behavior:'smooth'});}
 document.getElementById('childAge').addEventListener('change',e=>{
   const adult=['15-17 ans','18-25 ans'].includes(e.target.value);
   document.getElementById('labelChildName').textContent=adult?'Ton prénom':'Prénom de l\'enfant';
   document.getElementById('childName').placeholder=adult?'Ex : Camille':'Ex : Léa';
-  document.getElementById('labelClientEmail').textContent=adult?'Ton email (optionnel — pour recevoir ton bilan PDF)':'Votre email (optionnel — pour recevoir le bilan PDF)';
 });
 document.addEventListener('keydown',e=>{if(document.getElementById('screen-questions').classList.contains('hidden'))return;
   if(e.key>='1'&&e.key<='4')selectOption(parseInt(e.key)-1);if(e.key==='Enter')nextQ();if(e.key==='ArrowLeft')prevQ();});
