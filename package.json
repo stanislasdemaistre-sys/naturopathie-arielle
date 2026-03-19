@@ -2,7 +2,7 @@
   "name": "naturopathie-arielle",
   "version": "1.0.0",
   "scripts": {
-    "start": "prisma migrate deploy ; node server.js",
+    "start": "node server.js",
     "dev": "node server.js"
   },
   "dependencies": {
