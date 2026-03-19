@@ -156,7 +156,7 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
     <div class="intro-card">
       <div class="intro-emoji">🌿</div>
       <h2>Bilan de vitalité en 15 questions</h2>
-      <p>Ce questionnaire explore 5 dimensions concrètes : sommeil, surcharges, stress, immunité et confiance. Les résultats dessinent la Fleur de Vitalité de votre enfant et orientent vers les solutions adaptées.</p>
+      <p>Ce questionnaire explore 5 dimensions concrètes : sommeil, surcharges, stress, immunité et confiance. Les résultats cartographient l'équilibre de votre enfant sur 5 axes essentiels et orientent vers les solutions adaptées.</p>
       <div class="intro-details">
         <div class="intro-detail"><div class="icon">🕐</div><span>3 minutes</span></div>
         <div class="intro-detail"><div class="icon">🌸</div><span>15 questions</span></div>
@@ -468,6 +468,7 @@ function showResults(){
 
   const needOligo=alertP.concat(watchP).some(k=>k==='eclat'||k==='immunite');
   const needKinesio=alertP.concat(watchP).some(k=>k==='serenite'||k==='confiance');
+  const needReflexo=alertP.concat(watchP).some(k=>k==='sommeil'||k==='eclat');
   const mins=[...new Set(alertP.concat(watchP).flatMap(k=>PETALS[k].mineraux))];
 
   document.getElementById('screen-results').innerHTML=`
@@ -475,7 +476,7 @@ function showResults(){
       <div class="results-header"><h2>Bilan ${el}<em>${state.childName}</em></h2>
         <div class="results-child-name">${state.childAge||''} — Réalisé le ${new Date().toLocaleDateString('fr-FR')}</div></div>
       <div class="fleur-section" id="fleurSection">
-        <div class="fleur-label">Fleur de Vitalité</div>
+        <div class="fleur-label">Résultats de l'audit</div>
         <div class="fleur-container" id="fleurContainer">
           <svg class="fleur-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" id="fleurSvg">${svg}
             <circle cx="${cx}" cy="${cy}" r="32" fill="#FAF7F2" stroke="#B5CBB1" stroke-width="2"/>
@@ -501,7 +502,11 @@ function showResults(){
         <p>${isAdult()?`Tes pétales Sérénité et/ou Confiance révèlent des tensions émotionnelles, ${state.childName}.`:`Les pétales Sérénité et/ou Confiance ${el}${state.childName} révèlent des tensions émotionnelles.`} La Kinésiologie permet d'identifier les blocages et les Fleurs de Bach accompagnent le rééquilibrage en douceur.</p>
         <button class="btn btn-gold" onclick="window.location='/methode'">Découvrir la Kinésiologie →</button></div>`:''}
 
-      ${!needOligo&&!needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
+      ${needReflexo?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#2E7D7A,#1B4D5C)"><h3>🌿 Réflexologie recommandée</h3>
+        <p>${isAdult()?`Tes résultats indiquent un besoin de drainage et/ou de récupération, ${state.childName}.`:`Les résultats ${el}${state.childName} indiquent un besoin de drainage et/ou de récupération.`}${charges.eclat>=3?' La Réflexologie plantaire accompagne le drainage naturel du foie et des intestins.':''}${charges.sommeil>=3?' La Réflexologie palmaire apporte un réconfort immédiat et améliore la qualité du sommeil.':''}</p>
+        <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous →</button></div>`:''}
+
+      ${!needOligo&&!needKinesio&&!needReflexo?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
         <p>${isAdult()?`Tu montres un bel équilibre global, ${state.childName}.`:`${state.childName} montre un bel équilibre global.`} Un suivi naturopathique léger permettrait de consolider cette dynamique.</p>
         <button class="btn btn-gold" onclick="window.location='/audit';resetAudit()">Découvrir nos accompagnements →</button></div>`:''}
 
@@ -518,7 +523,7 @@ function showResults(){
     childName:state.childName, childAge:state.childAge, clientEmail:state.clientEmail, date:new Date().toISOString(),
     charges, globalScore:gs, worstPetal:worst,
     zones: keys.filter(k=>lvl(charges[k])!=='good').map(k=>({petale:k,charge:charges[k],level:lvl(charges[k])})),
-    emonctoires, suggestOligo:needOligo, suggestKinesio:needKinesio
+    emonctoires, suggestOligo:needOligo, suggestKinesio:needKinesio, suggestReflexo:needReflexo
   };
   fetch('/api/audit-result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window.__auditResult)}).catch(()=>{});
 }
@@ -584,7 +589,34 @@ function generatePDF(){
     doc.setFillColor(...bc);doc.roundedRect(M+35,y-1,Math.max(2,90*s/100),5,2,2,'F');
     doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...bc);doc.text(s+'/100',M+130,y+3);y+=10;});
 
-  y=260;doc.setDrawColor(...DO);doc.setLineWidth(.3);doc.line(M,y,W-M,y);y+=8;
+  // ── Tableau Rééquilibrage de Terrain ──────────────────────────────────────
+  const terrainRows=[];
+  if(ch.eclat>=3)terrainRows.push(['Alimentation & Émonctoires','Surcharges : foie, intestins, peau','Naturopathie : alimentation anti-inflam., eau filtrée, chardon-marie · Réflexologie plantaire détox']);
+  if(ch.sommeil>=3)terrainRows.push(['Récupération & Sommeil','Sommeil perturbé, fatigue au réveil','Réflexologie palmaire · Magnésium, Mélisse · Rituels du coucher']);
+  if(ch.serenite>=3||ch.confiance>=3)terrainRows.push(['Équilibre Nerveux & Émotionnel','Tension émotionnelle détectée','Kinésiologie · Fleurs de Bach · Réflexologie crânio-faciale']);
+  if(ch.immunite>=3)terrainRows.push(['Immunité & Terrain minéral','Terrain immunitaire fragile','Oligoscan · Zinc, Vitamine D, Échinacée · Probiotiques ciblés']);
+  if(!terrainRows.length)terrainRows.push(['Terrain global','Équilibre encourageant sur 5 axes','Protocole de maintien naturopathique · Bilan de suivi conseillé dans 6 mois']);
+
+  y+=4;
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...BP);doc.text('Rééquilibrage de terrain recommandé',M,y);y+=6;
+  const cols=[M,M+45,M+95],cw=[43,48,73],rh=14;
+  const heads=['Pilier de Vitalité','Observation','Action recommandée'];
+  doc.setFillColor(...BP);doc.rect(M,y,W-2*M,7,'F');
+  heads.forEach((h,i)=>{doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...CR);doc.text(h,cols[i]+2,y+5);});
+  y+=7;
+  terrainRows.forEach((row,ri)=>{
+    const bg=ri%2===0?CR:[240,237,232];
+    doc.setFillColor(...bg);doc.rect(M,y,W-2*M,rh,'F');
+    doc.setDrawColor(220,215,208);doc.setLineWidth(.2);doc.rect(M,y,W-2*M,rh,'S');
+    row.forEach((cell,i)=>{
+      doc.setFont('helvetica',i===0?'bold':'normal');doc.setFontSize(6.5);doc.setTextColor(...TX);
+      const lines=doc.splitTextToSize(cell,cw[i]-4);
+      doc.text(lines,cols[i]+2,y+4.5);});
+    y+=rh;});
+
+  // Si le contenu déborde, ajouter une page
+  if(y>250){doc.addPage();y=20;}
+  doc.setDrawColor(...DO);doc.setLineWidth(.3);doc.line(M,y,W-M,y);y+=8;
   doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text('Arielle de Maistre',M,y);
   doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TL);
   doc.text('Naturopathe · Kinésiologue · Réflexologue',M,y+5);

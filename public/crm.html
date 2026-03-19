@@ -99,9 +99,9 @@
 <nav class="sidebar">
   <div class="sidebar-logo">Flux <span>&</span> Équilibre</div>
   <div class="sidebar-section">Patients</div>
-  <a class="sidebar-item active"><span class="icon">📋</span>Carnet de Cheminement</a>
+  <a class="sidebar-item active" id="navCarnet" onclick="showScreen('carnet')"><span class="icon">📋</span>Carnet de Cheminement</a>
   <a class="sidebar-item"><span class="icon">👨‍👩‍👧</span>Familles</a>
-  <a class="sidebar-item"><span class="icon">🌿</span>Audits Horizon</a>
+  <a class="sidebar-item" id="navAudits" onclick="showScreen('audits')"><span class="icon">🌿</span>Audits Horizon</a>
   <div class="sidebar-section">Outils</div>
   <a class="sidebar-item"><span class="icon">🔬</span>Bilans Oligoscan</a>
   <a class="sidebar-item"><span class="icon">🌼</span>Protocoles & Remèdes</a>
@@ -115,7 +115,7 @@
 
 <main class="main">
   <div class="main-header">
-    <div><h1 class="main-title">Carnet de <em>Cheminement</em></h1><p class="main-subtitle">Suivi naturopathique global — Oligoscan · Émonctoires · Émotions · Fleur de Vitalité</p></div>
+    <div><h1 class="main-title" id="mainTitle">Carnet de <em>Cheminement</em></h1><p class="main-subtitle" id="mainSubtitle">Suivi naturopathique global — Oligoscan · Émonctoires · Émotions · Résultats d'audit</p></div>
     <div style="display:flex;gap:8px"><button class="btn btn-s" onclick="importAudit()">📥 Importer un audit</button><button class="btn btn-g btn-sm" onclick="toggleNewSeance()">➕ Nouvelle séance</button><button class="btn btn-p" onclick="showSave()">💾 Sauvegarder</button></div>
   </div>
 
@@ -288,6 +288,21 @@
     </div>
   </div>
   </div>
+
+  <!-- ── Écran Audits Horizon ─────────────────────────────── -->
+  <div id="screen-audits" style="display:none">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <div>
+        <h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--bp);font-weight:400">Audits <em>reçus</em></h2>
+        <p style="font-size:.82rem;color:var(--tx-l);margin-top:4px">Résultats transmis automatiquement depuis le questionnaire public</p>
+      </div>
+      <button class="btn btn-s" onclick="loadAuditsScreen()">🔄 Actualiser</button>
+    </div>
+    <div id="audits-table-wrap" style="background:var(--wh);border-radius:var(--rl);box-shadow:0 4px 20px rgba(27,77,92,.05);overflow:hidden">
+      <div id="audits-loading" style="padding:40px;text-align:center;color:var(--tx-l);font-size:.9rem">Chargement…</div>
+    </div>
+  </div>
+
 </main>
 </div>
 <div class="save-indicator" id="saveInd">✓ Données sauvegardées</div>
@@ -487,6 +502,71 @@ function enregistrerSeance(){
   saveEl.textContent=`✓ ${typeLabel} enregistrée — ${dateF}${duree?' ('+duree+' min)':''}`;
   saveEl.classList.add('show');
   setTimeout(()=>{saveEl.classList.remove('show');saveEl.textContent='✓ Données sauvegardées';},3000);
+}
+
+// ── Navigation écrans ──────────────────────────────────────────────────────
+function showScreen(name){
+  const carnetEls=document.querySelectorAll('.patient-header,.grid-3,#newSeancePanel,.grid-2');
+  const screenAudits=document.getElementById('screen-audits');
+  const navCarnet=document.getElementById('navCarnet');
+  const navAudits=document.getElementById('navAudits');
+  const mainTitle=document.getElementById('mainTitle');
+  const mainSubtitle=document.getElementById('mainSubtitle');
+  if(name==='audits'){
+    carnetEls.forEach(el=>el.style.display='none');
+    screenAudits.style.display='block';
+    navCarnet.classList.remove('active');navAudits.classList.add('active');
+    mainTitle.innerHTML='Audits <em>Horizon Santé</em>';
+    mainSubtitle.textContent='Résultats du questionnaire public — transmis automatiquement';
+    loadAuditsScreen();
+  } else {
+    carnetEls.forEach(el=>el.style.display='');
+    screenAudits.style.display='none';
+    navCarnet.classList.add('active');navAudits.classList.remove('active');
+    mainTitle.innerHTML='Carnet de <em>Cheminement</em>';
+    mainSubtitle.textContent="Suivi naturopathique global — Oligoscan · Émonctoires · Émotions · Résultats d'audit";
+  }
+}
+
+// ── Chargement des vrais audits depuis /api/audits ─────────────────────────
+async function loadAuditsScreen(){
+  const wrap=document.getElementById('audits-table-wrap');
+  wrap.innerHTML='<div id="audits-loading" style="padding:40px;text-align:center;color:var(--tx-l);font-size:.9rem">Chargement…</div>';
+  try{
+    const audits=await fetch('/api/audits').then(r=>r.json());
+    if(!audits.length){
+      wrap.innerHTML='<div style="padding:40px;text-align:center;color:var(--tx-l);font-size:.9rem">Aucun audit reçu pour le moment.</div>';
+      return;
+    }
+    const lvlColor=s=>s>=70?'var(--ok)':s>=40?'var(--do)':'var(--al)';
+    const lvlLabel=s=>s>=70?'Bon équilibre':s>=40?'À accompagner':"Zone d'attention";
+    const rows=audits.map(a=>{
+      const gs=a.globalScore||0;
+      const sugg=[a.suggestOligo?'🔬 Oligoscan':'',a.suggestKinesio?'🦋 Kiné':'',a.suggestReflexo?'🌿 Réflexo':''].filter(Boolean).join(' · ')||'—';
+      const date=a.receivedAt?new Date(a.receivedAt).toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}):'—';
+      const zones=(a.zones||[]).map(z=>`<span style="background:rgba(212,120,106,.12);color:#8B4040;padding:1px 7px;border-radius:20px;font-size:.72rem">${z.petale}</span>`).join(' ');
+      return`<tr style="border-bottom:1px solid var(--cr-d)">
+        <td style="padding:12px 16px;font-weight:500;color:var(--tx)">${a.childName||'—'}</td>
+        <td style="padding:12px 16px;color:var(--tx-l);font-size:.85rem">${a.childAge||'—'}</td>
+        <td style="padding:12px 16px"><span style="font-weight:600;color:${lvlColor(gs)}">${gs}/100</span><br><span style="font-size:.72rem;color:var(--tx-l)">${lvlLabel(gs)}</span></td>
+        <td style="padding:12px 16px;font-size:.82rem">${zones||'—'}</td>
+        <td style="padding:12px 16px;font-size:.82rem;color:var(--tx-l)">${sugg}</td>
+        <td style="padding:12px 16px;font-size:.8rem;color:var(--tx-l)">${a.clientEmail||'<em>non renseigné</em>'}</td>
+        <td style="padding:12px 16px;font-size:.8rem;color:var(--tx-l)">${date}${a.hasPdf?' 📄':''}</td>
+      </tr>`;}).join('');
+    wrap.innerHTML=`<table style="width:100%;border-collapse:collapse">
+      <thead><tr style="background:var(--bp)">
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">PRÉNOM</th>
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">ÂGE</th>
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">SCORE</th>
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">ZONES</th>
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">SUGGESTIONS</th>
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">EMAIL</th>
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">DATE</th>
+      </thead><tbody>${rows}</tbody></table>`;
+  }catch(e){
+    wrap.innerHTML='<div style="padding:40px;text-align:center;color:var(--al);font-size:.9rem">Erreur de chargement. Vérifiez la connexion.</div>';
+  }
 }
 
 renderAll();

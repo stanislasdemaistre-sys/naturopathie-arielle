@@ -4,6 +4,18 @@ const path = require('path');
 const fs = require('fs');
 const { Resend } = require('resend');
 
+// Prisma : disponible si DATABASE_URL est configurée
+let prisma = null;
+if (process.env.DATABASE_URL) {
+  try {
+    const { PrismaClient } = require('@prisma/client');
+    prisma = new PrismaClient();
+    console.log('Prisma connecté à la base de données.');
+  } catch (e) {
+    console.warn('Prisma non disponible, mode JSON actif.', e.message);
+  }
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const AUDITS_FILE = path.join(__dirname, 'data', 'audits.json');
@@ -45,10 +57,10 @@ app.get('/health', (req, res) => res.json({ status: 'ok' }));
 // ─── Audit result silencieux (scores seuls, sans PDF) ───────────────────────
 app.post('/api/audit-result', express.json(), async (req, res) => {
   try {
-    const { childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, date, clientEmail } = req.body;
+    const { childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo, date, clientEmail } = req.body;
 
     // Stocker dans le JSON CRM
-    saveAudit({ childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, date, clientEmail: clientEmail || null, hasPdf: false, receivedAt: new Date().toISOString() });
+    saveAudit({ childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo: suggestReflexo || false, date, clientEmail: clientEmail || null, hasPdf: false, receivedAt: new Date().toISOString() });
 
     await resend.emails.send({
       from: process.env.RESEND_FROM,
@@ -59,7 +71,7 @@ app.post('/api/audit-result', express.json(), async (req, res) => {
         <p><strong>Score global :</strong> ${globalScore}/100</p>
         <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/9 · Éclat ${charges.eclat}/9 · Sérénité ${charges.serenite}/9 · Immunité ${charges.immunite}/9 · Confiance ${charges.confiance}/9</p>
         <p><strong>Zones d'alerte :</strong> ${zones.map(z => z.petale + ' (' + z.level + ')').join(', ') || 'aucune'}</p>
-        <p><strong>Suggestion Oligoscan :</strong> ${suggestOligo ? 'oui' : 'non'} · <strong>Kinésiologie :</strong> ${suggestKinesio ? 'oui' : 'non'}</p>
+        <p><strong>Suggestion Oligoscan :</strong> ${suggestOligo ? 'oui' : 'non'} · <strong>Kinésiologie :</strong> ${suggestKinesio ? 'oui' : 'non'} · <strong>Réflexologie :</strong> ${suggestReflexo ? 'oui' : 'non'}</p>
         ${clientEmail ? `<p><strong>Email client :</strong> ${clientEmail}</p>` : '<p><em>Pas d\'email client renseigné</em></p>'}
         <p><em>Réalisé le ${new Date(date).toLocaleString('fr-FR')}</em></p>`
     });
@@ -73,7 +85,7 @@ app.post('/api/audit-result', express.json(), async (req, res) => {
 // ─── Envoi PDF audit (client + Arielle) ────────────────────────────────────
 app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res) => {
   try {
-    const { childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, date, clientEmail, pdfBase64 } = req.body;
+    const { childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo, date, clientEmail, pdfBase64 } = req.body;
 
     const pdfBuffer = Buffer.from(pdfBase64, 'base64');
     const filename = `Audit_Horizon_Sante_${childName}_${new Date(date).toISOString().slice(0, 10)}.pdf`;
@@ -82,7 +94,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     const audits = loadAudits();
     const existing = audits.find(a => a.childName === childName && a.date === date);
     if (existing) { existing.hasPdf = true; existing.clientEmail = clientEmail || existing.clientEmail; }
-    else { audits.unshift({ childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, date, clientEmail: clientEmail || null, hasPdf: true, receivedAt: new Date().toISOString() }); }
+    else { audits.unshift({ childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo: suggestReflexo || false, date, clientEmail: clientEmail || null, hasPdf: true, receivedAt: new Date().toISOString() }); }
     fs.writeFileSync(AUDITS_FILE, JSON.stringify(audits, null, 2));
 
     const attachment = { filename, content: pdfBuffer, contentType: 'application/pdf' };
@@ -90,7 +102,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
       <p><strong>Score global :</strong> ${globalScore}/100</p>
       <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/9 · Éclat ${charges.eclat}/9 · Sérénité ${charges.serenite}/9 · Immunité ${charges.immunite}/9 · Confiance ${charges.confiance}/9</p>
       <p><strong>Zones :</strong> ${zones.map(z => z.petale + ' (' + z.level + ')').join(', ') || 'Aucune zone d\'alerte'}</p>
-      <p><strong>Suggestions :</strong> Oligoscan ${suggestOligo ? '✅' : '—'} · Kinésiologie ${suggestKinesio ? '✅' : '—'}</p>
+      <p><strong>Suggestions :</strong> Oligoscan ${suggestOligo ? '✅' : '—'} · Kinésiologie ${suggestKinesio ? '✅' : '—'} · Réflexologie ${suggestReflexo ? '✅' : '—'}</p>
       <p><em>Réalisé le ${new Date(date).toLocaleString('fr-FR')}</em></p>`;
 
     // Email au client (si email fourni)
