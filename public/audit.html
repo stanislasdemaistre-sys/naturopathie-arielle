@@ -688,11 +688,14 @@ function generatePDF(){
 
   // 5. AXE PRIORITAIRE (hauteur dynamique)
   let y=legY+11;
+  // Fixer la bonne police AVANT splitTextToSize (hérite sinon de 5.8pt de la légende)
+  doc.setFont('helvetica','normal');doc.setFontSize(8);
   const descLines=doc.splitTextToSize(wp.description,CW-18);
+  doc.setFontSize(7);
   const solLines=doc.splitTextToSize('Solutions : '+wp.solutions,CW-18);
-  const descH=descLines.length*3.5+2;
-  const solH=solLines.length*3.2;
-  const boxH=8+descH+solH+7;
+  const descH=descLines.length*4.2+2;
+  const solH=solLines.length*3.7;
+  const boxH=8+descH+solH+8;
 
   doc.setFillColor(...CRD);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
   doc.roundedRect(MX,y,CW,boxH,3,3,'FD');
