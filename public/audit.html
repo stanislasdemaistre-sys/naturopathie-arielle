@@ -127,6 +127,10 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 .email-row{width:100%;max-width:400px}
 .email-row input{width:100%;padding:12px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);outline:none;transition:border-color .3s}
 .email-row input:focus{border-color:var(--vs)}
+.contact-mini-form{display:flex;flex-direction:column;gap:10px;width:100%;max-width:420px}
+.form-row-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.contact-mini-form input{width:100%;padding:12px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);outline:none;transition:border-color .3s;box-sizing:border-box}
+.contact-mini-form input:focus{border-color:var(--vs)}
 @media(max-width:640px){
   .app{padding:24px 16px 60px}
   .intro-card,.question-card,.fleur-section,.alerts-section{padding:28px 20px}
@@ -208,7 +212,6 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
     <span style="color:rgba(250,247,242,.45);font-size:.8rem">Sainte-Consorce (69280) · +33 6 51 14 07 26</span>
     <div style="display:flex;align-items:center;gap:14px">
       <a href="/mentions" style="color:rgba(250,247,242,.45);text-decoration:none;font-size:.78rem">Mentions légales</a>
-      <a href="/crm" style="color:rgba(196,162,101,.7);border:1px solid rgba(196,162,101,.3);padding:3px 11px;border-radius:20px;text-decoration:none;font-size:.72rem">Espace Praticienne</a>
     </div>
   </div>
 </footer>
@@ -547,11 +550,19 @@ function showResults(){
         <button class="btn btn-gold" onclick="window.location='/audit';resetAudit()">Découvrir nos accompagnements →</button></div>`:''}
 
       <div class="results-cta">
-        <div class="email-row"><input type="email" id="resultEmail" placeholder="Votre email pour recevoir le bilan PDF (optionnel)" /></div>
+        <div class="contact-mini-form">
+          <div class="form-row-two">
+            <input type="text" id="resultPrenom" placeholder="Prénom *" />
+            <input type="text" id="resultNom" placeholder="Nom *" />
+          </div>
+          <input type="email" id="resultEmail" placeholder="Email *" />
+        </div>
         <div class="btn-row">
-          <button class="btn btn-primary" onclick="generatePDF()">📄 Télécharger et envoyer le bilan</button>
-          <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire l'audit</button></div>
-        <p>Ces résultats orientent vers un bilan approfondi au cabinet. Ils ne constituent pas un diagnostic médical.</p></div>
+          <button class="btn btn-primary" onclick="generatePDF()">📧 Recevoir ma synthèse par mail</button>
+          <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire l'audit</button>
+        </div>
+        <p>Ces résultats orientent vers un bilan approfondi au cabinet. Ils ne constituent pas un diagnostic médical.</p>
+      </div>
     </div>`;
 
   requestAnimationFrame(()=>{setTimeout(()=>{document.querySelectorAll('.petal').forEach((p,i)=>{p.style.opacity='0';p.style.transition='opacity .8s ease '+(i*.15)+'s';requestAnimationFrame(()=>{p.style.opacity='1';});});},200);});
@@ -597,8 +608,18 @@ function generatePDF(){
 
   const el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
   const keys=['sommeil','eclat','serenite','immunite','confiance'];
+  const prenom=document.getElementById('resultPrenom')?.value.trim()||'';
+  const nom=document.getElementById('resultNom')?.value.trim()||'';
   const clientEmail=document.getElementById('resultEmail')?.value.trim()||'';
   window.__auditResult.clientEmail=clientEmail;
+
+  if(!prenom||!nom||!clientEmail){
+    alert('Merci de renseigner votre prénom, votre nom et votre email pour recevoir le bilan.');
+    return;
+  }
+
+  window.__auditResult.prenom=prenom;
+  window.__auditResult.nom=nom;
 
   // Couleur pétale : score 0-3 (0=sévère, 3=optimisé)
   function pcol(c){const l=lvl(c);return l==='good'?{f:BPD,b:null}:l==='watch'?{f:VS,b:null}:{f:VSP,b:DO};}
@@ -669,7 +690,9 @@ function generatePDF(){
   let y=legY+11;
   const descLines=doc.splitTextToSize(wp.description,CW-18);
   const solLines=doc.splitTextToSize('Solutions : '+wp.solutions,CW-18);
-  const boxH=8+descLines.length*5+solLines.length*4.5+4;
+  const descH=descLines.length*3.5+2;
+  const solH=solLines.length*3.2;
+  const boxH=8+descH+solH+7;
 
   doc.setFillColor(...CRD);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
   doc.roundedRect(MX,y,CW,boxH,3,3,'FD');
@@ -677,8 +700,8 @@ function generatePDF(){
   doc.text(`${wp.label} — Axe prioritaire`,MX+8,y+7);
   doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TX);
   doc.text(descLines,MX+8,y+14);
-  doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(...DO);
-  doc.text(solLines,MX+8,y+14+descLines.length*5+2);
+  doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...DO);
+  doc.text(solLines,MX+8,y+14+descH);
 
   // ═══════════════ PAGE 2 : SYNTHÈSE + TABLEAU + CONCLUSION ═══════════════
   doc.addPage();
@@ -710,7 +733,7 @@ function generatePDF(){
 
   // 7. TABLEAU MON PLAN DE RÉÉQUILIBRAGE (3 colonnes)
   doc.setFont('times','bold');doc.setFontSize(13);doc.setTextColor(...BP);
-  doc.text('Mon Plan de Rééquilibrage',MX,y);y+=5;
+  doc.text('Mon Protocole de Vitalité',MX,y);y+=5;
   doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,y,MX+74,y);y+=6;
   doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(...TL);
   doc.text('Protocole personnalisé basé sur votre profil naturopathique',MX,y);y+=9;

@@ -10,7 +10,7 @@ if (process.env.DATABASE_URL) {
   try {
     const { PrismaClient } = require('@prisma/client');
     prisma = new PrismaClient();
-    console.log('Prisma connecté à la base de données.');
+    console.log('Prisma connecté à la base de données. Tables : AuditHorizon, Enfant, Famille...');
   } catch (e) {
     console.warn('Prisma non disponible, mode JSON actif.', e.message);
   }
@@ -85,7 +85,7 @@ app.post('/api/audit-result', express.json(), async (req, res) => {
 // ─── Envoi PDF audit (client + Arielle) ────────────────────────────────────
 app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res) => {
   try {
-    const { childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo, date, clientEmail, pdfBase64 } = req.body;
+    const { childName, childAge, prenom, nom, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo, date, clientEmail, pdfBase64 } = req.body;
 
     const pdfBuffer = Buffer.from(pdfBase64, 'base64');
     const filename = `Audit_Horizon_Sante_${childName}_${new Date(date).toISOString().slice(0, 10)}.pdf`;
@@ -94,11 +94,30 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     const audits = loadAudits();
     const existing = audits.find(a => a.childName === childName && a.date === date);
     if (existing) { existing.hasPdf = true; existing.clientEmail = clientEmail || existing.clientEmail; }
-    else { audits.unshift({ childName, childAge, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo: suggestReflexo || false, date, clientEmail: clientEmail || null, hasPdf: true, receivedAt: new Date().toISOString() }); }
+    else { audits.unshift({ childName, childAge, prenom: prenom||null, nom: nom||null, globalScore, charges, zones, suggestOligo, suggestKinesio, suggestReflexo: suggestReflexo || false, date, clientEmail: clientEmail || null, hasPdf: true, receivedAt: new Date().toISOString() }); }
     fs.writeFileSync(AUDITS_FILE, JSON.stringify(audits, null, 2));
+
+    // Persistance Prisma
+    try {
+      await prisma.leadAudit.create({
+        data: {
+          prenom: prenom||null,
+          nom: nom||null,
+          email: clientEmail||null,
+          childName,
+          childAge: childAge||null,
+          globalScore: globalScore||null,
+          zonesAlerte: zones.map(z=>z.petale)||[],
+          suggestOligo: !!suggestOligo,
+          suggestKinesio: !!suggestKinesio,
+          suggestReflexo: !!suggestReflexo,
+        }
+      });
+    } catch(e){ console.warn('Prisma leadAudit skip:', e.message); }
 
     const attachment = { filename, content: pdfBuffer, contentType: 'application/pdf' };
     const summaryHtml = `<h2>Audit Horizon Santé — ${childName} (${childAge})</h2>
+      <p><strong>Prospect :</strong> ${prenom||''} ${nom||''} · ${clientEmail||'—'}</p>
       <p><strong>Score global :</strong> ${globalScore}/100</p>
       <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/9 · Éclat ${charges.eclat}/9 · Sérénité ${charges.serenite}/9 · Immunité ${charges.immunite}/9 · Confiance ${charges.confiance}/9</p>
       <p><strong>Zones :</strong> ${zones.map(z => z.petale + ' (' + z.level + ')').join(', ') || 'Aucune zone d\'alerte'}</p>
@@ -107,16 +126,33 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
 
     // Email au client (si email fourni)
     if (clientEmail) {
+      const contactUrl = 'https://naturopathie-arielle-production.up.railway.app/contact';
+      const clientHtml = `
+<div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;color:#2C3E3A">
+  <div style="background:#1B4D5C;padding:32px;text-align:center">
+    <h1 style="color:#FAF7F2;font-size:1.6rem;font-weight:400;margin:0">Flux &amp; Équilibre</h1>
+    <p style="color:#C4A265;font-size:.85rem;margin:8px 0 0">Naturopathie · Kinésiologie · Réflexologie</p>
+  </div>
+  <div style="padding:32px;background:#FAF7F2">
+    <p>Bonjour ${prenom||''},</p>
+    <p>Veuillez trouver en pièce jointe le rapport de synthèse de l'audit réalisé pour <strong>${childName}</strong>.</p>
+    <p>Ce document présente une évaluation de sa vitalité actuelle selon cinq axes : le sommeil, les surcharges (émonctoires), le stress, l'immunité et la confiance en soi.</p>
+    <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Analyse de la synthèse</h3>
+    <p>Les scores obtenus permettent d'identifier les zones d'équilibre et les points de vigilance qui nécessitent un soutien. Les recommandations mentionnées dans le rapport constituent de premières pistes en hygiène de vie pour accompagner votre enfant au quotidien.</p>
+    <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Prochaines étapes</h3>
+    <p>Cet audit gagne à être complété par une consultation au cabinet afin de définir un protocole de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et, si vous le souhaitez, réaliser un bilan Oligoscan pour mesurer précisément ses carences minérales et la présence de métaux lourds.</p>
+    <p>Pour toute question ou pour convenir d'un rendez-vous au cabinet de Sainte-Consorce, je vous invite à me contacter directement via le formulaire de mon site :<br>
+    <a href="${contactUrl}" style="color:#1B4D5C;font-weight:600">${contactUrl}</a></p>
+    <p style="margin-top:32px">Sincères salutations,</p>
+    <p style="font-size:.85rem;color:#5A6E68">Arielle de Maistre<br>Naturopathe · Kinésiologue · Réflexologue<br>Cabinet de Sainte-Consorce (69280)</p>
+  </div>
+</div>`;
       await resend.emails.send({
         from: process.env.RESEND_FROM,
         to: [clientEmail],
         reply_to: process.env.CONTACT_EMAIL,
-        subject: `🌿 Votre bilan Horizon Santé — ${childName}`,
-        html: `<p>Bonjour ${childName},</p>
-          <p>Merci d'avoir réalisé l'audit Horizon Santé. Vous trouverez ci-joint votre bilan personnalisé en PDF.</p>
-          ${summaryHtml}
-          <p>N'hésitez pas à me contacter si vous avez des questions.</p>
-          <p>Arielle de Maistre<br>Flux & Équilibre · Naturopathe · Kinésiologue · Réflexologue</p>`,
+        subject: `📩 Rapport d'Audit Horizon Santé — ${childName}`,
+        html: clientHtml,
         attachments: [attachment]
       });
     }
@@ -125,7 +161,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     await resend.emails.send({
       from: process.env.RESEND_FROM,
       to: [process.env.CONTACT_EMAIL],
-      subject: `📋 PDF Audit — ${childName} (${childAge})${clientEmail ? ' — envoyé à ' + clientEmail : ''}`,
+      subject: `📋 PDF Audit — ${prenom||childName} ${nom||''} (${childAge}) — envoyé à ${clientEmail}`,
       html: summaryHtml + (clientEmail ? `<p><strong>Copie envoyée à :</strong> ${clientEmail}</p>` : '<p><em>Pas d\'email client — PDF non envoyé au client</em></p>'),
       attachments: [attachment]
     });

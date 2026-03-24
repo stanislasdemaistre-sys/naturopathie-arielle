@@ -54,6 +54,7 @@
 .oligo-table input{width:70px;padding:6px 8px;border:1.5px solid var(--cr-d);border-radius:6px;font-family:var(--fb);font-size:.82rem;text-align:center;outline:none;background:var(--wh)}
 .oligo-table input:focus{border-color:var(--vs)}
 .arrow-up{color:var(--ok);font-weight:600}.arrow-down{color:var(--al);font-weight:600}.arrow-stable{color:var(--tx-l)}
+.oligo-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 /* Emonctoire assessment */
 .emonctoire-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .emonctoire-card{background:var(--cr);border-radius:var(--r);padding:16px;border:1.5px solid var(--cr-d);transition:border-color .3s}
@@ -80,7 +81,7 @@
 .save-indicator{position:fixed;bottom:20px;right:20px;background:var(--bp);color:var(--cr);padding:10px 20px;border-radius:50px;font-size:.8rem;font-weight:500;opacity:0;transform:translateY(10px);transition:all .4s;z-index:100;pointer-events:none}
 .save-indicator.show{opacity:1;transform:translateY(0)}
 @media(max-width:1024px){.grid-2{grid-template-columns:1fr}.emonctoire-grid{grid-template-columns:1fr}}
-@media(max-width:768px){.shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:16px}.grid-3{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.shell{grid-template-columns:1fr}.sidebar{display:none}.main{padding:16px}.grid-3{grid-template-columns:1fr 1fr}.oligo-table-wrap .oligo-table{min-width:380px}.oligo-table input{width:55px}}
 /* ── Nouvelle séance panel ── */
 .seance-panel{background:var(--wh);border-radius:var(--rl);padding:24px;box-shadow:0 4px 20px rgba(27,77,92,.04);border:1.5px solid var(--do);margin-bottom:16px}
 .seance-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
@@ -237,8 +238,8 @@
       <div class="card-label">Comparaison Oligoscan</div>
       <div class="card-title">🔬 Superposition T0 → T+3 mois</div>
       <div class="tabs"><button class="tab active" onclick="switchOTab('min',this)">Minéraux</button><button class="tab" onclick="switchOTab('met',this)">Métaux lourds</button></div>
-      <div id="oligoMin"><table class="oligo-table" id="oligoMinTable"></table></div>
-      <div id="oligoMet" style="display:none"><table class="oligo-table" id="oligoMetTable"></table></div>
+      <div id="oligoMin"><div class="oligo-table-wrap"><table class="oligo-table" id="oligoMinTable"></table></div></div>
+      <div id="oligoMet" style="display:none"><div class="oligo-table-wrap"><table class="oligo-table" id="oligoMetTable"></table></div></div>
       <div style="margin-top:12px;display:flex;gap:8px">
         <button class="btn btn-sm btn-p" onclick="showSave()">💾 Enregistrer le bilan</button>
         <button class="btn btn-sm btn-s" onclick="clearOligo()">Réinitialiser</button>
@@ -346,6 +347,42 @@ const MN={Ca:'Calcium',Mg:'Magnésium',P:'Phosphore',Zn:'Zinc',Fe:'Fer',Cu:'Cuiv
 const MTL=['Al','Hg','Pb','Cd','As','Ni','Ba','Tl'];
 const MTN={Al:'Aluminium',Hg:'Mercure',Pb:'Plomb',Cd:'Cadmium',As:'Arsenic',Ni:'Nickel',Ba:'Baryum',Tl:'Thallium'};
 let cur='lea';
+let loadedAudits=[];
+
+const STORAGE_KEY='crm_flux_v1';
+function saveToStorage(){
+  try{
+    const s={};
+    Object.keys(P).forEach(id=>{
+      s[id]={emonc:P[id].emonc,oT1:P[id].oT1,metT1:P[id].metT1,emo:P[id].emo,bilanDone:P[id].bilanDone};
+      if(id.startsWith('audit_'))Object.assign(s[id],{name:P[id].name,age:P[id].age,init:P[id].init,since:P[id].since,oT0:P[id].oT0,norms:P[id].norms,metT0:P[id].metT0,pT0:P[id].pT0,pT1:P[id].pT1,gT0:P[id].gT0,gT1:P[id].gT1});
+    });
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(s));
+  }catch(e){}
+}
+function loadFromStorage(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return;
+    const s=JSON.parse(raw);
+    Object.keys(s).forEach(id=>{
+      if(P[id]){
+        if(s[id].emonc)P[id].emonc=s[id].emonc;
+        if(s[id].oT1)P[id].oT1=s[id].oT1;
+        if(s[id].metT1)P[id].metT1=s[id].metT1;
+        if(s[id].emo&&s[id].emo.length)P[id].emo=s[id].emo;
+        if(s[id].bilanDone!==undefined)P[id].bilanDone=s[id].bilanDone;
+      } else if(id.startsWith('audit_')){
+        P[id]=s[id];
+        const sel=document.getElementById('pSelect');
+        if(sel&&!sel.querySelector(`option[value="${id}"]`)){
+          const opt=document.createElement('option');opt.value=id;opt.textContent=P[id].name;sel.appendChild(opt);
+        }
+      }
+    });
+  }catch(e){}
+}
+
 function toS(c){return Math.round(Math.max(0,(9-c)/9*100));}
 function switchPatient(id){cur=id;const p=P[id];document.getElementById('pName').textContent=p.name;document.getElementById('pMeta').innerHTML=`${p.age} ans · Suivie depuis ${p.since} · <span class="badge badge-watch">${Object.keys(p.pT1).filter(k=>p.pT1[k]>=3).length} zones à surveiller</span>`;document.getElementById('pAvatar').textContent=p.init;const ns=document.getElementById('pNameSeance');if(ns)ns.textContent=p.name;renderAll();}
 function renderAll(){renderMiniFleur();renderFleurCompare();renderOligoTable();renderMBars();renderEmonctoires();renderEmotions();updateKPIs();}
@@ -390,7 +427,7 @@ function renderOligoTable(){
 }
 function switchOTab(t,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
   document.getElementById('oligoMin').style.display=t==='min'?'':'none';document.getElementById('oligoMet').style.display=t==='met'?'':'none';}
-function updateMin(m,v){P[cur].oT1[m]=parseFloat(v)||0;renderOligoTable();renderMBars();}
+function updateMin(m,v){P[cur].oT1[m]=parseFloat(v)||0;renderOligoTable();renderMBars();saveToStorage();}
 function clearOligo(){ML.forEach(m=>P[cur].oT1[m]=0);renderOligoTable();renderMBars();}
 
 function renderMBars(){const p=P[cur];let h='';ML.forEach(m=>{const v=p.oT1[m],n=p.norms[m];
@@ -427,7 +464,7 @@ function renderEmonctoires(){
       ${row('Réactivité cutanée',e.peau.reactivity,'reactivity','peau')}
       ${gauge(peauScore,9)}<div style="font-size:.7rem;color:var(--tx-l);margin-top:4px;text-align:center">${peauScore}/9</div></div>`;
 }
-function updateEmonc(organ,key,val){P[cur].emonc[organ][key]=parseInt(val);renderEmonctoires();}
+function updateEmonc(organ,key,val){P[cur].emonc[organ][key]=parseInt(val);renderEmonctoires();saveToStorage();}
 
 function renderEmotions(){const allEmo=['Peur de l\'échec','Image corporelle','Colère refoulée','Insécurité nocturne','Séparation','Mental envahissant','Blocages cognitifs','Surmenage','Timidité sociale','Hypersensibilité'];
   document.getElementById('emoTags').innerHTML=allEmo.map(e=>`<span class="emotion-tag ${P[cur].emo.includes(e)?'active':''}" onclick="this.classList.toggle('active')">${e}</span>`).join('');}
@@ -442,7 +479,7 @@ function importAudit(){
   } else {alert('Pour importer, ouvrez cet écran depuis la page de résultats de l\'Audit.\n\nEn production, l\'import se fera automatiquement via la base de données (Prisma).');}
 }
 
-function showSave(){const el=document.getElementById('saveInd');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
+function showSave(){saveToStorage();const el=document.getElementById('saveInd');el.classList.add('show');setTimeout(()=>el.classList.remove('show'),2000);}
 
 // ── Nouvelle séance ──
 function toggleNewSeance(){
@@ -528,19 +565,47 @@ function showScreen(name){
   }
 }
 
+// ── Import audit → fiche patient ──────────────────────────────────────────
+function importFromAuditData(idx){
+  const a=loadedAudits[idx];if(!a)return;
+  const initials=(a.childName||'NP').split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
+  const pid='audit_'+Date.now();
+  const since=new Date(a.date||Date.now()).toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  const ch=a.charges||{sommeil:0,eclat:0,serenite:0,immunite:0,confiance:0};
+  P[pid]={
+    name:a.childName||'Nouveau patient',age:parseInt((a.childAge||'0').split('-')[0])||0,
+    init:initials||'NP',since,
+    oT0:{Ca:0,Mg:0,P:0,Zn:0,Fe:0,Cu:0,Se:0,Mn:0,Cr:0,S:0,Li:0,I:0},
+    oT1:{Ca:0,Mg:0,P:0,Zn:0,Fe:0,Cu:0,Se:0,Mn:0,Cr:0,S:0,Li:0,I:0},
+    norms:{Ca:[279,598],Mg:[30.5,75.7],P:[144,199],Zn:[125,155],Fe:[5,15],Cu:[11,28],Se:[0.95,1.77],Mn:[0.31,0.75],Cr:[0.02,1.21],S:[48.1,52.8],Li:[0.052,0.13],I:[0.32,0.59]},
+    metT0:{Al:0,Hg:0,Pb:0,Cd:0,As:0,Ni:0,Ba:0,Tl:0},
+    metT1:{Al:0,Hg:0,Pb:0,Cd:0,As:0,Ni:0,Ba:0,Tl:0},
+    pT0:ch,pT1:ch,emo:[],gT0:a.globalScore||0,gT1:a.globalScore||0,bilanDone:false,
+    emonc:{foie:{langue:0,digestion:0,nausees:0},intestins:{ballonnements:0,transit:0,gaz:0},peau:{type:0,cicatrisation:0,reactivity:0}}
+  };
+  const sel=document.getElementById('pSelect');
+  const opt=document.createElement('option');opt.value=pid;opt.textContent=P[pid].name;sel.appendChild(opt);
+  saveToStorage();
+  showScreen('carnet');sel.value=pid;switchPatient(pid);
+  const el=document.getElementById('saveInd');
+  el.textContent=`✓ ${P[pid].name} importé·e dans le carnet`;el.classList.add('show');
+  setTimeout(()=>{el.classList.remove('show');el.textContent='✓ Données sauvegardées';},3000);
+}
+
 // ── Chargement des vrais audits depuis /api/audits ─────────────────────────
 async function loadAuditsScreen(){
   const wrap=document.getElementById('audits-table-wrap');
   wrap.innerHTML='<div id="audits-loading" style="padding:40px;text-align:center;color:var(--tx-l);font-size:.9rem">Chargement…</div>';
   try{
     const audits=await fetch('/api/audits').then(r=>r.json());
+    loadedAudits=audits;
     if(!audits.length){
       wrap.innerHTML='<div style="padding:40px;text-align:center;color:var(--tx-l);font-size:.9rem">Aucun audit reçu pour le moment.</div>';
       return;
     }
     const lvlColor=s=>s>=70?'var(--ok)':s>=40?'var(--do)':'var(--al)';
     const lvlLabel=s=>s>=70?'Bon équilibre':s>=40?'À accompagner':"Zone d'attention";
-    const rows=audits.map(a=>{
+    const rows=audits.map((a,i)=>{
       const gs=a.globalScore||0;
       const sugg=[a.suggestOligo?'🔬 Oligoscan':'',a.suggestKinesio?'🦋 Kiné':'',a.suggestReflexo?'🌿 Réflexo':''].filter(Boolean).join(' · ')||'—';
       const date=a.receivedAt?new Date(a.receivedAt).toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'}):'—';
@@ -553,8 +618,9 @@ async function loadAuditsScreen(){
         <td style="padding:12px 16px;font-size:.82rem;color:var(--tx-l)">${sugg}</td>
         <td style="padding:12px 16px;font-size:.8rem;color:var(--tx-l)">${a.clientEmail||'<em>non renseigné</em>'}</td>
         <td style="padding:12px 16px;font-size:.8rem;color:var(--tx-l)">${date}${a.hasPdf?' 📄':''}</td>
+        <td style="padding:12px 16px"><button onclick="importFromAuditData(${i})" style="background:var(--bp);color:var(--cr);border:none;padding:5px 12px;border-radius:20px;font-family:var(--fb);font-size:.72rem;cursor:pointer;white-space:nowrap">→ Carnet</button></td>
       </tr>`;}).join('');
-    wrap.innerHTML=`<table style="width:100%;border-collapse:collapse">
+    wrap.innerHTML=`<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;min-width:700px">
       <thead><tr style="background:var(--bp)">
         <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">PRÉNOM</th>
         <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">ÂGE</th>
@@ -563,12 +629,14 @@ async function loadAuditsScreen(){
         <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">SUGGESTIONS</th>
         <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">EMAIL</th>
         <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">DATE</th>
-      </thead><tbody>${rows}</tbody></table>`;
+        <th style="padding:10px 16px;text-align:left;font-size:.72rem;letter-spacing:1px;color:var(--cr);font-weight:500">ACTION</th>
+      </thead><tbody>${rows}</tbody></table></div>`;
   }catch(e){
     wrap.innerHTML='<div style="padding:40px;text-align:center;color:var(--al);font-size:.9rem">Erreur de chargement. Vérifiez la connexion.</div>';
   }
 }
 
+loadFromStorage();
 renderAll();
 </script>
 </body>

@@ -625,3 +625,24 @@ enum GroupeBach {
   SOUCI_EXCESSIF
   URGENCE
 }
+
+// ─────────────────────────────────────────────
+// 10. LEADS AUDIT PUBLIC (Prospects)
+// ─────────────────────────────────────────────
+
+model LeadAudit {
+  id             String   @id @default(cuid())
+  prenom         String?
+  nom            String?
+  email          String?
+  childName      String
+  childAge       String?
+  globalScore    Int?
+  zonesAlerte    String[]
+  suggestOligo   Boolean  @default(false)
+  suggestKinesio Boolean  @default(false)
+  suggestReflexo Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  @@map("leads_audit")
+}
