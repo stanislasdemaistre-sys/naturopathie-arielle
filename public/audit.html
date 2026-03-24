@@ -581,99 +581,235 @@ function showTip(k){
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.petal')&&!e.target.closest('.fleur-tooltip')){const t=document.getElementById('fleurTooltip');if(t){t.classList.remove('visible');activeTooltipPetal=null;}}});
 
-// ═══ PDF ═══
+// ═══ PDF — Format A4 Pro 2 pages ═══
 function generatePDF(){
   if(!window.jspdf){alert('La bibliothèque PDF est en cours de chargement. Réessayez dans quelques secondes.');return;}
-  const{jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});
-  const W=210,M=20,el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
-  const BP=[27,77,92],VS=[143,169,139],DO=[196,162,101],CR=[250,247,242],TX=[44,62,58],TL=[90,110,104];
-  const clientEmail=document.getElementById('resultEmail')?.value.trim()||'';window.__auditResult.clientEmail=clientEmail;
+  const{jsPDF}=window.jspdf;
+  const doc=new jsPDF({unit:'mm',format:'a4'});
+  const W=210,H=297,MX=20,MY=25,CW=170;
 
-  doc.setFillColor(...BP);doc.rect(0,0,W,38,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(...CR);doc.text('Flux & Équilibre',M,18);
-  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...DO);doc.text('Naturopathie · Kinésiologie · Réflexologie',M,26);
-  doc.setTextColor(200,220,220);doc.text(new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}),W-M,18,{align:'right'});
+  // Palette
+  const BP=[27,77,92],BPD=[15,53,64],BPL=[42,107,126];
+  const VS=[143,169,139],VSL=[181,203,177],VSP=[214,228,211];
+  const DO=[196,162,101],DOL=[212,186,138],DOP=[240,230,210];
+  const CR=[250,247,242],CRD=[240,235,227];
+  const TX=[44,62,58],TL=[90,110,104];
 
-  doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(...BP);doc.text("Mon Chemin vers l'Équilibre",W/2,50,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(12);doc.setTextColor(...TL);
-  doc.text(`Bilan ${el}${state.childName}${state.childAge?' — '+state.childAge:''}`,W/2,59,{align:'center'});
-  doc.setDrawColor(...DO);doc.setLineWidth(.5);doc.line(W/2-30,63,W/2+30,63);
+  const el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
+  const keys=['sommeil','eclat','serenite','immunite','confiance'];
+  const clientEmail=document.getElementById('resultEmail')?.value.trim()||'';
+  window.__auditResult.clientEmail=clientEmail;
 
-  const fcx=W/2,fcy=103,keys=['sommeil','eclat','serenite','immunite','confiance'],angs=[-90,-18,54,126,198];
-  const pcol={sommeil:BP,eclat:DO,serenite:VS,immunite:[42,107,126],confiance:[107,91,141]};
-  keys.forEach((k,i)=>{const c=ch[k],a=angs[i]*Math.PI/180,d=22,px=fcx+Math.cos(a)*d,py=fcy+Math.sin(a)*d;
-    const o=c<=2?1:c<=5?.55:.25,co=pcol[k];
-    doc.setFillColor(Math.round(co[0]+(255-co[0])*(1-o)),Math.round(co[1]+(255-co[1])*(1-o)),Math.round(co[2]+(255-co[2])*(1-o)));
-    doc.circle(px,py,15,'F');
-    if(c>=6){doc.setDrawColor(...DO);doc.setLineWidth(1);doc.circle(px,py,16,'S');}
-    doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(255,255,255);doc.text(String(toScore(c)),px,py-1,{align:'center'});
-    doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.text(PETALS[k].label.toUpperCase(),px,py+5,{align:'center'});
+  // Couleur pétale : score 0-3 (0=sévère, 3=optimisé)
+  function pcol(c){const l=lvl(c);return l==='good'?{f:BPD,b:null}:l==='watch'?{f:VS,b:null}:{f:VSP,b:DO};}
+  function ps3(c){return c<=2?3:c<=3?2:c<=5?1:0;}
+
+  // ═══════════════ PAGE 1 : EN-TÊTE + FLEUR + AXE PRIORITAIRE ═══════════════
+
+  // 1. BANDEAU HEADER (bleu pétrole sombre, 40mm)
+  doc.setFillColor(...BPD);doc.rect(0,0,W,40,'F');
+  doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,37,W-MX,37);
+
+  doc.setFont('times','bold');doc.setFontSize(19);doc.setTextColor(...CR);
+  doc.text('Flux & Équilibre',MX,17);
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...DO);
+  doc.text('Naturopathie · Kinésiologie · Réflexologie · Fleurs de Bach',MX,25);
+  doc.setTextColor(170,205,205);doc.setFontSize(7.5);
+  doc.text(new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}),W-MX,17,{align:'right'});
+
+  // 2. TITRE + NOM (espace blanc avant la fleur)
+  doc.setFont('times','italic');doc.setFontSize(22);doc.setTextColor(...BP);
+  doc.text('Audit Horizon Santé',W/2,52,{align:'center'});
+  doc.setFont('times','normal');doc.setFontSize(12);doc.setTextColor(...TL);
+  doc.text(`Bilan ${el}${state.childName}${state.childAge?' · '+state.childAge:''}`,W/2,62,{align:'center'});
+  doc.setDrawColor(...DOL);doc.setLineWidth(0.4);doc.line(W/2-22,66,W/2+22,66);
+  // → espace blanc 66→77mm avant la fleur
+
+  // 3. FLEUR DE VITALITÉ — centre fcy=113
+  const fcx=W/2,fcy=113,D=22,R=13;
+  const angs=[-90,-18,54,126,198];
+
+  keys.forEach((k,i)=>{
+    const c=ch[k],a=angs[i]*Math.PI/180;
+    const px=fcx+Math.cos(a)*D,py=fcy+Math.sin(a)*D;
+    const{f,b}=pcol(c);
+    doc.setFillColor(...f);doc.circle(px,py,R,'F');
+    if(b){doc.setDrawColor(...b);doc.setLineWidth(1.3);doc.circle(px,py,R,'S');}
+    // Score 0-3 affiché dans le pétale
+    doc.setFont('helvetica','bold');doc.setFontSize(12);
+    doc.setTextColor(...(f===VSP?BP:[255,255,255]));
+    doc.text(String(ps3(c)),px,py+1.5,{align:'center'});
+    // Label pétale (extérieur)
+    const ld=D+R+7,lx=fcx+Math.cos(a)*ld,ly=fcy+Math.sin(a)*ld;
+    doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...TX);
+    doc.text(PETALS[k].label.toUpperCase(),lx,ly,{align:'center'});
   });
-  doc.setFillColor(...CR);doc.setDrawColor(...VS);doc.setLineWidth(.5);doc.circle(fcx,fcy,9,'FD');
+
+  // Centre de la fleur (score global)
+  doc.setFillColor(...CR);doc.setDrawColor(...VSL);doc.setLineWidth(0.5);doc.circle(fcx,fcy,9,'FD');
   doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text(String(gs),fcx,fcy+1,{align:'center'});
-  doc.setFontSize(6);doc.setTextColor(...TL);doc.text('● Pétale plein = Équilibre   ○ Pétale vide = Zone de vigilance',W/2,146,{align:'center'});
+  doc.setFontSize(5);doc.setTextColor(...TL);doc.text('VITALITÉ',fcx,fcy+5.5,{align:'center'});
 
-  let y=152;
-  doc.setFillColor(250,247,242);doc.roundedRect(M,y-4,W-2*M,46,4,4,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...BP);doc.text(`${wp.label} — Axe prioritaire`,M+8,y+6);
-  doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(...TL);
-  doc.text(doc.splitTextToSize(wp.description,W-2*M-16),M+8,y+14);
-  doc.setFont('helvetica','italic');doc.setFontSize(8);doc.setTextColor(...DO);
-  doc.text(doc.splitTextToSize('Solutions : '+wp.solutions,W-2*M-16),M+8,y+30);
+  // 4. LÉGENDE QUALITATIVE (sous la fleur)
+  const legY=fcy+D+R+14; // ≈ 162mm
+  const legItems=[
+    {c:BPD,b:null,t:'Bleu Sombre = Force'},
+    {c:VS,b:null,t:'Sauge = Attention douce'},
+    {c:VSP,b:DO,t:'Sauge Pâle = Vigilance'}
+  ];
+  legItems.forEach((item,i)=>{
+    const lx=W/2-56+i*56;
+    doc.setFillColor(...item.c);doc.circle(lx,legY,2.5,'F');
+    if(item.b){doc.setDrawColor(...item.b);doc.setLineWidth(0.5);doc.circle(lx,legY,2.5,'S');}
+    doc.setFont('helvetica','normal');doc.setFontSize(5.8);doc.setTextColor(...TL);
+    doc.text(item.t,lx+5,legY+1);
+  });
 
-  y=202;doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...BP);doc.text('Synthèse des 5 dimensions',M,y);y+=8;
-  keys.forEach(k=>{const c=ch[k],s=toScore(c),l=lvl(c);
-    const bc=l==='good'?[123,175,110]:l==='watch'?DO:[212,120,106];
-    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(...TX);doc.text(PETALS[k].label,M,y+3);
-    doc.setFillColor(230,230,225);doc.roundedRect(M+35,y-1,90,5,2,2,'F');
-    doc.setFillColor(...bc);doc.roundedRect(M+35,y-1,Math.max(2,90*s/100),5,2,2,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(...bc);doc.text(s+'/100',M+130,y+3);y+=10;});
+  // 5. AXE PRIORITAIRE (hauteur dynamique)
+  let y=legY+11;
+  const descLines=doc.splitTextToSize(wp.description,CW-18);
+  const solLines=doc.splitTextToSize('Solutions : '+wp.solutions,CW-18);
+  const boxH=8+descLines.length*5+solLines.length*4.5+4;
 
-  // ── Tableau Rééquilibrage de Terrain ──────────────────────────────────────
+  doc.setFillColor(...CRD);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
+  doc.roundedRect(MX,y,CW,boxH,3,3,'FD');
+  doc.setFont('times','bold');doc.setFontSize(11);doc.setTextColor(...BP);
+  doc.text(`${wp.label} — Axe prioritaire`,MX+8,y+7);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TX);
+  doc.text(descLines,MX+8,y+14);
+  doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(...DO);
+  doc.text(solLines,MX+8,y+14+descLines.length*5+2);
+
+  // ═══════════════ PAGE 2 : SYNTHÈSE + TABLEAU + CONCLUSION ═══════════════
+  doc.addPage();
+
+  // Mini bandeau page 2
+  doc.setFillColor(...BPD);doc.rect(0,0,W,12,'F');
+  doc.setFont('helvetica','normal');doc.setFontSize(6.5);
+  doc.setTextColor(...DO);doc.text('Flux & Équilibre — Arielle de Maistre',MX,8);
+  doc.setTextColor(160,190,190);doc.text('2 / 2',W-MX,8,{align:'right'});
+
+  y=MY+2;
+
+  // 6. SYNTHÈSE 5 DIMENSIONS DE VITALITÉ
+  doc.setFont('times','bold');doc.setFontSize(12);doc.setTextColor(...BP);
+  doc.text('Synthèse des 5 dimensions de vitalité',MX,y);y+=7;
+
+  keys.forEach(k=>{
+    const c=ch[k],s=toScore(c),l=lvl(c);
+    const bc=l==='good'?BPD:l==='watch'?VS:[212,120,106];
+    doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(...TX);
+    doc.text(PETALS[k].label,MX,y+3);
+    doc.setFillColor(228,226,220);doc.roundedRect(MX+36,y-0.5,88,5,2,2,'F');
+    doc.setFillColor(...bc);doc.roundedRect(MX+36,y-0.5,Math.max(2,88*s/100),5,2,2,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...bc);
+    doc.text(s+'/100',MX+128,y+3);
+    y+=9;
+  });
+  y+=10;
+
+  // 7. TABLEAU MON PLAN DE RÉÉQUILIBRAGE (3 colonnes)
+  doc.setFont('times','bold');doc.setFontSize(13);doc.setTextColor(...BP);
+  doc.text('Mon Plan de Rééquilibrage',MX,y);y+=5;
+  doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,y,MX+74,y);y+=6;
+  doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(...TL);
+  doc.text('Protocole personnalisé basé sur votre profil naturopathique',MX,y);y+=9;
+
+  // Lignes du tableau selon résultats
   const terrainRows=[];
-  if(ch.eclat>=3)terrainRows.push(['Alimentation & Émonctoires','Surcharges : foie, intestins, peau','Naturopathie : alimentation anti-inflam., eau filtrée, chardon-marie · Réflexologie plantaire détox']);
-  if(ch.sommeil>=3)terrainRows.push(['Récupération & Sommeil','Sommeil perturbé, fatigue au réveil','Réflexologie palmaire · Magnésium, Mélisse · Rituels du coucher']);
-  if(ch.serenite>=3||ch.confiance>=3)terrainRows.push(['Équilibre Nerveux & Émotionnel','Tension émotionnelle détectée','Kinésiologie · Fleurs de Bach · Réflexologie crânio-faciale']);
-  if(ch.immunite>=3)terrainRows.push(['Immunité & Terrain minéral','Terrain immunitaire fragile','Oligoscan · Zinc, Vitamine D, Échinacée · Probiotiques ciblés']);
-  if(!terrainRows.length)terrainRows.push(['Terrain global','Équilibre encourageant sur 5 axes','Protocole de maintien naturopathique · Bilan de suivi conseillé dans 6 mois']);
+  if(ch.eclat>=3)terrainRows.push([
+    'Éclat & Émonctoires',
+    'Surcharges : foie, intestins, peau',
+    'Drainage émonctoires · Réflexologie Plantaire · Chardon-marie'
+  ]);
+  if(ch.sommeil>=3)terrainRows.push([
+    'Récupération & Sommeil',
+    'Sommeil perturbé, fatigue matinale',
+    'Réflexologie palmaire · Magnésium · Mélisse'
+  ]);
+  if(ch.serenite>=3||ch.confiance>=3)terrainRows.push([
+    'Sérénité & Émotions',
+    'Tensions émotionnelles détectées',
+    'Kinésiologie · Fleurs de Bach · Réflexologie crânio-faciale'
+  ]);
+  if(ch.immunite>=3)terrainRows.push([
+    'Immunité & Minéraux',
+    'Terrain immunitaire fragilisé',
+    'Oligoscan (minéraux & métaux) · Zinc · Vitamine D'
+  ]);
+  if(!terrainRows.length)terrainRows.push([
+    'Terrain global',
+    'Équilibre global encourageant',
+    'Protocole de maintien · Bilan de suivi dans 6 mois'
+  ]);
 
-  y+=4;
-  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(...BP);doc.text('Rééquilibrage de terrain recommandé',M,y);y+=6;
-  const cols=[M,M+45,M+95],cw=[43,48,73],rh=14;
-  const heads=['Pilier de Vitalité','Observation','Action recommandée'];
-  doc.setFillColor(...BP);doc.rect(M,y,W-2*M,7,'F');
-  heads.forEach((h,i)=>{doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...CR);doc.text(h,cols[i]+2,y+5);});
-  y+=7;
+  // En-tête du tableau
+  const tcols=[MX,MX+42,MX+95],tcw=[40,51,75];
+  const theads=['Pilier de Vitalité','Observation du Terrain','Action Recommandée'];
+  doc.setFillColor(...BP);doc.roundedRect(MX,y,CW,9,2,2,'F');
+  theads.forEach((h,i)=>{
+    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...CR);
+    doc.text(h,tcols[i]+2,y+6);
+  });
+  y+=9;
+
+  // Lignes de données (hauteur dynamique)
   terrainRows.forEach((row,ri)=>{
-    const bg=ri%2===0?CR:[240,237,232];
-    doc.setFillColor(...bg);doc.rect(M,y,W-2*M,rh,'F');
-    doc.setDrawColor(220,215,208);doc.setLineWidth(.2);doc.rect(M,y,W-2*M,rh,'S');
-    row.forEach((cell,i)=>{
+    const rowLines=row.map((cell,i)=>doc.splitTextToSize(cell,tcw[i]-4));
+    const maxL=Math.max(...rowLines.map(l=>l.length));
+    const rh=Math.max(14,maxL*4.5+5);
+    doc.setFillColor(...(ri%2===0?CR:CRD));
+    doc.rect(MX,y,CW,rh,'F');
+    doc.setDrawColor(...VSL);doc.setLineWidth(0.2);doc.rect(MX,y,CW,rh,'S');
+    doc.setDrawColor(210,205,200);
+    doc.line(tcols[1],y,tcols[1],y+rh);
+    doc.line(tcols[2],y,tcols[2],y+rh);
+    rowLines.forEach((lines,i)=>{
       doc.setFont('helvetica',i===0?'bold':'normal');doc.setFontSize(6.5);doc.setTextColor(...TX);
-      const lines=doc.splitTextToSize(cell,cw[i]-4);
-      doc.text(lines,cols[i]+2,y+4.5);});
-    y+=rh;});
+      doc.text(lines,tcols[i]+2,y+5);
+    });
+    y+=rh;
+  });
+  y+=12;
 
-  y+=8;
-  doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(...VS);doc.text("Un premier pas vers l'équilibre.",W/2,y,{align:'center'});
+  // Sécurité anti-overflow avant conclusion
+  if(y>H-MY-72){doc.addPage();doc.setFillColor(...BPD);doc.rect(0,0,W,12,'F');y=MY;}
+
+  // 8. CONCLUSION
+  doc.setFillColor(...DOP);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
+  doc.roundedRect(MX,y,CW,22,3,3,'FD');
+  doc.setFont('times','italic');doc.setFontSize(10);doc.setTextColor(...BP);
+  doc.text("Un premier pas vers l'équilibre.",W/2,y+8,{align:'center'});
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
-  doc.text('Ces résultats orientent vers un accompagnement personnalisé au cabinet.',W/2,y+6,{align:'center'});y+=16;
+  doc.text('Ces résultats orientent vers un accompagnement personnalisé au cabinet.',W/2,y+14,{align:'center'});
+  doc.text('Ils ne constituent pas un diagnostic médical.',W/2,y+19,{align:'center'});
+  y+=30;
 
-  // Si le contenu déborde, ajouter une page
-  if(y>270){doc.addPage();y=20;}
-  doc.setDrawColor(...DO);doc.setLineWidth(.3);doc.line(M,y,W-M,y);y+=8;
-  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text('Arielle de Maistre',M,y);
-  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TL);
-  doc.text('Naturopathe · Kinésiologue · Réflexologue',M,y+5);
-  doc.text('Cabinet de Sainte-Consorce (69280)',M,y+10);
-  doc.text('+33 6 51 14 07 26 · arielle.de.maistre@gmail.com',M,y+15);
-  doc.setFillColor(...DO);doc.roundedRect(W/2-35,y+22,70,10,5,5,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(15,53,64);doc.text('Prendre rendez-vous',W/2,y+28.5,{align:'center'});
-  doc.setFont('helvetica','italic');doc.setFontSize(6.5);doc.setTextColor(170,170,170);
-  doc.text("Ce bilan oriente vers un accompagnement au cabinet. Il ne constitue pas un diagnostic médical.",W/2,y+36,{align:'center'});
-  const filename=`Mon_Chemin_Equilibre_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`;
+  // 9. LIGNE DE SIGNATURE (bas droite)
+  doc.setDrawColor(...TL);doc.setLineWidth(0.3);
+  doc.line(W/2+10,y,W-MX,y);
+  doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...TL);
+  doc.text('Signature de la praticienne',W-MX,y+5,{align:'right'});
+
+  // 10. FOOTER (ancré en bas de page)
+  const fY=H-MY-18;
+  doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,fY,W-MX,fY);
+  doc.setFont('times','bold');doc.setFontSize(10);doc.setTextColor(...BP);
+  doc.text('Flux & Équilibre',MX,fY+7);
+  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
+  doc.text('Arielle de Maistre — Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue',MX,fY+12);
+  doc.text('Cabinet de Sainte-Consorce (69280) · +33 6 51 14 07 26 · arielle.de.maistre@gmail.com',MX,fY+17);
+  doc.setFillColor(...DO);doc.roundedRect(W-MX-52,fY+4,50,12,3,3,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...BPD);
+  doc.text('Prendre rendez-vous',W-MX-27,fY+10.5,{align:'center'});
+  doc.setFont('helvetica','normal');doc.setFontSize(5.5);
+  doc.text('flux-equilibre.fr/contact',W-MX-27,fY+15.5,{align:'center'});
+
+  // Sauvegarde PDF
+  const filename=`Bilan_Audit_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`;
   doc.save(filename);
-  // Envoi email si email renseigné ou envoi de copie à Arielle dans tous les cas
+
+  // Envoi email si renseigné
   try{
     const pdfBase64=doc.output('datauristring').split(',')[1];
     const r=window.__auditResult;
