@@ -561,10 +561,6 @@ nav .container {
   align-items: center;
   justify-content: center;
 }
-.apropos-image-wrap .silhouette {
-  font-size: 8rem;
-  opacity: 0.3;
-}
 .apropos-quote-card {
   position: absolute;
   bottom: -24px;
@@ -1183,6 +1179,37 @@ footer {
 }
 .btn-bilan-gold:hover { background: #B8934F; transform: translateY(-2px); }
 
+/* ─── POUR QUI ─── */
+.pour-qui { padding: 96px 0; background: var(--creme-dark); }
+.pour-qui-header { text-align: center; max-width: 600px; margin: 0 auto 56px; }
+.pour-qui-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.pq-card {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-align: center;
+  border: 1px solid rgba(27,77,92,0.05);
+  box-shadow: 0 6px 24px rgba(27,77,92,0.05);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.pq-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(27,77,92,0.1); }
+.pq-emoji { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+.pq-age { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--dore); font-weight: 500; margin-bottom: 6px; }
+.pq-titre { font-family: var(--font-display); font-size: 1.2rem; color: var(--bleu-petrole); font-weight: 500; margin-bottom: 12px; }
+.pq-tags { font-size: 0.8rem; color: var(--texte-light); line-height: 1.7; }
+.pour-qui-cta { text-align: center; margin-top: 40px; }
+.pour-qui-cta a { display: inline-flex; align-items: center; gap: 8px; color: var(--bleu-petrole); font-size: 0.9rem; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--dore); padding-bottom: 2px; transition: color 0.3s; }
+.pour-qui-cta a:hover { color: var(--dore); }
+@media (max-width: 1024px) { .pour-qui-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .pour-qui-grid { grid-template-columns: 1fr; } }
+
 /* ─── FOOTER RDV ─── */
 .footer-rdv-btn {
   display: inline-flex; align-items: center;
@@ -1250,7 +1277,7 @@ footer {
       </div>
     </div>
     <div class="hero-visual">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80"
+      <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80"
            alt="Cabinet de naturopathie, espace chaleureux et épuré"
            class="hero-photo" loading="lazy">
     </div>
@@ -1268,6 +1295,22 @@ footer {
       <p class="promesse-text">
         Je vous aide à décoder les messages de son corps pour apporter des solutions douces et durables.
       </p>
+      <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:32px;padding-top:28px;border-top:1px solid var(--creme-dark)">
+        <div style="text-align:center">
+          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">🍼 De 0 à 30 ans</div>
+          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">accompagnés</div>
+        </div>
+        <div style="width:1px;background:var(--creme-dark)"></div>
+        <div style="text-align:center">
+          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">3 approches</div>
+          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">complémentaires</div>
+        </div>
+        <div style="width:1px;background:var(--creme-dark)"></div>
+        <div style="text-align:center">
+          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">📍 Sainte-Consorce</div>
+          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">Métropole de Lyon (69)</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1281,18 +1324,21 @@ footer {
     </div>
     <div class="piliers-grid">
       <div class="pilier-card animate-in">
+        <img src="https://images.unsplash.com/photo-1471864190281-a9333d879b1f?auto=format&fit=crop&w=600&q=80" alt="Plantes et nutrition naturopathie" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
         <div class="pilier-keyword">Mesurer</div>
         <div class="pilier-icon">🌿</div>
         <h3 class="pilier-title">Naturopathie de terrain</h3>
         <p>Alimentation, micronutrition, Oligoscan : cartographier le terrain pour agir à la source, pas sur le symptôme.</p>
       </div>
       <div class="pilier-card animate-in" style="transition-delay:0.1s">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Kinésiologie séance douce" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
         <div class="pilier-keyword">Libérer</div>
         <div class="pilier-icon">🦋</div>
         <h3 class="pilier-title">Kinésiologie</h3>
         <p>Décoder et dénouer les émotions bloquées par le test musculaire et des techniques douces, sans paroles imposées.</p>
       </div>
       <div class="pilier-card animate-in" style="transition-delay:0.2s">
+        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=600&q=80" alt="Réflexologie plantaire" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
         <div class="pilier-keyword">Apaiser</div>
         <div class="pilier-icon">🤲</div>
         <h3 class="pilier-title">Réflexologie</h3>
@@ -1302,12 +1348,51 @@ footer {
   </div>
 </section>
 
+<!-- ══════ POUR QUI ══════ -->
+<section class="pour-qui">
+  <div class="container">
+    <div class="pour-qui-header animate-in">
+      <div class="section-label">Pour qui</div>
+      <h2 class="section-title">De 0 à 30 ans, un accompagnement <em>pensé pour chaque âge</em></h2>
+    </div>
+    <div class="pour-qui-grid">
+      <a href="/about" class="pq-card animate-in">
+        <span class="pq-emoji">🍼</span>
+        <div class="pq-age">0 – 3 ans</div>
+        <div class="pq-titre">Les Bébés</div>
+        <p class="pq-tags">Coliques · Sommeil · Tensions corporelles</p>
+      </a>
+      <a href="/about" class="pq-card animate-in" style="transition-delay:0.08s">
+        <span class="pq-emoji">🌱</span>
+        <div class="pq-age">3 – 12 ans</div>
+        <div class="pq-titre">Les Enfants</div>
+        <p class="pq-tags">Immunité · Anxiété · Concentration</p>
+      </a>
+      <a href="/about" class="pq-card animate-in" style="transition-delay:0.16s">
+        <span class="pq-emoji">🌀</span>
+        <div class="pq-age">13 – 18 ans</div>
+        <div class="pq-titre">Les Adolescents</div>
+        <p class="pq-tags">Stress · Acné · Confiance</p>
+      </a>
+      <a href="/about" class="pq-card animate-in" style="transition-delay:0.24s">
+        <span class="pq-emoji">⚡</span>
+        <div class="pq-age">20 – 30 ans</div>
+        <div class="pq-titre">Les Jeunes Adultes</div>
+        <p class="pq-tags">Burnout · Fatigue · Équilibre</p>
+      </a>
+    </div>
+    <div class="pour-qui-cta">
+      <a href="/about">Découvrir qui j'accompagne →</a>
+    </div>
+  </div>
+</section>
+
 <!-- ══════ À PROPOS ══════ -->
 <section class="apropos" id="apropos">
   <div class="container">
     <div class="apropos-visual animate-in">
       <div class="apropos-image-wrap">
-        <div class="silhouette">🌿</div>
+        <img src="arielle.jpg" alt="Arielle de Maistre, naturopathe" style="width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:var(--radius-lg)">
       </div>
       <div class="apropos-quote-card">
         <p>« Le corps d'un enfant sait guérir, il suffit de lui en donner les moyens. »</p>
@@ -1415,8 +1500,8 @@ footer {
   <div class="container">
     <div class="patho-header animate-in">
       <div class="section-label">Accompagnements</div>
-      <h2 class="section-title">Un <em>bouquet de solutions</em> pour chaque besoin</h2>
-      <p>Découvrez les problématiques les plus courantes chez l'enfant et l'adolescent.</p>
+      <h2 class="section-title">Votre enfant <em>se reconnaît ici ?</em></h2>
+      <p>Les problématiques les plus fréquentes que j'accompagne avec douceur et efficacité.</p>
     </div>
     <div class="patho-scroll">
       <div class="patho-card">
@@ -1482,6 +1567,24 @@ footer {
           <span class="patho-tag naturo">Ashwagandha · Vit B</span>
           <span class="patho-tag kinesio">Surmenage</span>
           <span class="patho-tag oligo">Fer · Manganèse</span>
+        </div>
+      </div>
+      <div class="patho-card">
+        <div class="patho-emoji">🍼</div>
+        <div class="patho-name">Coliques & Pleurs (bébé)</div>
+        <div class="patho-tags">
+          <span class="patho-tag naturo">Fenouil · Camomille</span>
+          <span class="patho-tag kinesio">Tensions corporelles</span>
+          <span class="patho-tag oligo">Mg · Calcium</span>
+        </div>
+      </div>
+      <div class="patho-card">
+        <div class="patho-emoji">😰</div>
+        <div class="patho-name">Anxiété & Peurs</div>
+        <div class="patho-tags">
+          <span class="patho-tag naturo">Mélisse · Millepertuis</span>
+          <span class="patho-tag kinesio">Blocages émotionnels</span>
+          <span class="patho-tag oligo">Mg · Lithium</span>
         </div>
       </div>
     </div>
