@@ -596,6 +596,33 @@ footer {
   text-align: justify;
   hyphens: auto;
 }
+
+/* ─── OUTILS INTRO ─── */
+.outils-intro {
+  font-family: var(--font-display); font-size: 1.15rem;
+  font-style: italic; color: var(--texte-light);
+  line-height: 1.8; max-width: 680px;
+  margin-bottom: 36px; text-align: justify; hyphens: auto;
+}
+
+/* ─── TAB PHOTOS ─── */
+.tab-photo {
+  width: 100%; height: 280px; object-fit: cover;
+  border-radius: var(--radius); margin-bottom: 32px;
+  box-shadow: 0 12px 40px rgba(27,77,92,0.08);
+}
+@media (max-width: 768px) { .tab-photo { height: 200px; } }
+
+/* ─── FOOTER RDV ─── */
+.footer-rdv-btn {
+  display: inline-flex; align-items: center;
+  background: var(--dore); color: var(--bleu-petrole-deep) !important;
+  padding: 10px 24px; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.3s;
+}
+.footer-rdv-btn:hover { background: #B8934F; }
 </style>
 </head>
 <body>
@@ -689,6 +716,11 @@ footer {
     <div class="container">
       <div class="section-label">Les outils</div>
       <h2 class="sub-heading">Six approches pour <em>nourrir le terrain</em></h2>
+      <p class="outils-intro">
+        Mes outils ne sont pas des gadgets, ce sont des fenêtres sur la vitalité.
+        L'Oligoscan pour la précision minérale, la Kinésiologie pour la mémoire émotionnelle,
+        la Réflexologie pour le relais du corps.
+      </p>
       <div class="tools-grid">
         <div class="tool-card animate-in">
           <div class="tool-icon">🥗</div>
@@ -949,6 +981,9 @@ footer {
 
   <div class="tab-section">
     <div class="container">
+      <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=900&q=80"
+           alt="Mains de praticienne sur pied en réflexologie, lumière douce"
+           class="tab-photo" loading="lazy">
       <div class="section-label">La réflexologie</div>
       <h2 class="sub-heading" style="margin-bottom:8px">Le corps <em>parle</em><br>à travers ses zones réflexes</h2>
       <p class="sub-intro">Chaque organe, chaque partie du corps possède une zone réflexe : sur les pieds, les mains, le visage ou le crâne. Stimuler ces zones, c'est réveiller l'organe correspondant.</p>
@@ -1160,6 +1195,9 @@ footer {
   <!-- C'EST QUOI -->
   <div class="tab-section">
     <div class="container">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80"
+           alt="Main posée avec respect sur avant-bras, test musculaire kinésiologie"
+           class="tab-photo" loading="lazy">
       <div class="section-label">La kinésiologie</div>
       <div class="principle-grid animate-in">
         <div>
@@ -1270,6 +1308,9 @@ footer {
   <!-- C'EST QUOI -->
   <div class="tab-section">
     <div class="container">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=900&q=80"
+           alt="Appareil médical posé sur paume de main, bilan Oligoscan"
+           class="tab-photo" loading="lazy">
       <div class="section-label">L'Oligoscan</div>
       <div class="principle-grid animate-in">
         <div>
@@ -1399,6 +1440,7 @@ footer {
         <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
         <li>Sainte-Consorce (69280)</li>
       </ul>
+      <a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a>
     </div>
     <div class="footer-copy">
       © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue

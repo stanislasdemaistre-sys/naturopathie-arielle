@@ -1120,6 +1120,79 @@ footer {
   text-align: justify;
   hyphens: auto;
 }
+
+/* ─── HERO PHOTO CABINET ─── */
+.hero-photo {
+  width: 100%; border-radius: var(--radius-lg);
+  object-fit: cover; height: 440px;
+  box-shadow: 0 30px 80px rgba(27,77,92,0.12);
+}
+@media (max-width: 768px) { .hero-photo { height: 260px; } }
+
+/* ─── PROMESSE ─── */
+.promesse { padding: 96px 0; background: var(--creme); text-align: center; }
+.promesse-inner { max-width: 680px; margin: 0 auto; }
+.promesse-text {
+  font-size: 1.15rem; color: var(--texte-light);
+  line-height: 1.8; margin-top: 24px;
+  text-align: center; font-style: italic;
+}
+
+/* ─── PILIERS ─── */
+.piliers-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
+}
+.pilier-card {
+  background: var(--blanc); border-radius: var(--radius-lg);
+  padding: 44px 32px; text-align: center;
+  border: 1px solid rgba(27,77,92,0.05);
+  box-shadow: 0 8px 32px rgba(27,77,92,0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.pilier-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(27,77,92,0.1); }
+.pilier-keyword {
+  display: inline-block; background: var(--dore-pale); color: var(--dore);
+  font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
+  font-weight: 600; padding: 6px 18px; border-radius: 50px; margin-bottom: 22px;
+}
+.pilier-icon { font-size: 2.8rem; margin-bottom: 18px; }
+.pilier-title {
+  font-family: var(--font-display); font-size: 1.4rem;
+  color: var(--bleu-petrole); margin-bottom: 14px; font-weight: 500;
+}
+.pilier-card p {
+  font-size: 0.9rem; color: var(--texte-light);
+  line-height: 1.75; text-align: justify; hyphens: auto;
+}
+@media (max-width: 768px) { .piliers-grid { grid-template-columns: 1fr; } }
+
+/* ─── AUDIT CTA ─── */
+.audit-hook {
+  font-size: 1.05rem; color: var(--texte-light);
+  font-style: italic; margin-bottom: 20px; line-height: 1.6;
+}
+.btn-bilan-gold {
+  display: inline-flex; align-items: center;
+  background: var(--dore); color: var(--blanc);
+  padding: 16px 36px; border-radius: 50px;
+  font-family: var(--font-body); font-size: 0.95rem;
+  font-weight: 600; letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+  margin-bottom: 32px;
+}
+.btn-bilan-gold:hover { background: #B8934F; transform: translateY(-2px); }
+
+/* ─── FOOTER RDV ─── */
+.footer-rdv-btn {
+  display: inline-flex; align-items: center;
+  background: var(--dore); color: var(--bleu-petrole-deep) !important;
+  padding: 10px 24px; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.3s;
+}
+.footer-rdv-btn:hover { background: #B8934F; }
 </style>
 </head>
 <body>
@@ -1163,16 +1236,13 @@ footer {
         <span class="dot"></span>
         Naturopathie · Kinésiologie · Réflexologie
       </div>
-      <h1>
-        De <em>l'émotion</em><br>
-        à <strong>l'équilibre</strong>
-      </h1>
+      <h1>Retrouver le flux naturel<br>de la santé pour <em>votre enfant</em></h1>
       <p class="hero-desc">
-        Un accompagnement global et doux pour les enfants, adolescents et jeunes adultes. Libérer les émotions, nourrir le corps, redonner confiance.
+        Une approche concrète combinant Naturopathie, Kinésiologie et Réflexologie à Sainte-Consorce.
       </p>
       <div class="hero-actions">
         <a href="/audit" class="btn-primary">
-          Commencer le Bilan Santé
+          Lancer le Bilan Horizon Santé
         </a>
         <a href="/methode" class="btn-secondary">
           Découvrir la méthode
@@ -1180,76 +1250,53 @@ footer {
       </div>
     </div>
     <div class="hero-visual">
-      <div class="hero-card">
-        <div class="hero-card-label">Météo intérieure</div>
-        <div class="meteo-title">Comment va votre enfant aujourd'hui ?</div>
-        <div class="meteo-grid">
-          <div class="meteo-item">
-            <div class="meteo-icon">🌙</div>
-            <div class="meteo-name">Sommeil</div>
-            <div class="meteo-bar"><div class="meteo-bar-fill sommeil"></div></div>
-          </div>
-          <div class="meteo-item">
-            <div class="meteo-icon">✨</div>
-            <div class="meteo-name">Confiance</div>
-            <div class="meteo-bar"><div class="meteo-bar-fill confiance"></div></div>
-          </div>
-          <div class="meteo-item">
-            <div class="meteo-icon">🌿</div>
-            <div class="meteo-name">Vitalité</div>
-            <div class="meteo-bar"><div class="meteo-bar-fill vitalite"></div></div>
-          </div>
-          <div class="meteo-item">
-            <div class="meteo-icon">🕊️</div>
-            <div class="meteo-name">Sérénité</div>
-            <div class="meteo-bar"><div class="meteo-bar-fill serenite"></div></div>
-          </div>
-        </div>
-      </div>
-      <div class="float-badge top-right">
-        <span class="emoji">🌸</span>
-        <div>
-          <div class="text">Fleurs de Bach</div>
-          <div class="sub">38 élixirs naturels</div>
-        </div>
-      </div>
-      <div class="float-badge bottom-left">
-        <span class="emoji">🔬</span>
-        <div>
-          <div class="text">Bilan Oligoscan</div>
-          <div class="sub">Équilibre minéral</div>
-        </div>
-      </div>
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80"
+           alt="Cabinet de naturopathie, espace chaleureux et épuré"
+           class="hero-photo" loading="lazy">
     </div>
   </div>
 </section>
 
-<!-- ══════ MÉTHODE ══════ -->
-<section class="methode" id="methode">
+<!-- ══════ PROMESSE ══════ -->
+<section class="promesse">
   <div class="container">
-    <div class="methode-header animate-in">
-      <div class="section-label">La méthode</div>
-      <h2 class="section-title">De l'émotion à <em>l'équilibre</em></h2>
-      <p>Chaque enfant est unique. Notre approche en trois étapes permet de comprendre, libérer et nourrir pour retrouver un chemin de santé durable.</p>
+    <div class="promesse-inner animate-in">
+      <div class="section-label">Pourquoi</div>
+      <h2 class="section-title">
+        Parce que l'équilibre d'un enfant<br>est <em>précieux et parfois fragile</em>
+      </h2>
+      <p class="promesse-text">
+        Je vous aide à décoder les messages de son corps pour apporter des solutions douces et durables.
+      </p>
     </div>
-    <div class="methode-steps">
-      <div class="step-card animate-in">
-        <div class="step-number">01</div>
-        <div class="step-icon">🔍</div>
-        <h3 class="step-title">Comprendre</h3>
-        <p class="step-desc">Bilan "Horizon Santé" et bilan Oligoscan pour cartographier les besoins : stress, immunité, peau, équilibre minéral.</p>
+  </div>
+</section>
+
+<!-- ══════ PILIERS ══════ -->
+<section class="piliers section-alt">
+  <div class="container">
+    <div class="piliers-header animate-in" style="text-align:center;margin-bottom:56px">
+      <div class="section-label">Comment</div>
+      <h2 class="section-title">Trois approches,<br>une vision <em>globale</em></h2>
+    </div>
+    <div class="piliers-grid">
+      <div class="pilier-card animate-in">
+        <div class="pilier-keyword">Mesurer</div>
+        <div class="pilier-icon">🌿</div>
+        <h3 class="pilier-title">Naturopathie de terrain</h3>
+        <p>Alimentation, micronutrition, Oligoscan : cartographier le terrain pour agir à la source, pas sur le symptôme.</p>
       </div>
-      <div class="step-card animate-in">
-        <div class="step-number">02</div>
-        <div class="step-icon">🦋</div>
-        <h3 class="step-title">Libérer</h3>
-        <p class="step-desc">Kinésiologie et Fleurs de Bach pour dénouer les émotions bloquées, retrouver la confiance et l'ancrage intérieur.</p>
+      <div class="pilier-card animate-in" style="transition-delay:0.1s">
+        <div class="pilier-keyword">Libérer</div>
+        <div class="pilier-icon">🦋</div>
+        <h3 class="pilier-title">Kinésiologie</h3>
+        <p>Décoder et dénouer les émotions bloquées par le test musculaire et des techniques douces, sans paroles imposées.</p>
       </div>
-      <div class="step-card animate-in">
-        <div class="step-number">03</div>
-        <div class="step-icon">🌱</div>
-        <h3 class="step-title">Nourrir</h3>
-        <p class="step-desc">Protocole naturopathique personnalisé : compléments ciblés, hygiène de vie et réflexologie pour soutenir la vitalité.</p>
+      <div class="pilier-card animate-in" style="transition-delay:0.2s">
+        <div class="pilier-keyword">Apaiser</div>
+        <div class="pilier-icon">🤲</div>
+        <h3 class="pilier-title">Réflexologie</h3>
+        <p>Stimuler les zones réflexes des pieds et des mains pour relancer la vitalité et calmer le système nerveux.</p>
       </div>
     </div>
   </div>
@@ -1312,6 +1359,8 @@ footer {
       <p class="audit-desc">
         Un questionnaire dynamique et bienveillant pour identifier les zones de besoin de votre enfant : stress, peau, immunité, sommeil, confiance. Les résultats visuels guident ensuite vers un bilan Oligoscan pour affiner le conseil.
       </p>
+      <p class="audit-hook">Comprenez ses besoins en 3 minutes.</p>
+      <a href="/audit" class="btn-bilan-gold">Lancer le Bilan Horizon Santé</a>
       <div class="audit-features">
         <div class="audit-feature">
           <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -1493,6 +1542,7 @@ footer {
           <li><a href="mailto:arielle.de.maistre@gmail.com">Email</a></li>
           <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
           <li>Sainte-Consorce (69280)</li>
+          <li style="margin-top:12px"><a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a></li>
         </ul>
       </div>
     </div>

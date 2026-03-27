@@ -635,6 +635,29 @@ footer {
 .footer-links a:hover { color: var(--dore); }
 .footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
 
+/* ─── ABOUT HERO ─── */
+.hero-subtitle-line {
+  font-family: var(--font-display); font-size: 1.3rem;
+  color: rgba(250,247,242,0.75); font-style: italic;
+  margin-top: 8px; margin-bottom: 20px;
+}
+.cabinet-intro {
+  font-size: 1rem; color: rgba(250,247,242,0.7);
+  font-style: italic; margin-top: 20px;
+  max-width: 520px; line-height: 1.75;
+}
+
+/* ─── FOOTER RDV ─── */
+.footer-rdv-btn {
+  display: inline-flex; align-items: center;
+  background: var(--dore); color: var(--bleu-petrole-deep) !important;
+  padding: 10px 24px; border-radius: 50px;
+  font-size: 0.82rem; font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+  transition: background 0.3s;
+}
+.footer-rdv-btn:hover { background: #B8934F; }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
   .hero-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -707,10 +730,8 @@ footer {
           <span class="dot"></span>
           Naturopathie · Kinésiologie · Réflexologie
         </div>
-        <h1>
-          Arielle de Maistre,<br>
-          <em>thérapeute en conscience</em>
-        </h1>
+        <h1>Arielle de Maistre</h1>
+        <p class="hero-subtitle-line">Accompagnatrice du vivant et de l'équilibre de l'enfant</p>
         <p class="hero-citation">
           « Le corps sait guérir, il suffit de lui en donner les moyens. »
         </p>
@@ -720,6 +741,9 @@ footer {
           <span class="pill" style="background:rgba(143,169,139,0.15);color:var(--vert-sauge-light);border-color:rgba(143,169,139,0.2)">🤲 Réflexologue QUALIOPI</span>
           <span class="pill" style="background:rgba(143,169,139,0.15);color:var(--vert-sauge-light);border-color:rgba(143,169,139,0.2)">📍 Sainte-Consorce (69)</span>
         </div>
+        <p class="cabinet-intro">
+          Mon cabinet est un espace de pause et d'écoute profonde, où le temps s'arrête pour accueillir ce que votre enfant porte.
+        </p>
       </div>
       <div class="hero-photo-wrap animate-in" style="transition-delay:0.2s">
         <picture>
@@ -1004,6 +1028,7 @@ footer {
         <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
         <li>Sainte-Consorce (69280)</li>
       </ul>
+      <a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a>
     </div>
     <div class="footer-copy">
       © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
