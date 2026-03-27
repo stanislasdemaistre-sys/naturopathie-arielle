@@ -49,6 +49,7 @@ app.get('/audit', (req, res) => res.sendFile(path.join(__dirname, 'public', 'aud
 app.get('/crm', (req, res) => res.sendFile(path.join(__dirname, 'public', 'crm.html')));
 app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'public', 'about.html')));
 app.get('/methode', (req, res) => res.sendFile(path.join(__dirname, 'public', 'methode.html')));
+app.get('/tarifs', (req, res) => res.sendFile(path.join(__dirname, 'public', 'tarifs-accompagnement.html')));
 app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, 'public', 'contact.html')));
 
 // Health check
@@ -65,8 +66,8 @@ app.post('/api/audit-result', express.json(), async (req, res) => {
     await resend.emails.send({
       from: process.env.RESEND_FROM,
       to: [process.env.CONTACT_EMAIL],
-      subject: `🌿 Nouvel audit — ${childName} (${childAge})`,
-      html: `<h2>Audit Horizon Santé</h2>
+      subject: `🌿 Nouveau bilan — ${childName} (${childAge})`,
+      html: `<h2>Bilan Horizon Santé</h2>
         <p><strong>Prénom :</strong> ${childName} — <strong>Âge :</strong> ${childAge}</p>
         <p><strong>Score global :</strong> ${globalScore}/100</p>
         <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/9 · Éclat ${charges.eclat}/9 · Sérénité ${charges.serenite}/9 · Immunité ${charges.immunite}/9 · Confiance ${charges.confiance}/9</p>
@@ -116,7 +117,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     } catch(e){ console.warn('Prisma leadAudit skip:', e.message); }
 
     const attachment = { filename, content: pdfBuffer, contentType: 'application/pdf' };
-    const summaryHtml = `<h2>Audit Horizon Santé — ${childName} (${childAge})</h2>
+    const summaryHtml = `<h2>Bilan Horizon Santé — ${childName} (${childAge})</h2>
       <p><strong>Prospect :</strong> ${prenom||''} ${nom||''} · ${clientEmail||'—'}</p>
       <p><strong>Score global :</strong> ${globalScore}/100</p>
       <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/9 · Éclat ${charges.eclat}/9 · Sérénité ${charges.serenite}/9 · Immunité ${charges.immunite}/9 · Confiance ${charges.confiance}/9</p>
@@ -130,17 +131,17 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
       const clientHtml = `
 <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;color:#2C3E3A">
   <div style="background:#1B4D5C;padding:32px;text-align:center">
-    <h1 style="color:#FAF7F2;font-size:1.6rem;font-weight:400;margin:0">Flux &amp; Équilibre</h1>
+    <h1 style="color:#FAF7F2;font-size:1.6rem;font-weight:400;margin:0">Horizon &amp; Équilibre</h1>
     <p style="color:#C4A265;font-size:.85rem;margin:8px 0 0">Naturopathie · Kinésiologie · Réflexologie</p>
   </div>
   <div style="padding:32px;background:#FAF7F2">
     <p>Bonjour ${prenom||''},</p>
-    <p>Veuillez trouver en pièce jointe le rapport de synthèse de l'audit réalisé pour <strong>${childName}</strong>.</p>
+    <p>Veuillez trouver en pièce jointe le rapport de synthèse du bilan réalisé pour <strong>${childName}</strong>.</p>
     <p>Ce document présente une évaluation de sa vitalité actuelle selon cinq axes : le sommeil, les surcharges (émonctoires), le stress, l'immunité et la confiance en soi.</p>
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Analyse de la synthèse</h3>
     <p>Les scores obtenus permettent d'identifier les zones d'équilibre et les points de vigilance qui nécessitent un soutien. Les recommandations mentionnées dans le rapport constituent de premières pistes en hygiène de vie pour accompagner votre enfant au quotidien.</p>
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Prochaines étapes</h3>
-    <p>Cet audit gagne à être complété par une consultation au cabinet afin de définir un protocole de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et, si vous le souhaitez, réaliser un bilan Oligoscan pour mesurer précisément ses carences minérales et la présence de métaux lourds.</p>
+    <p>Ce bilan gagne à être complété par une consultation au cabinet afin de définir un protocole de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et, si vous le souhaitez, réaliser un bilan Oligoscan pour mesurer précisément ses carences minérales et la présence de métaux lourds.</p>
     <p>Pour toute question ou pour convenir d'un rendez-vous au cabinet de Sainte-Consorce, je vous invite à me contacter directement via le formulaire de mon site :<br>
     <a href="${contactUrl}" style="color:#1B4D5C;font-weight:600">${contactUrl}</a></p>
     <p style="margin-top:32px">Sincères salutations,</p>
@@ -151,7 +152,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
         from: process.env.RESEND_FROM,
         to: [clientEmail],
         reply_to: process.env.CONTACT_EMAIL,
-        subject: `📩 Rapport d'Audit Horizon Santé — ${childName}`,
+        subject: `📩 Rapport de Bilan Horizon Santé — ${childName}`,
         html: clientHtml,
         attachments: [attachment]
       });
@@ -161,7 +162,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     await resend.emails.send({
       from: process.env.RESEND_FROM,
       to: [process.env.CONTACT_EMAIL],
-      subject: `📋 PDF Audit — ${prenom||childName} ${nom||''} (${childAge}) — envoyé à ${clientEmail}`,
+      subject: `📋 PDF Bilan — ${prenom||childName} ${nom||''} (${childAge}) — envoyé à ${clientEmail}`,
       html: summaryHtml + (clientEmail ? `<p><strong>Copie envoyée à :</strong> ${clientEmail}</p>` : '<p><em>Pas d\'email client — PDF non envoyé au client</em></p>'),
       attachments: [attachment]
     });
@@ -186,7 +187,7 @@ app.post('/api/contact', express.json(), async (req, res) => {
       from: process.env.RESEND_FROM,
       to: [process.env.CONTACT_EMAIL],
       reply_to: email,
-      subject: `📩 Contact Flux & Équilibre — ${objet} (${prenom})`,
+      subject: `📩 Contact Horizon & Équilibre — ${objet} (${prenom})`,
       html: `<h2>Nouveau message</h2>
         <p><strong>De :</strong> ${prenom} (${email})</p>
         ${ageEnfant ? `<p><strong>Âge de l'enfant :</strong> ${ageEnfant}</p>` : ''}

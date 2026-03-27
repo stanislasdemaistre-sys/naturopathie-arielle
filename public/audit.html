@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Audit Horizon Santé — Flux & Équilibre</title>
+<title>Bilan Horizon Santé — Horizon & Équilibre</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="/jspdf.min.js"></script>
 <style>
@@ -31,7 +31,7 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 36px;border-radius:50px;font-family:var(--fb);font-size:.9rem;font-weight:500;letter-spacing:.3px;cursor:pointer;border:none;transition:all .4s cubic-bezier(.22,1,.36,1)}
 .btn-primary{background:var(--bp);color:var(--cr)}.btn-primary:hover{background:var(--bp-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
 .btn-secondary{background:transparent;color:var(--bp);border:1.5px solid var(--cr-d)}.btn-secondary:hover{border-color:var(--vs);background:var(--wh)}
-.btn-gold{background:var(--do);color:var(--bp-d);font-weight:600}.btn-gold:hover{background:var(--do-l);transform:translateY(-2px)}
+.btn-gold{background:var(--bp);color:var(--cr);font-weight:500}.btn-gold:hover{background:var(--bp-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
 .progress-wrap{margin-bottom:40px;animation:fadeIn .5s ease}
 .progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .progress-step{font-size:.78rem;font-weight:500;color:var(--do);letter-spacing:1px}
@@ -99,6 +99,7 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
 .results-cta .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .results-cta p{font-size:.82rem;color:var(--tx-l)}
 .hidden{display:none!important}
+.intro-card>p,.oligo-suggestion p,.results-cta p,.tooltip-desc,.tooltip-solutions{text-align:justify;hyphens:auto}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 0;background:rgba(250,247,242,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(27,77,92,0.06);transition:all .4s ease}
 nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
@@ -162,13 +163,14 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
           <circle cx="12" cy="24" r="2" fill="#C4A265"/>
         </svg>
       </div>
-      <div class="nav-logo-text">Flux <span>&</span> Équilibre</div>
+      <div class="nav-logo-text">Horizon <span>&</span> Équilibre</div>
     </a>
     <ul class="nav-list">
       <li><a href="/">Accueil</a></li>
       <li><a href="/about">À propos</a></li>
       <li><a href="/methode">Méthode</a></li>
-      <li><a href="/audit" class="nav-active">Audit Santé</a></li>
+      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
+      <li><a href="/audit" class="nav-active">Bilan Santé</a></li>
       <li><a href="/#guide">Guide Acné</a></li>
       <li><a href="/contact">Contact</a></li>
     </ul>
@@ -180,8 +182,8 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 <div class="app" id="app" style="padding-top:100px">
   <div id="screen-intro">
     <div class="header">
-      <div class="header-logo">Flux <span>&</span> Équilibre</div>
-      <h1 class="header-title">Audit <em>Horizon Santé</em></h1>
+      <div class="header-logo">Horizon <span>&</span> Équilibre</div>
+      <h1 class="header-title">Bilan <em>Horizon Santé</em></h1>
       <p class="header-subtitle">Découvrez comment aider votre enfant à se sentir mieux au quotidien. Comprenez ses besoins en 3 minutes.</p>
     </div>
     <div class="intro-card">
@@ -197,7 +199,7 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
         <div class="form-group"><label for="childName" id="labelChildName">Prénom de l'enfant</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
         <div class="form-group"><label>Âge</label><select id="childAge"><option value="">Sélectionner</option><option>3-5 ans</option><option>6-8 ans</option><option>9-11 ans</option><option>12-14 ans</option><option>15-17 ans</option><option>18-25 ans</option></select></div>
       </div>
-      <button class="btn btn-primary" onclick="startAudit()">Commencer l'audit <span>→</span></button>
+      <button class="btn btn-primary" onclick="startAudit()">Commencer le bilan</button>
     </div>
   </div>
   <div id="screen-questions" class="hidden">
@@ -208,7 +210,7 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 </div>
 <footer style="background:#0F3540;padding:20px 24px;font-family:'Outfit',system-ui,sans-serif;margin-top:40px">
   <div style="max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-    <span style="font-family:'Cormorant Garamond',Georgia,serif;color:#FAF7F2;font-size:1.05rem">Flux <span style="color:#C4A265">&</span> Équilibre</span>
+    <span style="font-family:'Cormorant Garamond',Georgia,serif;color:#FAF7F2;font-size:1.05rem">Horizon <span style="color:#C4A265">&</span> Équilibre</span>
     <span style="color:rgba(250,247,242,.45);font-size:.8rem">Sainte-Consorce (69280) · +33 6 51 14 07 26</span>
     <div style="display:flex;align-items:center;gap:14px">
       <a href="/mentions" style="color:rgba(250,247,242,.45);text-decoration:none;font-size:.78rem">Mentions légales</a>
@@ -513,9 +515,9 @@ function showResults(){
   document.getElementById('screen-results').innerHTML=`
     <div class="results-wrap">
       <div class="results-header"><h2>Bilan ${el}<em>${state.childName}</em></h2>
-        <div class="results-child-name">${state.childAge||''} — Réalisé le ${new Date().toLocaleDateString('fr-FR')}</div></div>
+        <div class="results-child-name">${state.childAge||''} · Réalisé le ${new Date().toLocaleDateString('fr-FR')}</div></div>
       <div class="fleur-section" id="fleurSection">
-        <div class="fleur-label">Résultats de l'audit</div>
+        <div class="fleur-label">Résultats du bilan</div>
         <div class="fleur-container" id="fleurContainer">
           <svg class="fleur-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" id="fleurSvg">${svg}
             <circle cx="${cx}" cy="${cy}" r="32" fill="#FAF7F2" stroke="#B5CBB1" stroke-width="2"/>
@@ -530,24 +532,24 @@ function showResults(){
           const st=l==='good'?'Bon équilibre':l==='watch'?'À accompagner':"Zone d'attention";
           const adv=l==='good'?'Maintenir les bonnes habitudes en place.':SUGGESTION[k];
           return`<div class="alert-item level-${l}"><div class="alert-dot"></div><div class="alert-text">
-            <h4>${p.icone} ${p.label} — ${s}/100 · ${st}</h4><p>${adv}</p></div></div>`;}).join('')}</div>`:''}
+            <h4>${p.icone} ${p.label} · ${s}/100 · ${st}</h4><p>${adv}</p></div></div>`;}).join('')}</div>`:''}
 
       ${needOligo?`<div class="oligo-suggestion"><h3>🔬 Bilan Oligoscan recommandé</h3>
         <p>${isAdult()?`Tes pétales Éclat et/ou Immunité indiquent un terrain déséquilibré, ${state.childName}.`:`Les pétales Éclat et/ou Immunité ${el}${state.childName} indiquent un terrain déséquilibré.`} L'Oligoscan mesure en 30 secondes l'état de 20 minéraux et 14 métaux lourds pour un protocole de reminéralisation précis.</p>
         <div class="oligo-minerals">${mins.slice(0,8).map(m=>`<span class="mineral-tag">${m}</span>`).join('')}</div>
-        <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous pour un Oligoscan →</button></div>`:''}
+        <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous pour un Oligoscan</button></div>`:''}
 
       ${needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#6B5B8D,#1B4D5C)"><h3>🦋 Kinésiologie et Fleurs de Bach</h3>
         <p>${isAdult()?`Tes pétales Sérénité et/ou Confiance révèlent des tensions émotionnelles, ${state.childName}.`:`Les pétales Sérénité et/ou Confiance ${el}${state.childName} révèlent des tensions émotionnelles.`} La Kinésiologie permet d'identifier les blocages et les Fleurs de Bach accompagnent le rééquilibrage en douceur.</p>
-        <button class="btn btn-gold" onclick="window.location='/methode'">Découvrir la Kinésiologie →</button></div>`:''}
+        <button class="btn btn-gold" onclick="window.location='/methode'">Découvrir la Kinésiologie</button></div>`:''}
 
       ${needReflexo?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#2E7D7A,#1B4D5C)"><h3>🌿 Réflexologie recommandée</h3>
         <p>${isAdult()?`Tes résultats indiquent un besoin de drainage et/ou de récupération, ${state.childName}.`:`Les résultats ${el}${state.childName} indiquent un besoin de drainage et/ou de récupération.`}${charges.eclat>=3?' La Réflexologie plantaire accompagne le drainage naturel du foie et des intestins.':''}${charges.sommeil>=3?' La Réflexologie palmaire apporte un réconfort immédiat et améliore la qualité du sommeil.':''}</p>
-        <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous →</button></div>`:''}
+        <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous</button></div>`:''}
 
       ${!needOligo&&!needKinesio&&!needReflexo?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
         <p>${isAdult()?`Tu montres un bel équilibre global, ${state.childName}.`:`${state.childName} montre un bel équilibre global.`} Un suivi naturopathique léger permettrait de consolider cette dynamique.</p>
-        <button class="btn btn-gold" onclick="window.location='/audit';resetAudit()">Découvrir nos accompagnements →</button></div>`:''}
+        <button class="btn btn-gold" onclick="window.location='/audit';resetAudit()">Découvrir nos accompagnements</button></div>`:''}
 
       <div class="results-cta">
         <div class="contact-mini-form">
@@ -559,7 +561,7 @@ function showResults(){
         </div>
         <div class="btn-row">
           <button class="btn btn-primary" onclick="generatePDF()">📧 Recevoir ma synthèse par mail</button>
-          <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire l'audit</button>
+          <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire le bilan</button>
         </div>
         <p>Ces résultats orientent vers un bilan approfondi au cabinet. Ils ne constituent pas un diagnostic médical.</p>
       </div>
@@ -582,7 +584,7 @@ function showTip(k){
   if(activeTooltipPetal===k){tt.classList.remove('visible');activeTooltipPetal=null;return;}
   activeTooltipPetal=k;const p=PETALS[k],c=state._charges[k],s=toScore(c),l=lvl(c);
   const lc=l==='good'?'var(--ok)':l==='watch'?'var(--do)':'var(--al)';
-  const adv=l==='good'?'Bon équilibre — maintenir les habitudes en place.':(SUGGESTION[k]);
+  const adv=l==='good'?'Bon équilibre. Maintenir les habitudes en place.':(SUGGESTION[k]);
   tt.innerHTML=`<div class="tooltip-header"><div class="tooltip-icon" style="background:${p.bg}20">${p.icone}</div>
     <div class="tooltip-name">${p.label}</div><div class="tooltip-score" style="color:${lc}">${s}/100</div></div>
     <div class="tooltip-desc">${p.description}</div>
@@ -632,7 +634,7 @@ function generatePDF(){
   doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,37,W-MX,37);
 
   doc.setFont('times','bold');doc.setFontSize(19);doc.setTextColor(...CR);
-  doc.text('Flux & Équilibre',MX,17);
+  doc.text('Horizon & Équilibre',MX,17);
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...DO);
   doc.text('Naturopathie · Kinésiologie · Réflexologie · Fleurs de Bach',MX,25);
   doc.setTextColor(170,205,205);doc.setFontSize(7.5);
@@ -640,7 +642,7 @@ function generatePDF(){
 
   // 2. TITRE + NOM (espace blanc avant la fleur)
   doc.setFont('times','italic');doc.setFontSize(22);doc.setTextColor(...BP);
-  doc.text('Audit Horizon Santé',W/2,52,{align:'center'});
+  doc.text('Bilan Horizon Santé',W/2,52,{align:'center'});
   doc.setFont('times','normal');doc.setFontSize(12);doc.setTextColor(...TL);
   doc.text(`Bilan ${el}${state.childName}${state.childAge?' · '+state.childAge:''}`,W/2,62,{align:'center'});
   doc.setDrawColor(...DOL);doc.setLineWidth(0.4);doc.line(W/2-22,66,W/2+22,66);
@@ -700,7 +702,7 @@ function generatePDF(){
   doc.setFillColor(...CRD);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
   doc.roundedRect(MX,y,CW,boxH,3,3,'FD');
   doc.setFont('times','bold');doc.setFontSize(11);doc.setTextColor(...BP);
-  doc.text(`${wp.label} — Axe prioritaire`,MX+8,y+7);
+  doc.text(`${wp.label} : Axe prioritaire`,MX+8,y+7);
   doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TX);
   doc.text(descLines,MX+8,y+14);
   doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...DO);
@@ -712,7 +714,7 @@ function generatePDF(){
   // Mini bandeau page 2
   doc.setFillColor(...BPD);doc.rect(0,0,W,12,'F');
   doc.setFont('helvetica','normal');doc.setFontSize(6.5);
-  doc.setTextColor(...DO);doc.text('Flux & Équilibre — Arielle de Maistre',MX,8);
+  doc.setTextColor(...DO);doc.text('Horizon & Équilibre — Arielle de Maistre',MX,8);
   doc.setTextColor(160,190,190);doc.text('2 / 2',W-MX,8,{align:'right'});
 
   y=MY+2;
@@ -821,7 +823,7 @@ function generatePDF(){
   const fY=H-MY-18;
   doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,fY,W-MX,fY);
   doc.setFont('times','bold');doc.setFontSize(10);doc.setTextColor(...BP);
-  doc.text('Flux & Équilibre',MX,fY+7);
+  doc.text('Horizon & Équilibre',MX,fY+7);
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
   doc.text('Arielle de Maistre — Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue',MX,fY+12);
   doc.text('Cabinet de Sainte-Consorce (69280) · +33 6 51 14 07 26 · arielle.de.maistre@gmail.com',MX,fY+17);
@@ -849,8 +851,8 @@ function generatePDF(){
             <h2>Votre bilan a été envoyé !</h2>
             <p>Un exemplaire PDF a été transmis à <strong>${clientEmail}</strong>.</p>
             <p class="success-sub">Arielle de Maistre vous répondra personnellement dans les meilleurs délais.</p>
-            <a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet →</a>
-            <button class="btn btn-secondary" onclick="resetAudit()" style="margin-top:12px">🔄 Refaire l'audit</button>
+            <a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet</a>
+            <button class="btn btn-secondary" onclick="resetAudit()" style="margin-top:12px">🔄 Refaire le bilan</button>
           </div>`;
       }
     }).catch(()=>{});

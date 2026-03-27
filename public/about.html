@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>À propos — Arielle de Maistre · Flux & Équilibre</title>
+<title>À propos — Arielle de Maistre · Horizon & Équilibre</title>
 <meta name="description" content="Ingénieure de formation, maman de 3 enfants, Arielle de Maistre accompagne enfants, adolescents et jeunes adultes avec la naturopathie, la kinésiologie et la réflexologie.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -603,18 +603,17 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: transparent;
-  color: var(--bleu-petrole);
+  background: var(--bleu-petrole);
+  color: var(--creme);
   padding: 16px 36px;
   border-radius: 50px;
-  border: 1.5px solid var(--bleu-petrole);
   font-family: var(--font-body);
   font-size: 0.9rem;
   font-weight: 400;
   text-decoration: none;
   transition: all 0.3s ease;
 }
-.btn-secondary:hover { background: var(--bleu-petrole); color: var(--creme); }
+.btn-secondary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); }
 
 /* ─── FOOTER ─── */
 footer {
@@ -660,7 +659,8 @@ footer {
 }
 
 /* Texte justifié */
-.parcours-text p, .timeline-card-desc, .activite-text, .step-desc, .public-desc {
+.parcours-text p, .timeline-card-desc, .activite-text, .step-desc, .public-desc,
+.publics-intro, .cta-section p {
   text-align: justify;
   hyphens: auto;
 }
@@ -681,13 +681,14 @@ footer {
           <circle cx="12" cy="24" r="2" fill="#C4A265"/>
         </svg>
       </div>
-      <div class="logo-text">Flux <span>&</span> Équilibre</div>
+      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
     </a>
     <ul class="nav-links">
       <li><a href="/">Accueil</a></li>
       <li><a href="/about" class="active">À propos</a></li>
       <li><a href="/methode">Méthode</a></li>
-      <li><a href="/audit">Audit Santé</a></li>
+      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
+      <li><a href="/audit">Bilan Santé</a></li>
       <li><a href="/#guide">Guide Acné</a></li>
       <li><a href="/contact">Contact</a></li>
     </ul>
@@ -744,10 +745,10 @@ footer {
           <strong>Diplômée en génie chimique</strong>, j'ai exercé pendant dix ans dans le secteur de l'énergie. Pendant ces années passées à optimiser des processus industriels, j'ai progressivement pris conscience d'un paradoxe : nous savons si bien écouter les signaux d'une machine, mais nous avons perdu l'habitude d'écouter ceux de notre propre corps.
         </p>
         <p>
-          Les <strong>expatriations au Sultanat d'Oman et au Maroc</strong> ont été une révélation. Loin de nos systèmes de santé occidentaux, j'ai découvert les médecines naturelles — leur efficacité douce, leur rapport au vivant, leur manière d'aborder la personne dans sa globalité. Ces cultures m'ont appris que le corps n'est pas une machine à réparer, mais un système vivant à accompagner.
+          Les <strong>expatriations au Sultanat d'Oman et au Maroc</strong> ont été une révélation. Loin de nos systèmes de santé occidentaux, j'ai découvert les médecines naturelles. J'ai découvert leur efficacité douce, leur rapport au vivant, leur manière d'aborder la personne dans sa globalité. Ces cultures m'ont appris que le corps n'est pas une machine à réparer, mais un système vivant à accompagner.
         </p>
         <p>
-          <strong>Maman de trois enfants</strong>, j'ai naturellement testé ces approches sur mes propres enfants — pour les petits maux du quotidien, les angoisses du primaire, les bouleversements de l'adolescence. Les résultats m'ont convaincue : la naturopathie peut corriger bien des déséquilibres <em>avant</em> d'avoir recours à la médecine allopathique. Le corps envoie des signaux d'alerte ; il suffit de savoir les lire.
+          <strong>Maman de trois enfants</strong>, j'ai naturellement testé ces approches sur mes propres enfants pour les petits maux du quotidien, les angoisses du primaire, les bouleversements de l'adolescence. Les résultats m'ont convaincue : la naturopathie peut corriger bien des déséquilibres <em>avant</em> d'avoir recours à la médecine allopathique. Le corps envoie des signaux d'alerte ; il suffit de savoir les lire.
         </p>
         <div class="parcours-pills">
           <span class="pill">👩‍🔬 Ingénieure chimiste</span>
@@ -797,7 +798,7 @@ footer {
             <span class="timeline-badge">3 ans · Certification FEDE</span>
           </div>
           <p class="timeline-card-desc">
-            Formation approfondie en naturopathie avec certification agréée par le Conseil de l'Europe et l'UNESCO (Fédération Européenne des Écoles). Programme incluant 3 stages pratiques de 5 jours chacun :
+            Formation approfondie en naturopathie avec certification agréée par le Conseil de l'Europe et l'UNESCO (Fédération Européenne des Écoles). Programme incluant 3 stages pratiques :
           </p>
           <div class="stages-grid">
             <div class="stage-card">
@@ -883,13 +884,13 @@ footer {
         <div class="activite-icon">🌿</div>
         <div class="activite-title">Ce que je fais</div>
         <p class="activite-text">
-          Un accompagnement global corps et esprit, qui associe trois approches complémentaires pour agir sur les causes profondes des déséquilibres — et non seulement sur leurs manifestations.
+          Un accompagnement global corps et esprit, qui associe trois approches complémentaires pour agir sur les causes profondes des déséquilibres, et non seulement sur leurs manifestations.
         </p>
         <ul class="activite-list">
-          <li>Naturopathie — alimentation, plantes, rythmes de vie</li>
-          <li>Kinésiologie — libération des blocages émotionnels et mentaux</li>
-          <li>Réflexologie — stimulation des zones réflexes pour rééquilibrer les systèmes</li>
-          <li>Fleurs de Bach — harmonisation émotionnelle</li>
+          <li>Naturopathie : alimentation, plantes, rythmes de vie</li>
+          <li>Kinésiologie : libération des blocages émotionnels et mentaux</li>
+          <li>Réflexologie : stimulation des zones réflexes pour rééquilibrer les systèmes</li>
+          <li>Fleurs de Bach : harmonisation émotionnelle</li>
           <li>Protocoles personnalisés à domicile entre les séances</li>
         </ul>
       </div>
@@ -897,7 +898,7 @@ footer {
         <div class="activite-icon">🎯</div>
         <div class="activite-title">Mon objectif</div>
         <p class="activite-text">
-          Redonner au corps ses capacités d'autorégulation. Chaque organisme possède une intelligence innée de guérison — mon rôle est de créer les conditions pour qu'elle s'exprime pleinement.
+          Redonner au corps ses capacités d'autorégulation. Chaque organisme possède une intelligence innée de guérison. Mon rôle est de créer les conditions pour qu'elle s'exprime pleinement.
         </p>
         <ul class="activite-list">
           <li>Identifier les causes profondes, pas gérer les symptômes</li>
@@ -907,63 +908,6 @@ footer {
           <li>Accompagner dans la durée, avec bienveillance</li>
         </ul>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ SECTION 5 : DÉROULÉ D'UN ACCOMPAGNEMENT ══════ -->
-<section class="section section-alt">
-  <div class="container">
-    <div class="section-label">Déroulé</div>
-    <h2 class="section-title">Un accompagnement en<br><em>trois temps</em></h2>
-
-    <div class="deroulement-grid">
-
-      <div class="deroulement-step animate-in">
-        <div class="step-number">01</div>
-        <div class="step-icon">🔍</div>
-        <div class="step-title">Bilan initial</div>
-        <div class="step-duration">1h30 — Première consultation</div>
-        <p class="step-desc">Une rencontre approfondie pour comprendre l'histoire de la personne dans sa globalité.</p>
-        <ul class="step-list">
-          <li>Anamnèse complète : histoire de vie, habitudes, antécédents</li>
-          <li>Évaluation du terrain physique et émotionnel</li>
-          <li>Bilan Oligoscan (minéraux & métaux lourds) si indiqué</li>
-          <li>Définition des objectifs de l'accompagnement</li>
-          <li>Proposition d'un protocole personnalisé</li>
-        </ul>
-      </div>
-
-      <div class="deroulement-step animate-in" style="transition-delay:0.1s">
-        <div class="step-number">02</div>
-        <div class="step-icon">🌿</div>
-        <div class="step-title">Séances de suivi</div>
-        <div class="step-duration">45 à 60 min — Toutes les 3-4 semaines</div>
-        <p class="step-desc">Des séances régulières pour ajuster le protocole et approfondir le travail.</p>
-        <ul class="step-list">
-          <li>Suivi de l'évolution des symptômes</li>
-          <li>Alternance des 3 approches selon les besoins</li>
-          <li>Travail émotionnel (kinésiologie, Fleurs de Bach)</li>
-          <li>Ajustements nutritionnels et phytothérapeutiques</li>
-          <li>Séances de réflexologie ciblées</li>
-        </ul>
-      </div>
-
-      <div class="deroulement-step animate-in" style="transition-delay:0.2s">
-        <div class="step-number">03</div>
-        <div class="step-icon">🏡</div>
-        <div class="step-title">Programme à domicile</div>
-        <div class="step-duration">Au quotidien — Entre les séances</div>
-        <p class="step-desc">Des outils concrets pour prolonger les bénéfices au quotidien et développer l'autonomie.</p>
-        <ul class="step-list">
-          <li>Protocole alimentaire adapté à l'âge et aux besoins</li>
-          <li>Plantes et compléments sélectionnés</li>
-          <li>Exercices de régulation émotionnelle</li>
-          <li>Fleurs de Bach prescrites</li>
-          <li>Rituels du matin et du soir</li>
-        </ul>
-      </div>
-
     </div>
   </div>
 </section>
@@ -997,7 +941,7 @@ footer {
         <span class="public-icon">🌀</span>
         <div class="public-age">13 – 18 ans</div>
         <div class="public-title">Les Adolescents</div>
-        <p class="public-desc">La période des bouleversements hormonaux, des pressions scolaires et de la construction identitaire — un moment clé pour accompagner en profondeur.</p>
+        <p class="public-desc">La période des bouleversements hormonaux, des pressions scolaires et de la construction identitaire. Un moment clé pour accompagner en profondeur.</p>
         <ul class="public-problems">
           <li>Acné et problèmes de peau hormonaux</li>
           <li>Stress des examens et blocages cognitifs</li>
@@ -1011,7 +955,7 @@ footer {
         <span class="public-icon">⚡</span>
         <div class="public-age">20 – 30 ans</div>
         <div class="public-title">Les Jeunes Professionnels</div>
-        <p class="public-desc">L'entrée dans la vie professionnelle et personnelle avec ses exigences, ses accélérations, ses doutes — pour ne pas attendre que le corps crie.</p>
+        <p class="public-desc">L'entrée dans la vie professionnelle et personnelle avec ses exigences, ses accélérations, ses doutes pour ne pas attendre que le corps crie.</p>
         <ul class="public-problems">
           <li>Stress chronique et surcharge mentale</li>
           <li>Fatigue persistante et récupération difficile</li>
@@ -1033,12 +977,11 @@ footer {
       Un premier pas vers<br><em>votre équilibre</em>
     </h2>
     <p>
-      Commencez par l'Audit Santé pour identifier les zones à soutenir en priorité — ou contactez-moi directement pour toute question.
+      Commencez par le Bilan Santé pour identifier les zones à soutenir en priorité. Contactez-moi directement pour toute question.
     </p>
     <div class="cta-buttons">
       <a href="/audit" class="btn-primary">
-        Faire l'Audit Santé
-        <span>→</span>
+        Faire le Bilan Santé
       </a>
       <a href="/contact" class="btn-secondary">
         Me contacter
@@ -1051,18 +994,19 @@ footer {
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-logo">Flux <span>&</span> Équilibre</div>
+      <div class="footer-logo">Horizon <span>&</span> Équilibre</div>
       <ul class="footer-links">
         <li><a href="/about">À propos</a></li>
         <li><a href="/methode">Méthode</a></li>
-        <li><a href="/audit">Audit Horizon Santé</a></li>
+        <li><a href="/tarifs">Tarifs</a></li>
+        <li><a href="/audit">Bilan Horizon Santé</a></li>
         <li><a href="/contact">Contact</a></li>
         <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
         <li>Sainte-Consorce (69280)</li>
       </ul>
     </div>
     <div class="footer-copy">
-      © 2026 Flux & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
+      © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
       <div style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
         <a href="/mentions" style="color:rgba(250,247,242,.5);text-decoration:none;font-size:.8em">Mentions légales</a>
       </div>

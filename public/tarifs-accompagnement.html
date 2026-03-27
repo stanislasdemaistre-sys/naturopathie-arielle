@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarifs & Accompagnement — Horizon & Équilibre · Naturopathie · Kinésiologie · Réflexologie</title>
+<meta name="description" content="Tarifs des soins et accompagnements naturopathiques, kinésiologiques et réflexologiques au cabinet de Sainte-Consorce (69280).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bleu-petrole: #1B4D5C;
+  --bleu-petrole-deep: #0F3540;
+  --bleu-petrole-light: #2A6B7E;
+  --vert-sauge: #8FA98B;
+  --vert-sauge-light: #B5CBB1;
+  --vert-sauge-pale: #D6E4D3;
+  --dore: #C4A265;
+  --dore-light: #D4BA8A;
+  --dore-pale: #F0E6D2;
+  --creme: #FAF7F2;
+  --creme-dark: #F0EBE3;
+  --blanc: #FFFFFF;
+  --texte: #2C3E3A;
+  --texte-light: #5A6E68;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 32px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--texte);
+  background: var(--creme);
+  line-height: 1.7;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 14px 0;
+  background: rgba(250, 247, 242, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 30px rgba(27, 77, 92, 0.06);
+  transition: all 0.4s ease;
+}
+nav .container { display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.logo-icon { width: 38px; height: 38px; }
+.logo-icon svg { width: 100%; height: 100%; }
+.logo-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--bleu-petrole); }
+.logo-text span { color: var(--dore); font-weight: 300; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--dore);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--dore); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--dore); }
+.nav-cta {
+  background: var(--bleu-petrole) !important;
+  color: var(--creme) !important;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+.nav-cta:hover { background: var(--bleu-petrole-light) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.mobile-toggle span { width: 22px; height: 1.5px; background: var(--bleu-petrole); display: block; transition: all 0.3s; }
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(135deg, var(--bleu-petrole-deep) 0%, var(--bleu-petrole) 55%, var(--bleu-petrole-light) 100%);
+  padding: 160px 0 96px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,162,101,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(196,162,101,0.15);
+  border: 1px solid rgba(196,162,101,0.3);
+  color: var(--dore-light);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--blanc);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.hero h1 em { font-style: italic; color: var(--vert-sauge-light); }
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(250,247,242,0.72);
+  line-height: 1.7;
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* ─── SECTIONS ─── */
+.section { padding: 88px 0; }
+.section-alt { background: var(--blanc); }
+.section-dark { background: var(--bleu-petrole); }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.section-title em { font-style: italic; color: var(--vert-sauge); }
+.section-intro {
+  font-size: 0.97rem;
+  color: var(--texte-light);
+  line-height: 1.8;
+  max-width: 620px;
+  margin-bottom: 56px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* ─── DÉROULÉ ─── */
+.deroulement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.deroulement-step {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  box-shadow: 0 8px 32px rgba(27,77,92,0.06);
+  border: 1px solid rgba(27,77,92,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.section-alt .deroulement-step { background: var(--creme); }
+.deroulement-step:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(27,77,92,0.1); }
+.step-number {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--vert-sauge-pale);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.step-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--bleu-petrole);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.step-duration {
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.step-desc { font-size: 0.88rem; color: var(--texte-light); line-height: 1.7; text-align: justify; hyphens: auto; }
+.step-list { list-style: none; margin-top: 12px; }
+.step-list li {
+  font-size: 0.83rem;
+  color: var(--texte-light);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--creme-dark);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.step-list li:last-child { border-bottom: none; }
+.step-list li::before { content: '→'; color: var(--vert-sauge); font-size: 0.75rem; margin-top: 3px; flex-shrink: 0; }
+
+/* ─── TARIFS CARDS ─── */
+.tarifs-intro {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 48px;
+  margin-bottom: 56px;
+  flex-wrap: wrap;
+}
+.tarifs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.tarif-card {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  border: 1px solid rgba(27,77,92,0.07);
+  box-shadow: 0 4px 24px rgba(27,77,92,0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+.tarif-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(27,77,92,0.1); }
+
+/* Card Signature — mise en avant */
+.tarif-card.featured {
+  background: linear-gradient(160deg, var(--bleu-petrole) 0%, var(--bleu-petrole-light) 100%);
+  border-color: transparent;
+  color: var(--creme);
+}
+.tarif-card.featured .tarif-name,
+.tarif-card.featured .tarif-detail,
+.tarif-card.featured .tarif-duration { color: rgba(250,247,242,0.85); }
+.tarif-card.featured .tarif-price { color: var(--dore-light); }
+.tarif-card.featured .tarif-desc { color: rgba(250,247,242,0.72); }
+.tarif-card.featured .tarif-feature { border-color: rgba(255,255,255,0.1); color: rgba(250,247,242,0.72); }
+.tarif-card.featured .tarif-feature::before { color: var(--vert-sauge-light); }
+.tarif-card.featured .featured-badge { display: block; }
+
+.featured-badge {
+  display: none;
+  position: absolute;
+  top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--dore);
+  color: var(--bleu-petrole-deep);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.tarif-icon { font-size: 1.8rem; margin-bottom: 16px; }
+.tarif-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--bleu-petrole);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.tarif-duration {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.tarif-price {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.tarif-price sup { font-size: 1rem; vertical-align: super; }
+.tarif-divider {
+  height: 1px;
+  background: rgba(27,77,92,0.08);
+  margin: 20px 0;
+}
+.tarif-card.featured .tarif-divider { background: rgba(255,255,255,0.12); }
+.tarif-desc {
+  font-size: 0.84rem;
+  color: var(--texte-light);
+  line-height: 1.65;
+  flex: 1;
+  text-align: justify;
+  hyphens: auto;
+}
+.tarif-features { list-style: none; margin-top: 16px; }
+.tarif-feature {
+  font-size: 0.8rem;
+  color: var(--texte-light);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--creme-dark);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.tarif-feature:last-child { border-bottom: none; }
+.tarif-feature::before { content: '✦'; color: var(--dore); font-size: 0.55rem; margin-top: 4px; flex-shrink: 0; }
+.tarif-detail {
+  font-size: 0.78rem;
+  color: var(--texte-light);
+  font-style: italic;
+  margin-top: 12px;
+}
+
+/* ─── NOTE MUTUELLES ─── */
+.note-section { padding: 64px 0; background: var(--dore-pale); }
+.note-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.note-card {
+  background: var(--blanc);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  border-left: 3px solid var(--dore);
+}
+.note-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--bleu-petrole);
+  margin-bottom: 10px;
+}
+.note-card p { font-size: 0.86rem; color: var(--texte-light); line-height: 1.75; text-align: justify; hyphens: auto; }
+
+/* ─── CTA ─── */
+.cta-section {
+  background: linear-gradient(135deg, var(--dore-pale) 0%, var(--creme) 60%);
+  padding: 96px 0;
+  text-align: center;
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--bleu-petrole);
+  margin-bottom: 16px;
+}
+.cta-title em { font-style: italic; color: var(--vert-sauge); }
+.cta-section p { font-size: 1rem; color: var(--texte-light); line-height: 1.75; max-width: 520px; margin: 0 auto 40px; text-align: justify; hyphens: auto; }
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--bleu-petrole); color: var(--creme);
+  padding: 16px 36px; border-radius: 50px;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+  text-decoration: none; transition: all 0.3s ease; letter-spacing: 0.3px;
+}
+.btn-primary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(27,77,92,0.2); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--bleu-petrole); color: var(--creme);
+  padding: 16px 36px; border-radius: 50px;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 400;
+  text-decoration: none; transition: all 0.3s ease;
+}
+.btn-secondary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bleu-petrole-deep);
+  color: rgba(250,247,242,0.5);
+  padding: 48px 0 32px;
+}
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--creme); }
+.footer-logo span { color: var(--dore); }
+.footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--dore); }
+.footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .tarifs-grid { grid-template-columns: repeat(2, 1fr); }
+  .deroulement-grid { grid-template-columns: repeat(2, 1fr); }
+  .note-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  .hero { padding: 120px 0 72px; }
+  .section { padding: 60px 0; }
+  .tarifs-grid { grid-template-columns: 1fr; }
+  .deroulement-grid { grid-template-columns: 1fr; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav id="nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
+          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
+          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
+        </svg>
+      </div>
+      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/methode">Méthode</a></li>
+      <li><a href="/tarifs" class="active">Tarifs & Accompagnement</a></li>
+      <li><a href="/audit">Bilan Santé</a></li>
+      <li><a href="/#guide">Guide Acné</a></li>
+      <li><a href="/contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner animate-in">
+      <div class="hero-badge">Cabinet · Sainte-Consorce (69280)</div>
+      <h1>Tarifs <em>&</em><br>Accompagnement</h1>
+      <p class="hero-sub">Des soins pensés sur la durée, incluant la préparation du protocole et le compte-rendu de chaque séance. La transparence tarifaire fait partie de la relation de confiance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DÉROULÉ EN 3 TEMPS ══════ -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-label">Déroulé</div>
+    <h2 class="section-title">Un accompagnement en<br><em>trois temps</em></h2>
+    <p class="section-intro">Chaque soin comprend la préparation en amont, la séance au cabinet et le compte-rendu personnalisé remis en fin de consultation. Ce que vous payez, c'est un accompagnement complet, pas une simple heure sur une table.</p>
+
+    <div class="deroulement-grid">
+
+      <div class="deroulement-step animate-in">
+        <div class="step-number">01</div>
+        <div class="step-icon">🔍</div>
+        <div class="step-title">Bilan initial</div>
+        <div class="step-duration">1h30 : Première consultation</div>
+        <p class="step-desc">Une rencontre approfondie pour comprendre l'histoire de la personne dans sa globalité.</p>
+        <ul class="step-list">
+          <li>Anamnèse complète : histoire de vie, habitudes, antécédents</li>
+          <li>Évaluation du terrain physique et émotionnel</li>
+          <li>Bilan Oligoscan (minéraux & métaux lourds) si indiqué</li>
+          <li>Définition des objectifs de l'accompagnement</li>
+          <li>Proposition d'un protocole personnalisé</li>
+        </ul>
+      </div>
+
+      <div class="deroulement-step animate-in" style="transition-delay:0.1s">
+        <div class="step-number">02</div>
+        <div class="step-icon">🌿</div>
+        <div class="step-title">Séances de suivi</div>
+        <div class="step-duration">45 à 60 min : toutes les 3-4 semaines</div>
+        <p class="step-desc">Des séances régulières pour ajuster le protocole et approfondir le travail.</p>
+        <ul class="step-list">
+          <li>Suivi de l'évolution des symptômes</li>
+          <li>Alternance des 3 approches selon les besoins</li>
+          <li>Travail émotionnel (kinésiologie, Fleurs de Bach)</li>
+          <li>Ajustements nutritionnels et phytothérapeutiques</li>
+          <li>Séances de réflexologie ciblées</li>
+        </ul>
+      </div>
+
+      <div class="deroulement-step animate-in" style="transition-delay:0.2s">
+        <div class="step-number">03</div>
+        <div class="step-icon">🏡</div>
+        <div class="step-title">Programme à domicile</div>
+        <div class="step-duration">Au quotidien : entre les séances</div>
+        <p class="step-desc">Des outils concrets pour prolonger les bénéfices au quotidien et développer l'autonomie.</p>
+        <ul class="step-list">
+          <li>Protocole alimentaire adapté à l'âge et aux besoins</li>
+          <li>Plantes et compléments sélectionnés</li>
+          <li>Exercices de régulation émotionnelle</li>
+          <li>Fleurs de Bach prescrites</li>
+          <li>Rituels du matin et du soir</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ GRILLE TARIFAIRE ══════ -->
+<section class="section" id="tarifs">
+  <div class="container">
+    <div class="section-label">Grille tarifaire</div>
+    <h2 class="section-title">Des soins <em>sur-mesure</em></h2>
+    <p class="section-intro">Tarifs pratiqués au cabinet de Sainte-Consorce. Chaque séance comprend la préparation du protocole et la rédaction d'un compte-rendu remis en fin de consultation.</p>
+
+    <div class="tarifs-grid">
+
+      <!-- Bilan initial naturopathie -->
+      <div class="tarif-card animate-in">
+        <div class="tarif-icon">🌱</div>
+        <div class="tarif-name">Premier Bilan Naturopathie</div>
+        <div class="tarif-duration">1h30 · Première consultation</div>
+        <div class="tarif-price"><sup>€</sup>85</div>
+        <div class="tarif-divider"></div>
+        <p class="tarif-desc">La porte d'entrée de l'accompagnement. Une consultation approfondie pour poser les bases d'un protocole de vitalité adapté au terrain.</p>
+        <ul class="tarif-features">
+          <li class="tarif-feature">Bilan Horizon Santé (Fleur de Vitalité)</li>
+          <li class="tarif-feature">Anamnèse complète & évaluation du terrain</li>
+          <li class="tarif-feature">Plan personnalisé remis en fin de séance</li>
+        </ul>
+      </div>
+
+      <!-- Soin Équilibre Global — FEATURED -->
+      <div class="tarif-card featured animate-in" style="transition-delay:0.08s">
+        <div class="featured-badge">Soin Signature</div>
+        <div class="tarif-icon">✨</div>
+        <div class="tarif-name">Soin Équilibre Global</div>
+        <div class="tarif-duration">1h30 · Séance de suivi</div>
+        <div class="tarif-price"><sup>€</sup>95</div>
+        <div class="tarif-divider"></div>
+        <p class="tarif-desc">La séance de suivi complète : ajustement naturopathique du protocole combiné à une séance entière de Kinésiologie ou de Réflexologie selon les besoins du moment.</p>
+        <ul class="tarif-features">
+          <li class="tarif-feature">Ajustement naturopathique du protocole</li>
+          <li class="tarif-feature">1 séance complète Kinésiologie ou Réflexologie</li>
+          <li class="tarif-feature">Compte-rendu & recommandations</li>
+        </ul>
+      </div>
+
+      <!-- Pack Naturo + Oligoscan -->
+      <div class="tarif-card animate-in" style="transition-delay:0.16s">
+        <div class="tarif-icon">🔬</div>
+        <div class="tarif-name">Pack Naturo + Oligoscan</div>
+        <div class="tarif-duration">1h45 · Bilan complet</div>
+        <div class="tarif-price"><sup>€</sup>120</div>
+        <div class="tarif-divider"></div>
+        <p class="tarif-desc">Le bilan de terrain le plus complet : naturopathie intégrative associée à la mesure spectrophotométrique de 20 minéraux et 14 métaux lourds par Oligoscan.</p>
+        <ul class="tarif-features">
+          <li class="tarif-feature">Bilan naturopathique complet</li>
+          <li class="tarif-feature">Mesure Oligoscan (minéraux & métaux lourds)</li>
+          <li class="tarif-feature">Protocole de reminéralisation ciblé</li>
+        </ul>
+      </div>
+
+      <!-- Kinésiologie -->
+      <div class="tarif-card animate-in" style="transition-delay:0.24s">
+        <div class="tarif-icon">🦋</div>
+        <div class="tarif-name">Séance de Kinésiologie</div>
+        <div class="tarif-duration">1h15 · Libération émotionnelle</div>
+        <div class="tarif-price"><sup>€</sup>75</div>
+        <div class="tarif-divider"></div>
+        <p class="tarif-desc">Identification et libération des blocages émotionnels et cognitifs via le test musculaire. Particulièrement efficace pour les profils anxieux, les difficultés d'apprentissage et les blocages persistants.</p>
+        <ul class="tarif-features">
+          <li class="tarif-feature">Test musculaire & dialogue corps-esprit</li>
+          <li class="tarif-feature">Points énergétiques, mouvements oculaires</li>
+          <li class="tarif-feature">Fleurs de Bach incluses si indiqué</li>
+        </ul>
+      </div>
+
+      <!-- Réflexologie -->
+      <div class="tarif-card animate-in" style="transition-delay:0.32s">
+        <div class="tarif-icon">🤲</div>
+        <div class="tarif-name">Réflexologie</div>
+        <div class="tarif-duration">1h · Plantaire, Faciale ou Crânienne</div>
+        <div class="tarif-price"><sup>€</sup>65</div>
+        <div class="tarif-divider"></div>
+        <p class="tarif-desc">Stimulation des zones réflexes pour réveiller l'organe correspondant et favoriser le drainage et le rééquilibrage. Choisissez la zone selon votre besoin du moment.</p>
+        <ul class="tarif-features">
+          <li class="tarif-feature">Plantaire : drainage, immunité, digestif</li>
+          <li class="tarif-feature">Faciale : sinus, tensions, recentrage</li>
+          <li class="tarif-feature">Crânienne : hyperactivité, migraines, stress</li>
+        </ul>
+      </div>
+
+      <!-- Réflexologie Palmaire -->
+      <div class="tarif-card animate-in" style="transition-delay:0.40s">
+        <div class="tarif-icon">🖐️</div>
+        <div class="tarif-name">Réflexologie Palmaire</div>
+        <div class="tarif-duration">45 min · Apaisement doux</div>
+        <div class="tarif-price"><sup>€</sup>45</div>
+        <div class="tarif-divider"></div>
+        <p class="tarif-desc">La séance idéale pour les enfants et pour un apaisement émotionnel doux. La réflexologie palmaire agit directement sur le système nerveux autonome et peut s'auto-pratiquer entre les séances.</p>
+        <ul class="tarif-features">
+          <li class="tarif-feature">Adaptée dès le plus jeune âge</li>
+          <li class="tarif-feature">Anxiété, troubles du sommeil, agitation</li>
+          <li class="tarif-feature">Apprentissage de l'auto-pratique possible</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ NOTES & RASSURANCE ══════ -->
+<section class="note-section">
+  <div class="container">
+    <div class="note-grid">
+      <div class="note-card animate-in">
+        <h3>🏥 Remboursement & mutuelles</h3>
+        <p>La naturopathie et la kinésiologie ne sont pas remboursées par la Sécurité Sociale. Cependant, de nombreuses mutuelles proposent des forfaits annuels pour les médecines naturelles. Une facture vous sera remise pour chaque soin, que vous pourrez transmettre à votre mutuelle.</p>
+      </div>
+      <div class="note-card animate-in" style="transition-delay:0.1s">
+        <h3>📍 Lieu des soins</h3>
+        <p>Tous les soins se déroulent au cabinet de <strong>Sainte-Consorce (69280)</strong>, dans un espace dédié, calme et confidentiel. Les consultations se font sur rendez-vous uniquement. Pour toute question ou pour convenir d'un premier rendez-vous, contactez-moi via le formulaire de contact.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA FINAL ══════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center">Première étape</div>
+    <h2 class="cta-title">
+      Commencez par le <em>Bilan Horizon Santé</em>
+    </h2>
+    <p>Le Bilan Santé est gratuit et disponible en ligne. Il vous donne une première cartographie de l'équilibre de votre enfant et oriente vers les soins les plus adaptés.</p>
+    <div class="cta-buttons">
+      <a href="/audit" class="btn-primary">Faire le Bilan Santé</a>
+      <a href="/contact" class="btn-secondary">Prendre rendez-vous</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Horizon <span>&</span> Équilibre</div>
+      <ul class="footer-links">
+        <li><a href="/about">À propos</a></li>
+        <li><a href="/methode">Méthode</a></li>
+        <li><a href="/tarifs">Tarifs</a></li>
+        <li><a href="/audit">Bilan Horizon Santé</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
+        <li>Sainte-Consorce (69280)</li>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
+      <div style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+        <a href="/mentions" style="color:rgba(250,247,242,.5);text-decoration:none;font-size:.8em">Mentions légales</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  navEl.style.boxShadow = window.scrollY > 40
+    ? '0 4px 30px rgba(27,77,92,0.1)'
+    : '0 1px 30px rgba(27,77,92,0.06)';
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';
+  }
+});
+</script>
+
+</body>
+</html>

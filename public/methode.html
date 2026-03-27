@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Méthode — Flux & Équilibre · Naturopathie · Fleurs de Bach · Réflexologie · Kinésiologie</title>
+<title>La Méthode — Horizon & Équilibre · Naturopathie · Fleurs de Bach · Réflexologie · Kinésiologie</title>
 <meta name="description" content="Quatre approches complémentaires pour une vision globale de la personne : Naturopathie, Fleurs de Bach, Réflexologie et Kinésiologie.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -529,13 +529,12 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .btn-primary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(27,77,92,0.2); }
 .btn-secondary {
   display: inline-flex; align-items: center; gap: 10px;
-  background: transparent; color: var(--bleu-petrole);
+  background: var(--bleu-petrole); color: var(--creme);
   padding: 16px 36px; border-radius: 50px;
-  border: 1.5px solid var(--bleu-petrole);
   font-family: var(--font-body); font-size: 0.9rem; font-weight: 400;
   text-decoration: none; transition: all 0.3s ease;
 }
-.btn-secondary:hover { background: var(--bleu-petrole); color: var(--creme); }
+.btn-secondary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); }
 
 /* ─── CTA ─── */
 .cta-section {
@@ -593,7 +592,7 @@ footer {
 }
 
 /* Texte justifié */
-.principle-text p, .sub-intro, .seance-text p, .reflex-desc, .tool-desc {
+.principle-text p, .sub-intro, .seance-text p, .reflex-desc, .tool-desc, .hero-sub {
   text-align: justify;
   hyphens: auto;
 }
@@ -614,13 +613,14 @@ footer {
           <circle cx="12" cy="24" r="2" fill="#C4A265"/>
         </svg>
       </div>
-      <div class="logo-text">Flux <span>&</span> Équilibre</div>
+      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
     </a>
     <ul class="nav-links">
       <li><a href="/">Accueil</a></li>
       <li><a href="/about">À propos</a></li>
       <li><a href="/methode" class="active">Méthode</a></li>
-      <li><a href="/audit">Audit Santé</a></li>
+      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
+      <li><a href="/audit">Bilan Santé</a></li>
       <li><a href="/#guide">Guide Acné</a></li>
       <li><a href="/contact">Contact</a></li>
     </ul>
@@ -637,7 +637,7 @@ footer {
       <div class="hero-badge">
         Naturopathie · Fleurs de Bach · Réflexologie · Kinésiologie · Oligoscan
       </div>
-      <h1>La Méthode <em>Flux & Équilibre</em></h1>
+      <h1>La Méthode <em>Horizon & Équilibre</em></h1>
       <p class="hero-sub">Cinq approches complémentaires, une vision globale de la personne</p>
     </div>
   </div>
@@ -668,16 +668,16 @@ footer {
       <div class="principle-grid animate-in">
         <div>
           <h2 class="sub-heading">Traiter la <em>cause</em>,<br>pas le symptôme</h2>
-          <p class="sub-intro">La naturopathie est une médecine de terrain qui considère l'être humain dans sa globalité — corps, émotions, mode de vie.</p>
+          <p class="sub-intro">La naturopathie est une médecine de terrain qui considère l'être humain dans sa globalité : corps, émotions, mode de vie.</p>
           <div class="principle-text">
             <p>Sa philosophie fondamentale : <strong>le corps possède une intelligence de guérison innée</strong>. La maladie n'est pas un ennemi à combattre mais un signal à décoder. Le rôle du naturopathe est de créer les conditions pour que cette intelligence s'exprime.</p>
-            <p>Plutôt que de supprimer les symptômes, la naturopathie cherche à renforcer le <strong>terrain</strong> — cet ensemble de prédispositions biologiques, émotionnelles et environnementales qui détermine notre état de santé global.</p>
+            <p>Plutôt que de supprimer les symptômes, la naturopathie cherche à renforcer le <strong>terrain</strong>, cet ensemble de prédispositions biologiques, émotionnelles et environnementales qui détermine notre état de santé global.</p>
             <p>C'est une approche de <strong>prévention et d'accompagnement</strong>, complémentaire à la médecine conventionnelle, particulièrement adaptée aux enfants et adolescents dont les organismes sont en plein développement.</p>
           </div>
         </div>
         <div class="principle-callout">
           <blockquote>
-            « Le corps n'est pas une machine à réparer — c'est un système vivant à accompagner. La naturopathie lui donne les ressources pour se réguler lui-même. »
+            « Le corps n'est pas une machine à réparer. C'est un système vivant à accompagner. La naturopathie lui donne les ressources pour se réguler lui-même. »
           </blockquote>
         </div>
       </div>
@@ -713,12 +713,12 @@ footer {
         <div class="tool-card animate-in" style="transition-delay:0.2s">
           <div class="tool-icon">🌸</div>
           <div class="tool-name">Aromathérapie</div>
-          <p class="tool-desc">Les huiles essentielles pour leurs propriétés anti-infectieuses, apaisantes, stimulantes — en usage externe ou interne.</p>
+          <p class="tool-desc">Les huiles essentielles pour leurs propriétés anti-infectieuses, apaisantes, stimulantes, en usage externe ou interne.</p>
         </div>
         <div class="tool-card animate-in" style="transition-delay:0.25s">
           <div class="tool-icon">💧</div>
           <div class="tool-name">Hydrothérapie</div>
-          <p class="tool-desc">L'eau comme outil thérapeutique : bains, douches alternées, bains de pieds — pour stimuler la circulation et le drainage.</p>
+          <p class="tool-desc">L'eau comme outil thérapeutique : bains, douches alternées, bains de pieds, pour stimuler la circulation et le drainage.</p>
         </div>
       </div>
     </div>
@@ -733,7 +733,7 @@ footer {
         <div class="seance-step">
           <div class="seance-num">01</div>
           <div class="seance-text">
-            <strong>Bilan initial — 1h30</strong>
+            <strong>Bilan initial : 1h30</strong>
             <p>Anamnèse complète : histoire de vie, habitudes alimentaires, antécédents, rythmes. Évaluation du terrain physique et émotionnel. Proposition d'un protocole sur-mesure.</p>
           </div>
         </div>
@@ -748,7 +748,7 @@ footer {
           <div class="seance-num">03</div>
           <div class="seance-text">
             <strong>Suivi toutes les 3 à 4 semaines</strong>
-            <p>Ajustement du protocole selon l'évolution. Le corps change — le protocole s'adapte. Un accompagnement sur la durée pour des résultats en profondeur.</p>
+            <p>Ajustement du protocole selon l'évolution. Le corps change : le protocole s'adapte. Un accompagnement sur la durée pour des résultats en profondeur.</p>
           </div>
         </div>
       </div>
@@ -812,14 +812,14 @@ footer {
           <h2 class="sub-heading">38 élixirs pour<br><em>38 états émotionnels</em></h2>
           <p class="sub-intro">Créées par le Dr Edward Bach dans les années 1930, les fleurs de Bach agissent sur les émotions qui fragilisent le terrain physique.</p>
           <div class="principle-text">
-            <p>Le Dr Bach postulait que <strong>toute maladie a une origine émotionnelle</strong>. En identifiant 38 états émotionnels fondamentaux — peur, incertitude, solitude, découragement — il a créé 38 élixirs floraux correspondants.</p>
+            <p>Le Dr Bach postulait que <strong>toute maladie a une origine émotionnelle</strong>. En identifiant 38 états émotionnels fondamentaux (peur, incertitude, solitude, découragement), il a créé 38 élixirs floraux correspondants.</p>
             <p>Ces élixirs agissent en douceur sur <strong>l'équilibre émotionnel</strong>, permettant au corps de retrouver sa capacité d'autorégulation. Ils n'ont pas de contre-indications et sont <strong>compatibles avec tout traitement</strong>, y compris allopathique.</p>
             <p>Particulièrement efficaces chez les <strong>enfants et adolescents sensibles</strong>, ils offrent un langage pour nommer et transformer des états intérieurs parfois difficiles à verbaliser.</p>
           </div>
         </div>
         <div class="principle-callout" style="background:linear-gradient(135deg, var(--bleu-petrole-deep), var(--bleu-petrole))">
           <blockquote>
-            « Les Fleurs de Bach ne traitent pas la maladie — elles traitent la personne. Elles élèvent nos vibrations et ouvrent la voie à la guérison. »
+            « Les Fleurs de Bach ne traitent pas la maladie. Elles traitent la personne. Elles élèvent nos vibrations et ouvrent la voie à la guérison. »
             <cite style="display:block;margin-top:16px;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--dore);font-style:normal;font-family:var(--font-body)">— Dr Edward Bach</cite>
           </blockquote>
         </div>
@@ -883,13 +883,13 @@ footer {
           <div class="seance-num">01</div>
           <div class="seance-text">
             <strong>Exploration douce des états émotionnels actuels</strong>
-            <p>Par la conversation et l'observation, j'identifie les états émotionnels dominants — ceux qui épuisent l'énergie vitale et fragilisent le terrain.</p>
+            <p>Par la conversation et l'observation, j'identifie les états émotionnels dominants, ceux qui épuisent l'énergie vitale et fragilisent le terrain.</p>
           </div>
         </div>
         <div class="seance-step">
           <div class="seance-num">02</div>
           <div class="seance-text">
-            <strong>Sélection personnalisée — 5 à 7 fleurs maximum</strong>
+            <strong>Sélection personnalisée : 5 à 7 fleurs maximum</strong>
             <p>Un flacon de traitement contient au maximum 7 fleurs pour être efficace. La sélection est précise, ciblée, et révisée à chaque séance.</p>
           </div>
         </div>
@@ -897,7 +897,7 @@ footer {
           <div class="seance-num">03</div>
           <div class="seance-text">
             <strong>Préparation d'un flacon de traitement — 4 semaines</strong>
-            <p>À prendre 4 fois par jour, quelques gouttes. Simple, agréable, adapté à tous les âges — y compris les très jeunes enfants.</p>
+            <p>À prendre 4 fois par jour, quelques gouttes. Simple, agréable, adapté à tous les âges, y compris les très jeunes enfants.</p>
           </div>
         </div>
         <div class="seance-step">
@@ -951,7 +951,7 @@ footer {
     <div class="container">
       <div class="section-label">La réflexologie</div>
       <h2 class="sub-heading" style="margin-bottom:8px">Le corps <em>parle</em><br>à travers ses zones réflexes</h2>
-      <p class="sub-intro">Chaque organe, chaque partie du corps possède une zone réflexe — sur les pieds, les mains, le visage ou le crâne. Stimuler ces zones, c'est réveiller l'organe correspondant.</p>
+      <p class="sub-intro">Chaque organe, chaque partie du corps possède une zone réflexe : sur les pieds, les mains, le visage ou le crâne. Stimuler ces zones, c'est réveiller l'organe correspondant.</p>
 
       <!-- SOUS-ONGLETS -->
       <div class="sub-tabs-bar">
@@ -986,7 +986,7 @@ footer {
           <div>
             <h3 class="sub-heading">Réflexologie <em>plantaire</em></h3>
             <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">La voûte plantaire est une véritable carte du corps. En travaillant des points précis sous le pied, on stimule les organes correspondants et favorise leur drainage et leur rééquilibrage.</p>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Les pieds concentrent des milliers de terminaisons nerveuses — ce qui les rend particulièrement réactifs et efficaces pour ce travail réflexe.</p>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Les pieds concentrent des milliers de terminaisons nerveuses, ce qui les rend particulièrement réactifs et efficaces pour ce travail réflexe.</p>
             <div class="reflex-sub-label">En séance</div>
             <ul class="treat-list">
               <li>Durée : 45 à 60 minutes</li>
@@ -1037,7 +1037,7 @@ footer {
           <div>
             <h3 class="sub-heading">Réflexologie <em>palmaire</em></h3>
             <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">Comme pour le pied, la paume porte une carte réflexe complète du corps. La réflexologie palmaire est plus douce, idéale pour les enfants, et peut s'auto-pratiquer entre les séances.</p>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Elle est particulièrement utilisée pour l'apaisement émotionnel et nerveux — les mains étant directement reliées au système nerveux autonome.</p>
+            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Elle est particulièrement utilisée pour l'apaisement émotionnel et nerveux, les mains étant directement reliées au système nerveux autonome.</p>
             <div class="reflex-sub-label">En séance</div>
             <ul class="treat-list">
               <li>Durée : 30 à 45 minutes</li>
@@ -1085,7 +1085,7 @@ footer {
             <div class="reflex-sub-label">En séance</div>
             <ul class="treat-list">
               <li>Durée : 30 à 45 minutes</li>
-              <li>Pression légère avec les doigts — aucune douleur</li>
+              <li>Pression légère avec les doigts, aucune douleur</li>
               <li>Sensation de décompression au niveau des sinus et du crâne</li>
               <li>Apaisement mental et clarté après la séance</li>
             </ul>
@@ -1164,16 +1164,16 @@ footer {
       <div class="principle-grid animate-in">
         <div>
           <h2 class="sub-heading">Le corps comme <em>baromètre</em><br>émotionnel et mental</h2>
-          <p class="sub-intro">La kinésiologie utilise le test musculaire pour établir un dialogue direct avec le système nerveux — et libérer ce qui bloque.</p>
+          <p class="sub-intro">La kinésiologie utilise le test musculaire pour établir un dialogue direct avec le système nerveux, pour libérer ce qui bloque.</p>
           <div class="principle-text">
-            <p>Née dans les années 1960, fondée sur l'ostéopathie et la médecine traditionnelle chinoise, la kinésiologie part d'un constat : <strong>le corps stocke les émotions</strong>. Stress, peurs, traumatismes légers — tout cela laisse des traces dans le système neuro-musculaire.</p>
-            <p>Le <strong>test musculaire</strong> permet de lire ces traces sans avoir besoin de les verbaliser. Un dialogue direct, précis, que le corps mène avec lui-même — avec le kinésiologue comme guide.</p>
-            <p>Ce qui est remarquable : <strong>il n'est pas nécessaire de "comprendre" intellectuellement</strong> pour libérer un blocage. Le corps sait ce dont il a besoin — la kinésiologie lui donne l'espace pour s'exprimer.</p>
+            <p>Née dans les années 1960, fondée sur l'ostéopathie et la médecine traditionnelle chinoise, la kinésiologie part d'un constat : <strong>le corps stocke les émotions</strong>. Stress, peurs, traumatismes légers. Tout cela laisse des traces dans le système neuro-musculaire.</p>
+            <p>Le <strong>test musculaire</strong> permet de lire ces traces sans avoir besoin de les verbaliser. Un dialogue direct, précis, que le corps mène avec lui-même, avec le kinésiologue comme guide.</p>
+            <p>Ce qui est remarquable : <strong>il n'est pas nécessaire de "comprendre" intellectuellement</strong> pour libérer un blocage. Le corps sait ce dont il a besoin. La kinésiologie lui donne l'espace pour s'exprimer.</p>
           </div>
         </div>
         <div class="principle-callout" style="background:linear-gradient(135deg, #3D2B6B, #1B4D5C)">
           <blockquote>
-            « Souvent, les personnes repartent d'une séance avec une sensation de légèreté inexplicable — comme si un poids avait été déposé sans qu'elles aient eu besoin de le nommer. »
+            « Souvent, les personnes repartent d'une séance avec une sensation de légèreté inexplicable, comme si un poids avait été déposé sans qu'elles aient eu besoin de le nommer. »
           </blockquote>
         </div>
       </div>
@@ -1185,7 +1185,7 @@ footer {
     <div class="container" style="max-width:880px">
       <div class="section-label">En séance avec moi</div>
       <h2 class="sub-heading" style="margin-bottom:8px">Une atmosphère <em>rassurante</em>,<br>une approche non-invasive</h2>
-      <p style="font-size:0.95rem;color:var(--texte-light);margin-bottom:32px;line-height:1.8">Pas de matériel intimidant, pas de déshabillage, pas de douleur. Juste une conversation entre vous et votre système nerveux — que je guide avec douceur.</p>
+      <p style="font-size:0.95rem;color:var(--texte-light);margin-bottom:32px;line-height:1.8">Pas de matériel intimidant, pas de déshabillage, pas de douleur. Juste une conversation entre vous et votre système nerveux, que je guide avec douceur.</p>
       <div class="seance-block animate-in">
         <div class="seance-step">
           <div class="seance-num">01</div>
@@ -1197,7 +1197,7 @@ footer {
         <div class="seance-step">
           <div class="seance-num">02</div>
           <div class="seance-text">
-            <strong>Le test musculaire — doux et précis</strong>
+            <strong>Le test musculaire : doux et précis</strong>
             <p>En testant la résistance de votre bras, j'établis un dialogue avec votre système nerveux. Ni douloureux ni contraignant — juste une légère pression, un instant.</p>
           </div>
         </div>
@@ -1205,14 +1205,14 @@ footer {
           <div class="seance-num">03</div>
           <div class="seance-text">
             <strong>Identification et libération des blocages</strong>
-            <p>Par des techniques douces — points énergétiques, mouvements oculaires, balayages — les blocages identifiés sont travaillés et libérés progressivement.</p>
+            <p>Par des techniques douces (points énergétiques, mouvements oculaires, balayages), les blocages identifiés sont travaillés et libérés progressivement.</p>
           </div>
         </div>
         <div class="seance-step">
           <div class="seance-num">04</div>
           <div class="seance-text">
             <strong>Légèreté et clarté après la séance</strong>
-            <p>Beaucoup de personnes ressentent une profonde légèreté, parfois une douce somnolence. Des rêves actifs dans les jours suivants sont courants — le corps continue de travailler.</p>
+            <p>Beaucoup de personnes ressentent une profonde légèreté, parfois une douce somnolence. Des rêves actifs dans les jours suivants sont courants. Le corps continue de travailler.</p>
           </div>
         </div>
       </div>
@@ -1277,13 +1277,13 @@ footer {
           <p class="sub-intro">L'Oligoscan est une technologie de spectrophotométrie qui mesure, sans prise de sang et sans douleur, la composition minérale réelle de vos tissus.</p>
           <div class="principle-text">
             <p>Concrètement : une petite lumière est appliquée sur la paume de la main. En quelques secondes, le spectre lumineux absorbé révèle la <strong>biodisponibilité réelle</strong> de 20 minéraux et oligo-éléments, la présence de 14 métaux lourds, et l'état du stress oxydatif cellulaire.</p>
-            <p>Ce n'est pas une analyse sanguine — c'est complémentaire. Les bilans sanguins mesurent ce qui <em>circule</em> dans le sang à un instant T. L'Oligoscan mesure ce qui est <strong>réellement stocké dans les tissus</strong> sur les semaines passées : une photo fidèle du terrain.</p>
+            <p>Ce n'est pas une analyse sanguine. C'est complémentaire. Les bilans sanguins mesurent ce qui <em>circule</em> dans le sang à un instant T. L'Oligoscan mesure ce qui est <strong>réellement stocké dans les tissus</strong> sur les semaines passées : une photo fidèle du terrain.</p>
             <p>C'est l'outil de précision qui permet de passer d'une complémentation approximative à un <strong>protocole de reminéralisation ultra-personnalisé</strong>.</p>
           </div>
         </div>
         <div class="principle-callout" style="background:linear-gradient(135deg, #0F3540, #2A6B7E)">
           <blockquote>
-            « En naturopathie, le terrain ne ment pas. L'Oligoscan nous donne enfin une "photo" objective de ce terrain — pour adapter le soin avec une précision impossible sans lui. »
+            « En naturopathie, le terrain ne ment pas. L'Oligoscan nous donne enfin une "photo" objective de ce terrain, pour adapter le soin avec une précision impossible sans lui. »
           </blockquote>
         </div>
       </div>
@@ -1325,8 +1325,8 @@ footer {
         <div class="seance-step">
           <div class="seance-num">01</div>
           <div class="seance-text">
-            <strong>Précision — Un protocole sur-mesure</strong>
-            <p>Finies les complémentations approximatives. L'Oligoscan révèle exactement ce qui manque, ce qui est en excès, et ce qui interfère — pour un protocole de reminéralisation ciblé et efficace.</p>
+            <strong>Précision : Un protocole sur-mesure</strong>
+            <p>Finies les complémentations approximatives. L'Oligoscan révèle exactement ce qui manque, ce qui est en excès, et ce qui interfère, pour un protocole de reminéralisation ciblé et efficace.</p>
           </div>
         </div>
         <div class="seance-step">
@@ -1340,7 +1340,7 @@ footer {
           <div class="seance-num">03</div>
           <div class="seance-text">
             <strong>Suivi — Mesurer l'efficacité de la cure</strong>
-            <p>Un second Oligoscan réalisé 3 mois après le début du protocole permet de mesurer objectivement les progrès du terrain — une satisfaction concrète et motivante pour vous comme pour moi.</p>
+            <p>Un second Oligoscan réalisé 3 mois après le début du protocole permet de mesurer objectivement les progrès du terrain. Une satisfaction concrète et motivante pour vous comme pour moi.</p>
           </div>
         </div>
         <div class="seance-step">
@@ -1361,8 +1361,8 @@ footer {
       <h2 class="sub-heading" style="margin-bottom:16px">Prêt(e) à <em>connaître votre terrain</em> ?</h2>
       <p style="font-size:0.95rem;color:var(--texte-light);margin-bottom:32px;line-height:1.8">L'Oligoscan se réalise en une séance de 30 minutes au cabinet, à Sainte-Consorce (69280). Les résultats sont analysés et commentés avec vous lors de la consultation.</p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-        <a href="/contact" class="btn-primary">Réaliser mon bilan Oligoscan →</a>
-        <a href="/audit" class="btn-secondary">Faire l'Audit Santé d'abord</a>
+        <a href="/contact" class="btn-primary">Réaliser mon bilan Oligoscan</a>
+        <a href="/audit" class="btn-secondary">Faire le Bilan Santé d'abord</a>
       </div>
     </div>
   </div>
@@ -1378,9 +1378,9 @@ footer {
     <h2 class="cta-title">
       Ces 5 approches se complètent<br>et <em>s'adaptent à votre situation</em>
     </h2>
-    <p>Commencez par l'Audit Santé pour identifier les priorités — ou contactez-moi directement pour toute question.</p>
+    <p>Commencez par le Bilan Santé pour identifier les priorités. Contactez-moi directement pour toute question.</p>
     <div class="cta-buttons">
-      <a href="/audit" class="btn-primary">Commencer l'Audit Santé →</a>
+      <a href="/audit" class="btn-primary">Commencer le Bilan Santé</a>
       <a href="/contact" class="btn-secondary">Poser une question</a>
     </div>
   </div>
@@ -1390,18 +1390,18 @@ footer {
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-logo">Flux <span>&</span> Équilibre</div>
+      <div class="footer-logo">Horizon <span>&</span> Équilibre</div>
       <ul class="footer-links">
         <li><a href="/about">À propos</a></li>
         <li><a href="/methode">Méthode</a></li>
-        <li><a href="/audit">Audit Horizon Santé</a></li>
+        <li><a href="/audit">Bilan Horizon Santé</a></li>
         <li><a href="/contact">Contact</a></li>
         <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
         <li>Sainte-Consorce (69280)</li>
       </ul>
     </div>
     <div class="footer-copy">
-      © 2026 Flux & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
+      © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
       <div style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
         <a href="/mentions" style="color:rgba(250,247,242,.5);text-decoration:none;font-size:.8em">Mentions légales</a>
       </div>

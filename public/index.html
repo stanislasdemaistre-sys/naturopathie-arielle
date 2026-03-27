@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flux & Équilibre — Naturopathie Enfant & Adolescent</title>
+<title>Horizon & Équilibre — Naturopathie Enfant & Adolescent</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -343,14 +343,16 @@ nav .container {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--bleu-petrole);
+  background: var(--bleu-petrole);
+  color: var(--creme);
   font-size: 0.9rem;
   font-weight: 400;
   text-decoration: none;
-  padding: 16px 8px;
-  transition: color 0.3s;
+  padding: 16px 32px;
+  border-radius: 50px;
+  transition: all 0.3s;
 }
-.btn-secondary:hover { color: var(--dore); }
+.btn-secondary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); }
 
 /* Hero visual */
 .hero-visual {
@@ -963,13 +965,13 @@ nav .container {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--dore);
-  color: var(--bleu-petrole-deep);
+  background: var(--bleu-petrole);
+  color: var(--creme);
   padding: 16px 36px;
   border-radius: 50px;
   font-family: var(--font-body);
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   letter-spacing: 0.3px;
   transition: all 0.4s;
@@ -977,9 +979,9 @@ nav .container {
   cursor: pointer;
 }
 .btn-gold:hover {
-  background: var(--dore-light);
+  background: var(--bleu-petrole-light);
   transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(196, 162, 101, 0.3);
+  box-shadow: 0 12px 40px rgba(27, 77, 92, 0.2);
 }
 .guide-price {
   position: relative;
@@ -1113,7 +1115,8 @@ footer {
 }
 
 /* Texte justifié */
-.hero-desc, .parcours-text p, .step-desc, .public-desc, .guide-content p {
+.hero-desc, .parcours-text p, .step-desc, .public-desc, .guide-content p,
+.apropos-text, .methode-header p, .bach-header p, .audit-desc, .patho-header p {
   text-align: justify;
   hyphens: auto;
 }
@@ -1134,13 +1137,14 @@ footer {
           <circle cx="12" cy="24" r="2" fill="#C4A265"/>
         </svg>
       </div>
-      <div class="logo-text">Flux <span>&</span> Équilibre</div>
+      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
     </a>
     <ul class="nav-links">
       <li><a href="/" class="active">Accueil</a></li>
       <li><a href="/about">À propos</a></li>
       <li><a href="/methode">Méthode</a></li>
-      <li><a href="/audit">Audit Santé</a></li>
+      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
+      <li><a href="/audit">Bilan Santé</a></li>
       <li><a href="/#guide">Guide Acné</a></li>
       <li><a href="/contact">Contact</a></li>
     </ul>
@@ -1168,11 +1172,10 @@ footer {
       </p>
       <div class="hero-actions">
         <a href="/audit" class="btn-primary">
-          Commencer l'Audit Santé
-          <span class="arrow">→</span>
+          Commencer le Bilan Santé
         </a>
         <a href="/methode" class="btn-secondary">
-          Découvrir la méthode ↓
+          Découvrir la méthode
         </a>
       </div>
     </div>
@@ -1234,7 +1237,7 @@ footer {
         <div class="step-number">01</div>
         <div class="step-icon">🔍</div>
         <h3 class="step-title">Comprendre</h3>
-        <p class="step-desc">Audit "Horizon Santé" et bilan Oligoscan pour cartographier les besoins : stress, immunité, peau, équilibre minéral.</p>
+        <p class="step-desc">Bilan "Horizon Santé" et bilan Oligoscan pour cartographier les besoins : stress, immunité, peau, équilibre minéral.</p>
       </div>
       <div class="step-card animate-in">
         <div class="step-number">02</div>
@@ -1304,7 +1307,7 @@ footer {
 <section class="audit" id="audit">
   <div class="container">
     <div class="audit-content animate-in">
-      <div class="section-label">Audit Horizon Santé</div>
+      <div class="section-label">Bilan Horizon Santé</div>
       <h2 class="section-title">Votre enfant en <em>3 minutes</em></h2>
       <p class="audit-desc">
         Un questionnaire dynamique et bienveillant pour identifier les zones de besoin de votre enfant : stress, peau, immunité, sommeil, confiance. Les résultats visuels guident ensuite vers un bilan Oligoscan pour affiner le conseil.
@@ -1446,7 +1449,6 @@ footer {
         <p>Le guide complet pour accompagner votre ado vers une peau apaisée. Naturopathie, alimentation, gestion du stress et routines douces.</p>
         <a href="/contact" class="btn-gold">
           Découvrir le guide
-          <span>→</span>
         </a>
       </div>
       <div class="guide-price">
@@ -1464,7 +1466,7 @@ footer {
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <span class="logo-text">Flux <span>&</span> Équilibre</span>
+        <span class="logo-text">Horizon <span>&</span> Équilibre</span>
         <p>Un accompagnement global et doux pour les enfants, adolescents et jeunes adultes par Arielle de Maistre.</p>
       </div>
       <div class="footer-col">
@@ -1472,7 +1474,7 @@ footer {
         <ul>
           <li><a href="/about">À propos</a></li>
           <li><a href="/methode">La Méthode</a></li>
-          <li><a href="/audit">Audit Horizon Santé</a></li>
+          <li><a href="/audit">Bilan Horizon Santé</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
@@ -1496,7 +1498,7 @@ footer {
     </div>
     <div class="footer-bottom">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <p>© 2026 Flux & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
+        <p>© 2026 Horizon & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
         <div style="display:flex;align-items:center;gap:16px">
           <a href="/mentions" style="color:rgba(250,247,242,.5);text-decoration:none;font-size:.78rem">Mentions légales</a>
         </div>

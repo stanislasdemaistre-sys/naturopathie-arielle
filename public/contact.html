@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — Flux & Équilibre</title>
+<title>Contact — Horizon & Équilibre</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
@@ -80,6 +80,8 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
 
 @media(max-width:640px){.page-wrap{padding:90px 16px 60px}.contact-card{padding:28px 20px}.form-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr;gap:28px}}
 @media(max-width:768px){.nav-list{display:none}.nav-mobile-toggle{display:flex}}
+/* Texte justifié */
+.hero-subtitle, .footer-brand p { text-align: justify; hyphens: auto; }
 </style>
 </head>
 <body>
@@ -96,13 +98,14 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
           <circle cx="12" cy="24" r="2" fill="#C4A265"/>
         </svg>
       </div>
-      <div class="nav-logo-text">Flux <span>&</span> Équilibre</div>
+      <div class="nav-logo-text">Horizon <span>&</span> Équilibre</div>
     </a>
     <ul class="nav-list">
       <li><a href="/">Accueil</a></li>
       <li><a href="/about">À propos</a></li>
       <li><a href="/methode">Méthode</a></li>
-      <li><a href="/audit">Audit Santé</a></li>
+      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
+      <li><a href="/audit">Bilan Santé</a></li>
       <li><a href="/#guide">Guide Acné</a></li>
       <li><a href="/contact" class="nav-active">Contact</a></li>
     </ul>
@@ -114,9 +117,9 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
 
 <div class="page-wrap">
   <div class="hero-section">
-    <div class="hero-eyebrow">Flux & Équilibre</div>
+    <div class="hero-eyebrow">Horizon & Équilibre</div>
     <h1 class="hero-title">Prendre <em>contact</em></h1>
-    <p class="hero-subtitle">Une question, une demande de renseignements ou une suite à votre audit ? Arielle vous répond personnellement.</p>
+    <p class="hero-subtitle">Une question, une demande de renseignements ou une suite à votre bilan ? Arielle vous répond personnellement.</p>
   </div>
 
   <div class="contact-card">
@@ -148,7 +151,7 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
             <option value="">Sélectionner</option>
             <option>Premier contact</option>
             <option>Demande de renseignements</option>
-            <option>Suite à l'audit Horizon Santé</option>
+            <option>Suite au Bilan Horizon Santé</option>
             <option>Autre</option>
           </select>
         </div>
@@ -159,7 +162,7 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
       </div>
 
       <div class="form-footer">
-        <span class="form-note">* Champs obligatoires — réponse sous 48 h</span>
+        <span class="form-note">* Champs obligatoires · Réponse sous 48 h</span>
         <button type="submit" class="btn-submit" id="submitBtn">Envoyer →</button>
       </div>
 
@@ -178,7 +181,7 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
   <div class="footer-inner">
     <div class="footer-grid">
       <div class="footer-brand">
-        <span class="logo-text">Flux & Équilibre</span>
+        <span class="logo-text">Horizon & Équilibre</span>
         <p>Un accompagnement global et doux pour les enfants, adolescents et jeunes adultes par Arielle de Maistre.</p>
       </div>
       <div class="footer-col">
@@ -186,7 +189,7 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
         <ul>
           <li><a href="/about">À propos</a></li>
           <li><a href="/methode">La Méthode</a></li>
-          <li><a href="/audit">Audit Horizon Santé</a></li>
+          <li><a href="/audit">Bilan Horizon Santé</a></li>
           <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
@@ -209,7 +212,7 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
     </div>
     <div class="footer-bottom">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <p>© 2026 Flux & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
+        <p>© 2026 Horizon & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
         <div style="display:flex;align-items:center;gap:16px">
           <a href="/mentions" style="color:rgba(250,247,242,.5);text-decoration:none;font-size:.78rem">Mentions légales</a>
         </div>
