@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guides Pratiques — Horizon & Équilibre · Naturopathie</title>
+<meta name="description" content="Guides pratiques de naturopathie pour retrouver l'équilibre naturellement : acné, immunité, émotions, maux du quotidien. 19€ chacun, format PDF.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bleu-petrole: #1B4D5C;
+  --bleu-petrole-deep: #0F3540;
+  --bleu-petrole-light: #2A6B7E;
+  --vert-sauge: #8FA98B;
+  --vert-sauge-light: #B5CBB1;
+  --vert-sauge-pale: #D6E4D3;
+  --dore: #C4A265;
+  --dore-light: #D4BA8A;
+  --dore-pale: #F0E6D2;
+  --creme: #FAF7F2;
+  --creme-dark: #F0EBE3;
+  --blanc: #FFFFFF;
+  --texte: #2C3E3A;
+  --texte-light: #5A6E68;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Outfit', system-ui, sans-serif;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-lg: 32px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  color: var(--texte);
+  background: var(--creme);
+  line-height: 1.7;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 14px 0;
+  background: rgba(250, 247, 242, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 30px rgba(27, 77, 92, 0.06);
+  transition: all 0.4s ease;
+}
+nav .container { display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+.logo-icon { width: 38px; height: 38px; }
+.logo-icon svg { width: 100%; height: 100%; }
+.logo-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--bleu-petrole); }
+.logo-text span { color: var(--dore); font-weight: 300; }
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 1.5px;
+  background: var(--dore);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--dore); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--dore); }
+.nav-cta {
+  background: var(--bleu-petrole) !important;
+  color: var(--creme) !important;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+.nav-cta:hover { background: var(--bleu-petrole-light) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+.mobile-toggle span { width: 22px; height: 1.5px; background: var(--bleu-petrole); display: block; transition: all 0.3s; }
+
+/* ─── HERO ─── */
+.hero {
+  background: linear-gradient(135deg, var(--bleu-petrole-deep) 0%, var(--bleu-petrole) 55%, var(--bleu-petrole-light) 100%);
+  padding: 160px 0 96px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,162,101,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(143,169,139,0.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 740px; margin: 0 auto; }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(196,162,101,0.15);
+  border: 1px solid rgba(196,162,101,0.3);
+  color: var(--dore-light);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--blanc);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+.hero h1 em { font-style: italic; color: var(--vert-sauge-light); }
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(250,247,242,0.75);
+  line-height: 1.75;
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* ─── SECTION ─── */
+.section { padding: 88px 0; }
+.section-alt { background: var(--blanc); }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.section-title em { font-style: italic; color: var(--vert-sauge); }
+.section-intro {
+  font-size: 0.97rem;
+  color: var(--texte-light);
+  line-height: 1.8;
+  max-width: 640px;
+  margin-bottom: 64px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* ─── GUIDE CARDS ─── */
+.guides-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.guide-card {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(27,77,92,0.07);
+  border: 1px solid rgba(27,77,92,0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.guide-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(27,77,92,0.13);
+}
+
+/* Couverture colorée */
+.guide-cover {
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+}
+.guide-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.1) 0px,
+    rgba(255,255,255,0.1) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+}
+.guide-cover-acne    { background: linear-gradient(135deg, #1B4D5C, #2A6B7E); }
+.guide-cover-immuno  { background: linear-gradient(135deg, #3D6B3A, #6B9E5E); }
+.guide-cover-emotion { background: linear-gradient(135deg, #5B3D7A, #8B5FA8); }
+.guide-cover-maux    { background: linear-gradient(135deg, #8A5230, #C4A265); }
+
+.guide-emoji {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.25));
+}
+.guide-cover-label {
+  font-size: 0.62rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  position: relative;
+  z-index: 1;
+}
+.guide-cover-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.95);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+/* Contenu */
+.guide-body { padding: 32px 28px 28px; flex: 1; display: flex; flex-direction: column; }
+.guide-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--texte-light);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.guide-desc {
+  font-size: 0.88rem;
+  color: var(--texte);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  text-align: justify;
+  hyphens: auto;
+  flex: 1;
+}
+.guide-contents {
+  margin-bottom: 24px;
+}
+.guide-contents-title {
+  font-size: 0.68rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.guide-contents ul { list-style: none; }
+.guide-contents li {
+  font-size: 0.8rem;
+  color: var(--texte-light);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--creme-dark);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+.guide-contents li:last-child { border-bottom: none; }
+.guide-contents li::before { content: '✦'; color: var(--dore); font-size: 0.55rem; margin-top: 3px; flex-shrink: 0; }
+
+.guide-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--creme-dark);
+  flex-wrap: wrap;
+}
+.guide-price {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--bleu-petrole);
+  line-height: 1;
+}
+.guide-price sup { font-size: 1rem; vertical-align: super; }
+.guide-price-note {
+  font-size: 0.72rem;
+  color: var(--texte-light);
+  margin-top: 2px;
+}
+.btn-buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--bleu-petrole);
+  color: var(--creme);
+  padding: 13px 26px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+.btn-buy:hover {
+  background: var(--bleu-petrole-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(27,77,92,0.22);
+}
+
+/* ─── RASSURANCE ─── */
+.reassurance-section {
+  padding: 72px 0;
+  background: linear-gradient(135deg, var(--bleu-petrole-deep) 0%, var(--bleu-petrole) 100%);
+}
+.reassurance-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.reassurance-item {
+  text-align: center;
+  padding: 20px 16px;
+}
+.reassurance-icon { font-size: 2rem; margin-bottom: 12px; }
+.reassurance-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--creme);
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.reassurance-desc {
+  font-size: 0.8rem;
+  color: rgba(250,247,242,0.6);
+  line-height: 1.6;
+}
+
+/* ─── CTA FINAL ─── */
+.cta-section {
+  background: linear-gradient(135deg, var(--dore-pale) 0%, var(--creme) 60%);
+  padding: 96px 0;
+  text-align: center;
+}
+.cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--bleu-petrole);
+  margin-bottom: 16px;
+}
+.cta-title em { font-style: italic; color: var(--vert-sauge); }
+.cta-section p {
+  font-size: 1rem;
+  color: var(--texte-light);
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 auto 40px;
+  text-align: justify;
+  hyphens: auto;
+}
+.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--bleu-petrole); color: var(--creme);
+  padding: 16px 36px; border-radius: 50px;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
+  text-decoration: none; transition: all 0.3s ease;
+}
+.btn-primary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(27,77,92,0.2); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--bleu-petrole); color: var(--creme);
+  padding: 16px 36px; border-radius: 50px;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 400;
+  text-decoration: none; transition: all 0.3s ease;
+}
+.btn-secondary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bleu-petrole-deep);
+  color: rgba(250,247,242,0.5);
+  padding: 48px 0 32px;
+}
+.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--creme); }
+.footer-logo span { color: var(--dore); }
+.footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-links a:hover { color: var(--dore); }
+.footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .reassurance-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+  .nav-links { display: none; }
+  .mobile-toggle { display: flex; }
+  .hero { padding: 120px 0 72px; }
+  .section { padding: 60px 0; }
+  .guides-grid { grid-template-columns: 1fr; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  .reassurance-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .reassurance-grid { grid-template-columns: 1fr; }
+  .guide-footer { flex-direction: column; align-items: flex-start; }
+  .btn-buy { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav id="nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
+          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
+          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
+        </svg>
+      </div>
+      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Accueil</a></li>
+      <li><a href="/about">À propos</a></li>
+      <li><a href="/methode">Méthode</a></li>
+      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
+      <li><a href="/audit">Bilan Santé</a></li>
+      <li><a href="/guides" class="active">Guides Pratiques</a></li>
+      <li><a href="/contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="mobile-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner animate-in">
+      <div class="hero-badge">PDF · Accès immédiat · 19 € chacun</div>
+      <h1>Guides <em>Pratiques</em><br>de Naturopathie</h1>
+      <p class="hero-sub">Des ressources concrètes, rédigées par une naturopathe certifiée, pour comprendre votre terrain et agir naturellement au quotidien — sans jargon, sans superflu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ GUIDES ══════ -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">La collection</div>
+    <h2 class="section-title">Quatre guides pour<br><em>agir à la source</em></h2>
+    <p class="section-intro">Chaque guide est une synthèse des protocoles utilisés en consultation : explications des mécanismes, conseils alimentaires, plantes et compléments ciblés, rituels quotidiens. Des outils autonomes, pensés pour être utilisés dès la première lecture.</p>
+
+    <div class="guides-grid">
+
+      <!-- ── Guide Acné ── -->
+      <div class="guide-card animate-in">
+        <div class="guide-cover guide-cover-acne">
+          <div class="guide-emoji">🌿</div>
+          <div class="guide-cover-label">Guide Pratique</div>
+          <div class="guide-cover-title">Acné</div>
+        </div>
+        <div class="guide-body">
+          <div class="guide-subtitle">Retrouver une peau nette, de l'intérieur</div>
+          <p class="guide-desc">L'acné n'est jamais uniquement un problème de peau. Elle est le signal d'un déséquilibre intérieur : surcharge hépatique, dysbiose intestinale, inflammation silencieuse ou dérèglement hormonal. Ce guide vous donne les clés naturopathiques pour agir à la source — sans sérum miracle ni antibiotiques. Il s'adresse aussi bien aux adolescents qu'aux adultes dont l'acné persiste malgré les traitements conventionnels.</p>
+          <div class="guide-contents">
+            <div class="guide-contents-title">Au programme</div>
+            <ul>
+              <li>Les 4 causes principales de l'acné et comment les identifier</li>
+              <li>Alimentation anti-inflammatoire : ce qui aggrave, ce qui guérit</li>
+              <li>Protocole de drainage du foie et des intestins</li>
+              <li>Plantes et compléments ciblés : zinc, bardane, chardon-marie, probiotiques</li>
+              <li>Routine de soins naturels adaptée à chaque type de peau</li>
+              <li>Programme progressif de 4 semaines</li>
+            </ul>
+          </div>
+          <div class="guide-footer">
+            <div>
+              <div class="guide-price"><sup>€</sup>19</div>
+              <div class="guide-price-note">PDF envoyé par email</div>
+            </div>
+            <a href="/contact" class="btn-buy">Commander ce guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Guide Immunité ── -->
+      <div class="guide-card animate-in" style="transition-delay:0.1s">
+        <div class="guide-cover guide-cover-immuno">
+          <div class="guide-emoji">🛡️</div>
+          <div class="guide-cover-label">Guide Pratique</div>
+          <div class="guide-cover-title">Immunité</div>
+        </div>
+        <div class="guide-body">
+          <div class="guide-subtitle">Construire un terrain qui résiste naturellement</div>
+          <p class="guide-desc">Rhumes à répétition, fatigue chronique, récupération interminable... Ce n'est pas une fatalité. C'est le signal d'un terrain fragilisé. Ce guide explore les fondations d'un système immunitaire solide : microbiote intestinal, minéraux essentiels, alimentation de soutien et plantes adaptogènes. Conçu pour vous et votre enfant, avec des protocoles adaptés à chaque âge et à chaque saison.</p>
+          <div class="guide-contents">
+            <div class="guide-contents-title">Au programme</div>
+            <ul>
+              <li>Le rôle clé du microbiote intestinal dans l'immunité</li>
+              <li>Les carences silencieuses qui fragilisent le terrain (zinc, vitamine D, fer…)</li>
+              <li>Alimentation pro-immunité : les aliments à intégrer en priorité</li>
+              <li>Cure de renforcement saisonnière : automne et hiver</li>
+              <li>Plantes antivirales et adaptogènes (échinacée, astragale, propolis…)</li>
+              <li>Protocole adapté aux enfants de 3 à 12 ans</li>
+            </ul>
+          </div>
+          <div class="guide-footer">
+            <div>
+              <div class="guide-price"><sup>€</sup>19</div>
+              <div class="guide-price-note">PDF envoyé par email</div>
+            </div>
+            <a href="/contact" class="btn-buy">Commander ce guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Guide Émotions ── -->
+      <div class="guide-card animate-in" style="transition-delay:0.18s">
+        <div class="guide-cover guide-cover-emotion">
+          <div class="guide-emoji">🕊️</div>
+          <div class="guide-cover-label">Guide Pratique</div>
+          <div class="guide-cover-title">Émotions</div>
+        </div>
+        <div class="guide-body">
+          <div class="guide-subtitle">Apaiser le système nerveux, retrouver l'équilibre</div>
+          <p class="guide-desc">Stress chronique, irritabilité, anxiété, difficultés à décompresser... Le système nerveux envoie des signaux que l'on ignore trop souvent. Ce guide regroupe les approches naturopathiques les plus efficaces pour rééquilibrer durablement le système nerveux. Des outils concrets — fleurs de Bach, alimentation, exercices de régulation — accessibles dès le lendemain de votre lecture.</p>
+          <div class="guide-contents">
+            <div class="guide-contents-title">Au programme</div>
+            <ul>
+              <li>Comprendre les mécanismes du stress et ses impacts physiques</li>
+              <li>Les fleurs de Bach incontournables : guide de sélection des 12 essentielles</li>
+              <li>Alimentation anti-stress : magnésium, neurotransmetteurs et microbiote</li>
+              <li>Techniques de régulation nerveuse issues de la kinésiologie</li>
+              <li>Rituels du matin et du soir pour ancrer la sérénité au quotidien</li>
+              <li>Exercices de respiration et de régulation émotionnelle adaptés aux enfants</li>
+            </ul>
+          </div>
+          <div class="guide-footer">
+            <div>
+              <div class="guide-price"><sup>€</sup>19</div>
+              <div class="guide-price-note">PDF envoyé par email</div>
+            </div>
+            <a href="/contact" class="btn-buy">Commander ce guide</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Guide Maux du Quotidien ── -->
+      <div class="guide-card animate-in" style="transition-delay:0.26s">
+        <div class="guide-cover guide-cover-maux">
+          <div class="guide-emoji">🏡</div>
+          <div class="guide-cover-label">Guide Pratique</div>
+          <div class="guide-cover-title">Maux du Quotidien</div>
+        </div>
+        <div class="guide-body">
+          <div class="guide-subtitle">La boîte à outils naturelle pour toute la famille</div>
+          <p class="guide-desc">Rhume, maux de tête, troubles du sommeil, ventre douloureux, fatigue passagère... Ce guide recense les réponses naturopathiques pour les inconforts les plus fréquents. Pour chaque symptôme : les causes possibles, les réflexes phytothérapeutiques immédiats et les ajustements de fond pour éviter les récidives. Le guide à avoir toujours à portée de main, adapté aux enfants comme aux adultes.</p>
+          <div class="guide-contents">
+            <div class="guide-contents-title">Au programme</div>
+            <ul>
+              <li>15 symptômes du quotidien traités en détail</li>
+              <li>Phytothérapie express : les 10 plantes à avoir chez soi</li>
+              <li>Huiles essentielles : les 7 indispensables et leurs usages sûrs</li>
+              <li>Conseils d'hygiène de vie adaptés à chaque situation</li>
+              <li>Quand consulter un naturopathe ou un médecin</li>
+              <li>Fiches pratiques détachables par symptôme</li>
+            </ul>
+          </div>
+          <div class="guide-footer">
+            <div>
+              <div class="guide-price"><sup>€</sup>19</div>
+              <div class="guide-price-note">PDF envoyé par email</div>
+            </div>
+            <a href="/contact" class="btn-buy">Commander ce guide</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════ RASSURANCE ══════ -->
+<section class="reassurance-section">
+  <div class="container">
+    <div class="reassurance-grid">
+      <div class="reassurance-item animate-in">
+        <div class="reassurance-icon">📄</div>
+        <div class="reassurance-title">Format PDF</div>
+        <p class="reassurance-desc">Lisible sur tous les appareils, imprimable, consultable hors ligne. Un document soigné, illustré et structuré.</p>
+      </div>
+      <div class="reassurance-item animate-in" style="transition-delay:0.08s">
+        <div class="reassurance-icon">📬</div>
+        <div class="reassurance-title">Envoi par email</div>
+        <p class="reassurance-desc">Votre guide vous est transmis directement par email dans les 24 heures suivant votre commande.</p>
+      </div>
+      <div class="reassurance-item animate-in" style="transition-delay:0.16s">
+        <div class="reassurance-icon">🌿</div>
+        <div class="reassurance-title">Rédigé par une praticienne</div>
+        <p class="reassurance-desc">Contenu élaboré à partir des protocoles utilisés en consultation. Pas de copier-coller, pas de généralités : des recommandations naturopathiques précises et sourcées.</p>
+      </div>
+      <div class="reassurance-item animate-in" style="transition-delay:0.24s">
+        <div class="reassurance-icon">💬</div>
+        <div class="reassurance-title">Questions bienvenues</div>
+        <p class="reassurance-desc">Après réception de votre guide, je reste disponible par email pour répondre à vos premières questions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA FINAL ══════ -->
+<section class="cta-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center">Aller plus loin</div>
+    <h2 class="cta-title">
+      Un guide, c'est un <em>premier pas</em>
+    </h2>
+    <p>Pour un accompagnement personnalisé, adapté à votre terrain et à celui de votre enfant, commencez par le Bilan Horizon Santé ou réservez une consultation au cabinet de Sainte-Consorce.</p>
+    <div class="cta-buttons">
+      <a href="/audit" class="btn-primary">Faire le Bilan Santé</a>
+      <a href="/tarifs" class="btn-secondary">Voir les accompagnements</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Horizon <span>&</span> Équilibre</div>
+      <ul class="footer-links">
+        <li><a href="/about">À propos</a></li>
+        <li><a href="/methode">Méthode</a></li>
+        <li><a href="/tarifs">Tarifs</a></li>
+        <li><a href="/audit">Bilan Horizon Santé</a></li>
+        <li><a href="/guides">Guides Pratiques</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
+        <li>Sainte-Consorce (69280)</li>
+      </ul>
+    </div>
+    <div class="footer-copy">
+      © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue
+      <div style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+        <a href="/mentions" style="color:rgba(250,247,242,.5);text-decoration:none;font-size:.8em">Mentions légales</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  navEl.style.boxShadow = window.scrollY > 40
+    ? '0 4px 30px rgba(27,77,92,0.1)'
+    : '0 1px 30px rgba(27,77,92,0.06)';
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';
+  }
+});
+</script>
+
+</body>
+</html>

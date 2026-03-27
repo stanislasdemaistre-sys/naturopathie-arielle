@@ -50,6 +50,7 @@ app.get('/crm', (req, res) => res.sendFile(path.join(__dirname, 'public', 'crm.h
 app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'public', 'about.html')));
 app.get('/methode', (req, res) => res.sendFile(path.join(__dirname, 'public', 'methode.html')));
 app.get('/tarifs', (req, res) => res.sendFile(path.join(__dirname, 'public', 'tarifs-accompagnement.html')));
+app.get('/guides', (req, res) => res.sendFile(path.join(__dirname, 'public', 'guides-pratiques.html')));
 app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, 'public', 'contact.html')));
 
 // Health check
