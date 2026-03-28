@@ -437,43 +437,42 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 
 /* ─── SUB TABS (Réflexologie) ─── */
 .sub-tabs-bar {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 48px;
-  border-bottom: 1px solid rgba(27,77,92,0.1);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 40px;
 }
-.sub-tabs-bar::-webkit-scrollbar { display: none; }
+@media(max-width:640px){ .sub-tabs-bar { grid-template-columns: repeat(2,1fr); } }
 .sub-tab-btn {
-  flex-shrink: 0;
   background: var(--blanc);
-  border: 1px solid var(--creme-dark);
-  border-radius: 50px;
-  padding: 8px 18px;
-  margin: 0 3px;
+  border: 1.5px solid var(--creme-dark);
+  border-radius: 16px;
+  padding: 18px 12px 14px;
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 400;
   color: var(--texte-light);
   cursor: pointer;
   position: relative;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(27,77,92,0.04);
 }
-.sub-tab-btn::after {
-  content: '';
-  position: absolute;
-  bottom: -1px; left: 0; right: 0;
-  height: 2px;
-  background: var(--bleu-petrole);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-.sub-tab-btn:hover { color: var(--bleu-petrole); background: var(--creme-dark); border-color: var(--bleu-petrole-light); }
-.sub-tab-btn.active { color: var(--creme); font-weight: 500; background: var(--bleu-petrole); border-color: var(--bleu-petrole); }
-.sub-tab-btn.active::after { transform: scaleX(0); }
+.sub-tab-btn .stb-emoji { font-size: 1.6rem; line-height: 1; }
+.sub-tab-btn .stb-title { font-weight: 600; font-size: 0.88rem; color: var(--bleu-petrole); }
+.sub-tab-btn .stb-sub { font-size: 0.72rem; color: var(--texte-light); opacity: 0.8; line-height: 1.3; }
+.sub-tab-btn::after { display: none; }
+.sub-tab-btn:hover { background: var(--creme-dark); border-color: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(27,77,92,0.1); }
+.sub-tab-btn.active { background: var(--bleu-petrole); border-color: var(--bleu-petrole); box-shadow: 0 6px 20px rgba(27,77,92,0.25); transform: translateY(-2px); }
+.sub-tab-btn.active .stb-title, .sub-tab-btn.active .stb-sub { color: rgba(250,247,242,0.85); }
+.sub-tab-btn.active .stb-emoji { filter: brightness(1.2); }
+/* photo sous-onglet */
+.reflex-photo { width:100%; height:300px; object-fit:cover; border-radius:var(--radius); margin-top:32px; box-shadow:0 10px 32px rgba(27,77,92,0.08); display:block; }
+@media(max-width:768px){ .reflex-photo { height:220px; } }
 .sub-tab-content { display: none; }
 .sub-tab-content.active { display: block; }
 
@@ -1025,11 +1024,28 @@ footer {
       </p>
 
       <!-- SOUS-ONGLETS -->
+      <p style="text-align:center;font-size:0.78rem;color:var(--texte-light);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px;opacity:0.7">Sélectionnez un type pour en découvrir les détails</p>
       <div class="sub-tabs-bar">
-        <button class="sub-tab-btn active" onclick="showSubTab('plantaire', this)">🦶 Plantaire</button>
-        <button class="sub-tab-btn" onclick="showSubTab('palmaire', this)">🖐️ Palmaire</button>
-        <button class="sub-tab-btn" onclick="showSubTab('faciale', this)">😌 Faciale</button>
-        <button class="sub-tab-btn" onclick="showSubTab('cranienne', this)">🧠 Crânienne</button>
+        <button class="sub-tab-btn active" onclick="showSubTab('plantaire', this)">
+          <span class="stb-emoji">🦶</span>
+          <span class="stb-title">Plantaire</span>
+          <span class="stb-sub">Via les pieds</span>
+        </button>
+        <button class="sub-tab-btn" onclick="showSubTab('palmaire', this)">
+          <span class="stb-emoji">🖐️</span>
+          <span class="stb-title">Palmaire</span>
+          <span class="stb-sub">Via les mains</span>
+        </button>
+        <button class="sub-tab-btn" onclick="showSubTab('faciale', this)">
+          <span class="stb-emoji">😌</span>
+          <span class="stb-title">Faciale</span>
+          <span class="stb-sub">Via le visage</span>
+        </button>
+        <button class="sub-tab-btn" onclick="showSubTab('cranienne', this)">
+          <span class="stb-emoji">🧠</span>
+          <span class="stb-title">Crânienne</span>
+          <span class="stb-sub">Via le crâne</span>
+        </button>
       </div>
 
       <!-- PLANTAIRE -->
@@ -1075,6 +1091,7 @@ footer {
             </ul>
           </div>
         </div>
+        <img src="reflexo%20plantaire.jpg" alt="Réflexologie plantaire — mains accompagnant les pieds d'un bébé" class="reflex-photo" loading="lazy">
       </div><!-- /sub-plantaire -->
 
       <!-- PALMAIRE -->
@@ -1125,6 +1142,7 @@ footer {
             </ul>
           </div>
         </div>
+        <img src="reflexo%20palmaire.jpg" alt="Réflexologie palmaire — massage doux des mains" class="reflex-photo" loading="lazy">
       </div><!-- /sub-palmaire -->
 
       <!-- FACIALE -->
@@ -1170,6 +1188,7 @@ footer {
             </ul>
           </div>
         </div>
+        <img src="reflexo-faciale.jpg" alt="Réflexologie faciale — mains posées délicatement sur le visage" class="reflex-photo" loading="lazy">
       </div><!-- /sub-faciale -->
 
       <!-- CRÂNIENNE -->
@@ -1215,6 +1234,7 @@ footer {
             </ul>
           </div>
         </div>
+        <img src="Reflexo%20cranienne.jpg" alt="Réflexologie crânienne — mains posées avec douceur sur la tête d'une patiente" class="reflex-photo" loading="lazy">
       </div><!-- /sub-cranienne -->
 
     </div>
