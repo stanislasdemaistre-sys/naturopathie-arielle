@@ -199,9 +199,11 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .tabs-inner::-webkit-scrollbar { display: none; }
 .tab-btn {
   flex-shrink: 0;
-  background: none;
-  border: none;
-  padding: 18px 24px;
+  background: var(--blanc);
+  border: 1px solid var(--creme-dark);
+  border-radius: 50px;
+  padding: 10px 22px;
+  margin: 0 4px;
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 400;
@@ -221,13 +223,14 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.tab-btn:hover { color: var(--bleu-petrole); }
+.tab-btn:hover { color: var(--bleu-petrole); background: var(--creme-dark); border-color: var(--bleu-petrole-light); }
 .tab-btn.active {
-  color: var(--bleu-petrole);
+  color: var(--creme);
   font-weight: 500;
-  background: rgba(27,77,92,0.03);
+  background: var(--bleu-petrole);
+  border-color: var(--bleu-petrole);
 }
-.tab-btn.active::after { transform: scaleX(1); }
+.tab-btn.active::after { transform: scaleX(0); }
 
 /* ─── TAB CONTENT ─── */
 .tab-content { display: none; }
@@ -445,9 +448,11 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .sub-tabs-bar::-webkit-scrollbar { display: none; }
 .sub-tab-btn {
   flex-shrink: 0;
-  background: none;
-  border: none;
-  padding: 12px 20px;
+  background: var(--blanc);
+  border: 1px solid var(--creme-dark);
+  border-radius: 50px;
+  padding: 8px 18px;
+  margin: 0 3px;
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 400;
@@ -466,9 +471,9 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.sub-tab-btn:hover { color: var(--bleu-petrole); }
-.sub-tab-btn.active { color: var(--bleu-petrole); font-weight: 500; }
-.sub-tab-btn.active::after { transform: scaleX(1); }
+.sub-tab-btn:hover { color: var(--bleu-petrole); background: var(--creme-dark); border-color: var(--bleu-petrole-light); }
+.sub-tab-btn.active { color: var(--creme); font-weight: 500; background: var(--bleu-petrole); border-color: var(--bleu-petrole); }
+.sub-tab-btn.active::after { transform: scaleX(0); }
 .sub-tab-content { display: none; }
 .sub-tab-content.active { display: block; }
 
@@ -671,6 +676,9 @@ footer {
 </section>
 
 <!-- ══════ TABS BAR ══════ -->
+<p style="text-align:center;font-size:0.78rem;color:var(--texte-light);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;opacity:0.7">
+  ↓ Sélectionnez une approche pour en découvrir les détails
+</p>
 <div class="tabs-bar" id="tabsBar">
   <div class="tabs-inner">
     <button class="tab-btn active" onclick="showTab('naturo', this)">🌿 Naturopathie</button>
@@ -794,7 +802,17 @@ footer {
       <h2 class="sub-heading" style="margin-bottom:32px">Selon <em>chaque âge</em></h2>
       <div class="public-grid">
         <div class="public-item animate-in">
-          <div class="public-item-age">6 – 12 ans · Enfants</div>
+          <div class="public-item-age">0 – 3 ans · Bébés</div>
+          <div class="public-item-title">🍼 Premiers équilibres</div>
+          <ul>
+            <li>Coliques, reflux, troubles digestifs du nourrisson</li>
+            <li>Sommeil agité, difficultés d'endormissement</li>
+            <li>Eczéma, réactions cutanées précoces</li>
+            <li>Soutien de l'immunité dès les premiers mois</li>
+          </ul>
+        </div>
+        <div class="public-item animate-in" style="transition-delay:0.1s">
+          <div class="public-item-age">3 – 12 ans · Enfants</div>
           <div class="public-item-title">🌱 Fondations</div>
           <ul>
             <li>Immunité fragilisée, infections récurrentes</li>
@@ -803,7 +821,7 @@ footer {
             <li>Comportement, concentration, HPI</li>
           </ul>
         </div>
-        <div class="public-item animate-in" style="transition-delay:0.1s">
+        <div class="public-item animate-in" style="transition-delay:0.2s">
           <div class="public-item-age">13 – 18 ans · Adolescents</div>
           <div class="public-item-title">🌀 Transitions</div>
           <ul>
@@ -813,7 +831,7 @@ footer {
             <li>Stress des examens, blocages cognitifs</li>
           </ul>
         </div>
-        <div class="public-item animate-in" style="transition-delay:0.2s">
+        <div class="public-item animate-in" style="transition-delay:0.3s">
           <div class="public-item-age">20 – 30 ans · Adultes</div>
           <div class="public-item-title">⚡ Ancrage</div>
           <ul>
@@ -987,6 +1005,12 @@ footer {
       <div class="section-label">La réflexologie</div>
       <h2 class="sub-heading" style="margin-bottom:8px">Le corps <em>parle</em><br>à travers ses zones réflexes</h2>
       <p class="sub-intro">Chaque organe, chaque partie du corps possède une zone réflexe : sur les pieds, les mains, le visage ou le crâne. Stimuler ces zones, c'est réveiller l'organe correspondant.</p>
+      <p class="sub-intro" style="margin-top:12px">
+        La réflexologie s'adapte à <strong>tous les âges, dès la naissance</strong>.
+        Chez le nourrisson et le bébé, une pression infime suffit : les zones réflexes sont
+        déjà pleinement actives et la réponse est remarquablement rapide. C'est une approche
+        douce, sans contre-indication, qui peut accompagner toute la famille.
+      </p>
 
       <!-- SOUS-ONGLETS -->
       <div class="sub-tabs-bar">
@@ -1291,6 +1315,16 @@ footer {
             <li>Affirmation et assertivité</li>
             <li>Douleurs chroniques d'origine émotionnelle</li>
             <li>Épuisement sans cause médicale identifiée</li>
+          </ul>
+        </div>
+        <div class="public-item animate-in" style="transition-delay:0.3s">
+          <div class="public-item-age">Physiologique</div>
+          <div class="public-item-title">⚖️ Rééquilibrer</div>
+          <ul>
+            <li>Système nerveux : régulation du stress chronique</li>
+            <li>Système digestif : microbiote, transit, perméabilité</li>
+            <li>Système hormonal : cycles, puberté, thyroïde</li>
+            <li>Système immunitaire : vulnérabilité, terrain inflammatoire</li>
           </ul>
         </div>
       </div>
