@@ -132,6 +132,58 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 .form-row-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .contact-mini-form input{width:100%;padding:12px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);outline:none;transition:border-color .3s;box-sizing:border-box}
 .contact-mini-form input:focus{border-color:var(--vs)}
+/* ── HERO BAND PHOTO ── */
+.audit-hero-band{margin:0 -24px 48px;padding:56px 24px 64px;background:url('Fleurs%20de%20bach%202.jpg') center 45%/cover no-repeat;position:relative;border-radius:0 0 48px 48px;overflow:hidden}
+.audit-hero-band::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(15,53,64,.8) 0%,rgba(27,77,92,.65) 50%,rgba(143,169,139,.45) 100%)}
+.audit-hero-band .header{position:relative;z-index:1;margin-bottom:0;animation:none}
+.audit-hero-band .header-logo,.audit-hero-band .header-title{color:#FAF7F2}
+.audit-hero-band .header-title em{color:#D4BA8A}
+.audit-hero-band .header-subtitle{color:rgba(250,247,242,.88)}
+/* ── DÉCOR BOTANIQUE ── */
+body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;background:url('Fleurs%20de%20bach%202.jpg') center/cover no-repeat;opacity:.05;pointer-events:none;z-index:0;border-radius:80px 0 0 0}
+/* ── INTRO CARD PHOTO + BOUTON OR ── */
+.intro-card-photo{height:160px;background:url('Fleurs%20de%20bach%201.jpg') center 55%/cover no-repeat;border-radius:var(--rl) var(--rl) 0 0;margin:-48px -40px 32px}
+.btn-gold{background:var(--do);color:#FFF9F0;font-weight:500}
+.btn-gold:hover{background:var(--do-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(196,162,101,.35)}
+/* ── DOTS PÉTALES ── */
+.petale-dots{display:flex;gap:7px;margin-bottom:14px}
+.pdot{flex:1;height:4px;border-radius:4px;background:var(--cr-d);transition:all .4s cubic-bezier(.22,1,.36,1)}
+.pdot.done{opacity:.38}
+.pdot.active{height:8px;margin-top:-2px}
+/* ── BADGE CATÉGORIE COLORÉ ── */
+.progress-cat-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border-radius:50px;font-size:.76rem;font-weight:500;color:#fff;letter-spacing:.3px}
+/* ── QUESTION CARD : BANDE COULEUR PAR CATÉGORIE ── */
+.question-card{position:relative;overflow:hidden}
+.question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px}
+.question-card.petale-sommeil::before{background:#1B4D5C}
+.question-card.petale-eclat::before{background:#C4A265}
+.question-card.petale-serenite::before{background:#8FA98B}
+.question-card.petale-immunite::before{background:#2A6B7E}
+.question-card.petale-confiance::before{background:#6B5B8D}
+/* Badges */
+.question-card.petale-sommeil .question-petal-badge{background:rgba(27,77,92,.1);color:#1B4D5C}
+.question-card.petale-eclat .question-petal-badge{background:rgba(196,162,101,.15);color:#8B6B2F}
+.question-card.petale-serenite .question-petal-badge{background:rgba(143,169,139,.2);color:#3D6B42}
+.question-card.petale-immunite .question-petal-badge{background:rgba(42,107,126,.12);color:#2A6B7E}
+.question-card.petale-confiance .question-petal-badge{background:rgba(107,91,141,.12);color:#6B5B8D}
+/* Options sélectionnées */
+.question-card.petale-sommeil .option-item.selected{border-color:#1B4D5C;background:rgba(27,77,92,.07)}
+.question-card.petale-eclat .option-item.selected{border-color:#C4A265;background:rgba(196,162,101,.1)}
+.question-card.petale-serenite .option-item.selected{border-color:#8FA98B;background:rgba(143,169,139,.13)}
+.question-card.petale-immunite .option-item.selected{border-color:#2A6B7E;background:rgba(42,107,126,.09)}
+.question-card.petale-confiance .option-item.selected{border-color:#6B5B8D;background:rgba(107,91,141,.08)}
+.question-card.petale-sommeil .option-item.selected .option-radio{border-color:#1B4D5C;background:#1B4D5C}
+.question-card.petale-eclat .option-item.selected .option-radio{border-color:#C4A265;background:#C4A265}
+.question-card.petale-serenite .option-item.selected .option-radio{border-color:#8FA98B;background:#8FA98B}
+.question-card.petale-immunite .option-item.selected .option-radio{border-color:#2A6B7E;background:#2A6B7E}
+.question-card.petale-confiance .option-item.selected .option-radio{border-color:#6B5B8D;background:#6B5B8D}
+/* Options : animation au hover */
+.option-item{padding:18px 22px;transition:all .25s ease}
+.option-item:hover{transform:translateX(3px)}
+@media(max-width:640px){
+  .audit-hero-band{margin:0 -16px 32px;padding:40px 16px 52px;border-radius:0 0 32px 32px}
+  .intro-card-photo{margin:-28px -20px 24px;height:130px}
+}
 @media(max-width:640px){
   .app{padding:24px 16px 60px}
   .intro-card,.question-card,.fleur-section,.alerts-section{padding:28px 20px}
@@ -181,12 +233,15 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 </nav>
 <div class="app" id="app" style="padding-top:100px">
   <div id="screen-intro">
-    <div class="header">
-      <div class="header-logo">Horizon <span>&</span> Équilibre</div>
-      <h1 class="header-title">Bilan <em>Horizon Santé</em></h1>
-      <p class="header-subtitle">Un bilan de vitalité pensé pour <strong>toute la famille</strong> — bébés, enfants, adolescents et jeunes adultes. En 3 minutes, identifiez les déséquilibres et les leviers naturels pour agir.</p>
+    <div class="audit-hero-band">
+      <div class="header">
+        <div class="header-logo">Horizon <span>&</span> Équilibre</div>
+        <h1 class="header-title">Bilan <em>Horizon Santé</em></h1>
+        <p class="header-subtitle">Un bilan de vitalité pensé pour <strong>toute la famille</strong> — bébés, enfants, adolescents et jeunes adultes. En 3 minutes, identifiez les déséquilibres et les leviers naturels pour agir.</p>
+      </div>
     </div>
     <div class="intro-card">
+      <div class="intro-card-photo"></div>
       <div class="intro-emoji">🌿</div>
       <h2>Bilan de vitalité en 15 questions</h2>
       <p>Ce questionnaire explore 5 dimensions essentielles : sommeil, surcharges, stress, immunité et confiance en soi. Il s'adapte à chaque âge, du nourrisson au jeune adulte. Les résultats cartographient l'état de vitalité sur 5 axes et orientent vers des solutions naturelles, douces et personnalisées.</p>
@@ -199,11 +254,21 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
         <div class="form-group"><label for="childName" id="labelChildName">Prénom</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
         <div class="form-group"><label>Âge</label><select id="childAge"><option value="">Sélectionner</option><option>3-5 ans</option><option>6-8 ans</option><option>9-11 ans</option><option>12-14 ans</option><option>15-17 ans</option><option>18-25 ans</option></select></div>
       </div>
-      <button class="btn btn-primary" onclick="startAudit()">Commencer le bilan</button>
+      <button class="btn btn-gold" onclick="startAudit()">Commencer mon bilan →</button>
     </div>
   </div>
   <div id="screen-questions" class="hidden">
-    <div class="progress-wrap"><div class="progress-info"><span class="progress-step" id="progressStep"></span><span class="progress-category" id="progressCat"></span></div><div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div></div>
+    <div class="progress-wrap">
+  <div class="petale-dots">
+    <div class="pdot" id="pd-sommeil" title="Sommeil"></div>
+    <div class="pdot" id="pd-eclat" title="Éclat"></div>
+    <div class="pdot" id="pd-serenite" title="Sérénité"></div>
+    <div class="pdot" id="pd-immunite" title="Immunité"></div>
+    <div class="pdot" id="pd-confiance" title="Confiance"></div>
+  </div>
+  <div class="progress-info"><span class="progress-step" id="progressStep"></span><span class="progress-category" id="progressCat"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+</div>
     <div id="questionContainer"></div>
   </div>
   <div id="screen-results" class="hidden"></div>
@@ -431,11 +496,19 @@ function startAudit(){
 function renderQuestion(){
   const q=QUESTIONS[state.currentQ],total=QUESTIONS.length,petal=PETALS[q.petale];
   document.getElementById('progressStep').textContent=`Question ${state.currentQ+1} / ${total}`;
-  document.getElementById('progressCat').textContent=petal.label;
+  document.getElementById('progressCat').innerHTML=`<span class="progress-cat-badge" style="background:${petal.bg}">${petal.icone} ${petal.label}</span>`;
   document.getElementById('progressFill').style.width=(state.currentQ/total*100)+'%';
+  // Mise à jour des dots pétales
+  Object.keys(PETALS).forEach(k=>{
+    const dot=document.getElementById('pd-'+k);if(!dot)return;
+    const lastIdx=QUESTIONS.map(x=>x.petale).lastIndexOf(k);
+    const isDone=lastIdx<state.currentQ,isActive=q.petale===k;
+    dot.className=`pdot${isDone?' done':''}${isActive?' active':''}`;
+    dot.style.background=(isDone||isActive)?PETALS[k].bg:'';
+  });
   const sel=state.answers[q.id];
   document.getElementById('questionContainer').innerHTML=`
-    <div class="question-card slide-enter">
+    <div class="question-card slide-enter petale-${q.petale}">
       <div class="question-petal-badge">${petal.icone} ${petal.label}</div>
       <div class="question-text">${isAdult()&&q.texteAdulte?q.texteAdulte:q.texte}</div>
       <div class="options-list">
