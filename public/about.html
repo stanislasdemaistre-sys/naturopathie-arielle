@@ -512,10 +512,10 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 }
 
 /* ─── PUBLICS ─── */
-.publics-section { background: var(--bleu-petrole); }
-.publics-section .section-title { color: var(--creme); }
-.publics-section .section-label { color: var(--dore); }
-.publics-intro { font-size: 1rem; color: rgba(250,247,242,0.7); margin-top: 16px; max-width: 600px; line-height: 1.75; }
+.publics-section { background: var(--creme); }
+.publics-section .section-title { color: var(--bleu-petrole); }
+.publics-section .section-label { color: var(--bleu-petrole-light); }
+.publics-intro { font-size: 1rem; color: var(--texte-light); margin-top: 16px; max-width: 600px; line-height: 1.75; }
 .publics-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -523,16 +523,17 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   margin-top: 48px;
 }
 .public-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--blanc);
+  border: 1px solid var(--creme-dark);
   border-radius: var(--radius-lg);
   padding: 36px 28px;
   transition: all 0.3s ease;
 }
 .public-card:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(196,162,101,0.4);
+  background: var(--blanc);
+  border-color: var(--dore);
   transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(27,77,92,0.1);
 }
 .public-icon {
   font-size: 2.2rem;
@@ -550,20 +551,20 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .public-title {
   font-family: var(--font-display);
   font-size: 1.5rem;
-  color: var(--creme);
+  color: var(--bleu-petrole);
   font-weight: 400;
   margin-bottom: 12px;
 }
-.public-desc { font-size: 0.85rem; color: rgba(250,247,242,0.65); line-height: 1.7; margin-bottom: 18px; }
+.public-desc { font-size: 0.85rem; color: var(--texte-light); line-height: 1.7; margin-bottom: 18px; }
 .public-problems { list-style: none; }
 .public-problems li {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   font-size: 0.82rem;
-  color: rgba(250,247,242,0.75);
+  color: var(--texte-light);
   padding: 6px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid var(--creme-dark);
 }
 .public-problems li:last-child { border-bottom: none; }
 .public-problems li::before {
@@ -960,8 +961,8 @@ footer {
         <div class="galerie-legende">Kinésiologie — écouter le corps sans forcer</div>
       </div>
       <div class="galerie-item animate-in" style="transition-delay:0.2s">
-        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=600&q=80"
-             alt="Espace de soin naturel et chaleureux" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1758687126048-4790d3d7e4ea?auto=format&fit=crop&w=600&q=80"
+             alt="Échange chaleureux entre praticienne et enfant" loading="lazy">
         <div class="galerie-legende">Un espace de pause pour l'enfant et ses parents</div>
       </div>
     </div>
@@ -969,7 +970,7 @@ footer {
 </section>
 
 <!-- ══════ SECTION 6 : LES 3 PUBLICS ══════ -->
-<section class="section publics-section">
+<section class="section publics-section" id="qui-jaccompagne">
   <div class="container">
     <div class="section-label">Qui j'accompagne</div>
     <h2 class="section-title">Quatre publics,<br><em>une même conviction</em></h2>
