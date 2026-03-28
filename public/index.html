@@ -1697,6 +1697,16 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 
+// Mobile nav toggle
+document.querySelector('.mobile-toggle').addEventListener('click', () => {
+  const links = document.querySelector('.nav-links');
+  if (links.style.display === 'flex') {
+    links.style.display = 'none';
+  } else {
+    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);';
+  }
+});
+
 // Audit card interaction
 document.querySelectorAll('.audit-option').forEach(opt => {
   opt.addEventListener('click', () => {
