@@ -909,105 +909,108 @@ nav .container {
 .patho-tag.kinesio { background: var(--dore-pale); color: var(--bleu-petrole); }
 .patho-tag.oligo { background: rgba(27, 77, 92, 0.08); color: var(--bleu-petrole); }
 
-/* ─── CTA / GUIDE ─── */
-.guide-cta {
+/* ─── GUIDES PREVIEW ─── */
+.guides-preview {
   padding: 100px 0;
+  background: var(--bleu-petrole-deep);
   position: relative;
   overflow: hidden;
 }
-.guide-card {
-  background: linear-gradient(135deg, var(--vert-sauge) 0%, var(--bleu-petrole) 100%);
-  border-radius: var(--radius-lg);
-  padding: 72px 80px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 60px;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-}
-.guide-card::before {
+.guides-preview::before {
   content: '';
   position: absolute;
-  top: -100px;
-  right: -100px;
-  width: 400px;
-  height: 400px;
+  top: -150px; right: -150px;
+  width: 500px; height: 500px;
   border-radius: 50%;
-  background: rgba(196, 162, 101, 0.15);
+  background: radial-gradient(circle, rgba(196,162,101,0.1) 0%, transparent 70%);
+  pointer-events: none;
 }
-.guide-content { position: relative; z-index: 1; }
-.guide-content .section-label { color: var(--dore-light); }
-.guide-content h3 {
+.guides-preview-header {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+.guides-preview-header .section-title { color: var(--creme); }
+.guides-preview-header .section-title em { color: var(--dore-light); }
+.guides-preview-header p {
+  margin-top: 16px;
+  color: rgba(250,247,242,0.65);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+.guides-preview-list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.gp-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 28px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  transition: all 0.35s ease;
+}
+.gp-card:hover {
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(196,162,101,0.4);
+  transform: translateY(-5px);
+}
+.gp-emoji { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+.gp-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-size: 1.05rem;
   color: var(--creme);
-  font-weight: 400;
-  margin-bottom: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
   line-height: 1.3;
 }
-.guide-content h3 em {
-  font-style: italic;
-  color: var(--dore-light);
+.gp-hook {
+  font-size: 0.78rem;
+  color: rgba(250,247,242,0.55);
+  line-height: 1.6;
+  margin-bottom: 16px;
 }
-.guide-content p {
-  color: rgba(250, 247, 242, 0.8);
-  font-size: 1rem;
-  max-width: 480px;
-  margin-bottom: 28px;
-  line-height: 1.7;
+.gp-price {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: var(--dore);
+  font-weight: 500;
+  border: 1px solid rgba(196,162,101,0.35);
+  border-radius: 50px;
+  padding: 4px 12px;
 }
-.btn-gold {
+.guides-preview-cta {
+  text-align: center;
+}
+.btn-guides {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--bleu-petrole);
-  color: var(--creme);
-  padding: 16px 36px;
+  background: var(--dore);
+  color: var(--bleu-petrole-deep);
+  padding: 16px 40px;
   border-radius: 50px;
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.95rem;
+  font-weight: 600;
   text-decoration: none;
+  transition: all 0.3s ease;
   letter-spacing: 0.3px;
-  transition: all 0.4s;
-  border: none;
-  cursor: pointer;
 }
-.btn-gold:hover {
-  background: var(--bleu-petrole-light);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(27, 77, 92, 0.2);
+.btn-guides:hover { background: #B8934F; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
+.guides-preview-note {
+  margin-top: 14px;
+  font-size: 0.78rem;
+  color: rgba(250,247,242,0.4);
 }
-.guide-price {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-.price-circle {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(8px);
-}
-.price-amount {
-  font-family: var(--font-display);
-  font-size: 2.8rem;
-  font-weight: 500;
-  color: var(--creme);
-}
-.price-label {
-  font-size: 0.75rem;
-  color: var(--dore-light);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
+@media (max-width: 1024px) { .guides-preview-list { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 768px) { .guides-preview-list { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .guides-preview-list { grid-template-columns: 1fr; } }
 
 /* ─── FOOTER ─── */
 footer {
@@ -1092,9 +1095,6 @@ footer {
   .audit .container { grid-template-columns: 1fr; gap: 48px; }
   .methode-steps { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
   .bach-grid { grid-template-columns: repeat(2, 1fr); }
-  .guide-card { grid-template-columns: 1fr; padding: 48px 40px; text-align: center; }
-  .guide-content p { margin-left: auto; margin-right: auto; }
-  .guide-price { justify-self: center; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
 }
 @media (max-width: 768px) {
@@ -1104,7 +1104,6 @@ footer {
   .hero { padding-top: 100px; }
   .float-badge { display: none; }
   .bach-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
-  .guide-card { padding: 36px 28px; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
   .apropos-quote-card { position: relative; bottom: auto; right: auto; margin-top: 20px; }
@@ -1277,7 +1276,7 @@ footer {
       </div>
     </div>
     <div class="hero-visual">
-      <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=900&q=80"
+      <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80"
            alt="Cabinet de naturopathie, espace chaleureux et épuré"
            class="hero-photo" loading="lazy">
     </div>
@@ -1331,7 +1330,7 @@ footer {
         <p>Alimentation, micronutrition, Oligoscan : cartographier le terrain pour agir à la source, pas sur le symptôme.</p>
       </div>
       <div class="pilier-card animate-in" style="transition-delay:0.1s">
-        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Kinésiologie séance douce" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
+        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80" alt="Kinésiologie séance douce" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
         <div class="pilier-keyword">Libérer</div>
         <div class="pilier-icon">🦋</div>
         <h3 class="pilier-title">Kinésiologie</h3>
@@ -1591,24 +1590,49 @@ footer {
   </div>
 </section>
 
-<!-- ══════ CTA GUIDE ══════ -->
-<section class="guide-cta" id="guide">
+<!-- ══════ GUIDES PREVIEW ══════ -->
+<section class="guides-preview" id="guides">
   <div class="container">
-    <div class="guide-card animate-in">
-      <div class="guide-content">
-        <div class="section-label">Nouveau Guide</div>
-        <h3>Acné & Éclat :<br><em>Le Protocole Intégral</em></h3>
-        <p>Le guide complet pour accompagner votre ado vers une peau apaisée. Naturopathie, alimentation, gestion du stress et routines douces.</p>
-        <a href="/contact" class="btn-gold">
-          Découvrir le guide
-        </a>
-      </div>
-      <div class="guide-price">
-        <div class="price-circle">
-          <div class="price-amount">19€</div>
-          <div class="price-label">PDF complet</div>
-        </div>
-      </div>
+    <div class="guides-preview-header animate-in">
+      <div class="section-label">Ressources pratiques</div>
+      <h2 class="section-title">Emmenez un bout du cabinet<br><em>chez vous</em></h2>
+      <p>Cinq guides rédigés par Arielle, basés sur ses protocoles de consultation. Concrets, sans jargon, utilisables dès la première lecture.</p>
+    </div>
+    <div class="guides-preview-list">
+      <a href="/guides" class="gp-card animate-in">
+        <span class="gp-emoji">🌿</span>
+        <div class="gp-title">Acné</div>
+        <p class="gp-hook">Retrouver une peau nette de l'intérieur — alimentation, plantes, drainage</p>
+        <span class="gp-price">19 € · PDF</span>
+      </a>
+      <a href="/guides" class="gp-card animate-in" style="transition-delay:0.07s">
+        <span class="gp-emoji">🌱</span>
+        <div class="gp-title">Immunité Enfant</div>
+        <p class="gp-hook">Renforcer le terrain de l'enfant 3-12 ans saison après saison</p>
+        <span class="gp-price">19 € · PDF</span>
+      </a>
+      <a href="/guides" class="gp-card animate-in" style="transition-delay:0.14s">
+        <span class="gp-emoji">🧬</span>
+        <div class="gp-title">Immunité Ados & Adultes</div>
+        <p class="gp-hook">Reconstruire un terrain immunitaire solide et durable en profondeur</p>
+        <span class="gp-price">19 € · PDF</span>
+      </a>
+      <a href="/guides" class="gp-card animate-in" style="transition-delay:0.21s">
+        <span class="gp-emoji">🕊️</span>
+        <div class="gp-title">Émotions</div>
+        <p class="gp-hook">Apaiser le système nerveux — stress, anxiété, fleurs de Bach</p>
+        <span class="gp-price">19 € · PDF</span>
+      </a>
+      <a href="/guides" class="gp-card animate-in" style="transition-delay:0.28s">
+        <span class="gp-emoji">🏡</span>
+        <div class="gp-title">Maux du Quotidien</div>
+        <p class="gp-hook">La boîte à outils naturelle pour toute la famille — 15 symptômes</p>
+        <span class="gp-price">19 € · PDF</span>
+      </a>
+    </div>
+    <div class="guides-preview-cta">
+      <a href="/guides" class="btn-guides">Découvrir tous les guides →</a>
+      <p class="guides-preview-note">5 guides disponibles · PDF envoyé par email · Accès immédiat</p>
     </div>
   </div>
 </section>
