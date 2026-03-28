@@ -869,7 +869,7 @@ nav .container {
 .patho-card {
   background: var(--blanc);
   border-radius: var(--radius);
-  padding: 32px 28px;
+  padding: 18px 20px;
   border: 1px solid var(--creme-dark);
   transition: all 0.4s;
 }
@@ -878,16 +878,14 @@ nav .container {
   transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(27, 77, 92, 0.06);
 }
-.patho-emoji {
-  font-size: 2rem;
-  margin-bottom: 16px;
-}
+.patho-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.patho-emoji { font-size: 1.2rem; flex-shrink: 0; }
 .patho-name {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 0.95rem;
   color: var(--bleu-petrole);
   font-weight: 500;
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 .patho-tags {
   display: flex;
@@ -943,8 +941,8 @@ nav .container {
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-lg);
-  padding: 28px 20px;
-  text-align: center;
+  padding: 20px 18px;
+  text-align: left;
   text-decoration: none;
   display: block;
   transition: all 0.35s ease;
@@ -954,13 +952,14 @@ nav .container {
   border-color: rgba(196,162,101,0.4);
   transform: translateY(-5px);
 }
-.gp-emoji { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+.gp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.gp-emoji { font-size: 1.4rem; flex-shrink: 0; }
 .gp-title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   color: var(--creme);
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 0;
   line-height: 1.3;
 }
 .gp-hook {
@@ -1145,7 +1144,7 @@ footer {
   font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
   font-weight: 600; padding: 6px 18px; border-radius: 50px; margin-bottom: 22px;
 }
-.pilier-icon { font-size: 2.8rem; margin-bottom: 18px; }
+.pilier-icon { font-size: 2rem; margin-bottom: 10px; }
 .pilier-title {
   font-family: var(--font-display); font-size: 1.4rem;
   color: var(--bleu-petrole); margin-bottom: 14px; font-weight: 500;
@@ -1184,8 +1183,8 @@ footer {
 .pq-card {
   background: var(--blanc);
   border-radius: var(--radius-lg);
-  padding: 32px 24px;
-  text-align: center;
+  padding: 22px 20px;
+  text-align: left;
   border: 1px solid rgba(27,77,92,0.05);
   box-shadow: 0 6px 24px rgba(27,77,92,0.05);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
@@ -1194,9 +1193,10 @@ footer {
   color: inherit;
 }
 .pq-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(27,77,92,0.1); }
-.pq-emoji { font-size: 2.4rem; margin-bottom: 12px; display: block; }
+.pq-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.pq-emoji { font-size: 1.4rem; flex-shrink: 0; }
 .pq-age { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--dore); font-weight: 500; margin-bottom: 6px; }
-.pq-titre { font-family: var(--font-display); font-size: 1.2rem; color: var(--bleu-petrole); font-weight: 500; margin-bottom: 12px; }
+.pq-titre { font-family: var(--font-display); font-size: 1.05rem; color: var(--bleu-petrole); font-weight: 500; margin-bottom: 0; }
 .pq-tags { font-size: 0.8rem; color: var(--texte-light); line-height: 1.7; }
 .pour-qui-cta { text-align: center; margin-top: 40px; }
 .pour-qui-cta a { display: inline-flex; align-items: center; gap: 8px; color: var(--bleu-petrole); font-size: 0.9rem; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--dore); padding-bottom: 2px; transition: color 0.3s; }
@@ -1298,8 +1298,8 @@ footer {
         </div>
         <div style="width:1px;background:var(--creme-dark)"></div>
         <div style="text-align:center">
-          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">📍 Sainte-Consorce</div>
-          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">Métropole de Lyon (69)</div>
+          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">📍 Sainte-Consorce (69)</div>
+          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">Cabinet · Visio · Domicile</div>
         </div>
       </div>
     </div>
@@ -1315,87 +1315,40 @@ footer {
     </div>
     <div class="patho-grid">
       <div class="patho-card">
-        <div class="patho-emoji">✨</div>
-        <div class="patho-name">Acné inflammatoire</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Pensée sauvage</span>
-          <span class="patho-tag naturo">HE Tea Tree</span>
-          <span class="patho-tag kinesio">Image de soi</span>
-          <span class="patho-tag oligo">Zinc · Sélénium</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">✨</span><span class="patho-name">Acné inflammatoire</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Pensée sauvage</span><span class="patho-tag naturo">HE Tea Tree</span><span class="patho-tag kinesio">Image de soi</span><span class="patho-tag oligo">Zinc · Sélénium</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">📚</div>
-        <div class="patho-name">Stress des examens</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Magnésium</span>
-          <span class="patho-tag naturo">Rescue</span>
-          <span class="patho-tag kinesio">Blocages cognitifs</span>
-          <span class="patho-tag oligo">Mg · Lithium</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">📚</span><span class="patho-name">Stress des examens</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Magnésium</span><span class="patho-tag naturo">Rescue</span><span class="patho-tag kinesio">Blocages cognitifs</span><span class="patho-tag oligo">Mg · Lithium</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">🌙</div>
-        <div class="patho-name">Troubles du sommeil</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Mélisse · Passiflore</span>
-          <span class="patho-tag kinesio">Insécurité nocturne</span>
-          <span class="patho-tag oligo">Mg · Calcium</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">🌙</span><span class="patho-name">Troubles du sommeil</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Mélisse · Passiflore</span><span class="patho-tag kinesio">Insécurité nocturne</span><span class="patho-tag oligo">Mg · Calcium</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">🛡️</div>
-        <div class="patho-name">Déficit immunitaire</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Échinacée · Vit D/C</span>
-          <span class="patho-tag kinesio">Bouclier fragile</span>
-          <span class="patho-tag oligo">Cuivre · Or · Argent</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">🛡️</span><span class="patho-name">Déficit immunitaire</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Échinacée · Vit D/C</span><span class="patho-tag kinesio">Bouclier fragile</span><span class="patho-tag oligo">Cuivre · Or · Argent</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">💪</div>
-        <div class="patho-name">Manque de confiance</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Larch · HE Laurier</span>
-          <span class="patho-tag kinesio">Ancrage · Légitimité</span>
-          <span class="patho-tag oligo">Iode · Zinc</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">💪</span><span class="patho-name">Manque de confiance</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Larch · HE Laurier</span><span class="patho-tag kinesio">Ancrage · Légitimité</span><span class="patho-tag oligo">Iode · Zinc</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">🌀</div>
-        <div class="patho-name">Hypersensibilité</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Omega-3 · Figuier</span>
-          <span class="patho-tag kinesio">Gestion des stimuli</span>
-          <span class="patho-tag oligo">Mg · Phosphore</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">🌀</span><span class="patho-name">Hypersensibilité</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Omega-3 · Figuier</span><span class="patho-tag kinesio">Gestion des stimuli</span><span class="patho-tag oligo">Mg · Phosphore</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">⚡</div>
-        <div class="patho-name">Fatigue chronique</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Ashwagandha · Vit B</span>
-          <span class="patho-tag kinesio">Surmenage</span>
-          <span class="patho-tag oligo">Fer · Manganèse</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">⚡</span><span class="patho-name">Fatigue chronique</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Ashwagandha · Vit B</span><span class="patho-tag kinesio">Surmenage</span><span class="patho-tag oligo">Fer · Manganèse</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">🍼</div>
-        <div class="patho-name">Coliques & Pleurs (bébé)</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Fenouil · Camomille</span>
-          <span class="patho-tag kinesio">Tensions corporelles</span>
-          <span class="patho-tag oligo">Mg · Calcium</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">🍼</span><span class="patho-name">Coliques & Pleurs (bébé)</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Fenouil · Camomille</span><span class="patho-tag kinesio">Tensions corporelles</span><span class="patho-tag oligo">Mg · Calcium</span></div>
       </div>
       <div class="patho-card">
-        <div class="patho-emoji">😰</div>
-        <div class="patho-name">Anxiété & Peurs</div>
-        <div class="patho-tags">
-          <span class="patho-tag naturo">Mélisse · Millepertuis</span>
-          <span class="patho-tag kinesio">Blocages émotionnels</span>
-          <span class="patho-tag oligo">Mg · Lithium</span>
-        </div>
+        <div class="patho-header"><span class="patho-emoji">😰</span><span class="patho-name">Anxiété & Peurs</span></div>
+        <div class="patho-tags"><span class="patho-tag naturo">Mélisse · Millepertuis</span><span class="patho-tag kinesio">Blocages émotionnels</span><span class="patho-tag oligo">Mg · Lithium</span></div>
       </div>
     </div>
   </div>
@@ -1446,27 +1399,23 @@ footer {
     </div>
     <div class="pour-qui-grid">
       <a href="/about" class="pq-card animate-in">
-        <span class="pq-emoji">🍼</span>
         <div class="pq-age">0 – 3 ans</div>
-        <div class="pq-titre">Les Bébés</div>
+        <div class="pq-header"><span class="pq-emoji">🍼</span><span class="pq-titre">Les Bébés</span></div>
         <p class="pq-tags">Coliques · Sommeil · Tensions corporelles</p>
       </a>
       <a href="/about" class="pq-card animate-in" style="transition-delay:0.08s">
-        <span class="pq-emoji">🌱</span>
         <div class="pq-age">3 – 12 ans</div>
-        <div class="pq-titre">Les Enfants</div>
+        <div class="pq-header"><span class="pq-emoji">🌱</span><span class="pq-titre">Les Enfants</span></div>
         <p class="pq-tags">Immunité · Anxiété · Concentration</p>
       </a>
       <a href="/about" class="pq-card animate-in" style="transition-delay:0.16s">
-        <span class="pq-emoji">🌀</span>
         <div class="pq-age">13 – 18 ans</div>
-        <div class="pq-titre">Les Adolescents</div>
+        <div class="pq-header"><span class="pq-emoji">🌀</span><span class="pq-titre">Les Adolescents</span></div>
         <p class="pq-tags">Stress · Acné · Confiance</p>
       </a>
       <a href="/about" class="pq-card animate-in" style="transition-delay:0.24s">
-        <span class="pq-emoji">⚡</span>
         <div class="pq-age">20 – 30 ans</div>
-        <div class="pq-titre">Les Jeunes Adultes</div>
+        <div class="pq-header"><span class="pq-emoji">⚡</span><span class="pq-titre">Les Jeunes Adultes</span></div>
         <p class="pq-tags">Burnout · Fatigue · Équilibre</p>
       </a>
     </div>
@@ -1588,38 +1537,33 @@ footer {
 <section class="guides-preview" id="guides">
   <div class="container">
     <div class="guides-preview-header animate-in">
-      <div class="section-label">Ressources pratiques</div>
-      <h2 class="section-title">Emmenez un bout du cabinet<br><em>chez vous</em></h2>
-      <p>Cinq guides rédigés par Arielle, basés sur ses protocoles de consultation. Concrets, sans jargon, utilisables dès la première lecture.</p>
+      <div class="section-label">Guides pratiques</div>
+      <h2 class="section-title">Agir maintenant,<br><em>depuis chez vous</em></h2>
+      <p>J'ai conçu ces guides à partir de ma pratique pour vous donner des clés concrètes — entre deux séances, ou avant même de me consulter. Des protocoles simples, sans jargon, pensés pour toute la famille et applicables dès la première lecture.</p>
     </div>
     <div class="guides-preview-list">
       <a href="/guides" class="gp-card animate-in">
-        <span class="gp-emoji">🌿</span>
-        <div class="gp-title">Acné</div>
+        <div class="gp-header"><span class="gp-emoji">🌿</span><span class="gp-title">Acné</span></div>
         <p class="gp-hook">Retrouver une peau nette de l'intérieur — alimentation, plantes, drainage</p>
         <span class="gp-price">19 € · PDF</span>
       </a>
       <a href="/guides" class="gp-card animate-in" style="transition-delay:0.07s">
-        <span class="gp-emoji">🌱</span>
-        <div class="gp-title">Immunité Enfant</div>
+        <div class="gp-header"><span class="gp-emoji">🌱</span><span class="gp-title">Immunité Enfant</span></div>
         <p class="gp-hook">Renforcer le terrain de l'enfant 3-12 ans saison après saison</p>
         <span class="gp-price">19 € · PDF</span>
       </a>
       <a href="/guides" class="gp-card animate-in" style="transition-delay:0.14s">
-        <span class="gp-emoji">🧬</span>
-        <div class="gp-title">Immunité Ados & Adultes</div>
+        <div class="gp-header"><span class="gp-emoji">🧬</span><span class="gp-title">Immunité Ados & Adultes</span></div>
         <p class="gp-hook">Reconstruire un terrain immunitaire solide et durable en profondeur</p>
         <span class="gp-price">19 € · PDF</span>
       </a>
       <a href="/guides" class="gp-card animate-in" style="transition-delay:0.21s">
-        <span class="gp-emoji">🕊️</span>
-        <div class="gp-title">Émotions</div>
+        <div class="gp-header"><span class="gp-emoji">🕊️</span><span class="gp-title">Émotions</span></div>
         <p class="gp-hook">Apaiser le système nerveux — stress, anxiété, fleurs de Bach</p>
         <span class="gp-price">19 € · PDF</span>
       </a>
       <a href="/guides" class="gp-card animate-in" style="transition-delay:0.28s">
-        <span class="gp-emoji">🏡</span>
-        <div class="gp-title">Maux du Quotidien</div>
+        <div class="gp-header"><span class="gp-emoji">🏡</span><span class="gp-title">Maux du Quotidien</span></div>
         <p class="gp-hook">La boîte à outils naturelle pour toute la famille — 15 symptômes</p>
         <span class="gp-price">19 € · PDF</span>
       </a>
