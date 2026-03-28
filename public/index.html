@@ -858,25 +858,20 @@ nav .container {
   color: var(--texte-light);
   font-size: 1rem;
 }
-.patho-scroll {
-  display: flex;
+.patho-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  overflow-x: auto;
-  padding: 8px 0 20px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  margin-top: 8px;
 }
-.patho-scroll::-webkit-scrollbar { display: none; }
+@media (max-width: 900px) { .patho-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .patho-grid { grid-template-columns: 1fr; } }
 .patho-card {
-  min-width: 280px;
-  scroll-snap-align: start;
-  background: var(--creme);
+  background: var(--blanc);
   border-radius: var(--radius);
   padding: 32px 28px;
-  border: 1px solid transparent;
+  border: 1px solid var(--creme-dark);
   transition: all 0.4s;
-  flex-shrink: 0;
 }
 .patho-card:hover {
   border-color: var(--vert-sauge-light);
@@ -1276,8 +1271,8 @@ footer {
       </div>
     </div>
     <div class="hero-visual">
-      <img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=900&q=80"
-           alt="Cabinet de naturopathie, espace chaleureux et épuré"
+      <img src="https://images.unsplash.com/photo-1700142360825-d21edc53c8db?auto=format&fit=crop&w=900&q=80"
+           alt="Cabinet de naturopathie, table de soin et espace chaleureux"
            class="hero-photo" loading="lazy">
     </div>
   </div>
@@ -1330,7 +1325,7 @@ footer {
         <p>Alimentation, micronutrition, Oligoscan : cartographier le terrain pour agir à la source, pas sur le symptôme.</p>
       </div>
       <div class="pilier-card animate-in" style="transition-delay:0.1s">
-        <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80" alt="Kinésiologie séance douce" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
+        <img src="https://images.unsplash.com/photo-1699523229921-ba6253ad0277?auto=format&fit=crop&w=600&q=80" alt="Kinésiologie séance douce sur enfant" style="width:100%;aspect-ratio:3/2;object-fit:cover;object-position:center top;border-radius:var(--radius);margin-bottom:16px;display:block">
         <div class="pilier-keyword">Libérer</div>
         <div class="pilier-icon">🦋</div>
         <h3 class="pilier-title">Kinésiologie</h3>
@@ -1502,7 +1497,7 @@ footer {
       <h2 class="section-title">Votre enfant <em>se reconnaît ici ?</em></h2>
       <p>Les problématiques les plus fréquentes que j'accompagne avec douceur et efficacité.</p>
     </div>
-    <div class="patho-scroll">
+    <div class="patho-grid">
       <div class="patho-card">
         <div class="patho-emoji">✨</div>
         <div class="patho-name">Acné inflammatoire</div>
