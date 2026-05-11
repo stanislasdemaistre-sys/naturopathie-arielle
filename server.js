@@ -73,7 +73,7 @@ app.post('/api/audit-result', express.json(), async (req, res) => {
         <p><strong>Score global :</strong> ${globalScore}/100</p>
         <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/9 · Éclat ${charges.eclat}/9 · Sérénité ${charges.serenite}/9 · Immunité ${charges.immunite}/9 · Confiance ${charges.confiance}/9</p>
         <p><strong>Zones d'alerte :</strong> ${zones.map(z => z.petale + ' (' + z.level + ')').join(', ') || 'aucune'}</p>
-        <p><strong>Suggestion Oligoscan :</strong> ${suggestOligo ? 'oui' : 'non'} · <strong>Kinésiologie :</strong> ${suggestKinesio ? 'oui' : 'non'} · <strong>Réflexologie :</strong> ${suggestReflexo ? 'oui' : 'non'}</p>
+        <p><strong>Réflexologie recommandée :</strong> ${suggestReflexo ? 'oui' : 'non'}</p>
         ${clientEmail ? `<p><strong>Email client :</strong> ${clientEmail}</p>` : '<p><em>Pas d\'email client renseigné</em></p>'}
         <p><em>Réalisé le ${new Date(date).toLocaleString('fr-FR')}</em></p>`
     });
@@ -123,7 +123,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
       <p><strong>Score global :</strong> ${globalScore}/100</p>
       <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/9 · Éclat ${charges.eclat}/9 · Sérénité ${charges.serenite}/9 · Immunité ${charges.immunite}/9 · Confiance ${charges.confiance}/9</p>
       <p><strong>Zones :</strong> ${zones.map(z => z.petale + ' (' + z.level + ')').join(', ') || 'Aucune zone d\'alerte'}</p>
-      <p><strong>Suggestions :</strong> Oligoscan ${suggestOligo ? '✅' : '—'} · Kinésiologie ${suggestKinesio ? '✅' : '—'} · Réflexologie ${suggestReflexo ? '✅' : '—'}</p>
+      <p><strong>Réflexologie :</strong> ${suggestReflexo ? '✅' : '—'}</p>
       <p><em>Réalisé le ${new Date(date).toLocaleString('fr-FR')}</em></p>`;
 
     // Email au client (si email fourni)
@@ -133,7 +133,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
 <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;color:#2C3E3A">
   <div style="background:#1B4D5C;padding:32px;text-align:center">
     <h1 style="color:#FAF7F2;font-size:1.6rem;font-weight:400;margin:0">Horizon &amp; Équilibre</h1>
-    <p style="color:#C4A265;font-size:.85rem;margin:8px 0 0">Naturopathie · Kinésiologie · Réflexologie</p>
+    <p style="color:#C4A265;font-size:.85rem;margin:8px 0 0">Naturopathie · Réflexologie · Fleurs de Bach</p>
   </div>
   <div style="padding:32px;background:#FAF7F2">
     <p>Bonjour ${prenom||''},</p>
@@ -142,11 +142,11 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Analyse de la synthèse</h3>
     <p>Les scores obtenus permettent d'identifier les zones d'équilibre et les points de vigilance qui nécessitent un soutien. Les recommandations mentionnées dans le rapport constituent de premières pistes en hygiène de vie pour accompagner votre enfant au quotidien.</p>
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Prochaines étapes</h3>
-    <p>Ce bilan gagne à être complété par une consultation au cabinet afin de définir un protocole de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et, si vous le souhaitez, réaliser un bilan Oligoscan pour mesurer précisément ses carences minérales et la présence de métaux lourds.</p>
+    <p>Ce bilan gagne à être complété par une consultation au cabinet afin de définir un protocole de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et établir un protocole naturopathique personnalisé.</p>
     <p>Pour toute question ou pour convenir d'un rendez-vous au cabinet de Sainte-Consorce, je vous invite à me contacter directement via le formulaire de mon site :<br>
     <a href="${contactUrl}" style="color:#1B4D5C;font-weight:600">${contactUrl}</a></p>
     <p style="margin-top:32px">Sincères salutations,</p>
-    <p style="font-size:.85rem;color:#5A6E68">Arielle de Maistre<br>Naturopathe · Kinésiologue · Réflexologue<br>Cabinet de Sainte-Consorce (69280)</p>
+    <p style="font-size:.85rem;color:#5A6E68">Arielle de Maistre<br>Naturopathe · Réflexologue<br>Cabinet de Sainte-Consorce (69280)</p>
   </div>
 </div>`;
       await resend.emails.send({

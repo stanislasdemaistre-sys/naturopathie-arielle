@@ -104,7 +104,6 @@
   <a class="sidebar-item"><span class="icon">👨‍👩‍👧</span>Familles</a>
   <a class="sidebar-item" id="navAudits" onclick="showScreen('audits')"><span class="icon">🌿</span>Audits Horizon</a>
   <div class="sidebar-section">Outils</div>
-  <a class="sidebar-item"><span class="icon">🔬</span>Bilans Oligoscan</a>
   <a class="sidebar-item"><span class="icon">🌼</span>Protocoles & Remèdes</a>
   <a class="sidebar-item"><span class="icon">🌸</span>Fleurs de Bach</a>
   <a class="sidebar-item"><span class="icon">📄</span>Fiches Conseils</a>
@@ -116,7 +115,7 @@
 
 <main class="main">
   <div class="main-header">
-    <div><h1 class="main-title" id="mainTitle">Carnet de <em>Cheminement</em></h1><p class="main-subtitle" id="mainSubtitle">Suivi naturopathique global — Oligoscan · Émonctoires · Émotions · Résultats d'audit</p></div>
+    <div><h1 class="main-title" id="mainTitle">Carnet de <em>Cheminement</em></h1><p class="main-subtitle" id="mainSubtitle">Suivi naturopathique global — Émonctoires · Émotions · Résultats d'audit</p></div>
     <div style="display:flex;gap:8px"><button class="btn btn-s" onclick="importAudit()">📥 Importer un audit</button><button class="btn btn-g btn-sm" onclick="toggleNewSeance()">➕ Nouvelle séance</button><button class="btn btn-p" onclick="showSave()">💾 Sauvegarder</button></div>
   </div>
 
@@ -162,9 +161,8 @@
         <select class="seance-select" id="seanceApproche">
           <option value="">Choisir...</option>
           <option value="naturo">Naturopathie</option>
-          <option value="kinesio">Kinésiologie</option>
           <option value="reflexo">Réflexologie</option>
-          <option value="oligo">Oligoscan</option>
+          <option value="fleurs">Fleurs de Bach</option>
         </select>
       </div>
     </div>
@@ -233,23 +231,10 @@
       <div class="emonctoire-grid" id="emonGrid"></div>
     </div>
 
-    <!-- Oligoscan Comparison -->
-    <div class="card">
-      <div class="card-label">Comparaison Oligoscan</div>
-      <div class="card-title">🔬 Superposition T0 → T+3 mois</div>
-      <div class="tabs"><button class="tab active" onclick="switchOTab('min',this)">Minéraux</button><button class="tab" onclick="switchOTab('met',this)">Métaux lourds</button></div>
-      <div id="oligoMin"><div class="oligo-table-wrap"><table class="oligo-table" id="oligoMinTable"></table></div></div>
-      <div id="oligoMet" style="display:none"><div class="oligo-table-wrap"><table class="oligo-table" id="oligoMetTable"></table></div></div>
-      <div style="margin-top:12px;display:flex;gap:8px">
-        <button class="btn btn-sm btn-p" onclick="showSave()">💾 Enregistrer le bilan</button>
-        <button class="btn btn-sm btn-s" onclick="clearOligo()">Réinitialiser</button>
-      </div>
-    </div>
-
     <!-- Emotions -->
     <div class="card">
-      <div class="card-label">Kinésiologie</div>
-      <div class="card-title">🦋 Émotions identifiées en séance</div>
+      <div class="card-label">Émotions</div>
+      <div class="card-title">🌼 Émotions identifiées en séance</div>
       <div class="emotion-tags" id="emoTags"></div>
       <div class="emotion-input"><input id="newEmo" placeholder="Ajouter une émotion..."/><button class="btn btn-sm btn-p" onclick="addEmo()">+</button></div>
     </div>

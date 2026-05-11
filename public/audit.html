@@ -451,23 +451,23 @@ const PETALS = {
     mineraux:['Zinc','Soufre','Sélénium','Potassium']},
   serenite:{label:'Sérénité',icone:'🕊️',bg:'#8FA98B',
     description:"Évalue le niveau de stress et l'état du système nerveux. Ce pétale révèle si l'enfant est envahi par des inquiétudes, des blocages émotionnels ou des tensions somatisées.",
-    solutions:"Kinésiologie (identification et libération des blocages), Fleurs de Bach personnalisées, Réflexologie crânienne ou faciale (lâcher-prise), techniques de respiration.",
+    solutions:"Réflexologie crânienne ou faciale (lâcher-prise), Fleurs de Bach personnalisées, techniques de respiration.",
     mineraux:['Magnésium','Lithium','Phosphore']},
   immunite:{label:'Immunité',icone:'🛡️',bg:'#2A6B7E',
     description:"Représente la résistance globale du terrain et l'état de la flore intestinale. Un système immunitaire fragile est souvent lié à un déséquilibre du microbiote et à des carences minérales.",
-    solutions:"Rééquilibrage alimentaire, probiotiques et prébiotiques, Oligoscan (mesure précise des minéraux et métaux lourds), compléments immunité (Zinc, Vitamine D, Échinacée).",
+    solutions:"Rééquilibrage alimentaire, probiotiques et prébiotiques, bilan naturopathique approfondi, compléments immunité (Zinc, Vitamine D, Échinacée).",
     mineraux:['Zinc','Cuivre','Sélénium','Fer']},
   confiance:{label:'Confiance',icone:'💪',bg:'#6B5B8D',
     description:"Observe l'estime de soi et la capacité à s'affirmer. Le manque de confiance peut être lié à des mémoires émotionnelles, un ancrage insuffisant ou un déséquilibre hormonal.",
-    solutions:"Kinésiologie (travail sur les mémoires du corps), Fleurs de Bach (Larch, Mimulus), Réflexologie faciale (recentrage), huiles essentielles d'ancrage (Laurier noble).",
+    solutions:"Réflexologie faciale (recentrage), Fleurs de Bach (Larch, Mimulus), huiles essentielles d'ancrage (Laurier noble).",
     mineraux:['Iode','Zinc','Fer']}
 };
 
 const SUGGESTION = {
   eclat:'Ses émonctoires (foie, peau, intestins) semblent surchargés. Un drainage naturopathique et une séance de Réflexologie plantaire détox sont recommandés.',
-  immunite:'Son terrain immunitaire est fragile. Un bilan Oligoscan permettrait de mesurer précisément les carences minérales et la présence de métaux lourds.',
-  serenite:'Son système nerveux est sous tension. Une séance de Kinésiologie et un protocole Fleurs de Bach pourraient identifier et libérer les blocages émotionnels.',
-  confiance:"L'estime de soi a besoin d'être nourrie. La Kinésiologie et la Réflexologie faciale l'aideraient à retrouver son ancrage.",
+  immunite:'Son terrain immunitaire est fragile. Un bilan naturopathique approfondi permettrait d\'identifier les carences et de proposer un protocole de rééquilibrage ciblé.',
+  serenite:'Son système nerveux est sous tension. La Réflexologie crânienne et un protocole Fleurs de Bach pourraient accompagner le relâchement des tensions émotionnelles.',
+  confiance:"L'estime de soi a besoin d'être nourrie. La Réflexologie faciale et les Fleurs de Bach l'aideraient à retrouver son ancrage.",
   sommeil:'La qualité du sommeil impacte tout le reste. Un ajustement des rythmes de vie et une séance de Réflexologie palmaire apporteraient un réconfort immédiat.'
 };
 
@@ -608,20 +608,16 @@ function showResults(){
           return`<div class="alert-item level-${l}"><div class="alert-dot"></div><div class="alert-text">
             <h4>${p.icone} ${p.label} · ${s}/100 · ${st}</h4><p>${adv}</p></div></div>`;}).join('')}</div>`:''}
 
-      ${needOligo?`<div class="oligo-suggestion"><h3>🔬 Bilan Oligoscan recommandé</h3>
-        <p>${isAdult()?`Tes pétales Éclat et/ou Immunité indiquent un terrain déséquilibré, ${state.childName}.`:`Les pétales Éclat et/ou Immunité ${el}${state.childName} indiquent un terrain déséquilibré.`} L'Oligoscan mesure en 30 secondes l'état de 20 minéraux et 14 métaux lourds pour un protocole de reminéralisation précis.</p>
-        <div class="oligo-minerals">${mins.slice(0,8).map(m=>`<span class="mineral-tag">${m}</span>`).join('')}</div>
-        <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous pour un Oligoscan</button></div>`:''}
 
-      ${needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#6B5B8D,#1B4D5C)"><h3>🦋 Kinésiologie et Fleurs de Bach</h3>
-        <p>${isAdult()?`Tes pétales Sérénité et/ou Confiance révèlent des tensions émotionnelles, ${state.childName}.`:`Les pétales Sérénité et/ou Confiance ${el}${state.childName} révèlent des tensions émotionnelles.`} La Kinésiologie permet d'identifier les blocages et les Fleurs de Bach accompagnent le rééquilibrage en douceur.</p>
-        <button class="btn btn-gold" onclick="window.location='/methode'">Découvrir la Kinésiologie</button></div>`:''}
+      ${needKinesio?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#6B5B8D,#1B4D5C)"><h3>🌼 Fleurs de Bach & Réflexologie</h3>
+        <p>${isAdult()?`Tes pétales Sérénité et/ou Confiance révèlent des tensions émotionnelles, ${state.childName}.`:`Les pétales Sérénité et/ou Confiance ${el}${state.childName} révèlent des tensions émotionnelles.`} Les Fleurs de Bach accompagnent le rééquilibrage émotionnel en douceur, et la Réflexologie crânienne ou faciale favorise le lâcher-prise.</p>
+        <button class="btn btn-gold" onclick="window.location='/methode'">Découvrir la méthode</button></div>`:''}
 
       ${needReflexo?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,#2E7D7A,#1B4D5C)"><h3>🌿 Réflexologie recommandée</h3>
         <p>${isAdult()?`Tes résultats indiquent un besoin de drainage et/ou de récupération, ${state.childName}.`:`Les résultats ${el}${state.childName} indiquent un besoin de drainage et/ou de récupération.`}${charges.eclat>=3?' La Réflexologie plantaire accompagne le drainage naturel du foie et des intestins.':''}${charges.sommeil>=3?' La Réflexologie palmaire apporte un réconfort immédiat et améliore la qualité du sommeil.':''}</p>
         <button class="btn btn-gold" onclick="window.location='/contact'">Prendre rendez-vous</button></div>`:''}
 
-      ${!needOligo&&!needKinesio&&!needReflexo?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
+      ${!needKinesio&&!needReflexo?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
         <p>${isAdult()?`Tu montres un bel équilibre global, ${state.childName}.`:`${state.childName} montre un bel équilibre global.`} Un suivi naturopathique léger permettrait de consolider cette dynamique.</p>
         <button class="btn btn-gold" onclick="window.location='/audit';resetAudit()">Découvrir nos accompagnements</button></div>`:''}
 
@@ -710,7 +706,7 @@ function generatePDF(){
   doc.setFont('times','bold');doc.setFontSize(19);doc.setTextColor(...CR);
   doc.text('Horizon & Équilibre',MX,17);
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...DO);
-  doc.text('Naturopathie · Kinésiologie · Réflexologie · Fleurs de Bach',MX,25);
+  doc.text('Naturopathie · Réflexologie · Fleurs de Bach',MX,25);
   doc.setTextColor(170,205,205);doc.setFontSize(7.5);
   doc.text(new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}),W-MX,17,{align:'right'});
 
@@ -832,12 +828,12 @@ function generatePDF(){
   if(ch.serenite>=3||ch.confiance>=3)terrainRows.push([
     'Sérénité & Émotions',
     'Tensions émotionnelles détectées',
-    'Kinésiologie · Fleurs de Bach · Réflexologie crânio-faciale'
+    'Fleurs de Bach · Réflexologie crânienne ou faciale'
   ]);
   if(ch.immunite>=3)terrainRows.push([
     'Immunité & Minéraux',
     'Terrain immunitaire fragilisé',
-    'Oligoscan (minéraux & métaux) · Zinc · Vitamine D'
+    'Bilan naturopathique approfondi · Zinc · Vitamine D'
   ]);
   if(!terrainRows.length)terrainRows.push([
     'Terrain global',
@@ -899,7 +895,7 @@ function generatePDF(){
   doc.setFont('times','bold');doc.setFontSize(10);doc.setTextColor(...BP);
   doc.text('Horizon & Équilibre',MX,fY+7);
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
-  doc.text('Arielle de Maistre — Naturopathe certifiée FEDE · Réflexologue QUALIOPI · Kinésiologue',MX,fY+12);
+  doc.text('Arielle de Maistre — Naturopathe certifiée FEDE · Réflexologue QUALIOPI',MX,fY+12);
   doc.text('Cabinet de Sainte-Consorce (69280) · +33 6 51 14 07 26 · arielle.de.maistre@gmail.com',MX,fY+17);
   doc.setFillColor(...DO);doc.roundedRect(W-MX-52,fY+4,50,12,3,3,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...BPD);
