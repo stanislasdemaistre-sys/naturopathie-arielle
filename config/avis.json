@@ -1,0 +1,14 @@
+{
+  "afficherBlocAvis": false,
+  "note": 5.0,
+  "nombreAvis": 0,
+  "urlGoogleBusiness": "",
+  "avis": [
+    {
+      "auteur": "Prénom N.",
+      "note": 5,
+      "date": "2025-09-01",
+      "texte": "Placeholder — à remplacer par un vrai avis."
+    }
+  ]
+}

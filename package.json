@@ -13,5 +13,8 @@
     "nodemailer": "^8.0.2",
     "prisma": "^5.0.0",
     "resend": "^6.9.4"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

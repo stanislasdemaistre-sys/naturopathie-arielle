@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — Horizon & Équilibre</title>
+<title>Contact — Horizon & Équilibre · Naturopathie à Sainte-Consorce</title>
+<meta name="description" content="Contactez Arielle de Maistre, naturopathe et réflexologue à Sainte-Consorce (Lyon). Réponse personnelle sous 48 h.">
+<meta property="og:title" content="Contact — Horizon & Équilibre">
+<meta property="og:description" content="Posez votre question ou prenez rendez-vous avec Arielle de Maistre, naturopathe à Sainte-Consorce (Lyon).">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
@@ -107,8 +112,8 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
       <li><a href="/about">À propos</a></li>
       <li><a href="/methode">Méthode</a></li>
       <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
-      <li><a href="/audit">Bilan Santé</a></li>
-      <li><a href="/guides">Guides Pratiques</a></li>
+      <li><a href="/audit">Bilan Horizon Santé</a></li>
+      <li><a href="/publications">Publications</a></li>
       <li><a href="/contact" class="nav-active">Contact</a></li>
     </ul>
     <button class="nav-mobile-toggle" aria-label="Menu">
@@ -126,6 +131,11 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
 
   <div class="contact-card">
     <form id="contactForm" novalidate>
+      <!-- Honeypot anti-spam (caché) -->
+      <div style="display:none" aria-hidden="true">
+        <label for="website">Ne pas remplir</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
       <div class="form-grid">
         <div class="form-group">
           <label for="prenom">Prénom *</label>
@@ -136,15 +146,20 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
           <input type="email" id="email" name="email" placeholder="Ex : sophie@email.com" required>
         </div>
         <div class="form-group">
+          <label for="tel">Téléphone</label>
+          <input type="tel" id="tel" name="tel" placeholder="Ex : 06 12 34 56 78">
+        </div>
+        <div class="form-group">
           <label for="ageEnfant">Âge de l'enfant / adolescent</label>
           <select id="ageEnfant" name="ageEnfant">
             <option value="">Non concerné</option>
+            <option>Nourrisson (0-2 ans)</option>
             <option>3-5 ans</option>
             <option>6-8 ans</option>
             <option>9-11 ans</option>
             <option>12-14 ans</option>
             <option>15-17 ans</option>
-            <option>18-25 ans</option>
+            <option>18 ans et plus</option>
           </select>
         </div>
         <div class="form-group">
@@ -160,6 +175,12 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
         <div class="form-group full">
           <label for="message">Message *</label>
           <textarea id="message" name="message" placeholder="Décrivez votre situation ou posez votre question…" required></textarea>
+        </div>
+        <div class="form-group full">
+          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.88rem;color:#2C3E3A;font-weight:400">
+            <input type="checkbox" id="consentement" name="consentement" required style="margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:#1B4D5C">
+            <span>J'accepte que les informations transmises soient utilisées pour répondre à ma demande. Aucune donnée n'est partagée avec des tiers. *</span>
+          </label>
         </div>
       </div>
 
@@ -184,7 +205,7 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
     <div class="footer-grid">
       <div class="footer-brand">
         <span class="logo-text">Horizon & Équilibre</span>
-        <p>Un accompagnement global et doux pour les enfants, adolescents et jeunes adultes par Arielle de Maistre.</p>
+        <p>Un accompagnement global et doux pour les enfants, adolescents et adultes par Arielle de Maistre.</p>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
@@ -215,7 +236,7 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
         <p>© 2026 Horizon & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
         <div style="display:flex;align-items:center;gap:16px">
-          <a href="/mentions" style="color:rgba(250,247,242,.5);text-decoration:none;font-size:.78rem">Mentions légales</a>
+          <span style="color:rgba(250,247,242,.5);font-size:.78rem">Mentions légales</span>
         </div>
       </div>
     </div>
@@ -230,15 +251,20 @@ const errorMsg = document.getElementById('errorMsg');
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
+  // Honeypot check
+  if (document.getElementById('website').value) return;
+
   const prenom = document.getElementById('prenom').value.trim();
   const email = document.getElementById('email').value.trim();
   const objet = document.getElementById('objet').value;
   const message = document.getElementById('message').value.trim();
+  const consentement = document.getElementById('consentement').checked;
 
-  if (!prenom || !email || !objet || !message) {
+  if (!prenom || !email || !objet || !message || !consentement) {
     [document.getElementById('prenom'), document.getElementById('email'),
      document.getElementById('objet'), document.getElementById('message')]
       .forEach(el => { if (!el.value.trim()) el.style.borderColor = '#D4786A'; });
+    if (!consentement) document.getElementById('consentement').style.outline = '2px solid #D4786A';
     return;
   }
 
@@ -253,9 +279,11 @@ form.addEventListener('submit', async e => {
       body: JSON.stringify({
         prenom,
         email,
+        tel: document.getElementById('tel').value.trim() || null,
         ageEnfant: document.getElementById('ageEnfant').value || null,
         objet,
-        message
+        message,
+        consentement
       })
     });
     const data = await res.json();
@@ -297,5 +325,6 @@ function handleMq(e) {
 mq.addEventListener('change', handleMq);
 handleMq(mq);
 </script>
+<script src="/shared.js"></script>
 </body>
 </html>
