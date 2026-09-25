@@ -57,8 +57,10 @@ function loadAvis() {
   catch { return { afficherBlocAvis: false, note: 5.0, nombreAvis: 0, urlGoogleBusiness: '', avis: [] }; }
 }
 
-// ─── Static files ──────────────────────────────────────────────────────────
-app.use(express.static(path.join(__dirname, 'public')));
+// ─── Static files (images, CSS, JS — hors HTML) ───────────────────────────
+// NOTE : déclaré APRÈS les routes HTML pour que buildPage() soit prioritaire.
+// Express static est ici uniquement pour servir les assets (images, style.css…)
+// Il sera également enregistré après toutes les routes (voir bas de fichier).
 
 // Serve jsPDF locally (évite dépendance CDN)
 app.get('/jspdf.min.js', (req, res) => {
@@ -293,6 +295,10 @@ app.post('/api/contact', express.json(), async (req, res) => {
     res.status(500).json({ ok: false });
   }
 });
+
+// ─── Static files — après les routes HTML ─────────────────────────────────
+// CSS, JS, images, SVG, favicons, etc.
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
