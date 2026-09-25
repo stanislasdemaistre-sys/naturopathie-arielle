@@ -66,8 +66,10 @@ body {
 
 /* Publication cards */
 .pub-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; margin-top: 48px; }
-.pub-card { background: var(--blanc, #FFF); border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 16px; border: 1px solid rgba(27,77,92,0.07); transition: transform 0.3s, box-shadow 0.3s; }
+.pub-card { background: var(--blanc, #FFF); border-radius: 20px; padding: 0; overflow: hidden; display: flex; flex-direction: column; gap: 0; border: 1px solid rgba(27,77,92,0.07); transition: transform 0.3s, box-shadow 0.3s; }
 .pub-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(27,77,92,0.1); }
+.pub-card-img-wrap { overflow: hidden; border-radius: 20px 20px 0 0; }
+.pub-card-body { padding: 24px 24px 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
 .pub-meta { display: flex; gap: 16px; font-size: 0.72rem; color: var(--dore, #C4A265); text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
 .pub-title { font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif); font-size: 1.3rem; font-weight: 400; color: var(--bleu-petrole, #1B4D5C); line-height: 1.3; }
 .pub-chapo { font-size: 0.88rem; color: var(--texte-light, #5A6E68); line-height: 1.75; flex: 1; }
@@ -133,6 +135,16 @@ document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
 (function() {
   var grid = document.getElementById('articles-grid');
   if (!grid) return;
+
+  // Mapping slug → photo
+  var PHOTOS = {
+    'peau-adolescence':    { src: '/naturo-6.jpg',           alt: 'Prairie fleurie, illustrant la peau et le renouveau',              w: 1400, h: 933 },
+    'immunite-enfant':     { src: '/reflexo-plantaire.jpg',  alt: 'Séance de réflexologie plantaire pour enfant',                     w: 900,  h: 1349 },
+    'energie-adulte':      { src: '/fleurs-de-bach-1.jpg',   alt: 'Fleurs de Bach pour soutenir la vitalité',                         w: 1400, h: 2100 },
+    'systeme-nerveux':     { src: '/reflexo-cranienne-2.jpg',alt: 'Séance de réflexologie crânienne, apaisement du système nerveux',  w: 1400, h: 2100 },
+    'inconforts-quotidien':{ src: '/naturo-3.jpg',           alt: 'Plantes médicinales pour les inconforts du quotidien',             w: 900,  h: 600 }
+  };
+
   fetch('/articles.json')
     .then(function(r) { return r.json(); })
     .then(function(articles) {
@@ -148,11 +160,18 @@ document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
         var d = new Date(a.date + 'T00:00:00');
         var dateStr = d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
         var delay = (i * 0.08).toFixed(2);
+        var photo = PHOTOS[a.slug];
+        var photoHtml = photo
+          ? '<div class="pub-card-img-wrap"><img src="' + photo.src + '" alt="' + photo.alt + '" width="' + photo.w + '" height="' + photo.h + '" loading="lazy" style="width:100%;height:180px;object-fit:cover;border-radius:16px 16px 0 0;display:block"></div>'
+          : '';
         return '<article class="pub-card animate-in" style="transition-delay:' + delay + 's">' +
+          photoHtml +
+          '<div class="pub-card-body">' +
           '<div class="pub-meta"><span class="pub-date">' + dateStr + '</span><span class="pub-read">' + a.duree + ' de lecture</span></div>' +
           '<h2 class="pub-title">' + a.titre + '</h2>' +
           '<p class="pub-chapo">' + a.chapeau + '</p>' +
           '<a href="/publications/' + a.slug + '" class="pub-link">Lire l\'article</a>' +
+          '</div>' +
           '</article>';
       }).join('');
       document.querySelectorAll('#articles-grid .animate-in').forEach(function(el) {

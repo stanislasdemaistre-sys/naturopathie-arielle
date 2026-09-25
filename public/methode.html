@@ -319,10 +319,30 @@
   flex-shrink: 0;
 }
 
+/* ─── NATURO INTRO 2 COLONNES ─── */
+.naturo-intro-cols {
+  display: flex;
+  gap: 56px;
+  align-items: flex-start;
+}
+.naturo-intro-text { flex: 1; }
+.naturo-intro-photo { flex: 0 0 400px; }
+
+/* ─── BACH 2 COLONNES ─── */
+.bach-cols {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+.bach-cols-photo { flex: 0 0 360px; }
+.bach-cols-content { flex: 1; }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
   .tools-grid { grid-template-columns: repeat(2, 1fr); }
   .reflex-rubriques { grid-template-columns: 1fr; }
+  .naturo-intro-photo { flex: 0 0 300px; }
+  .bach-cols-photo { flex: 0 0 280px; }
 }
 @media (max-width: 768px) {
   .intro-grid { grid-template-columns: 1fr; }
@@ -332,6 +352,12 @@
   .tab-section { padding: 56px 0; }
   .bach-band { padding: 60px 0; }
   .reflex-photo { height: 220px; }
+  .naturo-intro-cols { flex-direction: column; }
+  .naturo-intro-photo { flex: none; width: 100%; }
+  .naturo-intro-photo img { height: 220px !important; }
+  .bach-cols { flex-direction: column; }
+  .bach-cols-photo { flex: none; width: 100%; }
+  .bach-cols-photo img { height: 220px !important; }
 }
 </style>
 </head>
@@ -387,9 +413,20 @@
   <!-- Introduction terrain -->
   <section class="tab-section tab-section-alt">
     <div class="container">
-      <div class="section-label">La naturopathie</div>
-      <h2 class="section-title">Comprendre le <em>terrain</em></h2>
-      <p class="section-intro">La naturopathie est une approche globale qui considère l'être humain dans sa totalité : corps, émotions, mode de vie. Elle cherche à identifier les déséquilibres qui freinent la vitalité et à soutenir les ressources naturelles d'autorégulation de l'organisme. Ce n'est pas une médecine de symptômes, c'est une lecture du terrain. Plutôt que de supprimer ce qui se voit, la praticienne accompagne la personne vers les conditions qui permettent à son corps de retrouver son équilibre. Une approche de prévention, complémentaire à la médecine, adaptée à tous les âges.</p>
+      <div class="naturo-intro-cols">
+        <div class="naturo-intro-text">
+          <div class="section-label">La naturopathie</div>
+          <h2 class="section-title">Comprendre le <em>terrain</em></h2>
+          <p class="section-intro">La naturopathie est une approche globale qui considère l'être humain dans sa totalité : corps, émotions, mode de vie. Elle cherche à identifier les déséquilibres qui freinent la vitalité et à soutenir les ressources naturelles d'autorégulation de l'organisme. Ce n'est pas une médecine de symptômes, c'est une lecture du terrain. Plutôt que de supprimer ce qui se voit, la praticienne accompagne la personne vers les conditions qui permettent à son corps de retrouver son équilibre. Une approche de prévention, complémentaire à la médecine, adaptée à tous les âges.</p>
+        </div>
+        <div class="naturo-intro-photo">
+          <img src="/naturo-2.jpg"
+               alt="Plantes et compléments utilisés en naturopathie"
+               width="400" height="320"
+               loading="lazy"
+               style="width:100%;height:320px;object-fit:cover;object-position:center top;border-radius:24px;box-shadow:0 12px 32px rgba(15,53,64,0.10)">
+        </div>
+      </div>
     </div>
   </section>
 
@@ -447,17 +484,28 @@
   <!-- Fleurs de Bach — bande sombre -->
   <section class="bach-band">
     <div class="container">
-      <div class="section-label">Fleurs de Bach</div>
-      <h2 class="bach-title">Les Fleurs de Bach</h2>
-      <p class="bach-text">Mises au point dans les années 1930 par le médecin Edward Bach, les élixirs floraux sont 38 préparations à base de fleurs sauvages. Chacune correspond à un état émotionnel précis. Ils ne visent pas les symptômes physiques mais l'état intérieur : la peur du lendemain, le découragement face à un effort long, la difficulté à poser des limites, la surcharge émotionnelle. En naturopathie, ils sont utilisés en complément des autres outils pour aider la personne à traverser une période difficile ou à stabiliser une réaction émotionnelle récurrente. Doux, sans contre-indication propre, ils s'intègrent facilement dans les programmes des enfants comme des adultes.</p>
-      <div class="bach-pastilles">
-        <span class="bach-pastille">Crainte</span>
-        <span class="bach-pastille">Incertitude</span>
-        <span class="bach-pastille">Manque d'intérêt pour le présent</span>
-        <span class="bach-pastille">Solitude</span>
-        <span class="bach-pastille">Hypersensibilité</span>
-        <span class="bach-pastille">Découragement</span>
-        <span class="bach-pastille">Souci excessif des autres</span>
+      <div class="bach-cols">
+        <div class="bach-cols-photo">
+          <img src="/fleurs-de-bach-2.jpg"
+               alt="Fleurs de Bach, élixirs floraux pour l'équilibre émotionnel"
+               width="380" height="300"
+               loading="lazy"
+               style="width:100%;height:300px;object-fit:cover;object-position:center;border-radius:24px;border:2px solid var(--dore);box-shadow:0 12px 32px rgba(15,53,64,0.30);flex-shrink:0">
+        </div>
+        <div class="bach-cols-content">
+          <div class="section-label">Fleurs de Bach</div>
+          <h2 class="bach-title">Les Fleurs de Bach</h2>
+          <p class="bach-text">Mises au point dans les années 1930 par le médecin Edward Bach, les élixirs floraux sont 38 préparations à base de fleurs sauvages. Chacune correspond à un état émotionnel précis. Ils ne visent pas les symptômes physiques mais l'état intérieur : la peur du lendemain, le découragement face à un effort long, la difficulté à poser des limites, la surcharge émotionnelle. En naturopathie, ils sont utilisés en complément des autres outils pour aider la personne à traverser une période difficile ou à stabiliser une réaction émotionnelle récurrente. Doux, sans contre-indication propre, ils s'intègrent facilement dans les programmes des enfants comme des adultes.</p>
+          <div class="bach-pastilles">
+            <span class="bach-pastille">Crainte</span>
+            <span class="bach-pastille">Incertitude</span>
+            <span class="bach-pastille">Manque d'intérêt pour le présent</span>
+            <span class="bach-pastille">Solitude</span>
+            <span class="bach-pastille">Hypersensibilité</span>
+            <span class="bach-pastille">Découragement</span>
+            <span class="bach-pastille">Souci excessif des autres</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -501,7 +549,7 @@
 
       <!-- Sous-onglet Plantaire -->
       <div id="sub-plantaire" class="sub-tab-content active">
-        <img src="/reflexo%20plantaire.jpg" alt="Réflexologie plantaire, séance sur les pieds" class="reflex-photo" loading="lazy">
+        <img src="/reflexo-plantaire.jpg" alt="Réflexologie plantaire, soin des pieds pour rééquilibrer le corps" width="900" height="1349" loading="lazy" class="reflex-photo" style="width:100%;height:240px;object-fit:cover;border-radius:24px;box-shadow:0 12px 32px rgba(15,53,64,0.10);display:block;margin-bottom:24px">
         <p class="reflex-intro">La réflexologie plantaire est la forme la plus connue. La totalité du corps se retrouve cartographiée sur la plante des pieds. Des pressions précises exercées sur ces zones permettent d'agir à distance sur les organes et les fonctions correspondantes, sans toucher directement les zones concernées.</p>
         <div class="reflex-rubriques">
           <div class="reflex-rubrique">
@@ -533,7 +581,7 @@
 
       <!-- Sous-onglet Palmaire -->
       <div id="sub-palmaire" class="sub-tab-content">
-        <img src="/reflexo%20palmaire.jpg" alt="Réflexologie palmaire, séance sur les mains" class="reflex-photo" loading="lazy">
+        <img src="/reflexo-palmaire.jpg" alt="Réflexologie palmaire, travail sur les mains pour soutenir l'équilibre" width="900" height="1350" loading="lazy" class="reflex-photo" style="width:100%;height:240px;object-fit:cover;border-radius:24px;box-shadow:0 12px 32px rgba(15,53,64,0.10);display:block;margin-bottom:24px">
         <p class="reflex-intro">La réflexologie palmaire travaille sur les mains, qui portent une carte réflexe similaire à celle des pieds. Elle est particulièrement adaptée lorsque les pieds sont inaccessibles ou douloureux, et appréciée pour son accessibilité : certaines pressions peuvent ensuite être pratiquées en autonomie.</p>
         <div class="reflex-rubriques">
           <div class="reflex-rubrique">
@@ -565,7 +613,7 @@
 
       <!-- Sous-onglet Faciale -->
       <div id="sub-faciale" class="sub-tab-content">
-        <img src="/reflexo-faciale.jpg" alt="Réflexologie faciale, séance sur le visage" class="reflex-photo" loading="lazy">
+        <img src="/reflexo-faciale.jpg" alt="Réflexologie faciale, pressions douces sur le visage pour relâcher les tensions" width="900" height="600" loading="lazy" class="reflex-photo" style="width:100%;height:240px;object-fit:cover;border-radius:24px;box-shadow:0 12px 32px rgba(15,53,64,0.10);display:block;margin-bottom:24px">
         <p class="reflex-intro">La réflexologie faciale (méthode Dien Chan ou réflexologie faciale occidentale) travaille sur les zones réflexes du visage. Très précise, elle agit sur les tensions de la tête, les sinus, les yeux, et favorise un profond lâcher-prise. Elle est particulièrement appréciée des personnes sujettes aux migraines ou aux troubles du sommeil.</p>
         <div class="reflex-rubriques">
           <div class="reflex-rubrique">
@@ -597,7 +645,7 @@
 
       <!-- Sous-onglet Crânienne -->
       <div id="sub-cranienne" class="sub-tab-content">
-        <img src="/Reflexo%20cranienne.jpg" alt="Réflexologie crânienne, séance sur le crâne" class="reflex-photo" loading="lazy">
+        <img src="/reflexo-cranienne.jpg" alt="Réflexologie crânienne, toucher apaisant sur le cuir chevelu" width="900" height="600" loading="lazy" class="reflex-photo" style="width:100%;height:240px;object-fit:cover;border-radius:24px;box-shadow:0 12px 32px rgba(15,53,64,0.10);display:block;margin-bottom:24px">
         <p class="reflex-intro">La réflexologie crânienne agit sur les zones réflexes du cuir chevelu. Elle mobilise le système nerveux central, favorise la circulation et procure une détente très profonde. Elle est souvent décrite comme la technique la plus apaisante, avec des effets rapides sur le stress et les tensions mentales.</p>
         <div class="reflex-rubriques">
           <div class="reflex-rubrique">

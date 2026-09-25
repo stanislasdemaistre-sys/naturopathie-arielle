@@ -282,8 +282,15 @@
   hyphens: auto;
 }
 
+/* ─── PAGE HERO 2 COLONNES ─── */
+.page-hero .container { display: flex; align-items: center; gap: 64px; }
+.page-hero-inner { flex: 1; }
+.page-hero-photo { flex: 0 0 420px; }
+
 /* ─── RESPONSIVE ─── */
 @media (max-width: 1024px) {
+  .page-hero-photo { display: none; }
+  .page-hero .container { display: block; }
   .tarifs-grid { grid-template-columns: repeat(2, 1fr); }
   .deroulement-grid { grid-template-columns: repeat(2, 1fr); }
   .forfaits-inner { grid-template-columns: 1fr 1fr; }
@@ -309,6 +316,13 @@
       <div class="page-hero-badge">Cabinet · Visio · Domicile</div>
       <h1>Tarifs &amp; <em>Accompagnement</em></h1>
       <p class="page-hero-sub">Des séances pensées sur la durée, avec préparation et compte-rendu inclus. Transparence tarifaire, relation de confiance.</p>
+    </div>
+    <div class="page-hero-photo" aria-hidden="true">
+      <img src="/naturo-3.jpg"
+           alt="Plantes médicinales utilisées en naturopathie"
+           width="480" height="320"
+           loading="eager" fetchpriority="high"
+           style="width:100%;height:360px;object-fit:cover;object-position:center;border-radius:24px;opacity:0.85;box-shadow:0 12px 32px rgba(15,53,64,0.25)">
     </div>
   </div>
 </section>

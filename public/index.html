@@ -89,6 +89,17 @@
 .section-pourquoi {
   background: var(--blanc);
 }
+.pourquoi-layout {
+  display: flex;
+  gap: 56px;
+  align-items: flex-start;
+}
+.pourquoi-photo {
+  flex: 0 0 380px;
+}
+.pourquoi-content {
+  flex: 1;
+}
 .cards-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -146,6 +157,35 @@
 }
 .section-dark-petrole .dark-body p:last-child {
   margin-bottom: 0;
+}
+
+/* ── SIGNATURE BAND ── */
+.signature-band {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  padding: 20px 24px;
+  background: var(--blanc);
+  border-radius: 16px;
+  border-left: 3px solid var(--dore);
+}
+.signature-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--petrole);
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+.signature-name {
+  font-size: 0.78rem;
+  color: var(--texte-doux);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+@media (max-width: 480px) {
+  .signature-band { flex-direction: column; text-align: center; }
 }
 
 /* ── POUR QUI ── */
@@ -240,6 +280,18 @@
   .hero-photo img {
     height: 380px;
   }
+  .pourquoi-layout {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .pourquoi-photo {
+    flex: none;
+    width: 100%;
+  }
+  .pourquoi-photo img {
+    height: 280px !important;
+    max-height: 280px !important;
+  }
   .cards-3 {
     grid-template-columns: 1fr;
   }
@@ -277,20 +329,31 @@
 <!-- 2. POURQUOI CONSULTER -->
 <section class="section section-pourquoi">
   <div class="container">
-    <p class="section-label">Naturopathie &amp; réflexologie</p>
-    <h2 class="section-title">Quand le corps envoie des signaux qu'on ne peut plus ignorer</h2>
-    <div class="cards-3">
-      <div class="card-signal">
-        <h3>Votre enfant tombe souvent malade</h3>
-        <p>Rhumes, otites, gastros : quand les épisodes s'enchaînent, c'est le terrain qui demande à être soutenu.</p>
+    <div class="pourquoi-layout">
+      <div class="pourquoi-photo">
+        <img src="/reflexo-plantaire.jpg"
+             alt="Séance de réflexologie plantaire, mains accompagnant les pieds"
+             width="450" height="675"
+             loading="lazy"
+             style="width:100%;height:100%;max-height:680px;object-fit:cover;object-position:center;border-radius:24px;box-shadow:0 12px 32px rgba(15,53,64,0.10)">
       </div>
-      <div class="card-signal">
-        <h3>Vous êtes épuisé sans raison apparente</h3>
-        <p>Dormir ne suffit plus. L'énergie ne remonte pas. La naturopathie cherche ce qui freine la vitalité en profondeur.</p>
-      </div>
-      <div class="card-signal">
-        <h3>Les analyses sont normales, mais rien ne va</h3>
-        <p>Les marqueurs médicaux sont bons, pourtant quelque chose ne va pas. C'est précisément là qu'une lecture du terrain naturopathique prend tout son sens.</p>
+      <div class="pourquoi-content">
+        <p class="section-label">Naturopathie &amp; réflexologie</p>
+        <h2 class="section-title">Quand le corps envoie des signaux qu'on ne peut plus ignorer</h2>
+        <div class="cards-3">
+          <div class="card-signal">
+            <h3>Votre enfant tombe souvent malade</h3>
+            <p>Rhumes, otites, gastros : quand les épisodes s'enchaînent, c'est le terrain qui demande à être soutenu.</p>
+          </div>
+          <div class="card-signal">
+            <h3>Vous êtes épuisé sans raison apparente</h3>
+            <p>Dormir ne suffit plus. L'énergie ne remonte pas. La naturopathie cherche ce qui freine la vitalité en profondeur.</p>
+          </div>
+          <div class="card-signal">
+            <h3>Les analyses sont normales, mais rien ne va</h3>
+            <p>Les marqueurs médicaux sont bons, pourtant quelque chose ne va pas. C'est précisément là qu'une lecture du terrain naturopathique prend tout son sens.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -313,6 +376,17 @@
   <div class="container">
     <p class="section-label">Accompagnements</p>
     <h2 class="section-title">Pour qui ?</h2>
+    <div class="signature-band">
+      <img src="/arielle.jpg"
+           alt="Arielle de Maistre, naturopathe et réflexologue"
+           width="96" height="96"
+           loading="lazy"
+           style="width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--dore);flex-shrink:0">
+      <div class="signature-text">
+        <p class="signature-quote">« Le corps possède des ressources ; mon rôle est de l'aider à les mobiliser. »</p>
+        <p class="signature-name">Arielle de Maistre</p>
+      </div>
+    </div>
     <div class="cards-4">
       <div class="card-public">
         <span class="card-age">0 à 3 ans</span>
