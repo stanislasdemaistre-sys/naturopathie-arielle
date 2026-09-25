@@ -149,6 +149,17 @@ a { color: inherit; }
   border-color: var(--creme);
 }
 
+/* Secondaire sur fond beige (contour doré) */
+.btn-s.on-creme {
+  color: var(--dore-texte);
+  border-color: var(--dore);
+}
+.btn-s.on-creme:hover {
+  background: var(--dore);
+  color: var(--petrole-fonce);
+  border-color: var(--dore);
+}
+
 /* Lien texte */
 .btn-link {
   padding: 0;
@@ -290,26 +301,26 @@ a { color: inherit; }
   padding: 88px 0;
 }
 .site-cta-card {
-  background: var(--petrole-fonce);
+  background: var(--creme);
   border-radius: var(--radius-lg);
   padding: 56px 64px;
   text-align: center;
   max-width: 760px;
   margin: 0 auto;
-  border: 1px solid rgba(196,162,101,0.15);
+  border: 1px solid rgba(196,162,101,0.25);
 }
 .site-cta-title {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   font-weight: 400;
-  color: var(--creme);
+  color: var(--petrole);
   margin-bottom: 14px;
   line-height: 1.2;
 }
-.site-cta-title em { font-style: italic; color: var(--dore-clair); }
+.site-cta-title em { font-style: italic; color: var(--dore-texte); }
 .site-cta-text {
   font-size: 0.97rem;
-  color: rgba(250,247,242,0.72);
+  color: var(--texte-doux);
   line-height: 1.75;
   margin-bottom: 36px;
   max-width: 440px;
