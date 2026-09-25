@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carnet de Cheminement — Flux & Équilibre CRM</title>
+<title>Carnet de Cheminement | Flux & Équilibre CRM</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:16px;--rs:10px;--rl:24px}
@@ -104,7 +104,7 @@
   <a class="sidebar-item"><span class="icon">👨‍👩‍👧</span>Familles</a>
   <a class="sidebar-item" id="navAudits" onclick="showScreen('audits')"><span class="icon">🌿</span>Audits Horizon</a>
   <div class="sidebar-section">Outils</div>
-  <a class="sidebar-item"><span class="icon">🌼</span>Protocoles & Remèdes</a>
+  <a class="sidebar-item"><span class="icon">🌼</span>Programmes & Remèdes</a>
   <a class="sidebar-item"><span class="icon">🌸</span>Fleurs de Bach</a>
   <a class="sidebar-item"><span class="icon">📄</span>Fiches Conseils</a>
   <div class="sidebar-section">Boutique</div>
@@ -115,14 +115,14 @@
 
 <main class="main">
   <div class="main-header">
-    <div><h1 class="main-title" id="mainTitle">Carnet de <em>Cheminement</em></h1><p class="main-subtitle" id="mainSubtitle">Suivi naturopathique global — Émonctoires · Émotions · Résultats d'audit</p></div>
+    <div><h1 class="main-title" id="mainTitle">Carnet de <em>Cheminement</em></h1><p class="main-subtitle" id="mainSubtitle">Suivi naturopathique global : Émonctoires · Émotions · Résultats d'audit</p></div>
     <div style="display:flex;gap:8px"><button class="btn btn-s" onclick="importAudit()">📥 Importer un audit</button><button class="btn btn-g btn-sm" onclick="toggleNewSeance()">➕ Nouvelle séance</button><button class="btn btn-p" onclick="showSave()">💾 Sauvegarder</button></div>
   </div>
 
   <!-- Patient Header with mini Fleur -->
   <div class="patient-header">
     <div class="patient-avatar" id="pAvatar">LD</div>
-    <div class="patient-info"><h3 id="pName">Léa Dupont</h3><p id="pMeta">12 ans · Suivie depuis mars 2025 · <span class="badge badge-watch">2 protocoles actifs</span></p></div>
+    <div class="patient-info"><h3 id="pName">Léa Dupont</h3><p id="pMeta">12 ans · Suivie depuis mars 2025 · <span class="badge badge-watch">2 programmes actifs</span></p></div>
     <select id="pSelect" onchange="switchPatient(this.value)"><option value="lea">Léa Dupont</option><option value="hugo">Hugo Martin</option><option value="emma">Emma Bernard</option></select>
     <svg class="mini-fleur" viewBox="0 0 100 100" id="miniFleur"></svg>
   </div>
@@ -131,7 +131,7 @@
   <div class="grid-3" style="margin-bottom:16px">
     <div class="kpi-card"><div class="kpi-value" id="kV">72</div><div class="kpi-label">Score Vitalité</div><div class="kpi-trend up" id="kT">↑ +8 depuis T0</div></div>
     <div class="kpi-card"><div class="kpi-value">4</div><div class="kpi-label">Séances réalisées</div><div class="kpi-trend stable">2 Kiné · 1 Réflexo · 1 Naturo</div></div>
-    <div class="kpi-card"><div class="kpi-value">2</div><div class="kpi-label">Protocoles actifs</div><div class="kpi-trend stable">Acné + Sommeil</div></div>
+    <div class="kpi-card"><div class="kpi-value">2</div><div class="kpi-label">Programmes actifs</div><div class="kpi-trend stable">Acné + Sommeil</div></div>
   </div>
 
   <!-- Nouvelle séance panel -->
@@ -191,7 +191,7 @@
           <textarea class="seance-textarea" id="ressentiPatient" placeholder="Comment le patient décrit-il son état depuis la dernière séance ?"></textarea>
         </div>
         <div class="seance-group">
-          <label>Tolérance au protocole</label>
+          <label>Tolérance au programme</label>
           <textarea class="seance-textarea" id="toleranceProtocole" placeholder="Réactions aux plantes, compléments, exercices prescrits..."></textarea>
         </div>
       </div>

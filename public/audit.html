@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilan Horizon Santé — Horizon & Équilibre</title>
+<title>Bilan Horizon Santé | Horizon & Équilibre</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="/jspdf.min.js"></script>
 <style>
-:root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
+:root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--do-t:#7F6128;--vs-t:#4E6B48;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
 body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;font-weight:300;min-height:100vh}
 .app{max-width:780px;margin:0 auto;padding:40px 24px 80px}
@@ -56,7 +56,7 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
 .results-wrap{animation:fadeUp .8s ease-out}
 .results-header{text-align:center;margin-bottom:48px}
 .results-header h2{font-family:var(--fd);font-size:2rem;color:var(--bp);font-weight:400;margin-bottom:8px}
-.results-header h2 em{font-style:italic;color:var(--vs)}
+.results-header h2 em{font-style:italic;color:var(--vs-t)}
 .results-child-name{font-size:.85rem;color:var(--tx-l)}
 .fleur-section{background:var(--wh);border-radius:var(--rl);padding:48px 32px;text-align:center;margin-bottom:28px;box-shadow:0 20px 60px rgba(27,77,92,.06);border:1px solid rgba(27,77,92,.04)}
 .fleur-label{font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:32px}
@@ -143,7 +143,7 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;background:url('Fleurs%20de%20bach%202.jpg') center/cover no-repeat;opacity:.05;pointer-events:none;z-index:0;border-radius:80px 0 0 0}
 /* ── INTRO CARD PHOTO + BOUTON OR ── */
 .intro-card-photo{height:160px;background:url('Fleurs%20de%20bach%201.jpg') center 55%/cover no-repeat;border-radius:var(--rl) var(--rl) 0 0;margin:-48px -40px 32px}
-.btn-gold{background:var(--do);color:#FFF9F0;font-weight:500}
+.btn-gold{background:var(--do);color:#0F3540;font-weight:500}
 .btn-gold:hover{background:var(--do-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(196,162,101,.35)}
 /* ── DOTS PÉTALES ── */
 .petale-dots{display:flex;gap:7px;margin-bottom:14px}
@@ -159,24 +159,24 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
 .question-card.petale-eclat::before{background:#C4A265}
 .question-card.petale-serenite::before{background:#8FA98B}
 .question-card.petale-immunite::before{background:#2A6B7E}
-.question-card.petale-confiance::before{background:#6B5B8D}
+.question-card.petale-confiance::before{background:#4E6B48}
 /* Badges */
 .question-card.petale-sommeil .question-petal-badge{background:rgba(27,77,92,.1);color:#1B4D5C}
 .question-card.petale-eclat .question-petal-badge{background:rgba(196,162,101,.15);color:#8B6B2F}
 .question-card.petale-serenite .question-petal-badge{background:rgba(143,169,139,.2);color:#3D6B42}
 .question-card.petale-immunite .question-petal-badge{background:rgba(42,107,126,.12);color:#2A6B7E}
-.question-card.petale-confiance .question-petal-badge{background:rgba(107,91,141,.12);color:#6B5B8D}
+.question-card.petale-confiance .question-petal-badge{background:rgba(78,107,72,.12);color:#4E6B48}
 /* Options sélectionnées */
 .question-card.petale-sommeil .option-item.selected{border-color:#1B4D5C;background:rgba(27,77,92,.07)}
 .question-card.petale-eclat .option-item.selected{border-color:#C4A265;background:rgba(196,162,101,.1)}
 .question-card.petale-serenite .option-item.selected{border-color:#8FA98B;background:rgba(143,169,139,.13)}
 .question-card.petale-immunite .option-item.selected{border-color:#2A6B7E;background:rgba(42,107,126,.09)}
-.question-card.petale-confiance .option-item.selected{border-color:#6B5B8D;background:rgba(107,91,141,.08)}
+.question-card.petale-confiance .option-item.selected{border-color:#4E6B48;background:rgba(78,107,72,.08)}
 .question-card.petale-sommeil .option-item.selected .option-radio{border-color:#1B4D5C;background:#1B4D5C}
 .question-card.petale-eclat .option-item.selected .option-radio{border-color:#C4A265;background:#C4A265}
 .question-card.petale-serenite .option-item.selected .option-radio{border-color:#8FA98B;background:#8FA98B}
 .question-card.petale-immunite .option-item.selected .option-radio{border-color:#2A6B7E;background:#2A6B7E}
-.question-card.petale-confiance .option-item.selected .option-radio{border-color:#6B5B8D;background:#6B5B8D}
+.question-card.petale-confiance .option-item.selected .option-radio{border-color:#4E6B48;background:#4E6B48}
 /* Options : animation au hover */
 .option-item{padding:18px 22px;transition:all .25s ease}
 .option-item:hover{transform:translateX(3px)}
@@ -201,6 +201,10 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
   .mineral-tag{font-size:.72rem;padding:4px 10px}
 }
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>.nav-logo-img{height:48px;display:block}@media(max-width:768px){.nav-logo-img{height:40px}}</style>
 </head>
 <body>
 <nav id="auditNav">
@@ -237,7 +241,7 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
       <div class="header">
         <div class="header-logo">Horizon <span>&</span> Équilibre</div>
         <h1 class="header-title">Bilan <em>Horizon Santé</em></h1>
-        <p class="header-subtitle">Un bilan de vitalité pensé pour <strong>toute la famille</strong> — bébés, enfants, adolescents et adultes. En 3 minutes, identifiez les déséquilibres et les leviers naturels pour agir.</p>
+        <p class="header-subtitle">Un bilan de vitalité pensé pour <strong>toute la famille</strong> — bébés, enfants, adolescents et adultes. En 5 minutes, identifiez les déséquilibres et les leviers naturels pour agir.</p>
       </div>
     </div>
     <div class="intro-card">
@@ -254,10 +258,10 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
         <div class="form-group"><label for="childName" id="labelChildName">Prénom de l'enfant</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
         <div class="form-group"><label for="childAge">Qui est concerné ?</label><select id="childAge">
           <option value="">Sélectionner</option>
-          <option value="A">Nourrisson / Jeune enfant (0-5 ans)</option>
-          <option value="B1">Enfant (6-11 ans)</option>
-          <option value="B2">Adolescent (12-17 ans)</option>
-          <option value="C">Adulte (18 ans et +)</option>
+          <option value="A">Bébé ou jeune enfant (0 à 5 ans)</option>
+          <option value="B1">Enfant (6 à 12 ans)</option>
+          <option value="B2">Adolescent (13 à 17 ans)</option>
+          <option value="C">Adulte (18 ans et plus)</option>
         </select></div>
       </div>
       <button class="btn btn-gold" onclick="startAudit()">Commencer mon bilan →</button>
@@ -279,13 +283,18 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
   </div>
   <div id="screen-results" class="hidden"></div>
 </div>
-<footer style="background:#0F3540;padding:20px 24px;font-family:'Outfit',system-ui,sans-serif;margin-top:40px">
+<section style="background:#F0EBE3;padding:24px;border-top:1px solid rgba(27,77,92,.08);font-family:'Outfit',system-ui,sans-serif">
+  <div style="max-width:900px;margin:0 auto">
+    <p style="font-size:.8rem;color:#5A6E68;line-height:1.7"><strong style="color:#1B4D5C">Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
+  </div>
+</section>
+<footer style="background:#0F3540;padding:20px 24px;font-family:'Outfit',system-ui,sans-serif;margin-top:0">
   <div style="max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-    <span style="font-family:'Cormorant Garamond',Georgia,serif;color:#FAF7F2;font-size:1.05rem">Horizon <span style="color:#C4A265">&</span> Équilibre</span>
-    <span style="color:rgba(250,247,242,.45);font-size:.8rem">Sainte-Consorce (69280) · +33 6 51 14 07 26</span>
+    <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
+    <span style="color:rgba(250,247,242,.7);font-size:.8rem">Sainte-Consorce (69280) · +33 6 51 14 07 26</span>
     · <a href="/contact" style="display:inline-flex;align-items:center;background:#C4A265;color:#0F3540;padding:7px 18px;border-radius:50px;font-size:.78rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .3s" onmouseover="this.style.background='#B8934F'" onmouseout="this.style.background='#C4A265'">Prendre rendez-vous</a>
     <div style="display:flex;align-items:center;gap:14px">
-      <span style="color:rgba(250,247,242,.45);font-size:.78rem">Mentions légales</span>
+      <span style="color:rgba(250,247,242,.7);font-size:.78rem">Mentions légales</span>
     </div>
   </div>
 </footer>
@@ -311,7 +320,7 @@ const PETALS = {
   immunite:{label:'Immunité',icone:'🛡️',bg:'#2A6B7E',
     description:"Représente la résistance globale du terrain. Un score élevé se traduit souvent par des épisodes infectieux fréquents et une fatigue persistante.",
     solutions:"Rééquilibrage alimentaire, soutien du microbiote, bilan naturopathique approfondi."},
-  confiance:{label:'Confiance',icone:'💪',bg:'#6B5B8D',
+  confiance:{label:'Confiance',icone:'💪',bg:'#4E6B48',
     description:"Observe l'estime de soi et la capacité à s'affirmer. Peut être lié à des mémoires émotionnelles ou une période de transition.",
     solutions:"Réflexologie faciale, Fleurs de Bach personnalisées selon le profil émotionnel."}
 };
@@ -327,23 +336,23 @@ const SUGGESTION = {
 // ── Version A : Nourrisson / Jeune enfant (0-5 ans) ──
 const QA = [
   {id:'a-som1',petale:'sommeil',texte:"Comment votre enfant s'endort-il le soir ?",
-    options:[{t:"Facilement, en moins de 20 minutes",v:0},{t:"Un peu de temps mais sans difficulté majeure",v:1},{t:"Difficile — pleurs, besoin de votre présence prolongée",v:2},{t:"Très difficile — rituels longs ou grande résistance",v:3}]},
+    options:[{t:"Facilement, en moins de 20 minutes",v:0},{t:"Un peu de temps mais sans difficulté majeure",v:1},{t:"Difficile : pleurs, besoin de votre présence prolongée",v:2},{t:"Très difficile : rituels longs ou grande résistance",v:3}]},
   {id:'a-som2',petale:'sommeil',texte:"Combien de réveils nocturnes observez-vous en général ?",
-    options:[{t:"0 à 1 réveil — il se rendort seul",v:0},{t:"2 à 3 réveils — il se rendort assez vite",v:1},{t:"4 à 6 réveils — il a besoin d'aide pour se rendormir",v:2},{t:"Plus de 6 réveils ou nuits très agitées",v:3}]},
+    options:[{t:"0 à 1 réveil : il se rendort seul",v:0},{t:"2 à 3 réveils : il se rendort assez vite",v:1},{t:"4 à 6 réveils : il a besoin d'aide pour se rendormir",v:2},{t:"Plus de 6 réveils ou nuits très agitées",v:3}]},
   {id:'a-som3',petale:'sommeil',texte:"La durée totale du sommeil vous semble-t-elle adaptée à son âge ?",
-    options:[{t:"Oui, il dort suffisamment",v:0},{t:"En dessous parfois, mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolent en journée",v:2},{t:"Nettement insuffisante — épuisement visible",v:3}]},
+    options:[{t:"Oui, il dort suffisamment",v:0},{t:"En dessous parfois, mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolent en journée",v:2},{t:"Nettement insuffisante : épuisement visible",v:3}]},
   {id:'a-som4',petale:'sommeil',texte:"Comment est son humeur au réveil ?",
     options:[{t:"Souriant, éveillé, prêt à jouer",v:0},{t:"Un peu grincheux mais ça passe vite",v:1},{t:"Souvent de mauvaise humeur le matin",v:2},{t:"Épuisé ou inconsolable au réveil",v:3}]},
   {id:'a-ecl1',petale:'eclat',texte:"Comment est l'état de sa peau ?",
     options:[{t:"Peau douce et nette, sans imperfection",v:0},{t:"Quelques petites rougeurs ou sécheresse localisée",v:1},{t:"Rougeurs fréquentes ou peau réactive",v:2},{t:"Éruptions fréquentes ou peau très réactive",v:3}]},
   {id:'a-ecl2',petale:'eclat',texte:"Comment se passent ses selles au quotidien ?",
-    options:[{t:"Régulières, bien formées, sans inconfort",v:0},{t:"Quelques irrégularités sans vraie gêne",v:1},{t:"Transit irrégulier — selles dures ou molles fréquemment",v:2},{t:"Très perturbé causant une gêne visible",v:3}]},
+    options:[{t:"Régulières, bien formées, sans inconfort",v:0},{t:"Quelques irrégularités sans vraie gêne",v:1},{t:"Transit irrégulier : selles dures ou molles fréquemment",v:2},{t:"Très perturbé causant une gêne visible",v:3}]},
   {id:'a-ecl3',petale:'eclat',texte:"Observez-vous des tensions digestives (ballonnements, gaz, douleurs de ventre) ?",
     options:[{t:"Aucun signe particulier",v:0},{t:"Quelques gaz ou petits ballonnements sans douleur",v:1},{t:"Ballonnements fréquents ou douleurs au ventre régulières",v:2},{t:"Douleurs abdominales récurrentes impactant son quotidien",v:3}]},
   {id:'a-ecl4',petale:'eclat',texte:"Son teint, sa vitalité et son énergie générale vous semblent-ils bons ?",
     options:[{t:"Teint frais, énergie débordante",v:0},{t:"Un peu terne par moments, coups de fatigue passagers",v:1},{t:"Souvent pâle ou fatigué sans raison évidente",v:2},{t:"Teint gris, cernes marquées, vitalité basse en continu",v:3}]},
   {id:'a-ser1',petale:'serenite',texte:"Comment votre enfant réagit-il face à un changement ou une séparation ?",
-    options:[{t:"Bien — il s'adapte facilement",v:0},{t:"Petite appréhension qui passe vite",v:1},{t:"Pleurs intenses ou agitation marquée à chaque séparation",v:2},{t:"Angoisses profondes ou manifestations physiques importantes",v:3}]},
+    options:[{t:"Bien : il s'adapte facilement",v:0},{t:"Petite appréhension qui passe vite",v:1},{t:"Pleurs intenses ou agitation marquée à chaque séparation",v:2},{t:"Angoisses profondes ou manifestations physiques importantes",v:3}]},
   {id:'a-ser2',petale:'serenite',texte:"Quel est son niveau d'agitation habituel ?",
     options:[{t:"Actif et curieux mais se calme facilement",v:0},{t:"Parfois très actif mais globalement équilibré",v:1},{t:"Souvent très agité, difficile à calmer",v:2},{t:"Agitation quasi permanente ou au contraire très replié",v:3}]},
   {id:'a-ser3',petale:'serenite',texte:"Comment exprime-t-il ses besoins et ses émotions ?",
@@ -351,7 +360,7 @@ const QA = [
   {id:'a-ser4',petale:'serenite',texte:"Son corps manifeste-t-il des tensions (raideurs, posture, pleurs inconsolables) ?",
     options:[{t:"Corps souple, aucune tension visible",v:0},{t:"Quelques tensions occasionnelles",v:1},{t:"Tensions visibles régulières ou douleurs sans cause organique",v:2},{t:"Corps très tendu, pleurs inconsolables ou somatisations fréquentes",v:3}]},
   {id:'a-imm1',petale:'immunite',texte:"Combien de fois votre enfant a-t-il été malade ces 6 derniers mois ?",
-    options:[{t:"0 à 1 fois — bonne résistance",v:0},{t:"2 à 3 fois — dans la normale saisonnière",v:1},{t:"4 à 5 fois — souvent enrhumé ou fiévreux",v:2},{t:"Plus de 5 fois — infections à répétition",v:3}]},
+    options:[{t:"0 à 1 fois, bonne résistance",v:0},{t:"2 à 3 fois, dans la normale saisonnière",v:1},{t:"4 à 5 fois, souvent enrhumé ou fiévreux",v:2},{t:"Plus de 5 fois, infections à répétition",v:3}]},
   {id:'a-imm2',petale:'immunite',texte:"Comment récupère-t-il après un épisode infectieux ?",
     options:[{t:"Vite, rebondit en quelques jours",v:0},{t:"Quelques jours de plus que la moyenne",v:1},{t:"Convalescence longue, rechutes fréquentes",v:2},{t:"Très longue récupération, fatigue persistante",v:3}]},
   {id:'a-imm3',petale:'immunite',texte:"Observez-vous des réactions d'hypersensibilité (cutanées, respiratoires, alimentaires) ?",
@@ -361,7 +370,7 @@ const QA = [
   {id:'a-conf1',petale:'confiance',texte:"Comment réagit-il face à un environnement inconnu ?",
     options:[{t:"Curieux, explore sans crainte",v:0},{t:"Prudent mais finit par s'engager",v:1},{t:"Inhibé, reste collé à vous longtemps",v:2},{t:"Refus ou détresse marquée face à la nouveauté",v:3}]},
   {id:'a-conf2',petale:'confiance',texte:"Comment vit-il les séparations (crèche, assistante maternelle, chez les grands-parents) ?",
-    options:[{t:"Bien — peu ou pas d'angoisse",v:0},{t:"Quelques larmes au début mais s'apaise vite",v:1},{t:"Séparations très difficiles, pleurs prolongés",v:2},{t:"Impossible de le laisser sans crise importante",v:3}]},
+    options:[{t:"Bien : peu ou pas d'angoisse",v:0},{t:"Quelques larmes au début mais s'apaise vite",v:1},{t:"Séparations très difficiles, pleurs prolongés",v:2},{t:"Impossible de le laisser sans crise importante",v:3}]},
   {id:'a-conf3',petale:'confiance',texte:"Comment se comporte-t-il avec les autres enfants ?",
     options:[{t:"Spontané, joue facilement avec les autres",v:0},{t:"Observe d'abord mais s'intègre",v:1},{t:"Difficultés à interagir, reste souvent seul",v:2},{t:"Évite les autres ou réactions très intenses",v:3}]},
   {id:'a-conf4',petale:'confiance',texte:"Son développement et sa motricité vous semblent-ils harmonieux pour son âge ?",
@@ -377,7 +386,7 @@ const QB = [
   {id:'b-som3',petale:'sommeil',texte:"Observe-t-on des rituels perturbés autour du coucher ?",
     options:[{t:"Non, il a un rythme régulier et apaisé",v:0},{t:"Écrans le soir ou coucher un peu tardif, mais ça se gère",v:1},{t:"Il repousse le coucher, a peur du noir ou demande votre présence",v:2},{t:"Le coucher est une source de tension quotidienne",v:3}]},
   {id:'b-som4',petale:'sommeil',texte:"La durée de son sommeil est-elle adaptée à son âge ?",
-    options:[{t:"Oui, il dort ses heures recommandées",v:0},{t:"Parfois un peu court mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolent en classe",v:2},{t:"Nettement insuffisant — épuisement visible toute la journée",v:3}]},
+    options:[{t:"Oui, il dort ses heures recommandées",v:0},{t:"Parfois un peu court mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolent en classe",v:2},{t:"Nettement insuffisant : épuisement visible toute la journée",v:3}]},
   {id:'b-ecl1',petale:'eclat',texte:"Comment est l'état de sa peau actuellement ?",
     options:[{t:"Peau nette, sans imperfection particulière",v:0},{t:"Quelques boutons ou rougeurs occasionnels",v:1},{t:"Imperfections régulières ou peau réactive fréquemment",v:2},{t:"Imperfections marquées ou peau très réactive",v:3}]},
   {id:'b-ecl2',petale:'eclat',texte:"Comment se comporte sa digestion au quotidien ?",
@@ -414,46 +423,46 @@ const QB = [
 
 // ── Version C : Adulte (18 ans et +) ──
 const QC = [
-  {id:'c-som1',petale:'sommeil',texte:"Comment se passent tes nuits en général ?",
-    options:[{t:"Tu t'endors vite et tu dors bien",v:0},{t:"L'endormissement prend un peu de temps mais c'est correct",v:1},{t:"Nuits entrecoupées ou difficultés d'endormissement régulières",v:2},{t:"Sommeil très perturbé — insomnies ou réveils multiples",v:3}]},
-  {id:'c-som2',petale:'sommeil',texte:"Comment te sens-tu au réveil ?",
-    options:[{t:"Reposé·e, prêt·e à démarrer la journée",v:0},{t:"Un peu de temps pour te mettre en route mais ça va",v:1},{t:"Fatigué·e même après une nuit complète",v:2},{t:"Épuisé·e dès le réveil, difficile de fonctionner normalement",v:3}]},
-  {id:'c-som3',petale:'sommeil',texte:"Tes rituels autour du coucher sont-ils équilibrés ?",
-    options:[{t:"Oui, tu t'endors facilement à heure régulière",v:0},{t:"Écrans le soir ou coucher tardif parfois, mais ça se gère",v:1},{t:"Tu repousses l'heure du coucher ou as du mal à « décrocher »",v:2},{t:"Le coucher est une source d'anxiété ou de tension quotidienne",v:3}]},
-  {id:'c-som4',petale:'sommeil',texte:"La durée de ton sommeil est-elle suffisante pour toi ?",
-    options:[{t:"Oui, tu dors tes heures sans problème",v:0},{t:"Parfois un peu court mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolence en journée",v:2},{t:"Nettement insuffisant — épuisement visible tout au long de la journée",v:3}]},
-  {id:'c-ecl1',petale:'eclat',texte:"Comment est l'état de ta peau en ce moment ?",
+  {id:'c-som1',petale:'sommeil',texte:"Comment se passent vos nuits en général ?",
+    options:[{t:"Vous vous endormez facilement et dormez bien",v:0},{t:"L'endormissement prend un peu de temps mais c'est correct",v:1},{t:"Nuits entrecoupées ou difficultés d'endormissement régulières",v:2},{t:"Sommeil très perturbé : insomnies ou réveils multiples",v:3}]},
+  {id:'c-som2',petale:'sommeil',texte:"Comment vous sentez-vous au réveil ?",
+    options:[{t:"En forme, prêt à démarrer la journée",v:0},{t:"Un peu de temps pour vous mettre en route, mais ça va",v:1},{t:"Encore fatigué après une nuit complète",v:2},{t:"Épuisé dès le réveil, difficile de fonctionner normalement",v:3}]},
+  {id:'c-som3',petale:'sommeil',texte:"Vos rituels autour du coucher sont-ils équilibrés ?",
+    options:[{t:"Oui, vous vous endormez facilement à heure régulière",v:0},{t:"Écrans le soir ou coucher tardif parfois, mais ça se gère",v:1},{t:"Vous repoussez l'heure du coucher ou avez du mal à décrocher",v:2},{t:"Le coucher est une source d'anxiété ou de tension quotidienne",v:3}]},
+  {id:'c-som4',petale:'sommeil',texte:"La durée de votre sommeil est-elle suffisante ?",
+    options:[{t:"Oui, vous dormez suffisamment sans problème",v:0},{t:"Parfois un peu court mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolence en journée",v:2},{t:"Nettement insuffisant : épuisement visible tout au long de la journée",v:3}]},
+  {id:'c-ecl1',petale:'eclat',texte:"Comment est l'état de votre peau en ce moment ?",
     options:[{t:"Peau nette, sans imperfection particulière",v:0},{t:"Quelques boutons ou rougeurs occasionnels",v:1},{t:"Imperfections régulières, peau grasse ou réactivité fréquente",v:2},{t:"Imperfections marquées ou peau très réactive au moindre changement",v:3}]},
-  {id:'c-ecl2',petale:'eclat',texte:"Comment se comporte ta digestion au quotidien ?",
-    options:[{t:"Digestion fluide, aucune plainte",v:0},{t:"Quelques ballonnements après les repas, rien d'alarmant",v:1},{t:"Ballonnements fréquents, transit irrégulier ou inconforts réguliers",v:2},{t:"Inconforts digestifs récurrents impactant ton quotidien",v:3}]},
-  {id:'c-ecl3',petale:'eclat',texte:"Remarques-tu des signes de surcharge (teint, haleine, langue chargée) ?",
+  {id:'c-ecl2',petale:'eclat',texte:"Comment se comporte votre digestion au quotidien ?",
+    options:[{t:"Digestion fluide, aucune plainte",v:0},{t:"Quelques ballonnements après les repas, rien d'alarmant",v:1},{t:"Ballonnements fréquents, transit irrégulier ou inconforts réguliers",v:2},{t:"Inconforts digestifs récurrents impactant votre quotidien",v:3}]},
+  {id:'c-ecl3',petale:'eclat',texte:"Remarquez-vous des signes de surcharge (teint, haleine, langue chargée) ?",
     options:[{t:"Teint frais, aucun signe particulier",v:0},{t:"Teint un peu terne par moments, cernes légères",v:1},{t:"Teint brouillé, langue chargée le matin ou mauvaise haleine fréquente",v:2},{t:"Plusieurs signes combinés : teint gris, transpiration forte",v:3}]},
-  {id:'c-ecl4',petale:'eclat',texte:"Ton niveau d'énergie est-il constant tout au long de la journée ?",
+  {id:'c-ecl4',petale:'eclat',texte:"Votre niveau d'énergie est-il constant tout au long de la journée ?",
     options:[{t:"Oui, énergie stable",v:0},{t:"Quelques coups de fatigue après les repas mais ça va",v:1},{t:"Fatigue récurrente, difficultés de concentration en milieu d'après-midi",v:2},{t:"Épuisement quasi permanent tout au long de la journée",v:3}]},
-  {id:'c-ser1',petale:'serenite',texte:"Comment réagis-tu face à une situation stressante (deadline, conflit, changement) ?",
-    options:[{t:"Tu gères bien, tu restes calme et tu t'adaptes",v:0},{t:"Un peu d'appréhension au début, mais ça passe",v:1},{t:"Tu te sens anxieux·se avant les événements, signes physiques visibles",v:2},{t:"Blocage ou évitement systématique",v:3}]},
-  {id:'c-ser2',petale:'serenite',texte:"Comment gères-tu tes émotions au quotidien ?",
-    options:[{t:"Tu sais exprimer ce que tu ressens",v:0},{t:"Tu as parfois du mal mais tu arrives à en parler",v:1},{t:"Réactions disproportionnées : colères, pleurs ou repli sur toi",v:2},{t:"Tu exploses ou tu te fermes complètement",v:3}]},
-  {id:'c-ser3',petale:'serenite',texte:"Ton corps manifeste-t-il du stress (tensions, somatisation) ?",
-    options:[{t:"Aucune manifestation physique liée au stress",v:0},{t:"Quelques maux de tête ou de ventre en période tendue",v:1},{t:"Maux physiques récurrents en période de stress",v:2},{t:"Manifestations quasi permanentes — tensions chroniques, douleurs",v:3}]},
-  {id:'c-ser4',petale:'serenite',texte:"Comment qualifierais-tu ton niveau global d'anxiété actuellement ?",
-    options:[{t:"Serein·e, peu anxieux·se dans l'ensemble",v:0},{t:"Quelques inquiétudes habituelles et passagères",v:1},{t:"Anxieux·se régulièrement, rumination fréquente",v:2},{t:"Anxiété envahissante qui impacte ta vie quotidienne",v:3}]},
-  {id:'c-imm1',petale:'immunite',texte:"Combien de fois as-tu été malade ces 6 derniers mois ?",
-    options:[{t:"0 à 1 fois, tu résistes bien",v:0},{t:"2 à 3 fois, dans la normale saisonnière",v:1},{t:"4 à 5 fois, souvent enrhumé·e ou fatigué·e",v:2},{t:"Plus de 5 fois, infections à répétition",v:3}]},
-  {id:'c-imm2',petale:'immunite',texte:"Comment récupères-tu après un épisode infectieux ou un coup de fatigue ?",
-    options:[{t:"Rapidement, tu rebondis vite",v:0},{t:"Quelques jours de plus que la normale",v:1},{t:"Convalescence longue, rechutes fréquentes",v:2},{t:"Fatigue persistante après chaque épisode",v:3}]},
-  {id:'c-imm3',petale:'immunite',texte:"As-tu des réactions d'hypersensibilité (allergies, intolérances) ?",
+  {id:'c-ser1',petale:'serenite',texte:"Comment réagissez-vous face à une situation stressante (échéance, conflit, changement) ?",
+    options:[{t:"Vous gérez bien, vous restez calme et vous vous adaptez",v:0},{t:"Un peu d'appréhension au début, mais ça passe",v:1},{t:"Vous vous sentez anxieux avant les événements, signes physiques visibles",v:2},{t:"Blocage ou évitement systématique",v:3}]},
+  {id:'c-ser2',petale:'serenite',texte:"Comment gérez-vous vos émotions au quotidien ?",
+    options:[{t:"Vous savez exprimer ce que vous ressentez",v:0},{t:"Vous avez parfois du mal mais vous arrivez à en parler",v:1},{t:"Réactions disproportionnées : colères, pleurs ou repli sur vous",v:2},{t:"Vous explosez ou vous vous fermez complètement",v:3}]},
+  {id:'c-ser3',petale:'serenite',texte:"Votre corps manifeste-t-il du stress (tensions, somatisation) ?",
+    options:[{t:"Aucune manifestation physique liée au stress",v:0},{t:"Quelques maux de tête ou de ventre en période tendue",v:1},{t:"Maux physiques récurrents en période de stress",v:2},{t:"Manifestations quasi permanentes : tensions chroniques, douleurs",v:3}]},
+  {id:'c-ser4',petale:'serenite',texte:"Comment qualifieriez-vous votre niveau global d'anxiété actuellement ?",
+    options:[{t:"Serein, peu anxieux dans l'ensemble",v:0},{t:"Quelques inquiétudes habituelles et passagères",v:1},{t:"Anxieux régulièrement, rumination fréquente",v:2},{t:"Anxiété envahissante qui impacte votre vie quotidienne",v:3}]},
+  {id:'c-imm1',petale:'immunite',texte:"Combien de fois avez-vous été malade ces 6 derniers mois ?",
+    options:[{t:"0 à 1 fois, bonne résistance",v:0},{t:"2 à 3 fois, dans la normale saisonnière",v:1},{t:"4 à 5 fois, souvent enrhumé ou fatigué",v:2},{t:"Plus de 5 fois, infections à répétition",v:3}]},
+  {id:'c-imm2',petale:'immunite',texte:"Comment récupérez-vous après un épisode infectieux ou un coup de fatigue ?",
+    options:[{t:"Rapidement, vous récupérez vite",v:0},{t:"Quelques jours de plus que la normale",v:1},{t:"Convalescence longue, rechutes fréquentes",v:2},{t:"Fatigue persistante après chaque épisode",v:3}]},
+  {id:'c-imm3',petale:'immunite',texte:"Avez-vous des réactions d'hypersensibilité (allergies, intolérances) ?",
     options:[{t:"Aucune allergie ni sensibilité connue",v:0},{t:"Réactions légères saisonnières, bien gérées",v:1},{t:"Réactions régulières nécessitant une adaptation ou un suivi",v:2},{t:"Terrain atopique marqué ou intolérances multiples",v:3}]},
-  {id:'c-imm4',petale:'immunite',texte:"Ton alimentation est-elle globalement variée et équilibrée ?",
-    options:[{t:"Oui, tu manges de tout sans souci",v:0},{t:"Quelques exclusions mais alimentation variée globalement",v:1},{t:"Peu variée, avec beaucoup d'exclusions ou de préférences marquées",v:2},{t:"Très restrictive ou carences visibles",v:3}]},
-  {id:'c-conf1',petale:'confiance',texte:"Comment te positionnes-tu face à un défi ou une difficulté ?",
-    options:[{t:"Tu fonces, tu aimes essayer de nouvelles choses",v:0},{t:"Tu hésites un peu mais tu finis par te lancer",v:1},{t:"Tu doutes beaucoup, tu as besoin d'être rassuré·e avant d'agir",v:2},{t:"Tu refuses ou penses que tu n'y arriveras pas",v:3}]},
-  {id:'c-conf2',petale:'confiance',texte:"Comment te sens-tu dans tes relations avec les autres ?",
-    options:[{t:"Tu as de bonnes relations et tu te sens bien",v:0},{t:"Globalement à l'aise, avec quelques hauts et bas normaux",v:1},{t:"Tu te sens souvent à l'écart, différent·e ou pas à ta place",v:2},{t:"Isolement marqué ou évitement des interactions",v:3}]},
-  {id:'c-conf3',petale:'confiance',texte:"Comment es-tu dans ton rapport à ton corps et à ton image ?",
-    options:[{t:"À l'aise, tu n'y penses pas particulièrement",v:0},{t:"Quelques remarques sur ton apparence, mais rien d'envahissant",v:1},{t:"Complexes visibles, tu te compares souvent ou tu te dévalorise",v:2},{t:"Mal-être corporel marqué qui impacte ton quotidien",v:3}]},
-  {id:'c-conf4',petale:'confiance',texte:"Comment qualifierais-tu ton niveau d'épanouissement dans ta vie en ce moment ?",
-    options:[{t:"Globalement épanoui·e et en accord avec toi-même",v:0},{t:"Quelques zones d'insatisfaction normales",v:1},{t:"Manque de sens ou d'élan régulier, difficulté à te projeter",v:2},{t:"Sentiment profond d'être hors de ta trajectoire",v:3}]}
+  {id:'c-imm4',petale:'immunite',texte:"Votre alimentation est-elle globalement variée et équilibrée ?",
+    options:[{t:"Oui, alimentation variée sans restriction",v:0},{t:"Quelques exclusions mais alimentation variée globalement",v:1},{t:"Peu variée, avec beaucoup d'exclusions ou de préférences marquées",v:2},{t:"Très restrictive ou carences visibles",v:3}]},
+  {id:'c-conf1',petale:'confiance',texte:"Comment vous positionnez-vous face à un défi ou une difficulté ?",
+    options:[{t:"Vous foncez, vous aimez essayer de nouvelles choses",v:0},{t:"Vous hésitez un peu mais vous finissez par vous lancer",v:1},{t:"Vous doutez beaucoup, vous avez besoin d'être rassuré avant d'agir",v:2},{t:"Vous refusez ou pensez que vous n'y arriverez pas",v:3}]},
+  {id:'c-conf2',petale:'confiance',texte:"Comment vous sentez-vous dans vos relations avec les autres ?",
+    options:[{t:"Vous avez de bonnes relations et vous vous sentez bien",v:0},{t:"Globalement à l'aise, avec quelques hauts et bas normaux",v:1},{t:"Vous vous sentez souvent à l'écart, ou pas à votre place",v:2},{t:"Isolement marqué ou évitement des interactions",v:3}]},
+  {id:'c-conf3',petale:'confiance',texte:"Comment vous situez-vous dans votre rapport à votre corps et à votre image ?",
+    options:[{t:"À l'aise, vous n'y pensez pas particulièrement",v:0},{t:"Quelques remarques sur votre apparence, mais rien d'envahissant",v:1},{t:"Complexes visibles, vous vous comparez souvent ou vous vous dévalorisez",v:2},{t:"Mal-être corporel marqué qui impacte votre quotidien",v:3}]},
+  {id:'c-conf4',petale:'confiance',texte:"Comment qualifieriez-vous votre niveau d'épanouissement dans votre vie en ce moment ?",
+    options:[{t:"Globalement épanoui et en accord avec vous-même",v:0},{t:"Quelques zones d'insatisfaction normales",v:1},{t:"Manque de sens ou d'élan régulier, difficulté à vous projeter",v:2},{t:"Sentiment profond d'être hors de votre trajectoire",v:3}]}
 ];
 
 // ── Détection de version selon l'âge ──
@@ -569,9 +578,9 @@ function showResults(){
   let msg;
   const prn=state.childName;
   if(state.version==='C'){
-    if(!alertP.length&&watchP.length<=1)msg=`Tes résultats sont encourageants, ${prn}. Ton organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser ta vitalité.`;
-    else if(!alertP.length)msg=`Plusieurs axes méritent ton attention, ${prn}. Un accompagnement naturopathique doux permettrait de rééquilibrer ton terrain en profondeur.`;
-    else msg=`Tes résultats, ${prn}, indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément tes déséquilibres et de proposer un protocole adapté.`;
+    if(!alertP.length&&watchP.length<=1)msg=`Vos résultats sont encourageants, ${prn}. Votre organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser votre vitalité.`;
+    else if(!alertP.length)msg=`Plusieurs axes méritent votre attention, ${prn}. Un accompagnement naturopathique doux permettrait de rééquilibrer votre terrain en profondeur.`;
+    else msg=`Vos résultats, ${prn}, indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément vos déséquilibres et de proposer un programme adapté.`;
   } else {
     if(!alertP.length&&watchP.length<=1)msg=`Les résultats ${el}${prn} sont encourageants. L'organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser la vitalité.`;
     else if(!alertP.length)msg=`Plusieurs axes méritent attention chez ${prn}. Un accompagnement naturopathique doux permettrait de rééquilibrer le terrain en profondeur.`;
@@ -601,9 +610,9 @@ function showResults(){
             <h4>${p.icone} ${p.label} · ${s}/100 · ${st}</h4><p>${adv}</p></div></div>`;}).join('')}</div>`:''}
 
       ${(alertP.length||watchP.length)?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--bp),#2E7D7A)"><h3>🌿 Prochaine étape</h3>
-        <p>${state.version==='C'?`Tes résultats indiquent des axes à rééquilibrer, ${prn}. Un premier échange au cabinet permettrait de mieux comprendre d'où viennent ces déséquilibres et de co-construire un programme adapté.`:`Les résultats ${el}${prn} indiquent des axes à rééquilibrer. Un premier échange au cabinet permettrait de mieux comprendre d'où viennent ces déséquilibres et de proposer un programme adapté.`}</p>
+        <p>${state.version==='C'?`Vos résultats indiquent des axes à rééquilibrer, ${prn}. Un premier échange au cabinet permettrait de mieux comprendre d'où viennent ces déséquilibres et de co-construire un programme adapté.`:`Les résultats ${el}${prn} indiquent des axes à rééquilibrer. Un premier échange au cabinet permettrait de mieux comprendre d'où viennent ces déséquilibres et de proposer un programme adapté.`}</p>
         <button class="btn btn-gold" onclick="window.location='/contact'">${ctaLabel}</button></div>`:`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
-        <p>${state.version==='C'?`Tu montres un bel équilibre global, ${prn}. Un suivi naturopathique léger permettrait de consolider cette dynamique.`:`${prn} montre un bel équilibre global. Un suivi naturopathique léger permettrait de consolider cette dynamique.`}</p>
+        <p>${state.version==='C'?`Votre bilan montre un bel équilibre global, ${prn}. Un suivi naturopathique léger permettrait de consolider cette dynamique.`:`${prn} montre un bel équilibre global. Un suivi naturopathique léger permettrait de consolider cette dynamique.`}</p>
         <button class="btn btn-gold" onclick="window.location='/contact'">${ctaLabel}</button></div>`}
 
       <div class="results-cta">
@@ -618,7 +627,7 @@ function showResults(){
           <button class="btn btn-primary" onclick="generatePDF()">📧 Recevoir ma synthèse par mail</button>
           <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire le bilan</button>
         </div>
-        <p style="margin-top:16px;font-size:.8rem;color:var(--tx-l);text-align:center">Ces résultats donnent une première orientation. Ils ne constituent pas un diagnostic médical et ne remplacent pas l'avis d'un professionnel de santé.</p>
+        <p style="margin-top:16px;font-size:.8rem;color:var(--tx-l);text-align:center"><strong>Information importante :</strong> Ces résultats donnent une première orientation de bien-être et de prévention. Ils ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis ou un suivi médical. En cas de symptôme aigu, persistant ou inhabituel, consultez votre médecin traitant ou votre pédiatre.</p>
       </div>
     </div>`;
 
@@ -643,7 +652,7 @@ function showTip(k){
   tt.innerHTML=`<div class="tooltip-header"><div class="tooltip-icon" style="background:${p.bg}20">${p.icone}</div>
     <div class="tooltip-name">${p.label}</div><div class="tooltip-score" style="color:${lc}">${s}/100</div></div>
     <div class="tooltip-desc">${p.description}</div>
-    <div class="tooltip-solutions"><strong>Solutions :</strong> ${p.solutions}</div>
+    <div class="tooltip-solutions"><strong>Pistes :</strong> ${p.solutions}</div>
     <div class="tooltip-advice ${l}">${adv}</div>`;
   tt.classList.add('visible');
 }
@@ -749,7 +758,7 @@ function generatePDF(){
   doc.setFont('helvetica','normal');doc.setFontSize(8);
   const descLines=doc.splitTextToSize(wp.description,CW-18);
   doc.setFontSize(7);
-  const solLines=doc.splitTextToSize('Solutions : '+wp.solutions,CW-18);
+  const solLines=doc.splitTextToSize('Pistes : '+wp.solutions,CW-18);
   const descH=descLines.length*4.2+2;
   const solH=solLines.length*3.7;
   const boxH=8+descH+solH+8;
@@ -793,10 +802,10 @@ function generatePDF(){
 
   // 7. TABLEAU MON PLAN DE RÉÉQUILIBRAGE (3 colonnes)
   doc.setFont('times','bold');doc.setFontSize(13);doc.setTextColor(...BP);
-  doc.text('Mon Protocole de Vitalité',MX,y);y+=5;
+  doc.text('Mon Programme de Vitalité',MX,y);y+=5;
   doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,y,MX+74,y);y+=6;
   doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(...TL);
-  doc.text('Protocole personnalisé basé sur votre profil naturopathique',MX,y);y+=9;
+  doc.text('Programme personnalisé basé sur votre profil naturopathique',MX,y);y+=9;
 
   // Lignes du tableau selon résultats
   const terrainRows=[];
@@ -823,7 +832,7 @@ function generatePDF(){
   if(!terrainRows.length)terrainRows.push([
     'Terrain global',
     'Équilibre global encourageant',
-    'Protocole de maintien · Bilan de suivi dans 6 mois'
+    'Programme de maintien · Bilan de suivi dans 6 mois'
   ]);
 
   // En-tête du tableau
@@ -880,13 +889,14 @@ function generatePDF(){
   doc.setFont('times','bold');doc.setFontSize(10);doc.setTextColor(...BP);
   doc.text('Horizon & Équilibre',MX,fY+7);
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
-  doc.text('Arielle de Maistre — Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, certifié Qualiopi)',MX,fY+12);
+  doc.text('Arielle de Maistre | Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, certifié Qualiopi)',MX,fY+12);
   doc.text('Cabinet de Sainte-Consorce (69280) · +33 6 51 14 07 26 · arielle.de.maistre@gmail.com',MX,fY+17);
   doc.setFillColor(...DO);doc.roundedRect(W-MX-52,fY+4,50,12,3,3,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...BPD);
   doc.text('Prendre rendez-vous',W-MX-27,fY+10.5,{align:'center'});
   doc.setFont('helvetica','normal');doc.setFontSize(5.5);
   doc.text('flux-equilibre.fr/contact',W-MX-27,fY+15.5,{align:'center'});
+  doc.setFontSize(5.5);doc.setTextColor(...TL);doc.text('Mentions légales : horizon-equilibre.fr/mentions-legales',W/2,H-10,{align:'center'});
 
   // Sauvegarde PDF
   const filename=`Bilan_Audit_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`;

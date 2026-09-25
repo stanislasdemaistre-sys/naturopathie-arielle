@@ -1,0 +1,67 @@
+[
+  {
+    "childName": "Thaïs",
+    "childAge": "9-11 ans",
+    "globalScore": 60,
+    "charges": {
+      "sommeil": 0,
+      "eclat": 3,
+      "serenite": 8,
+      "immunite": 4,
+      "confiance": 3
+    },
+    "zones": [
+      {
+        "petale": "serenite",
+        "charge": 8,
+        "level": "alert"
+      },
+      {
+        "petale": "immunite",
+        "charge": 4,
+        "level": "watch"
+      },
+      {
+        "petale": "eclat",
+        "charge": 3,
+        "level": "watch"
+      },
+      {
+        "petale": "confiance",
+        "charge": 3,
+        "level": "watch"
+      }
+    ],
+    "suggestOligo": true,
+    "suggestKinesio": true,
+    "suggestReflexo": true,
+    "date": "2026-03-28T16:18:11.751Z",
+    "clientEmail": "arielle.de.maistre@gmail.com",
+    "hasPdf": true,
+    "receivedAt": "2026-03-28T16:18:11.956Z"
+  },
+  {
+    "childName": "Emma",
+    "childAge": "15-17 ans",
+    "globalScore": 72,
+    "charges": {
+      "sommeil": 3,
+      "eclat": 2,
+      "serenite": 5,
+      "immunite": 1,
+      "confiance": 0
+    },
+    "zones": [
+      {
+        "petale": "serenite",
+        "level": "watch"
+      }
+    ],
+    "suggestOligo": false,
+    "suggestKinesio": true,
+    "date": "2026-03-17T10:00:00Z",
+    "clientEmail": "test@test.com",
+    "hasPdf": true,
+    "receivedAt": "2026-03-17T11:57:40.819Z"
+  }
+]

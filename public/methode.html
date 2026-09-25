@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Méthode — Horizon & Équilibre · Naturopathie · Réflexologie</title>
+<title>La Méthode | Horizon & Équilibre · Naturopathie · Réflexologie</title>
 <meta name="description" content="Deux approches complémentaires pour une vision globale : Naturopathie et Réflexologie. Arielle de Maistre accompagne bébés, enfants, adolescents et adultes à Sainte-Consorce (Lyon).">
-<meta property="og:title" content="La Méthode — Horizon & Équilibre">
+<meta property="og:title" content="La Méthode | Horizon & Équilibre">
 <meta property="og:description" content="Naturopathie et Réflexologie : deux approches complémentaires pour retrouver l'équilibre naturellement.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
@@ -27,6 +27,8 @@
   --blanc: #FFFFFF;
   --texte: #2C3E3A;
   --texte-light: #5A6E68;
+  --do-texte: #7F6128;
+  --vs-texte: #4E6B48;
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
   --radius: 20px;
@@ -51,7 +53,7 @@ body {
   font-size: 0.7rem;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: var(--dore);
+  color: var(--do-texte);
   font-weight: 500;
   margin-bottom: 12px;
 }
@@ -244,6 +246,17 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .tab-section { padding: 80px 0; }
 .tab-section-alt { background: var(--blanc); }
 .tab-section-dark { background: var(--bleu-petrole); }
+.tab-section-dark p,
+.tab-section-dark li,
+.tab-section-dark h2,
+.tab-section-dark h3,
+.tab-section-dark h4,
+.tab-section-dark .principle-text,
+.tab-section-dark .principle-text p { color: rgba(250, 247, 242, 0.92); }
+.tab-section-dark .principle-text strong { color: rgba(250, 247, 242, 1); }
+.tab-section-dark .sub-heading { color: var(--creme); }
+.tab-section-dark .sub-heading em { color: var(--dore-light); }
+.tab-section-dark .section-label { color: var(--dore); }
 
 .sub-heading {
   font-family: var(--font-display);
@@ -253,7 +266,7 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   margin-bottom: 8px;
   line-height: 1.25;
 }
-.sub-heading em { font-style: italic; color: var(--vert-sauge); }
+.sub-heading em { font-style: italic; color: var(--vs-texte); }
 
 .sub-intro {
   font-size: 1rem;
@@ -565,14 +578,14 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 /* ─── FOOTER ─── */
 footer {
   background: var(--bleu-petrole-deep);
-  color: rgba(250,247,242,0.5);
+  color: rgba(250,247,242,0.7);
   padding: 48px 0 32px;
 }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--creme); }
 .footer-logo span { color: var(--dore); }
 .footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
-.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.7); text-decoration: none; transition: color 0.3s; }
 .footer-links a:hover { color: var(--dore); }
 .footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
 
@@ -633,7 +646,14 @@ footer {
   transition: background 0.3s;
 }
 .footer-rdv-btn:hover { background: #B8934F; }
+.info-legale{background:var(--creme-dark,#F0EBE3);padding:24px 0;border-top:1px solid rgba(27,77,92,.08)}
+.info-legale p{font-size:.8rem;color:var(--texte-light,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
+.info-legale strong{color:var(--bleu-petrole,#1B4D5C)}
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>.nav-logo-img{height:48px;display:block}@media(max-width:768px){.nav-logo-img{height:40px}}</style>
 </head>
 <body>
 
@@ -641,16 +661,7 @@ footer {
 <nav id="nav">
   <div class="container">
     <a href="/" class="logo">
-      <div class="logo-icon">
-        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
-          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
-          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
-          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
-        </svg>
-      </div>
-      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
+      <img src="/logo-horizontal.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" class="nav-logo-img">
     </a>
     <ul class="nav-links">
       <li><a href="/">Accueil</a></li>
@@ -712,7 +723,7 @@ footer {
           <div class="principle-text">
             <p>Sa philosophie fondamentale : <strong>le corps possède des ressources d'adaptation et d'autorégulation</strong>. Le rôle de la praticienne est de créer les conditions pour que ces ressources s'expriment pleinement.</p>
             <p>Plutôt que de se concentrer sur les manifestations visibles, la naturopathie cherche à renforcer le <strong>terrain</strong>, cet ensemble de prédispositions biologiques, émotionnelles et environnementales qui détermine notre état de santé global.</p>
-            <p>C'est une approche de <strong>prévention et d'accompagnement</strong>, complémentaire à la médecine conventionnelle, particulièrement adaptée aux enfants et adolescents dont les organismes sont en plein développement.</p>
+            <p>C'est une approche de <strong>prévention et d'accompagnement</strong>, complémentaire à la médecine conventionnelle, adaptée à tous les âges, et particulièrement précieuse chez l'enfant et l'adolescent, dont l'organisme est en plein développement.</p>
           </div>
         </div>
         <div class="principle-callout">
@@ -730,7 +741,7 @@ footer {
       <div class="section-label">Les outils</div>
       <h2 class="sub-heading">Les approches pour <em>nourrir le terrain</em></h2>
       <p class="outils-intro">
-        Chaque outil est une fenêtre sur la vitalité. Alimentation, plantes, aromathérapie, fleurs de Bach : tout converge vers le même objectif — soutenir les ressources d'autorégulation de l'organisme.
+        Chaque outil est une fenêtre sur la vitalité. Alimentation, plantes, aromathérapie, fleurs de Bach : tout converge vers le même objectif : soutenir les ressources d'autorégulation de l'organisme.
       </p>
       <div class="tools-grid">
         <div class="tool-card animate-in">
@@ -785,7 +796,7 @@ footer {
           <div class="seance-num">🌸</div>
           <div class="seance-text">
             <strong>Ce que c'est</strong>
-            <p>L'aromathérapie utilise les extraits aromatiques issus de plantes — feuilles, fleurs, écorces, racines. Ce sont des concentrés d'une puissance considérable : quelques gouttes peuvent représenter l'équivalent de plusieurs kilos de plante fraîche. C'est précisément cette concentration qui fait leur intérêt, et qui impose un cadre d'utilisation strict.</p>
+            <p>L'aromathérapie utilise les extraits aromatiques issus de plantes : feuilles, fleurs, écorces, racines. Ce sont des concentrés d'une puissance considérable : quelques gouttes peuvent représenter l'équivalent de plusieurs kilos de plante fraîche. C'est précisément cette concentration qui fait leur intérêt, et qui impose un cadre d'utilisation strict.</p>
           </div>
         </div>
         <div class="seance-step">
@@ -793,7 +804,7 @@ footer {
           <div class="seance-text">
             <strong>Ce que ça peut apporter</strong>
             <p>Sur le plan physique, les extraits aromatiques sont traditionnellement utilisés pour soutenir les fonctions respiratoires, digestives et cutanées, et pour accompagner le confort musculaire.</p>
-            <p>Sur le plan nerveux et émotionnel, l'olfaction est le seul de nos sens à rejoindre directement les zones du cerveau liées à la mémoire et aux émotions, sans passer par un relais intermédiaire. C'est ce qui explique qu'une odeur puisse modifier un état intérieur en quelques secondes — et pourquoi l'aromathérapie est un outil intéressant pour accompagner l'agitation, la préparation au sommeil ou les moments de tension. Chez l'enfant, cette voie olfactive est particulièrement réceptive, et c'est presque toujours celle que je privilégie.</p>
+            <p>Sur le plan nerveux et émotionnel, l'olfaction est le seul de nos sens à rejoindre directement les zones du cerveau liées à la mémoire et aux émotions, sans passer par un relais intermédiaire. C'est ce qui explique qu'une odeur puisse modifier un état intérieur en quelques secondes, et c'est pourquoi l'aromathérapie est un outil intéressant pour accompagner l'agitation, la préparation au sommeil ou les moments de tension. Chez l'enfant, cette voie olfactive est particulièrement réceptive, et c'est presque toujours celle que je privilégie.</p>
           </div>
         </div>
         <div class="seance-step">
@@ -801,7 +812,7 @@ footer {
           <div class="seance-text">
             <strong>Le cadre que je pose</strong>
             <p>C'est un outil que je manipule avec beaucoup de prudence, et c'est la raison pour laquelle vous ne trouverez sur ce site aucun nom d'extrait ni aucun mode d'emploi.</p>
-            <p>Les extraits aromatiques ne conviennent pas à tous les âges, pas à toutes les situations, et certains sont formellement déconseillés chez le nourrisson, le jeune enfant, la femme enceinte ou allaitante. Ils peuvent également interagir avec des traitements en cours. Une recommandation aromatique n'a de sens qu'individuelle, posée après un échange complet, en connaissance de l'âge, du terrain et de ce qui est déjà pris par ailleurs. C'est ce travail-là que je fais en séance — et c'est ce qui la distingue d'une recherche sur internet.</p>
+            <p>Les extraits aromatiques ne conviennent pas à tous les âges, pas à toutes les situations, et certains sont formellement déconseillés chez le nourrisson, le jeune enfant, la femme enceinte ou allaitante. Ils peuvent également interagir avec des traitements en cours. Une recommandation aromatique n'a de sens qu'individuelle, posée après un échange complet, en connaissance de l'âge, du terrain et de ce qui est déjà pris par ailleurs. C'est ce travail-là que je fais en séance, et c'est ce qui la distingue d'une recherche sur internet.</p>
           </div>
         </div>
       </div>
@@ -840,44 +851,44 @@ footer {
         <div class="famille-card animate-in">
           <div class="famille-emoji">😰</div>
           <div class="famille-name">Peur</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Craintes, angoisses, phobies</p>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Craintes, angoisses, phobies</p>
         </div>
         <div class="famille-card animate-in" style="transition-delay:0.05s">
           <div class="famille-emoji">😶</div>
           <div class="famille-name">Incertitude</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Doutes, indécision, manque de confiance</p>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Doutes, indécision, manque de confiance</p>
         </div>
         <div class="famille-card animate-in" style="transition-delay:0.1s">
           <div class="famille-emoji">😔</div>
           <div class="famille-name">Manque d'intérêt</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Rêverie, passé, absentéisme intérieur</p>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Rêverie, passé, absentéisme intérieur</p>
         </div>
         <div class="famille-card animate-in" style="transition-delay:0.15s">
           <div class="famille-emoji">🤍</div>
           <div class="famille-name">Solitude</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Isolement, repli, incompréhension</p>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Isolement, repli, incompréhension</p>
         </div>
         <div class="famille-card animate-in" style="transition-delay:0.2s">
           <div class="famille-emoji">🤯</div>
           <div class="famille-name">Hypersensibilité</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Influence des autres, pensées intrusives</p>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Influence des autres, pensées intrusives</p>
         </div>
         <div class="famille-card animate-in" style="transition-delay:0.25s">
           <div class="famille-emoji">😤</div>
           <div class="famille-name">Découragement</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Désespoir, culpabilité, sentiment d'échec</p>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Désespoir, culpabilité, sentiment d'échec</p>
         </div>
         <div class="famille-card animate-in" style="transition-delay:0.3s">
           <div class="famille-emoji">🤝</div>
           <div class="famille-name">Souci des autres</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.5);margin-top:6px;line-height:1.5">Surprotection, impatience, tolérance</p>
+          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Surprotection, impatience, tolérance</p>
         </div>
       </div>
 
       <!-- Comment je travaille avec -->
       <div style="margin-top:48px;background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:32px 40px">
         <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--creme);font-weight:400;margin-bottom:16px">Comment je travaille avec</h3>
-        <p style="color:rgba(250,247,242,0.85);line-height:1.85;margin-bottom:12px">Par la conversation et l'observation, j'identifie avec vous — et avec votre enfant quand il est en âge de participer — les états qui dominent le moment présent. Une sélection resserrée est composée, puis réévaluée à chaque séance, parce qu'un état émotionnel n'est jamais figé.</p>
+        <p style="color:rgba(250,247,242,0.85);line-height:1.85;margin-bottom:12px">Par la conversation et l'observation, j'identifie avec la famille (et avec l'enfant quand il est en âge de participer) les états qui dominent le moment présent. Une sélection resserrée est composée, puis réévaluée à chaque séance, parce qu'un état émotionnel n'est jamais figé.</p>
         <p style="color:rgba(250,247,242,0.55);line-height:1.85;font-size:0.88rem">Les fleurs de Bach s'inscrivent dans un accompagnement global. Elles ne remplacent ni un suivi psychologique, ni un traitement médical, et ne constituent pas une réponse à une situation de détresse.</p>
       </div>
     </div>
@@ -921,7 +932,7 @@ footer {
       <h2 class="sub-heading" style="margin-bottom:32px">Selon <em>chaque âge</em></h2>
       <div class="public-grid">
         <div class="public-item animate-in">
-          <div class="public-item-age">0 – 3 ans · Bébés</div>
+          <div class="public-item-age">0 à 3 ans · Bébés</div>
           <div class="public-item-title">🍼 Premiers équilibres</div>
           <ul>
             <li>Coliques, inconfort digestif du nourrisson</li>
@@ -931,7 +942,7 @@ footer {
           </ul>
         </div>
         <div class="public-item animate-in" style="transition-delay:0.1s">
-          <div class="public-item-age">3 – 12 ans · Enfants</div>
+          <div class="public-item-age">4 à 12 ans · Enfants</div>
           <div class="public-item-title">🌱 Fondations</div>
           <ul>
             <li>Immunité fragilisée, infections récurrentes</li>
@@ -941,7 +952,7 @@ footer {
           </ul>
         </div>
         <div class="public-item animate-in" style="transition-delay:0.2s">
-          <div class="public-item-age">13 – 18 ans · Adolescents</div>
+          <div class="public-item-age">13 à 17 ans · Adolescents</div>
           <div class="public-item-title">🌀 Transitions</div>
           <ul>
             <li>Acné et peau réactive</li>
@@ -951,7 +962,7 @@ footer {
           </ul>
         </div>
         <div class="public-item animate-in" style="transition-delay:0.3s">
-          <div class="public-item-age">Adultes</div>
+          <div class="public-item-age">Adultes · 18 ans et plus</div>
           <div class="public-item-title">⚡ Ancrage</div>
           <ul>
             <li>Une charge mentale qui s'accumule et épuise</li>
@@ -1279,11 +1290,19 @@ footer {
   </div>
 </section>
 
+<!-- ══════ INFO LÉGALE ══════ -->
+<section class="info-legale">
+  <div class="container">
+    <p><strong>Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
+  </div>
+</section>
+
 <!-- ══════ FOOTER ══════ -->
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-logo">Horizon <span>&</span> Équilibre</div>
+      <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
+      <p style="font-size:.85rem;color:rgba(250,247,242,.7);margin-bottom:20px;max-width:480px">Un accompagnement global et doux pour les bébés, les enfants, les adolescents et les adultes, par Arielle de Maistre.</p>
       <ul class="footer-links">
         <li><a href="/about">À propos</a></li>
         <li><a href="/methode">Méthode</a></li>
@@ -1295,9 +1314,9 @@ footer {
       <a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a>
     </div>
     <div class="footer-copy">
-      © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, organisme certifié Qualiopi)
+      © 2026 Horizon & Équilibre | Arielle de Maistre · Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, organisme certifié Qualiopi)
       <div style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
-        <span style="color:rgba(250,247,242,.5);font-size:.8em">Mentions légales</span>
+        <span style="color:rgba(250,247,242,.7);font-size:.8em">Mentions légales</span>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarifs & Accompagnement — Horizon & Équilibre · Naturopathie · Réflexologie</title>
+<title>Tarifs & Accompagnement | Horizon & Équilibre · Naturopathie · Réflexologie</title>
 <meta name="description" content="Tarifs des séances et accompagnements naturopathiques et réflexologiques au cabinet de Sainte-Consorce (69280).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -23,6 +23,8 @@
   --blanc: #FFFFFF;
   --texte: #2C3E3A;
   --texte-light: #5A6E68;
+  --do-texte: #7F6128;
+  --vs-texte: #4E6B48;
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
   --radius: 20px;
@@ -47,7 +49,7 @@ body {
   font-size: 0.7rem;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: var(--dore);
+  color: var(--do-texte);
   font-weight: 500;
   margin-bottom: 12px;
 }
@@ -182,7 +184,7 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   margin-bottom: 16px;
   line-height: 1.2;
 }
-.section-title em { font-style: italic; color: var(--vert-sauge); }
+.section-title em { font-style: italic; color: var(--vs-texte); }
 .section-intro {
   font-size: 0.97rem;
   color: var(--texte-light);
@@ -434,14 +436,14 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 /* ─── FOOTER ─── */
 footer {
   background: var(--bleu-petrole-deep);
-  color: rgba(250,247,242,0.5);
+  color: rgba(250,247,242,0.7);
   padding: 48px 0 32px;
 }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--creme); }
 .footer-logo span { color: var(--dore); }
 .footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
-.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.3s; }
+.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.7); text-decoration: none; transition: color 0.3s; }
 .footer-links a:hover { color: var(--dore); }
 .footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
 
@@ -461,7 +463,14 @@ footer {
   .deroulement-grid { grid-template-columns: 1fr; }
   .cta-buttons { flex-direction: column; align-items: center; }
 }
+.info-legale{background:var(--creme-dark,#F0EBE3);padding:24px 0;border-top:1px solid rgba(27,77,92,.08)}
+.info-legale p{font-size:.8rem;color:var(--texte-light,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
+.info-legale strong{color:var(--bleu-petrole,#1B4D5C)}
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>.nav-logo-img{height:48px;display:block}@media(max-width:768px){.nav-logo-img{height:40px}}</style>
 </head>
 <body>
 
@@ -469,16 +478,7 @@ footer {
 <nav id="nav">
   <div class="container">
     <a href="/" class="logo">
-      <div class="logo-icon">
-        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
-          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
-          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
-          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
-        </svg>
-      </div>
-      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
+      <img src="/logo-horizontal.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" class="nav-logo-img">
     </a>
     <ul class="nav-links">
       <li><a href="/">Accueil</a></li>
@@ -501,7 +501,7 @@ footer {
     <div class="hero-inner animate-in">
       <div class="hero-badge">Cabinet · Visio · Domicile · Sainte-Consorce (69280)</div>
       <h1>Tarifs <em>&</em><br>Accompagnement</h1>
-      <p class="hero-sub">Des séances pensées sur la durée, incluant la préparation du programme et le compte-rendu de chaque séance. Les consultations ont lieu au cabinet, en visioconférence ou à domicile — selon ce qui vous convient le mieux. La transparence tarifaire fait partie de la relation de confiance.</p>
+      <p class="hero-sub">Des séances pensées sur la durée, incluant la préparation du programme et le compte-rendu de chaque séance. Les consultations ont lieu au cabinet, en visioconférence ou à domicile, selon ce qui convient le mieux. La transparence tarifaire fait partie de la relation de confiance.</p>
     </div>
   </div>
 </section>
@@ -517,7 +517,7 @@ footer {
   <div class="container">
     <div class="section-label">Déroulé</div>
     <h2 class="section-title">Un accompagnement en<br><em>trois temps</em></h2>
-    <p class="section-intro">Chaque séance comprend la préparation en amont, la séance — au cabinet, en visio ou à domicile — et le compte-rendu personnalisé remis en fin de consultation. Ce que vous payez, c'est un accompagnement complet, pas une simple heure sur une table.</p>
+    <p class="section-intro">Chaque séance comprend la préparation en amont, la séance (au cabinet, en visio ou à domicile) et le compte-rendu personnalisé remis en fin de consultation. L'accompagnement comprend un suivi complet, pas seulement une heure en séance.</p>
 
     <div class="deroulement-grid">
 
@@ -742,7 +742,7 @@ footer {
     <div class="note-grid">
       <div class="note-card animate-in">
         <h3>🏥 Remboursement & mutuelles</h3>
-        <p>La naturopathie et la réflexologie ne sont pas remboursées par la Sécurité Sociale. De nombreuses mutuelles proposent cependant des forfaits annuels pour les pratiques de bien-être — la prise en charge dépend de votre contrat et n'est jamais garantie. Une facture est remise à chaque séance, que vous pouvez transmettre à votre organisme complémentaire.</p>
+        <p>La naturopathie et la réflexologie ne sont pas remboursées par la Sécurité Sociale. De nombreuses mutuelles proposent cependant des forfaits annuels pour les pratiques de bien-être. La prise en charge dépend du contrat de complémentaire santé et n'est jamais garantie. Une facture est remise à chaque séance, que vous pouvez transmettre à votre organisme complémentaire.</p>
       </div>
       <div class="note-card animate-in" style="transition-delay:0.1s">
         <h3>📍 Lieu des séances</h3>
@@ -755,7 +755,7 @@ footer {
       <h3>🗓️ Annulation et report</h3>
       <p>Un rendez-vous peut être annulé ou reporté sans frais jusqu'à <strong>24 heures</strong> avant l'heure prévue, par téléphone, SMS ou email.<br>
       En deçà de ce délai, ou en cas d'absence non signalée, la séance est due à hauteur de <strong>50 %</strong> de son montant.<br>
-      Les situations imprévisibles — maladie soudaine, accident, urgence familiale — sont bien entendu prises en compte : prévenez-moi dès que possible.<br>
+      Les situations imprévisibles (maladie soudaine, accident, urgence familiale) sont bien entendu prises en compte : prévenez-moi dès que possible.<br>
       En cas d'empêchement de ma part, la séance est reportée au plus tôt, sans aucun frais.</p>
     </div>
 
@@ -811,11 +811,19 @@ footer {
   </div>
 </section>
 
+<!-- ══════ INFO LÉGALE ══════ -->
+<section class="info-legale">
+  <div class="container">
+    <p><strong>Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
+  </div>
+</section>
+
 <!-- ══════ FOOTER ══════ -->
 <footer>
   <div class="container">
     <div class="footer-inner">
-      <div class="footer-logo">Horizon <span>&</span> Équilibre</div>
+      <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
+      <p style="font-size:.85rem;color:rgba(250,247,242,.7);margin-bottom:20px;max-width:480px">Un accompagnement global et doux pour les bébés, les enfants, les adolescents et les adultes, par Arielle de Maistre.</p>
       <ul class="footer-links">
         <li><a href="/about">À propos</a></li>
         <li><a href="/methode">Méthode</a></li>
@@ -828,9 +836,9 @@ footer {
       <a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a>
     </div>
     <div class="footer-copy">
-      © 2026 Horizon & Équilibre — Arielle de Maistre · Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, organisme certifié Qualiopi)
+      © 2026 Horizon & Équilibre | Arielle de Maistre · Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, organisme certifié Qualiopi)
       <div style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
-        <span style="color:rgba(250,247,242,.5);font-size:.8em">Mentions légales</span>
+        <span style="color:rgba(250,247,242,.7);font-size:.8em">Mentions légales</span>
       </div>
     </div>
   </div>

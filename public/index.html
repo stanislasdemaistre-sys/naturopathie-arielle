@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon & Équilibre — Naturopathie & Réflexologie à Sainte-Consorce (Lyon)</title>
+<title>Horizon & Équilibre | Naturopathie & Réflexologie à Sainte-Consorce (Lyon)</title>
 <meta name="description" content="Naturopathe et réflexologue à Sainte-Consorce (Lyon), Arielle de Maistre accompagne bébés, enfants, adolescents et adultes vers un équilibre naturel et durable.">
-<meta property="og:title" content="Horizon & Équilibre — Naturopathie & Réflexologie">
+<meta property="og:title" content="Horizon & Équilibre | Naturopathie & Réflexologie">
 <meta property="og:description" content="Accompagnement naturel pour bébés, enfants, adolescents et adultes. Naturopathie et réflexologie à Sainte-Consorce (Lyon).">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
@@ -14,7 +14,7 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Horizon & Équilibre",
-  "description": "Cabinet de naturopathie et réflexologie — accompagnement naturel pour bébés, enfants, adolescents et adultes",
+  "description": "Cabinet de naturopathie et réflexologie, accompagnement naturel pour bébés, enfants, adolescents et adultes",
   "telephone": "+33651140726",
   "address": {
     "@type": "PostalAddress",
@@ -45,6 +45,8 @@
   --blanc: #FFFFFF;
   --texte: #2C3E3A;
   --texte-light: #5A6E68;
+  --do-texte: #7F6128;
+  --vs-texte: #4E6B48;
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
@@ -74,7 +76,7 @@ body {
   font-size: 0.7rem;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: var(--dore);
+  color: var(--do-texte);
   font-weight: 500;
   margin-bottom: 12px;
 }
@@ -87,7 +89,7 @@ body {
 }
 .section-title em {
   font-style: italic;
-  color: var(--vert-sauge);
+  color: var(--vs-texte);
 }
 
 /* ─── ANIMATIONS ─── */
@@ -807,7 +809,7 @@ nav .container {
 }
 .audit-step-indicator {
   font-size: 0.75rem;
-  color: var(--dore);
+  color: var(--do-texte);
   font-weight: 500;
   letter-spacing: 1px;
 }
@@ -1026,7 +1028,7 @@ nav .container {
 .guides-preview-note {
   margin-top: 14px;
   font-size: 0.78rem;
-  color: rgba(250,247,242,0.4);
+  color: rgba(250,247,242,0.65);
 }
 @media (max-width: 1024px) { .guides-preview-list { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 768px) { .guides-preview-list { grid-template-columns: 1fr 1fr; } }
@@ -1051,7 +1053,7 @@ footer {
   display: block;
 }
 .footer-brand p {
-  color: rgba(250, 247, 242, 0.5);
+  color: rgba(250, 247, 242, 0.7);
   font-size: 0.88rem;
   line-height: 1.7;
   max-width: 300px;
@@ -1068,7 +1070,7 @@ footer {
 .footer-col ul { list-style: none; }
 .footer-col li { margin-bottom: 10px; }
 .footer-col a {
-  color: rgba(250, 247, 242, 0.5);
+  color: rgba(250, 247, 242, 0.7);
   text-decoration: none;
   font-size: 0.88rem;
   transition: color 0.3s;
@@ -1083,7 +1085,7 @@ footer {
 }
 .footer-bottom p {
   font-size: 0.78rem;
-  color: rgba(250, 247, 242, 0.3);
+  color: rgba(250, 247, 242, 0.6);
 }
 .footer-socials {
   display: flex;
@@ -1097,7 +1099,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(250, 247, 242, 0.5);
+  color: rgba(250, 247, 242, 0.7);
   text-decoration: none;
   font-size: 0.9rem;
   transition: all 0.3s;
@@ -1166,7 +1168,7 @@ footer {
 }
 .pilier-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(27,77,92,0.1); }
 .pilier-keyword {
-  display: inline-block; background: var(--dore-pale); color: var(--dore);
+  display: inline-block; background: var(--dore-pale); color: var(--do-texte);
   font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
   font-weight: 600; padding: 6px 18px; border-radius: 50px; margin-bottom: 22px;
 }
@@ -1188,7 +1190,7 @@ footer {
 }
 .btn-bilan-gold {
   display: inline-flex; align-items: center;
-  background: var(--dore); color: var(--blanc);
+  background: var(--dore); color: #0F3540;
   padding: 16px 36px; border-radius: 50px;
   font-family: var(--font-body); font-size: 0.95rem;
   font-weight: 600; letter-spacing: 0.3px;
@@ -1221,7 +1223,7 @@ footer {
 .pq-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(27,77,92,0.1); }
 .pq-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 .pq-emoji { font-size: 1.4rem; flex-shrink: 0; }
-.pq-age { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--dore); font-weight: 500; margin-bottom: 6px; }
+.pq-age { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--do-texte); font-weight: 500; margin-bottom: 6px; }
 .pq-titre { font-family: var(--font-display); font-size: 1.05rem; color: var(--bleu-petrole); font-weight: 500; margin-bottom: 0; }
 .pq-tags { font-size: 0.8rem; color: var(--texte-light); line-height: 1.7; }
 .pour-qui-cta { text-align: center; margin-top: 40px; }
@@ -1240,7 +1242,15 @@ footer {
   transition: background 0.3s;
 }
 .footer-rdv-btn:hover { background: #B8934F; }
+.info-legale{background:var(--creme-dark,#F0EBE3);padding:24px 0;border-top:1px solid rgba(27,77,92,.08)}
+.info-legale p{font-size:.8rem;color:var(--texte-light,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
+.info-legale strong{color:var(--bleu-petrole,#1B4D5C)}
+.value-tag{font-size:.72rem;color:var(--vert-sauge);background:rgba(143,169,139,.12);padding:2px 10px;border-radius:20px;display:inline-block;margin-top:4px}
 </style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>.nav-logo-img{height:48px;display:block}@media(max-width:768px){.nav-logo-img{height:40px}}</style>
 </head>
 <body>
 
@@ -1248,16 +1258,7 @@ footer {
 <nav id="nav">
   <div class="container">
     <a href="/" class="logo">
-      <div class="logo-icon">
-        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
-          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
-          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
-          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
-        </svg>
-      </div>
-      <div class="logo-text">Horizon <span>&</span> Équilibre</div>
+      <img src="/logo-horizontal.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" class="nav-logo-img">
     </a>
     <ul class="nav-links">
       <li><a href="/" class="active">Accueil</a></li>
@@ -1283,9 +1284,9 @@ footer {
         <span class="dot"></span>
         Naturopathie · Réflexologie
       </div>
-      <h1>J'accompagne votre famille<br>vers un équilibre — <em>naturellement</em></h1>
+      <h1>Arielle accompagne les familles<br>vers un équilibre <em>naturel</em></h1>
       <p class="hero-desc">
-        Naturopathe et réflexologue à Sainte-Consorce (Lyon), j'accompagne bébés, enfants, adolescents et adultes (18 ans et +). Mon approche : comprendre ce que le corps exprime, identifier les causes profondes des déséquilibres et vous donner des outils concrets, doux et durables.
+        Naturopathe et réflexologue à Sainte-Consorce (Lyon), Arielle accompagne bébés, enfants, adolescents et adultes (18 ans et +). Son approche : comprendre ce que le corps exprime, identifier les causes profondes des déséquilibres et transmettre des outils concrets, doux et durables.
       </p>
       <div class="hero-actions">
         <a href="/contact" class="btn-primary">
@@ -1310,7 +1311,7 @@ footer {
         Parce que l'équilibre d'un enfant<br>est <em>précieux et parfois fragile</em>
       </h2>
       <p class="promesse-text">
-        Je vous aide à décoder les messages de son corps pour apporter des solutions douces et durables.
+        Arielle aide les familles à décoder les messages du corps de l'enfant pour apporter des solutions douces et durables.
       </p>
       <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:32px;padding-top:28px;border-top:1px solid var(--creme-dark)">
         <div style="text-align:center">
@@ -1319,7 +1320,7 @@ footer {
         </div>
         <div style="width:1px;background:var(--creme-dark)"></div>
         <div style="text-align:center">
-          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">3 approches</div>
+          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">2 disciplines</div>
           <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">complémentaires</div>
         </div>
         <div style="width:1px;background:var(--creme-dark)"></div>
@@ -1390,7 +1391,7 @@ footer {
     <div class="piliers-grid">
       <div class="pilier-card animate-in">
         <img src="Naturo%201.jpg" alt="Plantes médicinales, herbes et compléments naturels — naturopathie" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
-        <div class="pilier-keyword">Mesurer</div>
+        <div class="pilier-keyword">Comprendre</div>
         <div class="pilier-icon">🌿</div>
         <h3 class="pilier-title">Naturopathie de terrain</h3>
         <p>Alimentation, micronutrition, phytothérapie : cartographier le terrain pour agir à la source, pas sur la manifestation visible.</p>
@@ -1418,17 +1419,17 @@ footer {
     </div>
     <div class="pour-qui-grid">
       <a href="/about" class="pq-card animate-in">
-        <div class="pq-age">0 – 3 ans</div>
+        <div class="pq-age">0 à 3 ans</div>
         <div class="pq-header"><span class="pq-emoji">🍼</span><span class="pq-titre">Les Bébés</span></div>
         <p class="pq-tags">Coliques · Troubles du sommeil · Tensions corporelles</p>
       </a>
       <a href="/about" class="pq-card animate-in" style="transition-delay:0.08s">
-        <div class="pq-age">3 – 12 ans</div>
+        <div class="pq-age">4 à 12 ans</div>
         <div class="pq-header"><span class="pq-emoji">🌱</span><span class="pq-titre">Les Enfants</span></div>
         <p class="pq-tags">Immunité · Anxiété · Concentration</p>
       </a>
       <a href="/about" class="pq-card animate-in" style="transition-delay:0.16s">
-        <div class="pq-age">13 – 18 ans</div>
+        <div class="pq-age">13 à 17 ans</div>
         <div class="pq-header"><span class="pq-emoji">🌀</span><span class="pq-titre">Les Adolescents</span></div>
         <p class="pq-tags">Stress · Acné · Confiance</p>
       </a>
@@ -1439,7 +1440,7 @@ footer {
       </a>
     </div>
     <div class="pour-qui-cta">
-      <a href="/about#qui-jaccompagne">Découvrir qui j'accompagne →</a>
+      <a href="/about#qui-jaccompagne">Découvrir qui Arielle accompagne →</a>
     </div>
   </div>
 </section>
@@ -1460,10 +1461,10 @@ footer {
       <div class="section-label">À propos</div>
       <h2 class="section-title">Arielle de Maistre,<br><em>praticienne en naturopathie et réflexologie</em></h2>
       <p class="apropos-text">
-        Ingénieure chimiste de formation, maman de trois enfants. C'est lors d'une expatriation au Sultanat d'Oman qu'Arielle découvre la puissance des approches naturelles et la résilience profonde du corps humain.
+        Ingénieure chimiste de formation, maman de trois enfants. C'est lors d'une expatriation au Sultanat d'Oman et au Maroc qu'Arielle découvre la puissance des approches naturelles et la résilience profonde du corps humain.
       </p>
       <p class="apropos-text">
-        Revenue en France avec cette conviction, elle se consacre désormais à l'accompagnement des enfants et adolescents à travers un bouquet de solutions douces et complémentaires.
+        Revenue en France avec cette conviction, Arielle accompagne aujourd'hui les familles, du nourrisson à l'adulte, avec une attention particulière pour l'enfance et l'adolescence.
       </p>
       <div class="apropos-values">
         <div class="value-item">
@@ -1478,6 +1479,7 @@ footer {
           <div class="value-text">
             <h4>Fleurs de Bach</h4>
             <p>Harmoniser les émotions, soutenir l'équilibre intérieur</p>
+            <span class="value-tag">Outil de la naturopathie</span>
           </div>
         </div>
         <div class="value-item">
@@ -1497,11 +1499,11 @@ footer {
   <div class="container">
     <div class="audit-content animate-in">
       <div class="section-label">Bilan Horizon Santé</div>
-      <h2 class="section-title">Votre enfant en <em>3 minutes</em></h2>
+      <h2 class="section-title">Faire le point en <em>5 minutes</em></h2>
       <p class="audit-desc">
-        Un questionnaire dynamique et bienveillant pour identifier les zones de besoin de votre enfant : stress, peau, immunité, sommeil, confiance. Les résultats visuels donnent une première orientation vers un accompagnement personnalisé.
+        Un questionnaire en 20 questions, adapté à chaque âge, pour repérer les besoins prioritaires : sommeil, éclat, sérénité, immunité et confiance. Les résultats prennent la forme d'une Fleur de Vitalité et donnent une première orientation.
       </p>
-      <p class="audit-hook">Comprenez ses besoins en 3 minutes.</p>
+      <p class="audit-hook">Un bilan adapté à chaque âge, du bébé à l'adulte.</p>
       <a href="/audit" class="btn-bilan-gold">Lancer le Bilan Horizon Santé</a>
       <div class="audit-features">
         <div class="audit-feature">
@@ -1570,7 +1572,7 @@ footer {
     <div class="guides-preview-header animate-in">
       <div class="section-label">Publications</div>
       <h2 class="section-title">Comprendre pour<br><em>mieux accompagner</em></h2>
-      <p>Des articles écrits à partir de ma pratique pour vous donner des repères concrets — sur la santé de vos enfants, vos propres inconforts et les approches naturelles qui peuvent vous soutenir.</p>
+      <p>Des articles écrits à partir de la pratique d'Arielle, pour des repères sur la santé des enfants, les inconforts fréquents et les approches qui soutiennent les familles.</p>
     </div>
     <div class="guides-preview-list">
       <a href="/publications/peau-adolescence" class="gp-card animate-in">
@@ -1606,13 +1608,20 @@ footer {
   </div>
 </section>
 
+<!-- ══════ INFO LÉGALE ══════ -->
+<section class="info-legale">
+  <div class="container">
+    <p><strong>Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
+  </div>
+</section>
+
 <!-- ══════ FOOTER ══════ -->
 <footer>
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <span class="logo-text">Horizon <span>&</span> Équilibre</span>
-        <p>Un accompagnement global et doux pour les enfants, adolescents et adultes par Arielle de Maistre.</p>
+        <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
+        <p>Un accompagnement global et doux pour les bébés, les enfants, les adolescents et les adultes, par Arielle de Maistre.</p>
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
@@ -1643,9 +1652,9 @@ footer {
     </div>
     <div class="footer-bottom">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <p>© 2026 Horizon & Équilibre — Arielle de Maistre. Tous droits réservés.</p>
+        <p>© 2026 Horizon & Équilibre | Arielle de Maistre. Tous droits réservés.</p>
         <div style="display:flex;align-items:center;gap:16px">
-          <span style="color:rgba(250,247,242,.5);font-size:.78rem">Mentions légales</span>
+          <span style="color:rgba(250,247,242,.7);font-size:.78rem">Mentions légales</span>
         </div>
       </div>
     </div>
