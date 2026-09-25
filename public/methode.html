@@ -649,6 +649,13 @@ footer {
 .info-legale{background:var(--creme-dark,#F0EBE3);padding:24px 0;border-top:1px solid rgba(27,77,92,.08)}
 .info-legale p{font-size:.8rem;color:var(--texte-light,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
 .info-legale strong{color:var(--bleu-petrole,#1B4D5C)}
+.analyses-normales{background:var(--bleu-petrole);padding:72px 0}
+.analyses-normales h2{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--creme);margin-bottom:24px;line-height:1.3}
+.analyses-normales h2 em{color:var(--dore-light);font-style:italic}
+.analyses-normales p{font-size:.95rem;line-height:1.8;color:rgba(250,247,242,.85);margin-bottom:16px;max-width:780px}
+.analyses-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
+.btn-secondary-light{background:transparent;border:1.5px solid rgba(250,247,242,.5);color:var(--creme);padding:12px 28px;border-radius:var(--radius-sm);text-decoration:none;font-size:.9rem;transition:all .2s}
+.btn-secondary-light:hover{border-color:var(--creme);background:rgba(250,247,242,.1)}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -709,6 +716,20 @@ footer {
 <!-- ══════════════════════════════════════════ -->
 <div id="tab-naturo" class="tab-content active">
 
+<!-- ══════ QUAND LES ANALYSES SONT NORMALES ══════ -->
+<section class="analyses-normales">
+  <div class="container">
+    <h2>Quand les analyses sont normales,<br>mais que les symptômes <em>persistent</em></h2>
+    <p>Beaucoup de familles arrivent au cabinet après un long parcours : bilans sanguins normaux, examens rassurants, et pourtant des troubles bien réels qui gâchent le quotidien. Une fatigue qui ne passe pas, un ventre gonflé ou douloureux, des nuits hachées, une peau qui réagit, des rhumes à répétition, des maux de tête, une anxiété diffuse.</p>
+    <p>Ces troubles, que l'on appelle « fonctionnels », sont au cœur de la naturopathie et de la réflexologie. Plutôt que de regarder un organe isolé, Arielle observe le fonctionnement global : digestion, élimination, système nerveux, sommeil, alimentation, rythme de vie et émotions. C'est souvent dans les liens entre ces dimensions que se trouvent les pistes pour aller mieux.</p>
+    <p>Arielle intervient une fois l'avis médical obtenu, ou en parallèle du suivi en cours. Elle ne pose pas de diagnostic et ne modifie aucun traitement : elle aide le corps à retrouver son équilibre et accompagne la personne dans des changements concrets et durables.</p>
+    <div class="analyses-cta">
+      <a href="/audit" class="btn-primary">Faire le Bilan Horizon Santé</a>
+      <a href="/contact" class="btn-secondary-light">Prendre rendez-vous</a>
+    </div>
+  </div>
+</section>
+
   <!-- C'EST QUOI -->
   <div class="tab-section">
     <div class="container">
@@ -716,6 +737,7 @@ footer {
            alt="Mains préparant des herbes médicinales dans un bol, étagères d'apothicaire en arrière-plan"
            class="tab-photo" loading="lazy">
       <div class="section-label">La naturopathie</div>
+      <p class="sub-intro" style="margin-bottom:16px">L'Organisation mondiale de la santé classe la naturopathie parmi les médecines traditionnelles et complémentaires. En France, elle s'exerce comme une pratique de prévention et d'éducation à la santé : la naturopathe aide chacun à comprendre son fonctionnement et à ajuster son hygiène de vie (alimentation, sommeil, gestion du stress, activité physique, plantes) pour soutenir les capacités naturelles d'équilibre du corps.</p>
       <div class="principle-grid animate-in">
         <div>
           <h2 class="sub-heading">Comprendre le <em>terrain</em>,<br>pas seulement ce qui se voit</h2>
@@ -935,20 +957,24 @@ footer {
           <div class="public-item-age">0 à 3 ans · Bébés</div>
           <div class="public-item-title">🍼 Premiers équilibres</div>
           <ul>
-            <li>Coliques, inconfort digestif du nourrisson</li>
-            <li>Troubles du sommeil, difficultés d'endormissement</li>
-            <li>Peau réactive, réactions cutanées précoces</li>
-            <li>Soutien de l'immunité dès les premiers mois</li>
+            <li>Coliques, pleurs du soir, ventre tendu</li>
+            <li>Reflux et régurgitations</li>
+            <li>Constipation, transit irrégulier</li>
+            <li>Sommeil difficile, réveils fréquents</li>
+            <li>Peau sèche ou eczéma</li>
+            <li>Agitation difficile à apaiser, tensions corporelles</li>
           </ul>
         </div>
         <div class="public-item animate-in" style="transition-delay:0.1s">
           <div class="public-item-age">4 à 12 ans · Enfants</div>
           <div class="public-item-title">🌱 Fondations</div>
           <ul>
-            <li>Immunité fragilisée, infections récurrentes</li>
-            <li>Troubles digestifs, ventre douloureux</li>
-            <li>Difficultés de sommeil</li>
-            <li>Comportement, difficultés de concentration</li>
+            <li>Rhumes, otites ou angines à répétition</li>
+            <li>Mal au ventre fréquent, constipation, digestion difficile</li>
+            <li>Troubles du sommeil, peurs du soir</li>
+            <li>Anxiété, angoisse de séparation, émotions qui débordent</li>
+            <li>Agitation, difficultés de concentration</li>
+            <li>Allergies saisonnières, peau réactive</li>
           </ul>
         </div>
         <div class="public-item animate-in" style="transition-delay:0.2s">
@@ -956,19 +982,22 @@ footer {
           <div class="public-item-title">🌀 Transitions</div>
           <ul>
             <li>Acné et peau réactive</li>
-            <li>Les bouleversements hormonaux de l'adolescence</li>
-            <li>Fatigue, rapport à l'alimentation, confiance en soi</li>
-            <li>Stress des examens, difficultés de concentration</li>
+            <li>Stress des examens, pression scolaire, trous de mémoire</li>
+            <li>Sommeil décalé, fatigue persistante</li>
+            <li>Règles douloureuses ou irrégulières</li>
+            <li>Confiance en soi, rapport au corps</li>
           </ul>
         </div>
         <div class="public-item animate-in" style="transition-delay:0.3s">
           <div class="public-item-age">Adultes · 18 ans et plus</div>
           <div class="public-item-title">⚡ Ancrage</div>
           <ul>
-            <li>Une charge mentale qui s'accumule et épuise</li>
-            <li>Un rythme de vie qui use et qu'on aimerait mieux gérer</li>
-            <li>Une fatigue persistante, difficile à expliquer</li>
-            <li>Des infections répétées, un terrain fragilisé</li>
+            <li>Stress, charge mentale, épuisement</li>
+            <li>Troubles du sommeil, réveils nocturnes</li>
+            <li>Fatigue qui ne passe pas malgré des analyses normales</li>
+            <li>Digestion difficile, ballonnements, côlon irritable</li>
+            <li>Infections à répétition, immunité fragile</li>
+            <li>Transitions hormonales : préménopause, ménopause</li>
           </ul>
         </div>
       </div>
@@ -998,6 +1027,8 @@ footer {
         déjà pleinement actives et la réponse est remarquablement rapide. C'est une approche
         douce, qui peut accompagner toute la famille dès la naissance.
       </p>
+
+      <p class="sub-intro" style="margin-top:12px">La réflexologie est une technique manuelle de détente profonde, adaptée à tous les âges dès la naissance. Par des pressions précises sur les zones réflexes des pieds, des mains, du visage ou du crâne, elle favorise le relâchement du système nerveux, soutient les fonctions d'élimination et aide le corps à retrouver son équilibre. Elle est particulièrement appréciée en cas de stress, de troubles du sommeil, d'inconforts digestifs et de tensions.</p>
 
       <!-- SOUS-ONGLETS -->
       <p style="text-align:center;font-size:0.78rem;color:var(--texte-light);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px;opacity:0.7">Sélectionnez un type pour en découvrir les détails</p>

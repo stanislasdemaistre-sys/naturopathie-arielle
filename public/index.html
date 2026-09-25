@@ -12,16 +12,18 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": ["LocalBusiness", "HealthAndBeautyBusiness"],
   "name": "Horizon & Équilibre",
   "description": "Cabinet de naturopathie et réflexologie, accompagnement naturel pour bébés, enfants, adolescents et adultes",
   "telephone": "+33651140726",
   "address": {
     "@type": "PostalAddress",
+    "streetAddress": "7 chemin du Maure",
     "addressLocality": "Sainte-Consorce",
     "postalCode": "69280",
     "addressCountry": "FR"
   },
+  "areaServed": ["Sainte-Consorce","Vaugneray","Sainte-Foy-lès-Lyon","Tassin-la-Demi-Lune","Écully","Dardilly"],
   "priceRange": "€€",
   "openingHoursSpecification": [],
   "sameAs": []
@@ -1246,6 +1248,20 @@ footer {
 .info-legale p{font-size:.8rem;color:var(--texte-light,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
 .info-legale strong{color:var(--bleu-petrole,#1B4D5C)}
 .value-tag{font-size:.72rem;color:var(--vert-sauge);background:rgba(143,169,139,.12);padding:2px 10px;border-radius:20px;display:inline-block;margin-top:4px}
+.pourquoi-section{padding:72px 0;background:var(--creme)}
+.pourquoi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
+.pourquoi-card{background:var(--blanc);border-radius:var(--radius);padding:32px 28px;border:1px solid rgba(27,77,92,.07)}
+.pourquoi-icon{font-size:2rem;margin-bottom:12px}
+.pourquoi-card h3{font-family:var(--font-display);font-size:1.25rem;color:var(--bleu-petrole);margin-bottom:12px}
+.pourquoi-card p{font-size:.9rem;color:var(--texte-light);line-height:1.7}
+@media(max-width:768px){.pourquoi-grid{grid-template-columns:1fr}}
+.analyses-normales{background:var(--bleu-petrole);padding:72px 0}
+.analyses-normales h2{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--creme);margin-bottom:24px;line-height:1.3}
+.analyses-normales h2 em{color:var(--dore-light);font-style:italic}
+.analyses-normales p{font-size:.95rem;line-height:1.8;color:rgba(250,247,242,.85);margin-bottom:16px;max-width:780px}
+.analyses-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
+.btn-secondary-light{background:transparent;border:1.5px solid rgba(250,247,242,.5);color:var(--creme);padding:12px 28px;border-radius:var(--radius-sm);text-decoration:none;font-size:.9rem;transition:all .2s}
+.btn-secondary-light:hover{border-color:var(--creme);background:rgba(250,247,242,.1)}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -1329,6 +1345,46 @@ footer {
           <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">Cabinet · Visio · Domicile</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ POURQUOI CONSULTER ══════ -->
+<section class="pourquoi-section">
+  <div class="container">
+    <div class="section-label">Pourquoi consulter</div>
+    <h2 class="section-title">Pourquoi consulter une<br>naturopathe réflexologue ?</h2>
+    <p class="section-intro">La naturopathie et la réflexologie agissent en amont et en complément de la médecine. Leur rôle : aider le corps à retrouver son équilibre, et donner à chacun les clés pour prendre soin de sa santé au quotidien.</p>
+    <div class="pourquoi-grid">
+      <div class="pourquoi-card animate-in">
+        <div class="pourquoi-icon">🌱</div>
+        <h3>Prévenir</h3>
+        <p>Renforcer le terrain avant que les troubles ne s'installent : changements de saison, rentrée scolaire, examens, puberté, périodes de surmenage.</p>
+      </div>
+      <div class="pourquoi-card animate-in" style="transition-delay:0.1s">
+        <div class="pourquoi-icon">🤝</div>
+        <h3>Accompagner</h3>
+        <p>Les troubles du quotidien qui reviennent ou s'installent : digestion, sommeil, peau, immunité, fatigue, stress. Toujours en complément du suivi médical.</p>
+      </div>
+      <div class="pourquoi-card animate-in" style="transition-delay:0.2s">
+        <div class="pourquoi-icon">💛</div>
+        <h3>Soutenir</h3>
+        <p>Les grandes étapes et les moments difficiles : arrivée d'un bébé, séparation, deuil, déménagement, pression scolaire ou professionnelle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ QUAND LES ANALYSES SONT NORMALES ══════ -->
+<section class="analyses-normales">
+  <div class="container">
+    <h2>Quand les analyses sont normales,<br>mais que les symptômes <em>persistent</em></h2>
+    <p>Beaucoup de familles arrivent au cabinet après un long parcours : bilans sanguins normaux, examens rassurants, et pourtant des troubles bien réels qui gâchent le quotidien. Une fatigue qui ne passe pas, un ventre gonflé ou douloureux, des nuits hachées, une peau qui réagit, des rhumes à répétition, des maux de tête, une anxiété diffuse.</p>
+    <p>Ces troubles, que l'on appelle « fonctionnels », sont au cœur de la naturopathie et de la réflexologie. Plutôt que de regarder un organe isolé, Arielle observe le fonctionnement global : digestion, élimination, système nerveux, sommeil, alimentation, rythme de vie et émotions. C'est souvent dans les liens entre ces dimensions que se trouvent les pistes pour aller mieux.</p>
+    <p>Arielle intervient une fois l'avis médical obtenu, ou en parallèle du suivi en cours. Elle ne pose pas de diagnostic et ne modifie aucun traitement : elle aide le corps à retrouver son équilibre et accompagne la personne dans des changements concrets et durables.</p>
+    <div class="analyses-cta">
+      <a href="/audit" class="btn-primary">Faire le Bilan Horizon Santé</a>
+      <a href="/contact" class="btn-secondary-light">Prendre rendez-vous</a>
     </div>
   </div>
 </section>
@@ -1574,36 +1630,12 @@ footer {
       <h2 class="section-title">Comprendre pour<br><em>mieux accompagner</em></h2>
       <p>Des articles écrits à partir de la pratique d'Arielle, pour des repères sur la santé des enfants, les inconforts fréquents et les approches qui soutiennent les familles.</p>
     </div>
-    <div class="guides-preview-list">
-      <a href="/publications/peau-adolescence" class="gp-card animate-in">
-        <div class="gp-header"><span class="gp-emoji">✨</span><span class="gp-title">Peau & Adolescence</span></div>
-        <p class="gp-hook">Comprendre les déséquilibres cutanés à l'adolescence et les approches naturelles pour accompagner la peau</p>
-        <span class="gp-price">Article</span>
-      </a>
-      <a href="/publications/immunite-enfant" class="gp-card animate-in" style="transition-delay:0.07s">
-        <div class="gp-header"><span class="gp-emoji">🌱</span><span class="gp-title">Immunité de l'Enfant</span></div>
-        <p class="gp-hook">Comment soutenir le terrain immunitaire de l'enfant au fil des saisons</p>
-        <span class="gp-price">Article</span>
-      </a>
-      <a href="/publications/energie-adulte" class="gp-card animate-in" style="transition-delay:0.14s">
-        <div class="gp-header"><span class="gp-emoji">⚡</span><span class="gp-title">Énergie & Vitalité</span></div>
-        <p class="gp-hook">Retrouver de l'élan au quotidien — comprendre les causes profondes de la fatigue chez l'adulte</p>
-        <span class="gp-price">Article</span>
-      </a>
-      <a href="/publications/systeme-nerveux" class="gp-card animate-in" style="transition-delay:0.21s">
-        <div class="gp-header"><span class="gp-emoji">🕊️</span><span class="gp-title">Système Nerveux de l'Enfant</span></div>
-        <p class="gp-hook">Soutenir le système nerveux de votre enfant — agitation, émotions, sommeil</p>
-        <span class="gp-price">Article</span>
-      </a>
-      <a href="/publications/inconforts-quotidien" class="gp-card animate-in" style="transition-delay:0.28s">
-        <div class="gp-header"><span class="gp-emoji">🌿</span><span class="gp-title">Inconforts du Quotidien</span></div>
-        <p class="gp-hook">Maux récurrents chez l'enfant et l'adulte — comprendre ce que le corps exprime</p>
-        <span class="gp-price">Article</span>
-      </a>
+    <div class="guides-preview-list" id="gp-cards-list">
+      <!-- Chargement dynamique depuis articles.json -->
     </div>
     <div class="guides-preview-cta">
       <a href="/publications" class="btn-guides">Voir toutes les publications →</a>
-      <p class="guides-preview-note">5 articles disponibles · Accès libre</p>
+      <p class="guides-preview-note" id="gp-count-note">Articles · Accès libre</p>
     </div>
   </div>
 </section>
@@ -1727,6 +1759,34 @@ fetch('/api/config/avis')
     });
   })
   .catch(() => {});
+</script>
+<script>
+(function() {
+  var list = document.getElementById('gp-cards-list');
+  if (!list) return;
+  fetch('/articles.json')
+    .then(function(r) { return r.json(); })
+    .then(function(articles) {
+      var now = new Date();
+      var published = articles.filter(function(a) {
+        return new Date(a.date + 'T00:00:00') <= now;
+      });
+      var note = document.getElementById('gp-count-note');
+      if (note) note.textContent = published.length + ' article' + (published.length > 1 ? 's' : '') + ' · Accès libre';
+      list.innerHTML = published.map(function(a, i) {
+        var delay = (i * 0.07).toFixed(2);
+        return '<a href="/publications/' + a.slug + '" class="gp-card animate-in" style="transition-delay:' + delay + 's">' +
+          '<div class="gp-header"><span class="gp-emoji">' + a.emoji + '</span><span class="gp-title">' + a.titre + '</span></div>' +
+          '<p class="gp-hook">' + a.chapeau + '</p>' +
+          '<span class="gp-price">Article</span>' +
+          '</a>';
+      }).join('');
+      document.querySelectorAll('#gp-cards-list .animate-in').forEach(function(el) {
+        observer.observe(el);
+      });
+    })
+    .catch(function() {});
+})();
 </script>
 <script src="/shared.js"></script>
 </body>
