@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "peau-adolescence",
+    "titre": "Comprendre ce que la peau exprime à l'adolescence",
+    "chapeau": "La peau réactive à l'adolescence n'est pas un problème de surface. Elle traduit souvent un terrain qui cherche ses équilibres.",
+    "date": "2026-10-01",
+    "duree": "6 min",
+    "categorie": "adolescence",
+    "emoji": "✨"
+  },
+  {
+    "slug": "immunite-enfant",
+    "titre": "Accompagner un enfant qui fatigue à chaque changement de saison",
+    "chapeau": "Quand un enfant enchaîne les épisodes difficiles dès le moindre changement climatique, ce n'est pas une fatalité : c'est un terrain à soutenir.",
+    "date": "2026-10-15",
+    "duree": "5 min",
+    "categorie": "enfance",
+    "emoji": "🌱"
+  },
+  {
+    "slug": "energie-adulte",
+    "titre": "Fatigue chronique chez l'adulte : comprendre les ressorts de la vitalité",
+    "chapeau": "Il arrive un moment où dormir ne suffit plus à récupérer. Ce texte explore pourquoi, et ce qu'on peut faire autrement.",
+    "date": "2026-11-01",
+    "duree": "7 min",
+    "categorie": "adultes",
+    "emoji": "⚡"
+  },
+  {
+    "slug": "systeme-nerveux",
+    "titre": "Soutenir le système nerveux de l'enfant au quotidien",
+    "chapeau": "Anxiété de fond, pensées en boucle, corps qui ne lâche pas. Ce n'est pas une question de volonté : c'est une question de terrain.",
+    "date": "2026-11-15",
+    "duree": "6 min",
+    "categorie": "enfance",
+    "emoji": "🕊️"
+  },
+  {
+    "slug": "inconforts-quotidien",
+    "titre": "Ces petits inconforts du quotidien qui durent",
+    "chapeau": "Ventre douloureux, nuits agitées, énergie en dents de scie : certains inconforts du quotidien répondent bien à des ajustements simples.",
+    "date": "2026-12-01",
+    "duree": "5 min",
+    "categorie": "quotidien",
+    "emoji": "🌿"
+  }
+]

@@ -57,9 +57,18 @@ app.get('/robots.txt', (req, res) => {
 });
 
 // ─── Sitemap ───────────────────────────────────────────────────────────────
+const ARTICLES = require('./public/articles.json');
+
+function isPublished(dateStr) {
+  return new Date() >= new Date(dateStr + 'T00:00:00');
+}
+
 app.get('/sitemap.xml', (req, res) => {
   const base = 'https://naturopathie-arielle-production.up.railway.app';
   const today = new Date().toISOString().slice(0, 10);
+  const publishedArticleUrls = ARTICLES
+    .filter(a => isPublished(a.date))
+    .map(a => ({ loc: `/publications/${a.slug}`, priority: '0.6', changefreq: 'yearly' }));
   const urls = [
     { loc: '/', priority: '1.0', changefreq: 'weekly' },
     { loc: '/about', priority: '0.8', changefreq: 'monthly' },
@@ -67,11 +76,7 @@ app.get('/sitemap.xml', (req, res) => {
     { loc: '/tarifs', priority: '0.8', changefreq: 'monthly' },
     { loc: '/bilan', priority: '0.7', changefreq: 'monthly' },
     { loc: '/publications', priority: '0.8', changefreq: 'weekly' },
-    { loc: '/publications/peau-adolescence', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/publications/immunite-enfant', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/publications/energie-adulte', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/publications/systeme-nerveux', priority: '0.6', changefreq: 'yearly' },
-    { loc: '/publications/inconforts-quotidien', priority: '0.6', changefreq: 'yearly' },
+    ...publishedArticleUrls,
     { loc: '/contact', priority: '0.7', changefreq: 'monthly' },
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -103,20 +108,13 @@ app.get('/guides-pratiques', (req, res) => res.redirect(301, '/publications'));
 // LOT 7 — Publications index
 app.get('/publications', (req, res) => res.sendFile(path.join(__dirname, 'public', 'guides-pratiques.html')));
 
-// LOT 7 — Publications articles
-const PUBLICATION_SLUGS = [
-  'peau-adolescence',
-  'immunite-enfant',
-  'energie-adulte',
-  'systeme-nerveux',
-  'inconforts-quotidien',
-];
+// LOT 8 — Publications articles avec filtrage par date
 app.get('/publications/:slug', (req, res) => {
-  const { slug } = req.params;
-  if (!PUBLICATION_SLUGS.includes(slug)) {
+  const art = ARTICLES.find(a => a.slug === req.params.slug);
+  if (!art || !isPublished(art.date)) {
     return res.status(404).sendFile(path.join(__dirname, 'public', 'index.html'));
   }
-  res.sendFile(path.join(__dirname, 'public', 'publications', `${slug}.html`));
+  res.sendFile(path.join(__dirname, 'public', 'publications', `${req.params.slug}.html`));
 });
 
 // ─── Health check ──────────────────────────────────────────────────────────

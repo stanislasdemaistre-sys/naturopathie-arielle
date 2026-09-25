@@ -338,43 +338,8 @@ footer {
     <h2 class="section-title">Réflexions et <em>ressources</em></h2>
     <p class="section-intro">Des textes écrits à partir de la pratique, pour mieux comprendre ce que traverse un corps — et comment l'accompagner.</p>
 
-    <div class="pub-grid">
-
-      <article class="pub-card animate-in">
-        <div class="pub-meta"><span class="pub-date">Septembre 2025</span><span class="pub-read">6 min de lecture</span></div>
-        <h2 class="pub-title">Comprendre ce que la peau exprime à l'adolescence</h2>
-        <p class="pub-chapo">La peau réactive à l'adolescence n'est pas un problème de surface. Elle traduit souvent un terrain qui cherche ses équilibres.</p>
-        <a href="/publications/peau-adolescence" class="pub-link">Lire l'article →</a>
-      </article>
-
-      <article class="pub-card animate-in" style="transition-delay:0.08s">
-        <div class="pub-meta"><span class="pub-date">Octobre 2025</span><span class="pub-read">5 min de lecture</span></div>
-        <h2 class="pub-title">Accompagner un enfant qui fatigue à chaque changement de saison</h2>
-        <p class="pub-chapo">Quand un enfant enchaîne les épisodes difficiles dès le moindre changement climatique, ce n'est pas une fatalité : c'est un terrain à soutenir.</p>
-        <a href="/publications/immunite-enfant" class="pub-link">Lire l'article →</a>
-      </article>
-
-      <article class="pub-card animate-in" style="transition-delay:0.16s">
-        <div class="pub-meta"><span class="pub-date">Novembre 2025</span><span class="pub-read">7 min de lecture</span></div>
-        <h2 class="pub-title">Reconstruire son énergie quand la récupération ne suit plus</h2>
-        <p class="pub-chapo">Il arrive un moment où dormir ne suffit plus à récupérer. Ce texte explore pourquoi, et ce qu'on peut faire autrement.</p>
-        <a href="/publications/energie-adulte" class="pub-link">Lire l'article →</a>
-      </article>
-
-      <article class="pub-card animate-in" style="transition-delay:0.24s">
-        <div class="pub-meta"><span class="pub-date">Décembre 2025</span><span class="pub-read">6 min de lecture</span></div>
-        <h2 class="pub-title">Apaiser le système nerveux : ce qui aide vraiment au quotidien</h2>
-        <p class="pub-chapo">Anxiété de fond, pensées en boucle, corps qui ne lâche pas. Ce n'est pas une question de volonté : c'est une question de terrain.</p>
-        <a href="/publications/systeme-nerveux" class="pub-link">Lire l'article →</a>
-      </article>
-
-      <article class="pub-card animate-in" style="transition-delay:0.32s">
-        <div class="pub-meta"><span class="pub-date">Janvier 2026</span><span class="pub-read">5 min de lecture</span></div>
-        <h2 class="pub-title">Les réflexes de bon sens pour les inconforts du quotidien</h2>
-        <p class="pub-chapo">Ventre douloureux, nuits agitées, énergie en dents de scie : certains inconforts du quotidien répondent bien à des ajustements simples.</p>
-        <a href="/publications/inconforts-quotidien" class="pub-link">Lire l'article →</a>
-      </article>
-
+    <div class="pub-grid" id="articles-grid">
+      <p style="color:var(--texte-light);font-style:italic">Chargement des articles...</p>
     </div>
   </div>
 </section>
@@ -452,6 +417,41 @@ document.querySelector('.mobile-toggle').addEventListener('click', () => {
     links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';
   }
 });
+</script>
+<script>
+(function() {
+  var grid = document.getElementById('articles-grid');
+  if (!grid) return;
+  fetch('/articles.json')
+    .then(function(r) { return r.json(); })
+    .then(function(articles) {
+      var now = new Date();
+      var published = articles.filter(function(a) {
+        return new Date(a.date + 'T00:00:00') <= now;
+      });
+      if (published.length === 0) {
+        grid.innerHTML = '<p style="color:var(--texte-light);font-style:italic">Les articles seront bientôt disponibles.</p>';
+        return;
+      }
+      grid.innerHTML = published.map(function(a, i) {
+        var d = new Date(a.date + 'T00:00:00');
+        var dateStr = d.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long' });
+        var delay = (i * 0.08).toFixed(2);
+        return '<article class="pub-card animate-in" style="transition-delay:' + delay + 's">' +
+          '<div class="pub-meta"><span class="pub-date">' + dateStr + '</span><span class="pub-read">' + a.duree + ' de lecture</span></div>' +
+          '<h2 class="pub-title">' + a.titre + '</h2>' +
+          '<p class="pub-chapo">' + a.chapeau + '</p>' +
+          '<a href="/publications/' + a.slug + '" class="pub-link">Lire l\'article →</a>' +
+          '</article>';
+      }).join('');
+      document.querySelectorAll('#articles-grid .animate-in').forEach(function(el) {
+        observer.observe(el);
+      });
+    })
+    .catch(function() {
+      grid.innerHTML = '<p style="color:var(--texte-light);font-style:italic">Impossible de charger les articles.</p>';
+    });
+})();
 </script>
 <script src="/shared.js"></script>
 </body>
