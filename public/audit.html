@@ -34,7 +34,6 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 36px;border-radius:50px;font-family:var(--fb);font-size:.9rem;font-weight:500;letter-spacing:.3px;cursor:pointer;border:none;transition:all .4s cubic-bezier(.22,1,.36,1)}
 .btn-primary{background:var(--bp);color:var(--cr)}.btn-primary:hover{background:var(--bp-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
 .btn-secondary{background:transparent;color:var(--bp);border:1.5px solid var(--cr-d)}.btn-secondary:hover{border-color:var(--vs);background:var(--wh)}
-.btn-gold{background:var(--bp);color:var(--cr);font-weight:500}.btn-gold:hover{background:var(--bp-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
 .progress-wrap{margin-bottom:40px;animation:fadeIn .5s ease}
 .progress-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .progress-step{font-size:.78rem;font-weight:500;color:var(--do);letter-spacing:1px}
@@ -103,25 +102,6 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
 .results-cta p{font-size:.82rem;color:var(--tx-l)}
 .hidden{display:none!important}
 .intro-card>p,.oligo-suggestion p,.results-cta p,.tooltip-desc,.tooltip-solutions{text-align:justify;hyphens:auto}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 0;background:rgba(250,247,242,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(27,77,92,0.06);transition:all .4s ease}
-nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
-.nav-logo-icon{width:34px;height:34px}
-.nav-logo-icon svg{width:100%;height:100%}
-.nav-logo-text{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem;font-weight:400;color:#1B4D5C}
-.nav-logo-text span{color:#C4A265;font-weight:300}
-.nav-list{display:flex;align-items:center;gap:32px;list-style:none}
-.nav-list a{font-family:'Outfit',system-ui,sans-serif;font-size:.85rem;font-weight:400;color:#1B4D5C;text-decoration:none;letter-spacing:.5px;position:relative;transition:color .3s}
-.nav-list a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:#C4A265;transition:width .3s ease}
-.nav-list a:hover{color:#C4A265}
-.nav-list a:hover::after{width:100%}
-.nav-list .nav-cta-btn{background:#1B4D5C!important;color:#FAF7F2!important;padding:10px 24px;border-radius:50px;font-size:.82rem!important;font-weight:500!important;transition:all .3s ease!important}
-.nav-list .nav-cta-btn:hover{background:#2A6B7E!important;transform:translateY(-1px)}
-.nav-list .nav-cta-btn::after{display:none!important}
-.nav-list .nav-active{color:#C4A265!important}
-.nav-list .nav-active::after{width:100%!important}
-.nav-mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.nav-mobile-toggle span{width:22px;height:1.5px;background:#1B4D5C;display:block;transition:all .3s}
 .success-screen{text-align:center;max-width:500px;margin:60px auto;padding:60px 40px;background:var(--wh);border-radius:var(--rl);box-shadow:0 20px 60px rgba(27,77,92,.08);animation:fadeUp .8s ease-out}
 .success-icon{font-size:4rem;margin-bottom:24px}
 .success-screen h2{font-family:var(--fd);font-size:1.8rem;color:var(--bp);font-weight:400;margin-bottom:16px}
@@ -135,19 +115,31 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 .form-row-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .contact-mini-form input{width:100%;padding:12px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);outline:none;transition:border-color .3s;box-sizing:border-box}
 .contact-mini-form input:focus{border-color:var(--vs)}
-/* Hero bande photo */
-.audit-hero-band{margin:0 -24px 48px;padding:56px 24px 64px;background:url('Fleurs%20de%20bach%202.jpg') center 45%/cover no-repeat;position:relative;border-radius:0 0 48px 48px;overflow:hidden}
-.audit-hero-band::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(15,53,64,.8) 0%,rgba(27,77,92,.65) 50%,rgba(143,169,139,.45) 100%)}
-.audit-hero-band .header{position:relative;z-index:1;margin-bottom:0;animation:none}
-.audit-hero-band .header-logo,.audit-hero-band .header-title{color:#FAF7F2}
-.audit-hero-band .header-title em{color:#D4BA8A}
-.audit-hero-band .header-subtitle{color:rgba(250,247,242,.88)}
-/* Décor botanique */
-body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;background:url('Fleurs%20de%20bach%202.jpg') center/cover no-repeat;opacity:.05;pointer-events:none;z-index:0;border-radius:80px 0 0 0}
-/* Intro card photo */
-.intro-card-photo{height:160px;background:url('Fleurs%20de%20bach%201.jpg') center 55%/cover no-repeat;border-radius:var(--rl) var(--rl) 0 0;margin:-48px -40px 32px}
-.btn-gold{background:var(--do);color:#0F3540;font-weight:500}
-.btn-gold:hover{background:var(--do-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(196,162,101,.35)}
+/* Bouton or */
+.btn-gold{background:#C4A265;color:#0F3540;font-weight:500}
+.btn-gold:hover{background:#D4BA8A;transform:translateY(-2px);box-shadow:0 12px 40px rgba(196,162,101,.35)}
+
+/* Page hero 2-col */
+.page-hero .container{display:flex;align-items:center;gap:64px}
+.page-hero-inner{flex:1}
+.page-hero-photo{flex:0 0 420px}
+@media(max-width:1024px){.page-hero-photo{display:none}.page-hero .container{display:block}}
+
+/* Section pitch */
+.audit-pitch-section{background:#FFFFFF;padding:64px 0}
+.audit-pitch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.audit-pitch-card{background:#FAF7F2;border-radius:20px;padding:32px 24px;text-align:center}
+.audit-pitch-icon{width:52px;height:52px;border-radius:14px;background:rgba(27,77,92,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#1B4D5C}
+.audit-pitch-card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.15rem;color:#1B4D5C;font-weight:400;margin-bottom:8px}
+.audit-pitch-card p{font-size:.88rem;color:#5A6E68;line-height:1.65}
+@media(max-width:1024px){.audit-pitch-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.audit-pitch-grid{grid-template-columns:1fr}}
+
+/* Intro arielle */
+.intro-arielle{display:flex;align-items:center;gap:14px;justify-content:center;margin-bottom:24px}
+.intro-arielle img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid #C4A265;flex-shrink:0;display:block}
+.intro-arielle span{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1rem;color:#1B4D5C}
+
 /* Dots pétales */
 .petale-dots{display:flex;gap:7px;margin-bottom:14px}
 .pdot{flex:1;height:4px;border-radius:4px;background:var(--cr-d);transition:all .4s cubic-bezier(.22,1,.36,1)}
@@ -184,10 +176,6 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
 .option-item{padding:18px 22px;transition:all .25s ease}
 .option-item:hover{transform:translateX(3px)}
 @media(max-width:640px){
-  .audit-hero-band{margin:0 -16px 32px;padding:40px 16px 52px;border-radius:0 0 32px 32px}
-  .intro-card-photo{margin:-28px -20px 24px;height:130px}
-}
-@media(max-width:640px){
   .app{padding:24px 16px 60px}
   .intro-card,.question-card,.fleur-section,.alerts-section{padding:28px 20px}
   .child-form{grid-template-columns:1fr}
@@ -213,27 +201,71 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
 
 <!-- INJECT:NAV -->
 
-<div class="app" id="app" style="padding-top:100px">
-  <div id="screen-intro">
-    <div class="audit-hero-band">
-      <div class="header">
-        <div class="header-logo">Horizon <span>&amp;</span> Equilibre</div>
-        <h1 class="header-title">Bilan <em>Horizon Santé</em></h1>
-        <p class="header-subtitle">Un bilan de vitalité pensé pour <strong>toute la famille</strong> -- bébés, enfants, adolescents et adultes. En 5 minutes, identifiez les déséquilibres et les leviers naturels pour agir.</p>
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero-inner animate-in">
+      <div class="page-hero-badge">Gratuit · 5 minutes · 20 questions</div>
+      <h1>Bilan <em>Horizon Santé</em></h1>
+      <p class="page-hero-sub">Un questionnaire de vitalité pensé pour toute la famille — bébés, enfants, adolescents et adultes. Identifiez les déséquilibres et les leviers naturels pour agir.</p>
+    </div>
+    <div class="page-hero-photo" aria-hidden="true">
+      <img src="/naturo-5.jpg"
+           alt="Préparations naturelles, naturopathie"
+           width="1400" height="788"
+           loading="eager" fetchpriority="high"
+           style="width:100%;height:360px;object-fit:cover;object-position:center;border-radius:24px;opacity:0.85;box-shadow:0 12px 32px rgba(15,53,64,0.25)">
+    </div>
+  </div>
+</section>
+
+<!-- PITCH : 4 atouts -->
+<section class="audit-pitch-section">
+  <div class="container">
+    <div class="audit-pitch-grid">
+      <div class="audit-pitch-card">
+        <div class="audit-pitch-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>5 minutes chrono</h3>
+        <p>20 questions simples, résultat immédiat. Aucune préparation requise.</p>
+      </div>
+      <div class="audit-pitch-card">
+        <div class="audit-pitch-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Pour toute la famille</h3>
+        <p>Bébés, enfants, adolescents et adultes : chaque profil a son questionnaire adapté.</p>
+      </div>
+      <div class="audit-pitch-card">
+        <div class="audit-pitch-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Confidentiel et gratuit</h3>
+        <p>Vos réponses restent dans votre navigateur. Aucune inscription nécessaire.</p>
+      </div>
+      <div class="audit-pitch-card">
+        <div class="audit-pitch-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>5 dimensions de vitalité</h3>
+        <p>Sommeil, éclat, sérénité, immunité, confiance en soi : un regard global sur votre terrain.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="app" id="app">
+  <div id="screen-intro">
     <div class="intro-card">
-      <div class="intro-card-photo"></div>
-      <div class="intro-emoji">🌿</div>
-      <h2>Bilan de vitalité en 20 questions</h2>
-      <p>Un questionnaire de 20 questions autour de 5 dimensions de la vitalité : le sommeil, la gestion des surcharges, la sérénité, l'immunité et la confiance en soi. Résultat immédiat, gratuit, 5 minutes.</p>
-      <div class="intro-details">
-        <div class="intro-detail"><div class="icon">🕐</div><span>5 minutes</span></div>
-        <div class="intro-detail"><div class="icon">🌸</div><span>20 questions</span></div>
-        <div class="intro-detail"><div class="icon">🔒</div><span>Confidentiel</span></div>
+      <div class="intro-arielle">
+        <img src="/arielle.jpg" alt="Arielle de Maistre, naturopathe et réflexologue" width="700" height="525" loading="lazy">
+        <span>Arielle vous accompagne</span>
       </div>
+      <h2>Commencer le bilan de vitalité</h2>
+      <p>Indiquez le profil de la personne concernée et répondez à 20 questions simples pour identifier vos leviers naturels.</p>
       <div class="child-form">
-        <div class="form-group"><label for="childName" id="labelChildName">Prénom de l'enfant</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
+        <div class="form-group"><label for="childName" id="labelChildName">Prénom</label><input type="text" id="childName" placeholder="Ex : Léa" /></div>
         <div class="form-group"><label for="childAge">Qui est concerné ?</label><select id="childAge">
           <option value="">Sélectionner</option>
           <option value="A">Bébé ou jeune enfant (0 à 5 ans)</option>
