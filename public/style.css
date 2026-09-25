@@ -297,30 +297,39 @@ a { color: inherit; }
 
 /* ─── SITE CTA ───────────────────────────────────────────── */
 .site-cta {
-  background: var(--petrole);
+  background: linear-gradient(135deg, var(--petrole-fonce) 0%, var(--petrole) 100%);
   padding: 88px 0;
+  position: relative;
+  overflow: hidden;
+}
+.site-cta::before {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 480px; height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,162,101,0.10) 0%, transparent 70%);
+  pointer-events: none;
 }
 .site-cta-card {
-  background: var(--creme);
-  border-radius: var(--radius-lg);
-  padding: 56px 64px;
+  position: relative;
+  z-index: 1;
   text-align: center;
-  max-width: 760px;
+  max-width: 680px;
   margin: 0 auto;
-  border: 1px solid rgba(196,162,101,0.25);
 }
 .site-cta-title {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
   font-weight: 400;
-  color: var(--petrole);
+  color: var(--creme);
   margin-bottom: 14px;
   line-height: 1.2;
 }
-.site-cta-title em { font-style: italic; color: var(--dore-texte); }
+.site-cta-title em { font-style: italic; color: var(--dore-clair); }
 .site-cta-text {
   font-size: 0.97rem;
-  color: var(--texte-doux);
+  color: rgba(250,247,242,0.72);
   line-height: 1.75;
   margin-bottom: 36px;
   max-width: 440px;
