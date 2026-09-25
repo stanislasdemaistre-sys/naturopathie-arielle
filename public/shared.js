@@ -1,43 +1,59 @@
 /**
  * shared.js — éléments communs à toutes les pages
- * Injecte le bloc AvertissementSante avant le <footer> sur les pages concernées.
+ * - IntersectionObserver pour animations .animate-in
+ * - Menu burger mobile
+ * - Scroll shadow sur #nav
  */
-
 (function () {
-  const PAGES_AVEC_AVERTISSEMENT = ['/', '/about', '/methode', '/tarifs', '/bilan', '/publications'];
 
-  const path = window.location.pathname.replace(/\/$/, '') || '/';
-  const afficher = PAGES_AVEC_AVERTISSEMENT.some(p => path === p || path.startsWith('/publications'));
-
-  if (!afficher) return;
-
-  const bloc = document.createElement('section');
-  bloc.id = 'avertissement-sante';
-  bloc.style.cssText = [
-    'background: #E8EDE7',
-    'border-left: 4px solid #C4A265',
-    'padding: 28px 32px',
-    'margin: 0',
-  ].join(';');
-
-  bloc.innerHTML = `
-<div style="max-width:1200px;margin:0 auto;padding:0 32px">
-  <p style="font-family:'Outfit',system-ui,sans-serif;font-weight:600;font-size:0.82rem;letter-spacing:2px;text-transform:uppercase;color:#1B4D5C;margin-bottom:12px">
-    Information importante
-  </p>
-  <p style="font-family:'Outfit',system-ui,sans-serif;font-size:0.84rem;color:#1B4D5C;line-height:1.75;margin-bottom:8px">
-    La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin.
-  </p>
-  <p style="font-family:'Outfit',system-ui,sans-serif;font-size:0.84rem;color:#1B4D5C;line-height:1.75;margin-bottom:8px">
-    Arielle de Maistre n'est pas médecin. Elle n'interrompt, ne modifie et ne remplace aucun traitement en cours.
-  </p>
-  <p style="font-family:'Outfit',system-ui,sans-serif;font-size:0.84rem;color:#1B4D5C;line-height:1.75;margin:0">
-    En cas de manifestation aiguë ou persistante chez votre enfant, consultez votre médecin traitant ou votre pédiatre.
-  </p>
-</div>`;
-
-  const footer = document.querySelector('footer');
-  if (footer) {
-    footer.parentNode.insertBefore(bloc, footer);
+  // ─── Scroll shadow nav ─────────────────────────────────────
+  var nav = document.getElementById('nav');
+  if (nav) {
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 40) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
   }
+
+  // ─── IntersectionObserver animate-in ──────────────────────
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry, i) {
+      if (entry.isIntersecting) {
+        setTimeout(function () {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+  document.querySelectorAll('.animate-in').forEach(function (el) {
+    observer.observe(el);
+  });
+
+  // ─── Menu burger mobile ────────────────────────────────────
+  var toggle = document.querySelector('.mobile-toggle');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var links = document.querySelector('.nav-links');
+      if (!links) return;
+      if (links.style.display === 'flex') {
+        links.style.display = 'none';
+      } else {
+        links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';
+      }
+    });
+  }
+
+  // Fermer le menu au resize
+  window.addEventListener('resize', function () {
+    var links = document.querySelector('.nav-links');
+    if (links && window.innerWidth > 768) {
+      links.style.cssText = '';
+    }
+  });
+
 })();

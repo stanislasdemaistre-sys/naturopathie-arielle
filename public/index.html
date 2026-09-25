@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Horizon & Équilibre | Naturopathie & Réflexologie à Sainte-Consorce (Lyon)</title>
+<title>Horizon &amp; Équilibre | Naturopathie &amp; Réflexologie à Sainte-Consorce (Lyon)</title>
 <meta name="description" content="Naturopathe et réflexologue à Sainte-Consorce (Lyon), Arielle de Maistre accompagne bébés, enfants, adolescents et adultes vers un équilibre naturel et durable.">
-<meta property="og:title" content="Horizon & Équilibre | Naturopathie & Réflexologie">
+<meta property="og:title" content="Horizon &amp; Équilibre | Naturopathie &amp; Réflexologie">
 <meta property="og:description" content="Accompagnement naturel pour bébés, enfants, adolescents et adultes. Naturopathie et réflexologie à Sainte-Consorce (Lyon).">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
@@ -31,1763 +31,345 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 <style>
-:root {
-  --bleu-petrole: #1B4D5C;
-  --bleu-petrole-deep: #0F3540;
-  --bleu-petrole-light: #2A6B7E;
-  --vert-sauge: #8FA98B;
-  --vert-sauge-light: #B5CBB1;
-  --vert-sauge-pale: #D6E4D3;
-  --dore: #C4A265;
-  --dore-light: #D4BA8A;
-  --dore-pale: #F0E6D2;
-  --creme: #FAF7F2;
-  --creme-dark: #F0EBE3;
-  --blanc: #FFFFFF;
-  --texte: #2C3E3A;
-  --texte-light: #5A6E68;
-  --do-texte: #7F6128;
-  --vs-texte: #4E6B48;
-
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Outfit', system-ui, sans-serif;
-
-  --radius: 20px;
-  --radius-sm: 12px;
-  --radius-lg: 32px;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-body);
-  color: var(--texte);
-  background: var(--creme);
-  line-height: 1.7;
-  font-weight: 300;
-  overflow-x: hidden;
-}
-
-/* ─── UTILITIES ─── */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-.section-label {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--do-texte);
-  font-weight: 500;
-  margin-bottom: 12px;
-}
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--bleu-petrole);
-}
-.section-title em {
-  font-style: italic;
-  color: var(--vs-texte);
-}
-
-/* ─── ANIMATIONS ─── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes gentleFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-@keyframes expandLine {
-  from { width: 0; }
-  to { width: 60px; }
-}
-.animate-in {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.animate-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ─── NAVIGATION ─── */
-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 20px 0;
-  transition: all 0.4s ease;
-  background: transparent;
-}
-nav.scrolled {
-  background: rgba(250, 247, 242, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 1px 30px rgba(27, 77, 92, 0.06);
-  padding: 14px 0;
-}
-nav .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-}
-.logo-icon {
-  width: 42px;
-  height: 42px;
-  position: relative;
-}
-.logo-icon svg { width: 100%; height: 100%; }
-.logo-text {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--bleu-petrole);
-  letter-spacing: 0.5px;
-}
-.logo-text span {
-  color: var(--dore);
-  font-weight: 300;
-}
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  list-style: none;
-}
-.nav-links a {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--bleu-petrole);
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  position: relative;
-  transition: color 0.3s;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: var(--dore);
-  transition: width 0.3s ease;
-}
-.nav-links a:hover { color: var(--dore); }
-.nav-links a:hover::after { width: 100%; }
-.nav-cta {
-  background: var(--bleu-petrole) !important;
-  color: var(--creme) !important;
-  padding: 10px 24px;
-  border-radius: 50px;
-  font-size: 0.82rem !important;
-  font-weight: 500 !important;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease !important;
-}
-.nav-cta:hover {
-  background: var(--bleu-petrole-light) !important;
-  transform: translateY(-1px);
-}
-.nav-cta::after { display: none !important; }
-
-.mobile-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 4px;
-}
-.mobile-toggle span {
-  width: 24px;
-  height: 2px;
-  background: var(--bleu-petrole);
-  border-radius: 2px;
-  transition: all 0.3s;
-}
-
-/* ─── HERO ─── */
+/* ── HERO ── */
 .hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  padding-top: 80px;
-}
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.hero-bg::before {
-  content: '';
-  position: absolute;
-  top: -20%;
-  right: -10%;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--vert-sauge-pale) 0%, transparent 70%);
-  opacity: 0.5;
-}
-.hero-bg::after {
-  content: '';
-  position: absolute;
-  bottom: -10%;
-  left: -5%;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--dore-pale) 0%, transparent 70%);
-  opacity: 0.4;
+  background: var(--creme);
+  padding-top: 120px;
+  padding-bottom: 88px;
 }
 .hero .container {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  display: flex;
   align-items: center;
+  gap: 64px;
 }
-.hero-content { animation: fadeUp 1s ease-out 0.3s both; }
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--blanc);
-  border: 1px solid var(--vert-sauge-light);
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--vert-sauge);
-  font-weight: 500;
-  margin-bottom: 28px;
+.hero-text {
+  flex: 1 1 0;
+  min-width: 0;
 }
-.hero-badge .dot {
-  width: 6px;
-  height: 6px;
-  background: var(--vert-sauge);
-  border-radius: 50%;
-}
-.hero h1 {
+.hero-text h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 5.5vw, 4rem);
-  font-weight: 300;
-  line-height: 1.15;
-  color: var(--bleu-petrole);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--texte);
   margin-bottom: 24px;
 }
-.hero h1 strong {
-  font-weight: 500;
-  position: relative;
-}
-.hero h1 strong::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: var(--dore-pale);
-  z-index: -1;
-  border-radius: 4px;
-}
-.hero h1 em {
+.hero-text h1 em {
   font-style: italic;
-  color: var(--vert-sauge);
-  font-weight: 400;
+  color: var(--petrole);
 }
-.hero-desc {
+.hero-text p {
   font-size: 1.05rem;
-  color: var(--texte-light);
-  max-width: 480px;
-  margin-bottom: 36px;
-  font-weight: 300;
-  line-height: 1.8;
-}
-.hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--bleu-petrole);
-  color: var(--creme);
-  padding: 16px 32px;
-  border-radius: 50px;
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  border: none;
-  cursor: pointer;
-}
-.btn-primary:hover {
-  background: var(--bleu-petrole-light);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(27, 77, 92, 0.2);
-}
-.btn-primary .arrow {
-  transition: transform 0.3s;
-}
-.btn-primary:hover .arrow { transform: translateX(4px); }
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--bleu-petrole);
-  color: var(--creme);
-  font-size: 0.9rem;
-  font-weight: 400;
-  text-decoration: none;
-  padding: 16px 32px;
-  border-radius: 50px;
-  transition: all 0.3s;
-}
-.btn-secondary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); }
-
-/* Hero visual */
-.hero-visual {
-  position: relative;
-  animation: fadeUp 1s ease-out 0.6s both;
-}
-.hero-card {
-  background: var(--blanc);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  box-shadow: 0 30px 80px rgba(27, 77, 92, 0.08), 0 0 0 1px rgba(27, 77, 92, 0.04);
-  position: relative;
-}
-.hero-card-label {
-  font-size: 0.7rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--dore);
-  font-weight: 500;
-  margin-bottom: 20px;
-}
-.meteo-title {
-  font-family: var(--font-display);
-  font-size: 1.6rem;
-  color: var(--bleu-petrole);
-  margin-bottom: 28px;
-  font-weight: 400;
-}
-.meteo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-.meteo-item {
-  background: var(--creme);
-  border-radius: var(--radius-sm);
-  padding: 18px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-.meteo-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(27, 77, 92, 0.06);
-}
-.meteo-icon {
-  font-size: 1.8rem;
-  margin-bottom: 8px;
-}
-.meteo-name {
-  font-size: 0.78rem;
-  color: var(--texte-light);
-  font-weight: 400;
-  margin-bottom: 6px;
-}
-.meteo-bar {
-  height: 4px;
-  background: var(--vert-sauge-pale);
-  border-radius: 4px;
-  overflow: hidden;
-}
-.meteo-bar-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.meteo-bar-fill.sommeil { background: var(--bleu-petrole); width: 65%; }
-.meteo-bar-fill.confiance { background: var(--dore); width: 40%; }
-.meteo-bar-fill.vitalite { background: var(--vert-sauge); width: 80%; }
-.meteo-bar-fill.serenite { background: var(--bleu-petrole-light); width: 55%; }
-
-/* Floating badge */
-.float-badge {
-  position: absolute;
-  background: var(--blanc);
-  border-radius: var(--radius-sm);
-  padding: 14px 20px;
-  box-shadow: 0 12px 40px rgba(27, 77, 92, 0.1);
-  animation: gentleFloat 4s ease-in-out infinite;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.float-badge.top-right {
-  top: -20px;
-  right: -30px;
-  animation-delay: 0.5s;
-}
-.float-badge.bottom-left {
-  bottom: -16px;
-  left: -30px;
-  animation-delay: 1.5s;
-}
-.float-badge .emoji { font-size: 1.4rem; }
-.float-badge .text {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--bleu-petrole);
-}
-.float-badge .sub {
-  font-size: 0.7rem;
-  color: var(--texte-light);
-  font-weight: 300;
-}
-
-/* ─── METHODE ─── */
-.methode {
-  padding: 120px 0;
-  background: var(--blanc);
-  position: relative;
-}
-.methode::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 80px;
-  background: linear-gradient(to bottom, var(--vert-sauge-light), transparent);
-}
-.methode-header {
-  text-align: center;
-  max-width: 680px;
-  margin: 0 auto 80px;
-}
-.methode-header p {
-  margin-top: 20px;
-  font-size: 1.05rem;
-  color: var(--texte-light);
-  line-height: 1.8;
-}
-.methode-steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-}
-.step-card {
-  position: relative;
-  padding: 44px 36px;
-  background: var(--creme);
-  border-radius: var(--radius);
-  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  border: 1px solid transparent;
-}
-.step-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--vert-sauge-light);
-  box-shadow: 0 20px 60px rgba(27, 77, 92, 0.06);
-}
-.step-number {
-  font-family: var(--font-display);
-  font-size: 3rem;
-  font-weight: 300;
-  color: var(--dore-light);
-  opacity: 0.5;
-  line-height: 1;
-  margin-bottom: 16px;
-}
-.step-icon {
-  width: 52px;
-  height: 52px;
-  background: var(--blanc);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 16px rgba(27, 77, 92, 0.05);
-}
-.step-title {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  color: var(--bleu-petrole);
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-.step-desc {
-  font-size: 0.9rem;
-  color: var(--texte-light);
+  color: var(--texte-doux);
   line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 36px;
 }
-
-/* ─── APPROCHE / À PROPOS ─── */
-.apropos {
-  padding: 120px 0;
-  position: relative;
-  overflow: hidden;
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
 }
-.apropos .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+.hero-photo {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 480px;
 }
-.apropos-visual {
-  position: relative;
-}
-.apropos-image-wrap {
+.hero-photo img {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  position: relative;
-  background: linear-gradient(135deg, var(--vert-sauge-pale), var(--dore-pale));
-  aspect-ratio: 4/5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.apropos-quote-card {
-  position: absolute;
-  bottom: -24px;
-  right: -24px;
-  background: var(--bleu-petrole);
-  color: var(--creme);
-  padding: 28px 32px;
-  border-radius: var(--radius);
-  max-width: 300px;
-  box-shadow: 0 20px 60px rgba(15, 53, 64, 0.3);
-}
-.apropos-quote-card p {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-style: italic;
-  line-height: 1.6;
-  font-weight: 300;
-}
-.apropos-quote-card .author {
-  margin-top: 12px;
-  font-family: var(--font-body);
-  font-style: normal;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dore);
-  font-weight: 500;
-}
-.apropos-content {}
-.apropos-content .section-title { margin-bottom: 24px; }
-.apropos-text {
-  font-size: 1rem;
-  color: var(--texte-light);
-  line-height: 1.9;
-  margin-bottom: 20px;
-}
-.apropos-values {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 32px;
-}
-.value-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 18px 20px;
-  background: var(--blanc);
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--creme-dark);
-  transition: all 0.3s;
-}
-.value-item:hover {
-  border-color: var(--vert-sauge-light);
-  transform: translateX(4px);
-}
-.value-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-.value-icon.naturo { background: var(--vert-sauge-pale); }
-.value-icon.reflexo { background: rgba(27, 77, 92, 0.1); }
-.value-text h4 {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--bleu-petrole);
-  font-weight: 500;
-}
-.value-text p {
-  font-size: 0.85rem;
-  color: var(--texte-light);
-  margin-top: 2px;
-}
-
-/* ─── FLEURS DE BACH ─── */
-.bach {
-  padding: 120px 0;
-  background: var(--bleu-petrole-deep);
-  color: var(--creme);
-  position: relative;
-  overflow: hidden;
-}
-.bach::before {
-  content: '';
-  position: absolute;
-  top: -200px;
-  right: -200px;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(143, 169, 139, 0.12) 0%, transparent 70%);
-}
-.bach-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 64px;
-}
-.bach-header .section-title { color: var(--creme); }
-.bach-header .section-title em { color: var(--dore-light); }
-.bach-header p {
-  margin-top: 20px;
-  color: rgba(250, 247, 242, 0.7);
-  font-size: 1.05rem;
-  line-height: 1.8;
-}
-.bach-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-.bach-card {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius);
-  padding: 32px 24px;
-  text-align: center;
-  transition: all 0.4s ease;
-  backdrop-filter: blur(10px);
-}
-.bach-card:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-4px);
-  border-color: var(--dore);
-}
-.bach-emoji {
-  font-size: 2.4rem;
-  margin-bottom: 16px;
   display: block;
 }
-.bach-name {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--creme);
-  margin-bottom: 4px;
-}
-.bach-latin {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.82rem;
-  color: var(--dore-light);
-  margin-bottom: 12px;
-}
-.bach-desc {
-  font-size: 0.82rem;
-  color: rgba(250, 247, 242, 0.6);
-  line-height: 1.6;
-}
 
-/* ─── AUDIT / QUESTIONNAIRE ─── */
-.audit {
-  padding: 120px 0;
-  background: linear-gradient(180deg, var(--creme) 0%, var(--blanc) 100%);
-}
-.audit .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.audit-content .section-title { margin-bottom: 20px; }
-.audit-desc {
-  font-size: 1rem;
-  color: var(--texte-light);
-  line-height: 1.8;
-  margin-bottom: 32px;
-}
-.audit-features {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.audit-feature {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.9rem;
-  color: var(--texte);
-}
-.audit-feature .check {
-  width: 28px;
-  height: 28px;
-  background: var(--vert-sauge-pale);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.audit-feature .check svg {
-  width: 14px;
-  height: 14px;
-  stroke: var(--vert-sauge);
-}
-.audit-preview {
-  position: relative;
-}
-.audit-card {
-  background: var(--blanc);
-  border-radius: var(--radius-lg);
-  padding: 36px;
-  box-shadow: 0 30px 80px rgba(27, 77, 92, 0.08);
-  border: 1px solid rgba(27, 77, 92, 0.05);
-}
-.audit-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 28px;
-}
-.audit-card-title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  color: var(--bleu-petrole);
-}
-.audit-step-indicator {
-  font-size: 0.75rem;
-  color: var(--do-texte);
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-.audit-question {
-  font-size: 1rem;
-  color: var(--texte);
-  margin-bottom: 20px;
-  font-weight: 400;
-}
-.audit-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.audit-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 18px;
-  background: var(--creme);
-  border-radius: var(--radius-sm);
-  font-size: 0.88rem;
-  color: var(--texte);
-  border: 1.5px solid transparent;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-.audit-option:hover {
-  border-color: var(--vert-sauge-light);
-}
-.audit-option.selected {
-  border-color: var(--vert-sauge);
-  background: var(--vert-sauge-pale);
-}
-.audit-option .radio {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid var(--vert-sauge-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s;
-}
-.audit-option.selected .radio {
-  border-color: var(--vert-sauge);
-  background: var(--vert-sauge);
-}
-.audit-option.selected .radio::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: var(--blanc);
-  border-radius: 50%;
-}
-
-/* ─── PATHOLOGIES ─── */
-.patho {
-  padding: 120px 0;
+/* ── POURQUOI CONSULTER ── */
+.section-pourquoi {
   background: var(--blanc);
 }
-.patho-header {
-  text-align: center;
-  max-width: 620px;
-  margin: 0 auto 64px;
-}
-.patho-header p {
-  margin-top: 16px;
-  color: var(--texte-light);
-  font-size: 1rem;
-}
-.patho-grid {
+.cards-3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 8px;
+  gap: 28px;
+  margin-top: 48px;
 }
-@media (max-width: 900px) { .patho-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .patho-grid { grid-template-columns: 1fr; } }
-.patho-card {
-  background: var(--blanc);
+.card-signal {
+  background: var(--creme);
   border-radius: var(--radius);
-  padding: 18px 20px;
-  border: 1px solid var(--creme-dark);
-  transition: all 0.4s;
+  padding: 36px 32px;
 }
-.patho-card:hover {
-  border-color: var(--vert-sauge-light);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 48px rgba(27, 77, 92, 0.06);
-}
-.patho-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.patho-emoji { font-size: 1.2rem; flex-shrink: 0; }
-.patho-name {
+.card-signal h3 {
   font-family: var(--font-display);
-  font-size: 0.95rem;
-  color: var(--bleu-petrole);
+  font-size: 1.3rem;
   font-weight: 500;
-  margin-bottom: 0;
-}
-.patho-desc {
-  font-size: 0.82rem;
-  color: var(--texte-light);
-  line-height: 1.6;
-  margin-top: 8px;
-}
-.patho-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.patho-tag {
-  font-size: 0.72rem;
-  padding: 4px 10px;
-  border-radius: 50px;
-  font-weight: 400;
-}
-.patho-tag.naturo { background: var(--vert-sauge-pale); color: var(--bleu-petrole); }
-
-/* ─── GUIDES PREVIEW ─── */
-.guides-preview {
-  padding: 100px 0;
-  background: var(--bleu-petrole-deep);
-  position: relative;
-  overflow: hidden;
-}
-.guides-preview::before {
-  content: '';
-  position: absolute;
-  top: -150px; right: -150px;
-  width: 500px; height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(196,162,101,0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-.guides-preview-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 56px;
-}
-.guides-preview-header .section-title { color: var(--creme); }
-.guides-preview-header .section-title em { color: var(--dore-light); }
-.guides-preview-header p {
-  margin-top: 16px;
-  color: rgba(250,247,242,0.65);
-  font-size: 1rem;
-  line-height: 1.75;
-}
-.guides-preview-list {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-  margin-bottom: 48px;
-}
-.gp-card {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-lg);
-  padding: 20px 18px;
-  text-align: left;
-  text-decoration: none;
-  display: block;
-  transition: all 0.35s ease;
-}
-.gp-card:hover {
-  background: rgba(255,255,255,0.11);
-  border-color: rgba(196,162,101,0.4);
-  transform: translateY(-5px);
-}
-.gp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.gp-emoji { font-size: 1.4rem; flex-shrink: 0; }
-.gp-title {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  color: var(--creme);
-  font-weight: 500;
-  margin-bottom: 0;
+  color: var(--petrole);
+  margin-bottom: 14px;
   line-height: 1.3;
 }
-.gp-hook {
-  font-size: 0.78rem;
-  color: rgba(250,247,242,0.55);
-  line-height: 1.6;
-  margin-bottom: 16px;
-}
-.gp-price {
-  display: inline-block;
-  font-size: 0.7rem;
-  letter-spacing: 1px;
-  color: var(--dore);
-  font-weight: 500;
-  border: 1px solid rgba(196,162,101,0.35);
-  border-radius: 50px;
-  padding: 4px 12px;
-}
-.guides-preview-cta {
-  text-align: center;
-}
-.btn-guides {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--dore);
-  color: var(--bleu-petrole-deep);
-  padding: 16px 40px;
-  border-radius: 50px;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  letter-spacing: 0.3px;
-}
-.btn-guides:hover { background: #B8934F; transform: translateY(-2px); box-shadow: 0 12px 36px rgba(0,0,0,0.2); }
-.guides-preview-note {
-  margin-top: 14px;
-  font-size: 0.78rem;
-  color: rgba(250,247,242,0.65);
-}
-@media (max-width: 1024px) { .guides-preview-list { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 768px) { .guides-preview-list { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 480px) { .guides-preview-list { grid-template-columns: 1fr; } }
-
-/* ─── FOOTER ─── */
-footer {
-  background: var(--bleu-petrole-deep);
-  color: var(--creme);
-  padding: 80px 0 40px;
-}
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 60px;
-  margin-bottom: 60px;
-}
-.footer-brand .logo-text {
-  color: var(--creme);
-  font-size: 1.6rem;
-  margin-bottom: 16px;
-  display: block;
-}
-.footer-brand p {
-  color: rgba(250, 247, 242, 0.7);
-  font-size: 0.88rem;
+.card-signal p {
+  font-size: 0.97rem;
+  color: var(--texte-doux);
   line-height: 1.7;
-  max-width: 300px;
 }
-.footer-col h4 {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
+
+/* ── SECTION SOMBRE ── */
+.section-dark-petrole {
+  background: var(--petrole);
+  padding: 88px 0;
+}
+.section-dark-petrole .section-label {
+  color: rgba(250, 247, 242, 0.65);
+  border-color: rgba(250, 247, 242, 0.25);
+}
+.section-dark-petrole h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  color: var(--creme);
+  margin-bottom: 32px;
+  line-height: 1.25;
+}
+.section-dark-petrole h2 em {
+  font-style: italic;
   color: var(--dore);
-  font-weight: 500;
+}
+.section-dark-petrole .dark-body {
+  max-width: 720px;
+}
+.section-dark-petrole .dark-body p {
+  font-size: 1.05rem;
+  color: rgba(250, 247, 242, 0.8);
+  line-height: 1.75;
   margin-bottom: 20px;
 }
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 10px; }
-.footer-col a {
-  color: rgba(250, 247, 242, 0.7);
-  text-decoration: none;
-  font-size: 0.88rem;
-  transition: color 0.3s;
-}
-.footer-col a:hover { color: var(--creme); }
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 28px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-bottom p {
-  font-size: 0.78rem;
-  color: rgba(250, 247, 242, 0.6);
-}
-.footer-socials {
-  display: flex;
-  gap: 16px;
-}
-.footer-socials a {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(250, 247, 242, 0.7);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: all 0.3s;
-}
-.footer-socials a:hover {
-  background: var(--dore);
-  color: var(--bleu-petrole-deep);
+.section-dark-petrole .dark-body p:last-child {
+  margin-bottom: 0;
 }
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 1024px) {
-  .hero .container { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { max-width: 500px; }
-  .apropos .container { grid-template-columns: 1fr; gap: 48px; }
-  .audit .container { grid-template-columns: 1fr; gap: 48px; }
-  .methode-steps { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
-  .bach-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+/* ── POUR QUI ── */
+.section-pour-qui {
+  background: var(--creme);
 }
-@media (max-width: 768px) {
-  .container { padding: 0 20px; }
-  .nav-links { display: none; }
-  .mobile-toggle { display: flex; }
-  .hero { padding-top: 100px; }
-  .float-badge { display: none; }
-  .bach-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
-  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  .apropos-quote-card { position: relative; bottom: auto; right: auto; margin-top: 20px; }
-}
-
-/* Texte justifié */
-.hero-desc, .parcours-text p, .step-desc, .public-desc, .guide-content p,
-.apropos-text, .methode-header p, .bach-header p, .audit-desc, .patho-header p {
-  text-align: justify;
-  hyphens: auto;
-}
-
-/* ─── HERO PHOTO CABINET ─── */
-.hero-photo {
-  width: 100%; border-radius: var(--radius-lg);
-  object-fit: cover; height: 440px;
-  box-shadow: 0 30px 80px rgba(27,77,92,0.12);
-}
-@media (max-width: 768px) { .hero-photo { height: 260px; } }
-
-/* ─── PROMESSE ─── */
-.promesse { padding: 96px 0; background: var(--creme); text-align: center; }
-.promesse-inner { max-width: 680px; margin: 0 auto; }
-.promesse-text {
-  font-size: 1.15rem; color: var(--texte-light);
-  line-height: 1.8; margin-top: 24px;
-  text-align: center; font-style: italic;
-}
-
-/* ─── PILIERS ─── */
-.piliers-grid {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 420px)); gap: 28px; justify-content: center;
-}
-.pilier-card {
-  background: var(--blanc); border-radius: var(--radius-lg);
-  padding: 44px 32px; text-align: center;
-  border: 1px solid rgba(27,77,92,0.05);
-  box-shadow: 0 8px 32px rgba(27,77,92,0.06);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-}
-.pilier-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(27,77,92,0.1); }
-.pilier-keyword {
-  display: inline-block; background: var(--dore-pale); color: var(--do-texte);
-  font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
-  font-weight: 600; padding: 6px 18px; border-radius: 50px; margin-bottom: 22px;
-}
-.pilier-icon { font-size: 2rem; margin-bottom: 10px; }
-.pilier-title {
-  font-family: var(--font-display); font-size: 1.4rem;
-  color: var(--bleu-petrole); margin-bottom: 14px; font-weight: 500;
-}
-.pilier-card p {
-  font-size: 0.9rem; color: var(--texte-light);
-  line-height: 1.75; text-align: justify; hyphens: auto;
-}
-@media (max-width: 768px) { .piliers-grid { grid-template-columns: 1fr; } }
-
-/* ─── AUDIT CTA ─── */
-.audit-hook {
-  font-size: 1.05rem; color: var(--texte-light);
-  font-style: italic; margin-bottom: 20px; line-height: 1.6;
-}
-.btn-bilan-gold {
-  display: inline-flex; align-items: center;
-  background: var(--dore); color: #0F3540;
-  padding: 16px 36px; border-radius: 50px;
-  font-family: var(--font-body); font-size: 0.95rem;
-  font-weight: 600; letter-spacing: 0.3px;
-  text-decoration: none;
-  transition: background 0.3s ease, transform 0.3s ease;
-  margin-bottom: 32px;
-}
-.btn-bilan-gold:hover { background: #B8934F; transform: translateY(-2px); }
-
-/* ─── POUR QUI ─── */
-.pour-qui { padding: 96px 0; background: var(--creme-dark); }
-.pour-qui-header { text-align: center; max-width: 600px; margin: 0 auto 56px; }
-.pour-qui-grid {
+.cards-4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 24px;
+  margin-top: 48px;
 }
-.pq-card {
+.card-public {
   background: var(--blanc);
-  border-radius: var(--radius-lg);
-  padding: 22px 20px;
-  text-align: left;
-  border: 1px solid rgba(27,77,92,0.05);
-  box-shadow: 0 6px 24px rgba(27,77,92,0.05);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  text-decoration: none;
-  display: block;
-  color: inherit;
+  border-radius: var(--radius);
+  padding: 32px 28px;
 }
-.pq-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(27,77,92,0.1); }
-.pq-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.pq-emoji { font-size: 1.4rem; flex-shrink: 0; }
-.pq-age { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--do-texte); font-weight: 500; margin-bottom: 6px; }
-.pq-titre { font-family: var(--font-display); font-size: 1.05rem; color: var(--bleu-petrole); font-weight: 500; margin-bottom: 0; }
-.pq-tags { font-size: 0.8rem; color: var(--texte-light); line-height: 1.7; }
-.pour-qui-cta { text-align: center; margin-top: 40px; }
-.pour-qui-cta a { display: inline-flex; align-items: center; gap: 8px; color: var(--bleu-petrole); font-size: 0.9rem; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--dore); padding-bottom: 2px; transition: color 0.3s; }
-.pour-qui-cta a:hover { color: var(--dore); }
-@media (max-width: 1024px) { .pour-qui-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 768px) { .pour-qui-grid { grid-template-columns: 1fr; } }
+.card-public .card-age {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dore-texte);
+  background: var(--dore-clair);
+  border-radius: 50px;
+  padding: 4px 14px;
+  margin-bottom: 16px;
+}
+.card-public h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--petrole);
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+.card-public ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.card-public ul li {
+  font-size: 0.93rem;
+  color: var(--texte-doux);
+  line-height: 1.6;
+  padding: 4px 0;
+  padding-left: 16px;
+  position: relative;
+}
+.card-public ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sauge);
+}
+.pour-qui-note {
+  margin-top: 32px;
+  font-size: 0.9rem;
+  color: var(--texte-doux);
+  font-style: italic;
+}
 
-/* ─── FOOTER RDV ─── */
-.footer-rdv-btn {
-  display: inline-flex; align-items: center;
-  background: var(--dore); color: var(--bleu-petrole-deep) !important;
-  padding: 10px 24px; border-radius: 50px;
-  font-size: 0.82rem; font-weight: 600;
-  text-decoration: none; white-space: nowrap;
-  transition: background 0.3s;
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero .container {
+    gap: 40px;
+  }
+  .hero-photo {
+    max-width: 380px;
+  }
+  .hero-photo img {
+    height: 560px;
+  }
+  .cards-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-.footer-rdv-btn:hover { background: #B8934F; }
-.info-legale{background:var(--creme-dark,#F0EBE3);padding:24px 0;border-top:1px solid rgba(27,77,92,.08)}
-.info-legale p{font-size:.8rem;color:var(--texte-light,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
-.info-legale strong{color:var(--bleu-petrole,#1B4D5C)}
-.value-tag{font-size:.72rem;color:var(--vert-sauge);background:rgba(143,169,139,.12);padding:2px 10px;border-radius:20px;display:inline-block;margin-top:4px}
-.pourquoi-section{padding:72px 0;background:var(--creme)}
-.pourquoi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
-.pourquoi-card{background:var(--blanc);border-radius:var(--radius);padding:32px 28px;border:1px solid rgba(27,77,92,.07)}
-.pourquoi-icon{font-size:2rem;margin-bottom:12px}
-.pourquoi-card h3{font-family:var(--font-display);font-size:1.25rem;color:var(--bleu-petrole);margin-bottom:12px}
-.pourquoi-card p{font-size:.9rem;color:var(--texte-light);line-height:1.7}
-@media(max-width:768px){.pourquoi-grid{grid-template-columns:1fr}}
-.analyses-normales{background:var(--bleu-petrole);padding:72px 0}
-.analyses-normales h2{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--creme);margin-bottom:24px;line-height:1.3}
-.analyses-normales h2 em{color:var(--dore-light);font-style:italic}
-.analyses-normales p{font-size:.95rem;line-height:1.8;color:rgba(250,247,242,.85);margin-bottom:16px;max-width:780px}
-.analyses-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
-.btn-secondary-light{background:transparent;border:1.5px solid rgba(250,247,242,.5);color:var(--creme);padding:12px 28px;border-radius:var(--radius-sm);text-decoration:none;font-size:.9rem;transition:all .2s}
-.btn-secondary-light:hover{border-color:var(--creme);background:rgba(250,247,242,.1)}
+@media (max-width: 768px) {
+  .hero .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .hero-photo {
+    max-width: 100%;
+  }
+  .hero-photo img {
+    height: 380px;
+  }
+  .cards-3 {
+    grid-template-columns: 1fr;
+  }
+  .cards-4 {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<style>.nav-logo-img{height:48px;display:block}@media(max-width:768px){.nav-logo-img{height:40px}}</style>
 </head>
 <body>
 
-<!-- ══════ NAV ══════ -->
-<nav id="nav">
-  <div class="container">
-    <a href="/" class="logo">
-      <img src="/logo-horizontal.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" class="nav-logo-img">
-    </a>
-    <ul class="nav-links">
-      <li><a href="/" class="active">Accueil</a></li>
-      <li><a href="/about">À propos</a></li>
-      <li><a href="/methode">Méthode</a></li>
-      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
-      <li><a href="/audit">Bilan Horizon Santé</a></li>
-      <li><a href="/publications">Publications</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-    <button class="mobile-toggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<!-- INJECT:NAV -->
 
-<!-- ══════ HERO ══════ -->
+<!-- 1. HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
   <div class="container">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="dot"></span>
-        Naturopathie · Réflexologie
-      </div>
-      <h1>Arielle accompagne les familles<br>vers un équilibre <em>naturel</em></h1>
-      <p class="hero-desc">
-        Naturopathe et réflexologue à Sainte-Consorce (Lyon), Arielle accompagne bébés, enfants, adolescents et adultes (18 ans et +). Son approche : comprendre ce que le corps exprime, identifier les causes profondes des déséquilibres et transmettre des outils concrets, doux et durables.
-      </p>
-      <div class="hero-actions">
-        <a href="/contact" class="btn-primary">
-          Prendre rendez-vous
-        </a>
+    <div class="hero-text">
+      <p class="section-label">Naturopathe &amp; Réflexologue · Sainte-Consorce (Lyon)</p>
+      <h1>L'équilibre naturel commence par comprendre <em>votre terrain</em></h1>
+      <p>La naturopathie et la réflexologie permettent d'identifier ce qui fragilise un corps et de l'accompagner durablement. Des premières semaines de vie jusqu'à l'âge adulte, chaque terrain est unique et mérite une lecture personnalisée.</p>
+      <div class="hero-btns">
+        <a href="/contact" class="btn-p">Prendre contact</a>
+        <a href="/audit" class="btn-s">Faire le bilan gratuit</a>
       </div>
     </div>
-    <div class="hero-visual">
-      <img src="naturo%206.jpg"
-           alt="Prairie fleurie de marguerites et lavande, lumière naturelle apaisante"
-           class="hero-photo" loading="lazy">
+    <div class="hero-photo">
+      <img src="/naturo 6.jpg" alt="Arielle de Maistre, naturopathe et réflexologue à Sainte-Consorce" loading="eager" width="600" height="700">
     </div>
   </div>
 </section>
 
-<!-- ══════ PROMESSE ══════ -->
-<section class="promesse">
+<!-- 2. POURQUOI CONSULTER -->
+<section class="section section-pourquoi">
   <div class="container">
-    <div class="promesse-inner animate-in">
-      <div class="section-label">Pourquoi</div>
-      <h2 class="section-title">
-        Parce que l'équilibre d'un enfant<br>est <em>précieux et parfois fragile</em>
-      </h2>
-      <p class="promesse-text">
-        Arielle aide les familles à décoder les messages du corps de l'enfant pour apporter des solutions douces et durables.
-      </p>
-      <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:32px;padding-top:28px;border-top:1px solid var(--creme-dark)">
-        <div style="text-align:center">
-          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">🍼 De 0 à l'âge adulte</div>
-          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">accompagnés</div>
-        </div>
-        <div style="width:1px;background:var(--creme-dark)"></div>
-        <div style="text-align:center">
-          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">2 disciplines</div>
-          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">complémentaires</div>
-        </div>
-        <div style="width:1px;background:var(--creme-dark)"></div>
-        <div style="text-align:center">
-          <div style="font-size:1rem;color:var(--dore);font-weight:500;font-family:var(--font-body)">📍 Sainte-Consorce (69)</div>
-          <div style="font-size:0.78rem;color:var(--texte-light);margin-top:4px">Cabinet · Visio · Domicile</div>
-        </div>
+    <p class="section-label">Naturopathie &amp; réflexologie</p>
+    <h2 class="section-title">Quand le corps envoie des signaux qu'on ne peut plus ignorer</h2>
+    <div class="cards-3">
+      <div class="card-signal">
+        <h3>Votre enfant tombe souvent malade</h3>
+        <p>Rhumes, otites, gastros : quand les épisodes s'enchaînent, c'est le terrain qui demande à être soutenu.</p>
+      </div>
+      <div class="card-signal">
+        <h3>Vous êtes épuisé sans raison apparente</h3>
+        <p>Dormir ne suffit plus. L'énergie ne remonte pas. La naturopathie cherche ce qui freine la vitalité en profondeur.</p>
+      </div>
+      <div class="card-signal">
+        <h3>Les analyses sont normales, mais rien ne va</h3>
+        <p>Les marqueurs médicaux sont bons, pourtant quelque chose ne va pas. C'est précisément là qu'une lecture du terrain naturopathique prend tout son sens.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════ POURQUOI CONSULTER ══════ -->
-<section class="pourquoi-section">
+<!-- 3. QUAND LES ANALYSES SONT NORMALES -->
+<section class="section-dark-petrole">
   <div class="container">
-    <div class="section-label">Pourquoi consulter</div>
-    <h2 class="section-title">Pourquoi consulter une<br>naturopathe réflexologue ?</h2>
-    <p class="section-intro">La naturopathie et la réflexologie agissent en amont et en complément de la médecine. Leur rôle : aider le corps à retrouver son équilibre, et donner à chacun les clés pour prendre soin de sa santé au quotidien.</p>
-    <div class="pourquoi-grid">
-      <div class="pourquoi-card animate-in">
-        <div class="pourquoi-icon">🌱</div>
-        <h3>Prévenir</h3>
-        <p>Renforcer le terrain avant que les troubles ne s'installent : changements de saison, rentrée scolaire, examens, puberté, périodes de surmenage.</p>
-      </div>
-      <div class="pourquoi-card animate-in" style="transition-delay:0.1s">
-        <div class="pourquoi-icon">🤝</div>
-        <h3>Accompagner</h3>
-        <p>Les troubles du quotidien qui reviennent ou s'installent : digestion, sommeil, peau, immunité, fatigue, stress. Toujours en complément du suivi médical.</p>
-      </div>
-      <div class="pourquoi-card animate-in" style="transition-delay:0.2s">
-        <div class="pourquoi-icon">💛</div>
-        <h3>Soutenir</h3>
-        <p>Les grandes étapes et les moments difficiles : arrivée d'un bébé, séparation, deuil, déménagement, pression scolaire ou professionnelle.</p>
-      </div>
+    <p class="section-label on-dark">Comprendre le terrain</p>
+    <h2>Vous avez fait tous les examens. <em>Tout est normal.</em></h2>
+    <div class="dark-body">
+      <p>Il n'existe pas de marqueur biologique pour mesurer la fatigue de fond, la sensibilité au stress ou la tendance aux infections répétées. Ces états sont réels, mais ils ne se lisent pas sur un bilan sanguin. La naturopathie part d'une autre lecture : celle du terrain.</p>
+      <p>Le terrain, c'est l'ensemble des conditions intérieures qui déterminent comment un corps fonctionne, réagit et récupère. Comprendre ce terrain, c'est comprendre pourquoi certaines personnes sont plus fragiles que d'autres dans des situations identiques, et comment les soutenir.</p>
     </div>
   </div>
 </section>
 
-<!-- ══════ QUAND LES ANALYSES SONT NORMALES ══════ -->
-<section class="analyses-normales">
+<!-- 4. POUR QUI -->
+<section class="section section-pour-qui">
   <div class="container">
-    <h2>Quand les analyses sont normales,<br>mais que les symptômes <em>persistent</em></h2>
-    <p>Beaucoup de familles arrivent au cabinet après un long parcours : bilans sanguins normaux, examens rassurants, et pourtant des troubles bien réels qui gâchent le quotidien. Une fatigue qui ne passe pas, un ventre gonflé ou douloureux, des nuits hachées, une peau qui réagit, des rhumes à répétition, des maux de tête, une anxiété diffuse.</p>
-    <p>Ces troubles, que l'on appelle « fonctionnels », sont au cœur de la naturopathie et de la réflexologie. Plutôt que de regarder un organe isolé, Arielle observe le fonctionnement global : digestion, élimination, système nerveux, sommeil, alimentation, rythme de vie et émotions. C'est souvent dans les liens entre ces dimensions que se trouvent les pistes pour aller mieux.</p>
-    <p>Arielle intervient une fois l'avis médical obtenu, ou en parallèle du suivi en cours. Elle ne pose pas de diagnostic et ne modifie aucun traitement : elle aide le corps à retrouver son équilibre et accompagne la personne dans des changements concrets et durables.</p>
-    <div class="analyses-cta">
-      <a href="/audit" class="btn-primary">Faire le Bilan Horizon Santé</a>
-      <a href="/contact" class="btn-secondary-light">Prendre rendez-vous</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ PATHOLOGIES ══════ -->
-<section class="patho" id="patho">
-  <div class="container">
-    <div class="patho-header animate-in">
-      <h2 class="section-title">Votre bébé, enfant, ado ou adulte <em>se reconnaît ici ?</em></h2>
-      <p>Les situations les plus fréquentes que j'accompagne avec douceur et bienveillance.</p>
-    </div>
-    <div class="patho-grid">
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">✨</span><span class="patho-name">Acné et peau réactive</span></div>
-        <p class="patho-desc">Des imperfections qui impactent la confiance, un terrain à rééquilibrer de l'intérieur.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">📚</span><span class="patho-name">Stress et difficultés de concentration</span></div>
-        <p class="patho-desc">La pression scolaire, les périodes d'examens, le mental qui peine à se poser.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">🌙</span><span class="patho-name">Troubles du sommeil</span></div>
-        <p class="patho-desc">Endormissements longs, réveils nocturnes, fatigue persistante au lever.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">🛡️</span><span class="patho-name">Immunité fragilisée</span></div>
-        <p class="patho-desc">Infections hivernales à répétition, un terrain qui a besoin d'être renforcé.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">💪</span><span class="patho-name">Confiance en soi et estime de soi</span></div>
-        <p class="patho-desc">Un manque d'assurance, une image de soi fragile, un besoin de retrouver ses appuis.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">🌀</span><span class="patho-name">Grande sensibilité émotionnelle</span></div>
-        <p class="patho-desc">Une sensibilité intense qui épuise, des émotions qui débordent et envahissent.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">⚡</span><span class="patho-name">Fatigue et récupération difficile</span></div>
-        <p class="patho-desc">Un manque d'énergie persistant, une vitalité à retrouver, un corps qui peine à récupérer.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">🍼</span><span class="patho-name">Coliques et inconfort digestif</span></div>
-        <p class="patho-desc">Un nourrisson qui pleure, un ventre douloureux, des nuits difficiles pour toute la famille.</p>
-      </div>
-      <div class="patho-card">
-        <div class="patho-header"><span class="patho-emoji">😰</span><span class="patho-name">Anxiété et stress</span></div>
-        <p class="patho-desc">Les peurs du soir, les angoisses du quotidien, un système nerveux sous tension.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ PILIERS ══════ -->
-<section class="piliers section-alt">
-  <div class="container">
-    <div class="piliers-header animate-in" style="text-align:center;margin-bottom:56px">
-      <div class="section-label">Comment</div>
-      <h2 class="section-title">Deux approches,<br>une vision <em>globale</em></h2>
-    </div>
-    <div class="piliers-grid">
-      <div class="pilier-card animate-in">
-        <img src="Naturo%201.jpg" alt="Plantes médicinales, herbes et compléments naturels — naturopathie" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
-        <div class="pilier-keyword">Comprendre</div>
-        <div class="pilier-icon">🌿</div>
-        <h3 class="pilier-title">Naturopathie de terrain</h3>
-        <p>Alimentation, micronutrition, phytothérapie : cartographier le terrain pour agir à la source, pas sur la manifestation visible.</p>
-      </div>
-      <div class="pilier-card animate-in" style="transition-delay:0.1s">
-        <img src="reflexo%20plantaire.jpg" alt="Réflexologie plantaire — mains accompagnant les pieds d'un bébé avec douceur" style="width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:var(--radius);margin-bottom:16px;display:block">
-        <div class="pilier-keyword">Apaiser</div>
-        <div class="pilier-icon">🤲</div>
-        <h3 class="pilier-title">Réflexologie</h3>
-        <p>Stimuler les zones réflexes des pieds et des mains pour relancer la vitalité et calmer le système nerveux.</p>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:48px" class="animate-in">
-      <a href="/methode" style="font-size:0.9rem;color:var(--bleu-petrole);font-weight:500;text-decoration:none;border-bottom:1px solid rgba(27,77,92,0.3);padding-bottom:3px">Explorer la méthode en détail →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ POUR QUI ══════ -->
-<section class="pour-qui">
-  <div class="container">
-    <div class="pour-qui-header animate-in">
-      <div class="section-label">Pour qui</div>
-      <h2 class="section-title">Un accompagnement <em>pensé pour chaque âge</em></h2>
-    </div>
-    <div class="pour-qui-grid">
-      <a href="/about" class="pq-card animate-in">
-        <div class="pq-age">0 à 3 ans</div>
-        <div class="pq-header"><span class="pq-emoji">🍼</span><span class="pq-titre">Les Bébés</span></div>
-        <p class="pq-tags">Coliques · Troubles du sommeil · Tensions corporelles</p>
-      </a>
-      <a href="/about" class="pq-card animate-in" style="transition-delay:0.08s">
-        <div class="pq-age">4 à 12 ans</div>
-        <div class="pq-header"><span class="pq-emoji">🌱</span><span class="pq-titre">Les Enfants</span></div>
-        <p class="pq-tags">Immunité · Anxiété · Concentration</p>
-      </a>
-      <a href="/about" class="pq-card animate-in" style="transition-delay:0.16s">
-        <div class="pq-age">13 à 17 ans</div>
-        <div class="pq-header"><span class="pq-emoji">🌀</span><span class="pq-titre">Les Adolescents</span></div>
-        <p class="pq-tags">Stress · Acné · Confiance</p>
-      </a>
-      <a href="/about" class="pq-card animate-in" style="transition-delay:0.24s">
-        <div class="pq-age">18 ans et +</div>
-        <div class="pq-header"><span class="pq-emoji">⚡</span><span class="pq-titre">Les Adultes</span></div>
-        <p class="pq-tags">Surmenage · Fatigue · Équilibre</p>
-      </a>
-    </div>
-    <div class="pour-qui-cta">
-      <a href="/about#qui-jaccompagne">Découvrir qui Arielle accompagne →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ À PROPOS ══════ -->
-<section class="apropos" id="apropos">
-  <div class="container">
-    <div class="apropos-visual animate-in">
-      <div class="apropos-image-wrap">
-        <img src="arielle.jpg" alt="Arielle de Maistre, naturopathe" style="width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:var(--radius-lg)">
-      </div>
-      <div class="apropos-quote-card">
-        <p>« Le corps possède des ressources ; mon rôle est de l'aider à les mobiliser. »</p>
-        <div class="author">— Arielle de Maistre</div>
-      </div>
-    </div>
-    <div class="apropos-content animate-in">
-      <div class="section-label">À propos</div>
-      <h2 class="section-title">Arielle de Maistre,<br><em>praticienne en naturopathie et réflexologie</em></h2>
-      <p class="apropos-text">
-        Ingénieure chimiste de formation, maman de trois enfants. C'est lors d'une expatriation au Sultanat d'Oman et au Maroc qu'Arielle découvre la puissance des approches naturelles et la résilience profonde du corps humain.
-      </p>
-      <p class="apropos-text">
-        Revenue en France avec cette conviction, Arielle accompagne aujourd'hui les familles, du nourrisson à l'adulte, avec une attention particulière pour l'enfance et l'adolescence.
-      </p>
-      <div class="apropos-values">
-        <div class="value-item">
-          <div class="value-icon naturo">🌿</div>
-          <div class="value-text">
-            <h4>Naturopathie</h4>
-            <p>Nourrir le terrain, soutenir les fonctions vitales</p>
-          </div>
-        </div>
-        <div class="value-item">
-          <div class="value-icon bach">🌼</div>
-          <div class="value-text">
-            <h4>Fleurs de Bach</h4>
-            <p>Harmoniser les émotions, soutenir l'équilibre intérieur</p>
-            <span class="value-tag">Outil de la naturopathie</span>
-          </div>
-        </div>
-        <div class="value-item">
-          <div class="value-icon reflexo">🦶</div>
-          <div class="value-text">
-            <h4>Réflexologie</h4>
-            <p>Stimuler les zones réflexes, rétablir la circulation</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ AUDIT ══════ -->
-<section class="audit" id="audit">
-  <div class="container">
-    <div class="audit-content animate-in">
-      <div class="section-label">Bilan Horizon Santé</div>
-      <h2 class="section-title">Faire le point en <em>5 minutes</em></h2>
-      <p class="audit-desc">
-        Un questionnaire en 20 questions, adapté à chaque âge, pour repérer les besoins prioritaires : sommeil, éclat, sérénité, immunité et confiance. Les résultats prennent la forme d'une Fleur de Vitalité et donnent une première orientation.
-      </p>
-      <p class="audit-hook">Un bilan adapté à chaque âge, du bébé à l'adulte.</p>
-      <a href="/audit" class="btn-bilan-gold">Lancer le Bilan Horizon Santé</a>
-      <div class="audit-features">
-        <div class="audit-feature">
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <span>Résultats visuels en jauges douces et colorées</span>
-        </div>
-        <div class="audit-feature">
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <span>Bouquet de solutions naturopathiques personnalisé</span>
-        </div>
-        <div class="audit-feature">
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <span>Orientation vers un accompagnement au cabinet si besoin</span>
-        </div>
-      </div>
-    </div>
-    <div class="audit-preview animate-in">
-      <div class="audit-card">
-        <div class="audit-card-header">
-          <div class="audit-card-title">Horizon Santé</div>
-          <div class="audit-step-indicator">Étape 2 / 6</div>
-        </div>
-        <div class="audit-question">Comment décririez-vous le sommeil de votre enfant ces dernières semaines ?</div>
-        <div class="audit-options">
-          <div class="audit-option">
-            <div class="radio"></div>
-            <span>🌙 Il s'endort facilement et dort bien</span>
-          </div>
-          <div class="audit-option selected">
-            <div class="radio"></div>
-            <span>😴 Il a du mal à s'endormir le soir</span>
-          </div>
-          <div class="audit-option">
-            <div class="radio"></div>
-            <span>🌀 Il se réveille souvent la nuit</span>
-          </div>
-          <div class="audit-option">
-            <div class="radio"></div>
-            <span>⚡ Il est fatigué même après une nuit complète</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ AVIS GOOGLE ══════ -->
-<section id="section-avis" style="display:none;background:#fff;padding:64px 0">
-  <div class="container">
-    <div style="text-align:center;margin-bottom:40px">
-      <div class="section-label">Ils témoignent</div>
-      <h2 class="section-title">Ce que disent<br><em>les familles</em></h2>
-      <div id="avis-note-resume" style="display:flex;align-items:center;justify-content:center;gap:12px;margin-top:16px">
-        <span id="avis-etoiles" style="color:#C4A265;font-size:1.4rem"></span>
-        <span id="avis-score" style="font-weight:700;font-size:1.1rem;color:#1B4D5C"></span>
-        <a id="avis-lien-google" href="#" target="_blank" rel="noopener" style="font-size:.85rem;color:#8FA98B;text-decoration:underline">Voir sur Google</a>
-      </div>
-    </div>
-    <div id="avis-liste" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px"></div>
-  </div>
-</section>
-
-<!-- ══════ PUBLICATIONS PREVIEW ══════ -->
-<section class="guides-preview" id="publications">
-  <div class="container">
-    <div class="guides-preview-header animate-in">
-      <div class="section-label">Publications</div>
-      <h2 class="section-title">Comprendre pour<br><em>mieux accompagner</em></h2>
-      <p>Des articles écrits à partir de la pratique d'Arielle, pour des repères sur la santé des enfants, les inconforts fréquents et les approches qui soutiennent les familles.</p>
-    </div>
-    <div class="guides-preview-list" id="gp-cards-list">
-      <!-- Chargement dynamique depuis articles.json -->
-    </div>
-    <div class="guides-preview-cta">
-      <a href="/publications" class="btn-guides">Voir toutes les publications →</a>
-      <p class="guides-preview-note" id="gp-count-note">Articles · Accès libre</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ INFO LÉGALE ══════ -->
-<section class="info-legale">
-  <div class="container">
-    <p><strong>Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
-  </div>
-</section>
-
-<!-- ══════ FOOTER ══════ -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
-        <p>Un accompagnement global et doux pour les bébés, les enfants, les adolescents et les adultes, par Arielle de Maistre.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
+    <p class="section-label">Accompagnements</p>
+    <h2 class="section-title">Pour qui ?</h2>
+    <div class="cards-4">
+      <div class="card-public">
+        <span class="card-age">0 à 3 ans</span>
+        <h3>Bébés &amp; tout-petits</h3>
         <ul>
-          <li><a href="/about">À propos</a></li>
-          <li><a href="/methode">La Méthode</a></li>
-          <li><a href="/audit">Bilan Horizon Santé</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li>Coliques</li>
+          <li>Sommeil difficile</li>
+          <li>Poussées dentaires</li>
+          <li>Fragilité digestive</li>
+          <li>Eczéma précoce</li>
+          <li>Transitions alimentaires</li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Services</h4>
+      <div class="card-public">
+        <span class="card-age">4 à 12 ans</span>
+        <h3>Enfants</h3>
         <ul>
-          <li><a href="/methode">Naturopathie</a></li>
-          <li><a href="/methode">Réflexologie</a></li>
-          <li><a href="/audit">Bilan Horizon Santé</a></li>
+          <li>Infections répétées ORL</li>
+          <li>Troubles du sommeil</li>
+          <li>Hyperactivité</li>
+          <li>Anxiété scolaire</li>
+          <li>Troubles digestifs</li>
+          <li>Eczéma et peau réactive</li>
         </ul>
       </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
+      <div class="card-public">
+        <span class="card-age">13 à 17 ans</span>
+        <h3>Adolescents</h3>
         <ul>
-          <li><a href="mailto:arielle.de.maistre@gmail.com">Email</a></li>
-          <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
-          <li>Sainte-Consorce (69280)</li>
-          <li style="margin-top:12px"><a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a></li>
+          <li>Acné et peau réactive</li>
+          <li>Fatigue chronique</li>
+          <li>Stress et examens</li>
+          <li>Troubles du sommeil</li>
+          <li>Irritabilité</li>
+          <li>Premier bilan de vitalité</li>
+        </ul>
+      </div>
+      <div class="card-public">
+        <span class="card-age">18 ans et plus*</span>
+        <h3>Adultes</h3>
+        <ul>
+          <li>Fatigue persistante</li>
+          <li>Stress chronique</li>
+          <li>Troubles digestifs</li>
+          <li>Sommeil non réparateur</li>
+          <li>Accompagnement périnatal</li>
+          <li>Bilan de vitalité</li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <p>© 2026 Horizon & Équilibre | Arielle de Maistre. Tous droits réservés.</p>
-        <div style="display:flex;align-items:center;gap:16px">
-          <span style="color:rgba(250,247,242,.7);font-size:.78rem">Mentions légales</span>
-        </div>
-      </div>
-    </div>
+    <p class="pour-qui-note">* Arielle accompagne également les adultes qui souhaitent mieux comprendre leur propre terrain.</p>
   </div>
-</footer>
+</section>
 
-<script>
-// Nav scroll effect
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
-});
-
-// Scroll animations
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 120);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
-
-// Mobile nav toggle
-document.querySelector('.mobile-toggle').addEventListener('click', () => {
-  const links = document.querySelector('.nav-links');
-  if (links.style.display === 'flex') {
-    links.style.display = 'none';
-  } else {
-    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);';
-  }
-});
-
-// Audit card interaction
-document.querySelectorAll('.audit-option').forEach(opt => {
-  opt.addEventListener('click', () => {
-    document.querySelectorAll('.audit-option').forEach(o => o.classList.remove('selected'));
-    opt.classList.add('selected');
-  });
-});
-
-// Avis Google — chargement conditionnel
-fetch('/api/config/avis')
-  .then(r => r.json())
-  .then(cfg => {
-    if (!cfg.afficherBlocAvis || !cfg.avis || cfg.avis.length === 0) return;
-    const section = document.getElementById('section-avis');
-    section.style.display = '';
-    const etoiles = '★'.repeat(Math.round(cfg.note)) + '☆'.repeat(5 - Math.round(cfg.note));
-    document.getElementById('avis-etoiles').textContent = etoiles;
-    document.getElementById('avis-score').textContent = cfg.note.toFixed(1) + ' / 5 (' + cfg.nombreAvis + ' avis)';
-    if (cfg.urlGoogleBusiness) {
-      document.getElementById('avis-lien-google').href = cfg.urlGoogleBusiness;
-    } else {
-      document.getElementById('avis-lien-google').style.display = 'none';
-    }
-    const liste = document.getElementById('avis-liste');
-    cfg.avis.forEach(a => {
-      const el = document.createElement('div');
-      el.style.cssText = 'background:#FAF7F2;border-radius:12px;padding:24px;border:1px solid rgba(27,77,92,.08)';
-      el.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">'
-        + '<strong style="color:#1B4D5C">' + a.auteur + '</strong>'
-        + '<span style="color:#C4A265">' + '★'.repeat(a.note) + '</span>'
-        + '</div>'
-        + '<p style="color:#2C3E3A;font-size:.92rem;line-height:1.6;margin:0">' + a.texte + '</p>'
-        + '<p style="color:#8FA98B;font-size:.78rem;margin:8px 0 0">' + a.date + '</p>';
-      liste.appendChild(el);
-    });
-  })
-  .catch(() => {});
-</script>
-<script>
-(function() {
-  var list = document.getElementById('gp-cards-list');
-  if (!list) return;
-  fetch('/articles.json')
-    .then(function(r) { return r.json(); })
-    .then(function(articles) {
-      var now = new Date();
-      var published = articles.filter(function(a) {
-        return new Date(a.date + 'T00:00:00') <= now;
-      });
-      var note = document.getElementById('gp-count-note');
-      if (note) note.textContent = published.length + ' article' + (published.length > 1 ? 's' : '') + ' · Accès libre';
-      list.innerHTML = published.map(function(a, i) {
-        var delay = (i * 0.07).toFixed(2);
-        return '<a href="/publications/' + a.slug + '" class="gp-card animate-in" style="transition-delay:' + delay + 's">' +
-          '<div class="gp-header"><span class="gp-emoji">' + a.emoji + '</span><span class="gp-title">' + a.titre + '</span></div>' +
-          '<p class="gp-hook">' + a.chapeau + '</p>' +
-          '<span class="gp-price">Article</span>' +
-          '</a>';
-      }).join('');
-      document.querySelectorAll('#gp-cards-list .animate-in').forEach(function(el) {
-        observer.observe(el);
-      });
-    })
-    .catch(function() {});
-})();
-</script>
+<!-- INJECT:CTA -->
+<!-- INJECT:DISCLAIMER -->
+<!-- INJECT:FOOTER -->
 <script src="/shared.js"></script>
 </body>
 </html>

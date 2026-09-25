@@ -27,13 +27,29 @@ fs.mkdirSync(path.join(__dirname, 'config'), { recursive: true });
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ─── Partials (chargés une fois au démarrage) ──────────────
+const NAV        = fs.readFileSync(path.join(__dirname, 'partials/nav.html'), 'utf8');
+const FOOTER     = fs.readFileSync(path.join(__dirname, 'partials/footer.html'), 'utf8');
+const CTA        = fs.readFileSync(path.join(__dirname, 'partials/cta.html'), 'utf8');
+const DISCLAIMER = fs.readFileSync(path.join(__dirname, 'partials/disclaimer.html'), 'utf8');
+
+function buildPage(filePath, { activePath = '/', noCta = false } = {}) {
+  const html = fs.readFileSync(filePath, 'utf8');
+  const nav = NAV.replace(`href="${activePath}"`, `href="${activePath}" class="active"`);
+  return html
+    .replace('<!-- INJECT:NAV -->', nav)
+    .replace('<!-- INJECT:CTA -->', noCta ? '' : CTA)
+    .replace('<!-- INJECT:DISCLAIMER -->', DISCLAIMER)
+    .replace('<!-- INJECT:FOOTER -->', FOOTER);
+}
+
 function loadAudits() {
   try { return JSON.parse(fs.readFileSync(AUDITS_FILE, 'utf8')); }
   catch { return []; }
 }
 function saveAudit(entry) {
   const audits = loadAudits();
-  audits.unshift(entry); // plus récent en premier
+  audits.unshift(entry);
   fs.writeFileSync(AUDITS_FILE, JSON.stringify(audits, null, 2));
 }
 function loadAvis() {
@@ -60,7 +76,9 @@ app.get('/robots.txt', (req, res) => {
 const ARTICLES = require('./public/articles.json');
 
 function isPublished(dateStr) {
-  return new Date() >= new Date(dateStr + 'T00:00:00');
+  // Fuseau Europe/Paris (CEST été = +02:00)
+  const d = new Date(dateStr + 'T00:00:00+02:00');
+  return new Date() >= d;
 }
 
 app.get('/sitemap.xml', (req, res) => {
@@ -78,6 +96,8 @@ app.get('/sitemap.xml', (req, res) => {
     { loc: '/publications', priority: '0.8', changefreq: 'weekly' },
     ...publishedArticleUrls,
     { loc: '/contact', priority: '0.7', changefreq: 'monthly' },
+    { loc: '/mentions-legales', priority: '0.3', changefreq: 'yearly' },
+    { loc: '/confidentialite', priority: '0.3', changefreq: 'yearly' },
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -92,35 +112,42 @@ ${urls.map(u => `  <url>
 });
 
 // ─── Page routes ───────────────────────────────────────────────────────────
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/audit', (req, res) => res.sendFile(path.join(__dirname, 'public', 'audit.html')));
-app.get('/bilan', (req, res) => res.sendFile(path.join(__dirname, 'public', 'audit.html')));
-app.get('/crm', (req, res) => res.sendFile(path.join(__dirname, 'public', 'crm.html')));
-app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'public', 'about.html')));
-app.get('/methode', (req, res) => res.sendFile(path.join(__dirname, 'public', 'methode.html')));
-app.get('/tarifs', (req, res) => res.sendFile(path.join(__dirname, 'public', 'tarifs-accompagnement.html')));
-app.get('/contact', (req, res) => res.sendFile(path.join(__dirname, 'public', 'contact.html')));
+app.get('/',          (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'index.html'),                       { activePath: '/' })));
+app.get('/about',     (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'about.html'),                      { activePath: '/about' })));
+app.get('/methode',   (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'methode.html'),                    { activePath: '/methode' })));
+app.get('/tarifs',    (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'tarifs-accompagnement.html'),      { activePath: '/tarifs' })));
+app.get('/audit',     (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'audit.html'),                      { activePath: '/audit', noCta: true })));
+app.get('/bilan',     (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'audit.html'),                      { activePath: '/audit', noCta: true })));
+app.get('/contact',   (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'contact.html'),                    { activePath: '/contact', noCta: true })));
+app.get('/crm',       (req, res) => res.sendFile(path.join(__dirname, 'public', 'crm.html')));
 
-// LOT 7 — Redirect /guides → /publications (301 permanent)
-app.get('/guides', (req, res) => res.redirect(301, '/publications'));
+// Pages légales
+app.get('/mentions-legales', (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'mentions-legales.html'),    { activePath: '/mentions-legales', noCta: true })));
+app.get('/confidentialite',  (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'confidentialite.html'),     { activePath: '/confidentialite',  noCta: true })));
+
+// Redirect /guides → /publications (301 permanent)
+app.get('/guides',           (req, res) => res.redirect(301, '/publications'));
 app.get('/guides-pratiques', (req, res) => res.redirect(301, '/publications'));
 
-// LOT 7 — Publications index
-app.get('/publications', (req, res) => res.sendFile(path.join(__dirname, 'public', 'guides-pratiques.html')));
+// Publications index
+app.get('/publications', (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'guides-pratiques.html'), { activePath: '/publications' })));
 
-// LOT 8 — Publications articles avec filtrage par date
+// Publications articles avec filtrage par date
 app.get('/publications/:slug', (req, res) => {
   const art = ARTICLES.find(a => a.slug === req.params.slug);
   if (!art || !isPublished(art.date)) {
-    return res.status(404).sendFile(path.join(__dirname, 'public', 'index.html'));
+    return res.status(404).send(buildPage(path.join(__dirname, 'public', 'index.html'), { activePath: '/' }));
   }
-  res.sendFile(path.join(__dirname, 'public', 'publications', `${req.params.slug}.html`));
+  res.send(buildPage(
+    path.join(__dirname, 'public', 'publications', `${req.params.slug}.html`),
+    { activePath: '/publications' }
+  ));
 });
 
 // ─── Health check ──────────────────────────────────────────────────────────
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
-// ─── LOT 8 — Config avis ───────────────────────────────────────────────────
+// ─── Config avis ───────────────────────────────────────────────────────────
 app.get('/api/config/avis', (req, res) => {
   res.json(loadAvis());
 });
@@ -160,14 +187,12 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     const pdfBuffer = Buffer.from(pdfBase64, 'base64');
     const filename = `Audit_Horizon_Sante_${childName}_${new Date(date).toISOString().slice(0, 10)}.pdf`;
 
-    // Mettre à jour l'entrée CRM (ou en créer une nouvelle)
     const audits = loadAudits();
     const existing = audits.find(a => a.childName === childName && a.date === date);
     if (existing) { existing.hasPdf = true; existing.clientEmail = clientEmail || existing.clientEmail; }
     else { audits.unshift({ childName, childAge, prenom: prenom||null, nom: nom||null, globalScore, charges, zones, suggestReflexo: suggestReflexo || false, date, clientEmail: clientEmail || null, hasPdf: true, receivedAt: new Date().toISOString() }); }
     fs.writeFileSync(AUDITS_FILE, JSON.stringify(audits, null, 2));
 
-    // Persistance Prisma
     if (prisma) {
       try {
         await prisma.leadAudit.create({
@@ -194,7 +219,6 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
       <p><strong>Réflexologie :</strong> ${suggestReflexo ? '✅' : '—'}</p>
       <p><em>Réalisé le ${new Date(date).toLocaleString('fr-FR')}</em></p>`;
 
-    // Email au client (si email fourni)
     if (clientEmail) {
       const contactUrl = 'https://naturopathie-arielle-production.up.railway.app/contact';
       const clientHtml = `
@@ -210,7 +234,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Analyse de la synthèse</h3>
     <p>Les scores obtenus permettent d'identifier les zones d'équilibre et les points de vigilance qui nécessitent un soutien. Les recommandations mentionnées dans le rapport constituent de premières pistes en hygiène de vie pour accompagner votre enfant au quotidien.</p>
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Prochaines étapes</h3>
-    <p>Ce bilan gagne à être complété par une consultation au cabinet afin de définir un protocole de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et établir un protocole naturopathique personnalisé.</p>
+    <p>Ce bilan gagne à être complété par une consultation au cabinet afin de définir un programme de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et établir un programme naturopathique personnalisé.</p>
     <p>Pour toute question ou pour convenir d'un rendez-vous au cabinet de Sainte-Consorce, je vous invite à me contacter directement via le formulaire de mon site :<br>
     <a href="${contactUrl}" style="color:#1B4D5C;font-weight:600">${contactUrl}</a></p>
     <p style="margin-top:32px">Sincères salutations,</p>
@@ -227,7 +251,6 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
       });
     }
 
-    // Copie à Arielle
     await resend.emails.send({
       from: process.env.RESEND_FROM,
       to: [process.env.CONTACT_EMAIL],
@@ -252,7 +275,6 @@ app.get('/api/audits', (req, res) => {
 app.post('/api/contact', express.json(), async (req, res) => {
   try {
     const { prenom, email, tel, ageEnfant, objet, message, honeypot } = req.body;
-    // Anti-spam honeypot
     if (honeypot) return res.json({ ok: true });
     await resend.emails.send({
       from: process.env.RESEND_FROM,

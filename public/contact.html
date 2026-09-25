@@ -10,88 +10,70 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 <style>
-:root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--do-texte:#7F6128;--vs-texte:#4E6B48;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
-body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;font-weight:300;min-height:100vh}
+body{font-family:var(--petrole, var(--fb, 'Outfit', system-ui, sans-serif));color:#2C3E3A;background:#FAF7F2;line-height:1.7;font-weight:300;min-height:100vh}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 0;background:rgba(250,247,242,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 30px rgba(27,77,92,0.06);transition:all .4s ease}
-nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:14px;text-decoration:none}
-.nav-logo-icon{width:34px;height:34px}
-.nav-logo-icon svg{width:100%;height:100%}
-.nav-logo-text{font-family:var(--fd);font-size:1.3rem;font-weight:400;color:var(--bp)}
-.nav-logo-text span{color:var(--do);font-weight:300}
-.nav-list{display:flex;align-items:center;gap:32px;list-style:none}
-.nav-list a{font-family:var(--fb);font-size:.85rem;font-weight:400;color:var(--bp);text-decoration:none;letter-spacing:.5px;position:relative;transition:color .3s}
-.nav-list a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--do);transition:width .3s ease}
-.nav-list a:hover{color:var(--do)}.nav-list a:hover::after{width:100%}
-.nav-list .nav-cta-btn{background:var(--bp)!important;color:var(--cr)!important;padding:10px 24px;border-radius:50px;font-size:.82rem!important;font-weight:500!important;transition:all .3s ease!important}
-.nav-list .nav-cta-btn:hover{background:var(--bp-l)!important;transform:translateY(-1px)}
-.nav-list .nav-cta-btn::after{display:none!important}
-.nav-list .nav-active{color:var(--do)!important}.nav-list .nav-active::after{width:100%!important}
-.nav-mobile-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
-.nav-mobile-toggle span{width:22px;height:1.5px;background:var(--bp);display:block;transition:all .3s}
-
-.page-wrap{max-width:700px;margin:0 auto;padding:120px 24px 80px}
+.page-wrap{max-width:1100px;margin:0 auto;padding:120px 24px 80px}
 
 .hero-section{text-align:center;margin-bottom:48px;animation:fadeUp .8s ease-out}
-.hero-eyebrow{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:16px}
-.hero-title{font-family:var(--fd);font-size:clamp(2rem,5vw,3rem);font-weight:400;color:var(--bp);line-height:1.2;margin-bottom:16px}
-.hero-title em{font-style:italic;color:var(--vs)}
-.hero-subtitle{font-size:.95rem;color:var(--tx-l);max-width:480px;margin:0 auto}
+.hero-eyebrow{font-size:.72rem;letter-spacing:4px;text-transform:uppercase;color:#C4A265;font-weight:500;margin-bottom:16px}
+.hero-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(2rem,5vw,3rem);font-weight:400;color:#1B4D5C;line-height:1.2;margin-bottom:16px}
+.hero-title em{font-style:italic;color:#8FA98B}
+.hero-subtitle{font-size:.95rem;color:#5A6E68;max-width:480px;margin:0 auto;text-align:justify;hyphens:auto}
 
-.contact-card{background:var(--wh);border-radius:var(--rl);padding:48px 44px;box-shadow:0 20px 60px rgba(27,77,92,.07);border:1px solid rgba(27,77,92,.04);animation:fadeUp .8s ease-out .15s both}
+.contact-layout{display:grid;grid-template-columns:1fr 380px;gap:40px;align-items:start}
+
+.contact-card{background:#FFF;border-radius:32px;padding:48px 44px;box-shadow:0 20px 60px rgba(27,77,92,.07);border:1px solid rgba(27,77,92,.04);animation:fadeUp .8s ease-out .15s both}
 
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .form-group{display:flex;flex-direction:column;gap:6px}
 .form-group.full{grid-column:1/-1}
-.form-group label{font-size:.78rem;font-weight:500;color:var(--bp);letter-spacing:.5px}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);transition:border-color .3s;outline:none;resize:none}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--vs);background:var(--wh)}
+.form-group label{font-size:.78rem;font-weight:500;color:#1B4D5C;letter-spacing:.5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:1.5px solid #F0EBE3;border-radius:12px;font-family:'Outfit',system-ui,sans-serif;font-size:.9rem;color:#2C3E3A;background:#FAF7F2;transition:border-color .3s;outline:none;resize:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#8FA98B;background:#FFF}
 .form-group textarea{min-height:120px;line-height:1.6}
 .form-group select{cursor:pointer}
 
-.btn-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 40px;border-radius:50px;font-family:var(--fb);font-size:.9rem;font-weight:500;letter-spacing:.3px;cursor:pointer;border:none;background:var(--bp);color:var(--cr);transition:all .4s cubic-bezier(.22,1,.36,1);margin-top:8px}
-.btn-submit:hover{background:var(--bp-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
+.btn-submit{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 40px;border-radius:50px;font-family:'Outfit',system-ui,sans-serif;font-size:.9rem;font-weight:500;letter-spacing:.3px;cursor:pointer;border:none;background:#1B4D5C;color:#FAF7F2;transition:all .4s cubic-bezier(.22,1,.36,1);margin-top:8px}
+.btn-submit:hover{background:#2A6B7E;transform:translateY(-2px);box-shadow:0 12px 40px rgba(27,77,92,.2)}
 .btn-submit:disabled{opacity:.55;pointer-events:none}
 
 .form-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:24px}
-.form-note{font-size:.8rem;color:var(--tx-l)}
+.form-note{font-size:.8rem;color:#5A6E68}
 
-.success-msg{display:none;background:var(--ok-p);border:1px solid var(--ok);border-radius:var(--rs);padding:20px 24px;margin-top:24px;animation:fadeUp .5s ease-out}
+.success-msg{display:none;background:#DFF0D8;border:1px solid #7BAF6E;border-radius:12px;padding:20px 24px;margin-top:24px;animation:fadeUp .5s ease-out}
 .success-msg.visible{display:block}
-.success-msg h4{font-family:var(--fd);font-size:1.1rem;color:var(--bp);font-weight:400;margin-bottom:4px}
-.success-msg p{font-size:.85rem;color:var(--tx-l)}
+.success-msg h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;color:#1B4D5C;font-weight:400;margin-bottom:4px}
+.success-msg p{font-size:.85rem;color:#5A6E68}
 
-.error-msg{display:none;background:var(--al-p);border:1px solid var(--al);border-radius:var(--rs);padding:16px 20px;margin-top:16px;font-size:.85rem;color:#8B4040}
+.error-msg{display:none;background:#F5E0DC;border:1px solid #D4786A;border-radius:12px;padding:16px 20px;margin-top:16px;font-size:.85rem;color:#8B4040}
 .error-msg.visible{display:block}
 
-footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80px}
-.footer-inner{max-width:1200px;margin:0 auto;padding:0 32px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
-.footer-brand .logo-text{font-family:var(--fd);color:var(--cr);font-size:1.4rem;margin-bottom:12px;display:block}
-.footer-brand p{color:rgba(250,247,242,.7);font-size:.85rem;line-height:1.7;max-width:280px}
-.footer-col h4{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--do);font-weight:500;margin-bottom:16px}
-.footer-col ul{list-style:none}
-.footer-col li{margin-bottom:9px}
-.footer-col a{color:rgba(250,247,242,.7);text-decoration:none;font-size:.85rem;transition:color .3s}
-.footer-col a:hover{color:var(--cr)}
-.footer-col li:not(:has(a)){color:rgba(250,247,242,.7);font-size:.85rem}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:24px}
-.footer-bottom p{font-size:.75rem;color:rgba(250,247,242,.6);text-align:center}
+.coords-card{background:#F0EBE3;border-radius:20px;padding:28px;animation:fadeUp .8s ease-out .3s both;position:sticky;top:120px}
+.coords-card h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.25rem;font-weight:400;color:#1B4D5C;margin-bottom:20px}
+.coord-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.coord-item:last-child{margin-bottom:0}
+.coord-icon{width:36px;height:36px;border-radius:10px;background:#1B4D5C;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.coord-icon svg{width:16px;height:16px;fill:none;stroke:#FAF7F2;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.coord-label{font-size:.72rem;font-weight:500;color:#C4A265;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.coord-value{font-size:.9rem;color:#2C3E3A}
+.coord-value a{color:#1B4D5C;text-decoration:none;transition:color .3s}
+.coord-value a:hover{color:#C4A265}
+.coords-note{margin-top:20px;padding-top:20px;border-top:1px solid rgba(27,77,92,.1);font-size:.8rem;color:#5A6E68;line-height:1.6}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-@media(max-width:640px){.page-wrap{padding:90px 16px 60px}.contact-card{padding:28px 20px}.form-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr;gap:28px}}
-@media(max-width:768px){.nav-list{display:none}.nav-mobile-toggle{display:flex}}
-/* Texte justifié */
-.hero-subtitle, .footer-brand p { text-align: justify; hyphens: auto; }
-.footer-rdv-btn{display:inline-flex;align-items:center;background:var(--do);color:var(--bp-d)!important;padding:10px 24px;border-radius:50px;font-size:.82rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .3s}
-.footer-rdv-btn:hover{background:#B8934F}
-.info-legale{background:var(--cr-d,#F0EBE3);padding:24px 0;border-top:1px solid rgba(27,77,92,.08)}
-.info-legale p{font-size:.8rem;color:var(--tx-l,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
-.info-legale strong{color:var(--bp,#1B4D5C)}
+@media(max-width:900px){
+  .contact-layout{grid-template-columns:1fr}
+  .coords-card{position:static}
+}
+@media(max-width:640px){
+  .page-wrap{padding:90px 16px 60px}
+  .contact-card{padding:28px 20px}
+  .form-grid{grid-template-columns:1fr}
+}
 </style>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -100,158 +82,120 @@ footer{background:var(--bp-d);color:var(--cr);padding:60px 0 32px;margin-top:80p
 </head>
 <body>
 
-<nav>
-  <div class="nav-container">
-    <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">
-        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
-          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
-          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
-          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
-        </svg>
-      </div>
-      <div class="nav-logo-text">Horizon <span>&</span> Équilibre</div>
-    </a>
-    <ul class="nav-list">
-      <li><a href="/">Accueil</a></li>
-      <li><a href="/about">À propos</a></li>
-      <li><a href="/methode">Méthode</a></li>
-      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
-      <li><a href="/audit">Bilan Horizon Santé</a></li>
-      <li><a href="/publications">Publications</a></li>
-      <li><a href="/contact" class="nav-active">Contact</a></li>
-    </ul>
-    <button class="nav-mobile-toggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<!-- INJECT:NAV -->
 
 <div class="page-wrap">
   <div class="hero-section">
-    <div class="hero-eyebrow">Horizon & Équilibre</div>
+    <div class="hero-eyebrow">Horizon &amp; Équilibre</div>
     <h1 class="hero-title">Prendre <em>contact</em></h1>
     <p class="hero-subtitle">Une question, une demande de renseignements ou une suite à votre bilan ? Arielle vous répond personnellement.</p>
   </div>
 
-  <div class="contact-card">
-    <form id="contactForm" novalidate>
-      <!-- Honeypot anti-spam (caché) -->
-      <div style="display:none" aria-hidden="true">
-        <label for="website">Ne pas remplir</label>
-        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-      </div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="prenom">Prénom *</label>
-          <input type="text" id="prenom" name="prenom" placeholder="Ex : Sophie" required>
+  <div class="contact-layout">
+    <div class="contact-card">
+      <form id="contactForm" novalidate>
+        <!-- Honeypot anti-spam (caché) -->
+        <div style="display:none" aria-hidden="true">
+          <label for="website">Ne pas remplir</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
         </div>
-        <div class="form-group">
-          <label for="email">Email *</label>
-          <input type="email" id="email" name="email" placeholder="Ex : sophie@email.com" required>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Ex : Sophie" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="Ex : sophie@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="tel">Téléphone</label>
+            <input type="tel" id="tel" name="tel" placeholder="Ex : 06 12 34 56 78">
+          </div>
+          <div class="form-group">
+            <label for="ageEnfant">Personne concernée</label>
+            <select id="ageEnfant" name="ageEnfant">
+              <option value="">Tranche d'âge concernée</option>
+              <option>Bébé (0 à 3 ans)</option>
+              <option>Enfant (4 à 12 ans)</option>
+              <option>Adolescent (13 à 17 ans)</option>
+              <option>Adulte (18 ans et plus)</option>
+              <option>Plusieurs membres de la famille</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="objet">Objet *</label>
+            <select id="objet" name="objet" required>
+              <option value="">Sélectionner</option>
+              <option>Premier contact</option>
+              <option>Demande de renseignements</option>
+              <option>Suite au Bilan Horizon Santé</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="Décrivez votre situation ou posez votre question..." required></textarea>
+          </div>
+          <div class="form-group full">
+            <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.88rem;color:#2C3E3A;font-weight:400">
+              <input type="checkbox" id="consentement" name="consentement" required style="margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:#1B4D5C">
+              <span>J'accepte que les informations transmises soient utilisées pour répondre à ma demande. Consultez notre <a href="/confidentialite" style="color:#1B4D5C;text-decoration:underline">politique de confidentialité</a>. *</span>
+            </label>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="tel">Téléphone</label>
-          <input type="tel" id="tel" name="tel" placeholder="Ex : 06 12 34 56 78">
-        </div>
-        <div class="form-group">
-          <label for="ageEnfant">Personne concernée</label>
-          <select id="ageEnfant" name="ageEnfant">
-            <option value="">Non concerné</option>
-            <option>Bébé (0 à 3 ans)</option>
-            <option>Enfant (4 à 12 ans)</option>
-            <option>Adolescent (13 à 17 ans)</option>
-            <option>Adulte (18 ans et plus)</option>
-            <option>Plusieurs membres de la famille</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="objet">Objet *</label>
-          <select id="objet" name="objet" required>
-            <option value="">Sélectionner</option>
-            <option>Premier contact</option>
-            <option>Demande de renseignements</option>
-            <option>Suite au Bilan Horizon Santé</option>
-            <option>Autre</option>
-          </select>
-        </div>
-        <div class="form-group full">
-          <label for="message">Message *</label>
-          <textarea id="message" name="message" placeholder="Décrivez votre situation ou posez votre question…" required></textarea>
-        </div>
-        <div class="form-group full">
-          <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.88rem;color:#2C3E3A;font-weight:400">
-            <input type="checkbox" id="consentement" name="consentement" required style="margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:#1B4D5C">
-            <span>J'accepte que les informations transmises soient utilisées pour répondre à ma demande. Aucune donnée n'est partagée avec des tiers. *</span>
-          </label>
-        </div>
-      </div>
 
-      <div class="form-footer">
-        <span class="form-note">* Champs obligatoires · Réponse sous 48 h</span>
-        <button type="submit" class="btn-submit" id="submitBtn">Envoyer →</button>
-      </div>
+        <div class="form-footer">
+          <span class="form-note">* Champs obligatoires · Réponse sous 48 h</span>
+          <button type="submit" class="btn-p btn-submit" id="submitBtn">Envoyer</button>
+        </div>
 
-      <div class="success-msg" id="successMsg">
-        <h4>🌿 Message envoyé !</h4>
-        <p>Merci, votre message a bien été reçu. Arielle vous répondra dans les meilleurs délais.</p>
+        <div class="success-msg" id="successMsg">
+          <h4>Message envoyé !</h4>
+          <p>Merci, votre message a bien été reçu. Arielle vous répondra dans les meilleurs délais.</p>
+        </div>
+        <div class="error-msg" id="errorMsg">
+          Une erreur est survenue lors de l'envoi. Merci de réessayer ou d'envoyer un email directement à Arielle.
+        </div>
+      </form>
+    </div>
+
+    <div class="coords-card">
+      <h3>Coordonnées</h3>
+      <div class="coord-item">
+        <div class="coord-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.59 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.32 6.32l.87-.87a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"/></svg>
+        </div>
+        <div>
+          <div class="coord-label">Téléphone</div>
+          <div class="coord-value"><a href="tel:+33651140726">+33 6 51 14 07 26</a></div>
+        </div>
       </div>
-      <div class="error-msg" id="errorMsg">
-        Une erreur est survenue lors de l'envoi. Merci de réessayer ou d'envoyer un email directement à Arielle.
+      <div class="coord-item">
+        <div class="coord-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div>
+          <div class="coord-label">Email</div>
+          <div class="coord-value"><a href="mailto:contact@horizon-equilibre.fr">contact@horizon-equilibre.fr</a></div>
+        </div>
       </div>
-    </form>
+      <div class="coord-item">
+        <div class="coord-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div>
+          <div class="coord-label">Cabinet</div>
+          <div class="coord-value">Sainte-Consorce (69280)</div>
+        </div>
+      </div>
+      <p class="coords-note">Réponse personnelle sous 48 h. Pour toute urgence médicale, consultez votre médecin traitant.</p>
+    </div>
   </div>
 </div>
 
-<section class="info-legale">
-  <div class="footer-inner">
-    <p><strong>Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
-  </div>
-</section>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
-        <p>Un accompagnement global et doux pour les bébés, les enfants, les adolescents et les adultes, par Arielle de Maistre.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="/about">À propos</a></li>
-          <li><a href="/methode">La Méthode</a></li>
-          <li><a href="/audit">Bilan Horizon Santé</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Services</h4>
-        <ul>
-          <li><a href="/methode">Naturopathie</a></li>
-          <li><a href="/methode">Réflexologie</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Cabinet</h4>
-        <ul>
-          <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
-          <li>Sainte-Consorce (69280)</li>
-          <li style="margin-top:12px"><a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-        <p>© 2026 Horizon & Équilibre | Arielle de Maistre. Tous droits réservés.</p>
-        <div style="display:flex;align-items:center;gap:16px">
-          <span style="color:rgba(250,247,242,.7);font-size:.78rem">Mentions légales</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
+<!-- INJECT:DISCLAIMER -->
+<!-- INJECT:FOOTER -->
 
 <script>
 const form = document.getElementById('contactForm');
@@ -279,7 +223,7 @@ form.addEventListener('submit', async e => {
   }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Envoi…';
+  submitBtn.textContent = 'Envoi...';
   errorMsg.classList.remove('visible');
 
   try {
@@ -307,7 +251,7 @@ form.addEventListener('submit', async e => {
   } catch {
     errorMsg.classList.add('visible');
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Envoyer →';
+    submitBtn.textContent = 'Envoyer';
   }
 });
 
@@ -315,25 +259,6 @@ form.addEventListener('submit', async e => {
 form.querySelectorAll('input,select,textarea').forEach(el => {
   el.addEventListener('focus', () => { el.style.borderColor = ''; });
 });
-
-// Nav mobile
-const mobileToggle = document.querySelector('.nav-mobile-toggle');
-if (mobileToggle) {
-  mobileToggle.addEventListener('click', () => {
-    const nl = document.querySelector('.nav-list');
-    if (nl.style.display === 'flex') { nl.style.display = ''; }
-    else { nl.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;'; }
-  });
-}
-const mq = window.matchMedia('(max-width:768px)');
-function handleMq(e) {
-  const nl = document.querySelector('.nav-list');
-  const mt = document.querySelector('.nav-mobile-toggle');
-  if (e.matches) { if (nl) nl.style.display = 'none'; if (mt) mt.style.display = 'flex'; }
-  else { if (nl) nl.style.display = ''; if (mt) mt.style.display = 'none'; }
-}
-mq.addEventListener('change', handleMq);
-handleMq(mq);
 </script>
 <script src="/shared.js"></script>
 </body>

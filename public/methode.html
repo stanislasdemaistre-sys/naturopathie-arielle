@@ -3,201 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Méthode | Horizon & Équilibre · Naturopathie · Réflexologie</title>
-<meta name="description" content="Deux approches complémentaires pour une vision globale : Naturopathie et Réflexologie. Arielle de Maistre accompagne bébés, enfants, adolescents et adultes à Sainte-Consorce (Lyon).">
-<meta property="og:title" content="La Méthode | Horizon & Équilibre">
-<meta property="og:description" content="Naturopathie et Réflexologie : deux approches complémentaires pour retrouver l'équilibre naturellement.">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="fr_FR">
+<title>La Méthode | Naturopathie &amp; Réflexologie · Horizon &amp; Équilibre</title>
+<meta name="description" content="Découvrez la méthode d'Arielle de Maistre : naturopathie, réflexologie plantaire, palmaire, faciale et crânienne, Fleurs de Bach à Sainte-Consorce.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-:root {
-  --bleu-petrole: #1B4D5C;
-  --bleu-petrole-deep: #0F3540;
-  --bleu-petrole-light: #2A6B7E;
-  --vert-sauge: #8FA98B;
-  --vert-sauge-light: #B5CBB1;
-  --vert-sauge-pale: #D6E4D3;
-  --dore: #C4A265;
-  --dore-light: #D4BA8A;
-  --dore-pale: #F0E6D2;
-  --creme: #FAF7F2;
-  --creme-dark: #F0EBE3;
-  --blanc: #FFFFFF;
-  --texte: #2C3E3A;
-  --texte-light: #5A6E68;
-  --do-texte: #7F6128;
-  --vs-texte: #4E6B48;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Outfit', system-ui, sans-serif;
-  --radius: 20px;
-  --radius-sm: 12px;
-  --radius-lg: 32px;
+/* ─── INTRO CARDS ─── */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 40px;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  color: var(--texte);
-  background: var(--creme);
-  line-height: 1.7;
-  font-weight: 300;
-  overflow-x: hidden;
+.intro-card {
+  background: var(--blanc);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  border: 1px solid rgba(27,77,92,0.07);
+  box-shadow: 0 4px 20px rgba(27,77,92,0.05);
 }
-
-.container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-.section-label {
-  font-family: var(--font-body);
-  font-size: 0.7rem;
-  letter-spacing: 4px;
+.intro-card-label {
+  font-size: 0.68rem;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--do-texte);
+  color: var(--dore-texte);
   font-weight: 500;
   margin-bottom: 12px;
 }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.animate-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.animate-in.visible { opacity: 1; transform: translateY(0); }
-
-/* ─── NAV ─── */
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 14px 0;
-  background: rgba(250, 247, 242, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 1px 30px rgba(27, 77, 92, 0.06);
-  transition: all 0.4s ease;
-}
-nav .container { display: flex; align-items: center; justify-content: space-between; }
-.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-.logo-icon { width: 38px; height: 38px; }
-.logo-icon svg { width: 100%; height: 100%; }
-.logo-text { font-family: var(--font-display); font-size: 1.4rem; font-weight: 400; color: var(--bleu-petrole); }
-.logo-text span { color: var(--dore); font-weight: 300; }
-.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-.nav-links a {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--bleu-petrole);
-  text-decoration: none;
-  letter-spacing: 0.5px;
-  position: relative;
-  transition: color 0.3s;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px; left: 0;
-  width: 0; height: 1.5px;
-  background: var(--dore);
-  transition: width 0.3s ease;
-}
-.nav-links a:hover { color: var(--dore); }
-.nav-links a:hover::after,
-.nav-links a.active::after { width: 100%; }
-.nav-links a.active { color: var(--dore); }
-.nav-cta {
-  background: var(--bleu-petrole) !important;
-  color: var(--creme) !important;
-  padding: 10px 24px;
-  border-radius: 50px;
-  font-size: 0.82rem !important;
-  font-weight: 500 !important;
-  transition: all 0.3s ease !important;
-}
-.nav-cta:hover { background: var(--bleu-petrole-light) !important; transform: translateY(-1px); }
-.nav-cta::after { display: none !important; }
-.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-.mobile-toggle span { width: 22px; height: 1.5px; background: var(--bleu-petrole); display: block; transition: all 0.3s; }
-
-/* ─── HERO ─── */
-.hero {
-  background: linear-gradient(135deg, var(--bleu-petrole-deep) 0%, var(--bleu-petrole) 50%, var(--bleu-petrole-light) 100%);
-  padding: 160px 0 100px;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -80px; right: -80px;
-  width: 500px; height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(196,162,101,0.12) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -100px; left: -100px;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(143,169,139,0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(196,162,101,0.15);
-  border: 1px solid rgba(196,162,101,0.3);
-  color: var(--dore-light);
-  padding: 8px 20px;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-bottom: 28px;
-}
-.hero h1 {
+.intro-card h3 {
   font-family: var(--font-display);
-  font-size: clamp(2.6rem, 5vw, 4rem);
-  font-weight: 400;
-  color: var(--blanc);
-  line-height: 1.15;
-  margin-bottom: 24px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--petrole);
+  margin-bottom: 12px;
 }
-.hero h1 em { font-style: italic; color: var(--vert-sauge-light); }
-.hero-sub {
-  font-size: 1.1rem;
-  color: rgba(250,247,242,0.75);
-  line-height: 1.7;
-  max-width: 560px;
-  margin: 0 auto;
+.intro-card p {
+  font-size: 0.89rem;
+  color: var(--texte-doux);
+  line-height: 1.75;
+  text-align: justify;
+  hyphens: auto;
+}
+.intro-lien {
+  margin-top: 32px;
+  font-size: 0.95rem;
+  color: var(--texte-doux);
+  line-height: 1.75;
+  max-width: 680px;
+  font-style: italic;
+  font-family: var(--font-display);
+  text-align: justify;
+  hyphens: auto;
 }
 
-/* ─── TABS BAR ─── */
+/* ─── ONGLETS PRINCIPAUX ─── */
 .tabs-bar {
   position: sticky;
   top: 66px;
   z-index: 50;
   background: var(--blanc);
   border-bottom: 1px solid rgba(27,77,92,0.08);
-  box-shadow: 0 4px 20px rgba(27,77,92,0.06);
+  box-shadow: 0 4px 16px rgba(27,77,92,0.06);
 }
 .tabs-inner {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 14px 32px;
   display: flex;
-  gap: 4px;
+  gap: 8px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -205,127 +82,44 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
 .tabs-inner::-webkit-scrollbar { display: none; }
 .tab-btn {
   flex-shrink: 0;
-  background: var(--blanc);
-  border: 1px solid var(--creme-dark);
+  background: transparent;
+  border: 1.5px solid rgba(27,77,92,0.15);
   border-radius: 50px;
-  padding: 10px 22px;
-  margin: 0 4px;
+  padding: 10px 26px;
   font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 400;
-  color: var(--texte-light);
+  color: var(--petrole);
   cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
   white-space: nowrap;
 }
-.tab-btn::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2.5px;
-  background: var(--dore);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
+.tab-btn:hover {
+  background: var(--creme-sombre);
+  border-color: var(--petrole);
 }
-.tab-btn:hover { color: var(--bleu-petrole); background: var(--creme-dark); border-color: var(--bleu-petrole-light); }
 .tab-btn.active {
+  background: var(--petrole);
+  border-color: var(--petrole);
   color: var(--creme);
   font-weight: 500;
-  background: var(--bleu-petrole);
-  border-color: var(--bleu-petrole);
 }
-.tab-btn.active::after { transform: scaleX(0); }
-
-/* ─── TAB CONTENT ─── */
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
-/* ─── SECTION INSIDE TABS ─── */
+/* ─── SECTION INTERNE AUX ONGLETS ─── */
 .tab-section { padding: 80px 0; }
 .tab-section-alt { background: var(--blanc); }
-.tab-section-dark { background: var(--bleu-petrole); }
-.tab-section-dark p,
-.tab-section-dark li,
-.tab-section-dark h2,
-.tab-section-dark h3,
-.tab-section-dark h4,
-.tab-section-dark .principle-text,
-.tab-section-dark .principle-text p { color: rgba(250, 247, 242, 0.92); }
-.tab-section-dark .principle-text strong { color: rgba(250, 247, 242, 1); }
-.tab-section-dark .sub-heading { color: var(--creme); }
-.tab-section-dark .sub-heading em { color: var(--dore-light); }
-.tab-section-dark .section-label { color: var(--dore); }
 
-.sub-heading {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
-  font-weight: 400;
-  color: var(--bleu-petrole);
-  margin-bottom: 8px;
-  line-height: 1.25;
-}
-.sub-heading em { font-style: italic; color: var(--vs-texte); }
-
-.sub-intro {
-  font-size: 1rem;
-  color: var(--texte-light);
-  line-height: 1.8;
-  max-width: 680px;
-  margin-bottom: 48px;
-}
-
-/* ─── PRINCIPLE GRID ─── */
-.principle-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: start;
-}
-.principle-text p {
-  font-size: 0.97rem;
-  color: var(--texte);
-  line-height: 1.85;
-  margin-bottom: 18px;
-}
-.principle-text p:last-child { margin-bottom: 0; }
-.principle-text strong { color: var(--bleu-petrole); font-weight: 500; }
-.principle-callout {
-  background: var(--bleu-petrole);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  color: var(--creme);
-  position: relative;
-  overflow: hidden;
-}
-.principle-callout::before {
-  content: '❝';
-  position: absolute;
-  top: -12px; left: 18px;
-  font-size: 5rem;
-  color: rgba(196,162,101,0.12);
-  font-family: Georgia, serif;
-  line-height: 1;
-}
-.principle-callout blockquote {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-style: italic;
-  line-height: 1.65;
-  color: rgba(250,247,242,0.9);
-  position: relative;
-}
-
-/* ─── TOOLS GRID ─── */
+/* ─── GRILLE 7 OUTILS ─── */
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-top: 48px;
+  margin-top: 40px;
 }
 .tool-card {
-  background: var(--creme-dark);
+  background: var(--creme-sombre);
   border-radius: var(--radius);
   padding: 28px 24px;
   border: 1px solid rgba(27,77,92,0.06);
@@ -336,141 +130,107 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   box-shadow: 0 8px 32px rgba(27,77,92,0.08);
   transform: translateY(-2px);
 }
-.tool-icon { font-size: 1.8rem; margin-bottom: 12px; }
+.tool-icon { font-size: 1.7rem; margin-bottom: 10px; }
 .tool-name {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  color: var(--bleu-petrole);
+  font-size: 1.1rem;
+  color: var(--petrole);
   font-weight: 500;
   margin-bottom: 8px;
 }
-.tool-desc { font-size: 0.85rem; color: var(--texte-light); line-height: 1.6; }
+.tool-desc {
+  font-size: 0.84rem;
+  color: var(--texte-doux);
+  line-height: 1.65;
+  text-align: justify;
+  hyphens: auto;
+}
 
-/* ─── SÉANCE BLOCK ─── */
-.seance-block {
+/* ─── AROMATHÉRAPIE ENCART ─── */
+.aroma-callout {
   background: var(--blanc);
-  border-radius: var(--radius-lg);
-  padding: 48px;
-  box-shadow: 0 8px 40px rgba(27,77,92,0.06);
-  border: 1px solid rgba(27,77,92,0.05);
-}
-.seance-step {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--creme-dark);
-}
-.seance-step:last-child { border-bottom: none; }
-.seance-num {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--bleu-petrole);
-  color: var(--creme);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.78rem;
-  font-weight: 500;
-  flex-shrink: 0;
-}
-.seance-text strong {
-  color: var(--bleu-petrole);
-  font-weight: 500;
-  display: block;
-  margin-bottom: 4px;
-  font-size: 0.92rem;
-}
-.seance-text p { font-size: 0.86rem; color: var(--texte-light); line-height: 1.6; }
-
-/* ─── PUBLIC GRID ─── */
-.public-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  border-left: 3px solid var(--dore);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 28px 32px;
   margin-top: 48px;
+  max-width: 720px;
 }
-.public-item {
-  background: var(--blanc);
-  border-radius: var(--radius);
-  padding: 28px;
-  border: 1px solid rgba(27,77,92,0.06);
-}
-.public-item-age {
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--dore);
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-.public-item-title {
+.aroma-callout h3 {
   font-family: var(--font-display);
   font-size: 1.2rem;
-  color: var(--bleu-petrole);
-  margin-bottom: 12px;
+  color: var(--petrole);
+  font-weight: 500;
+  margin-bottom: 10px;
 }
-.public-item ul { list-style: none; }
-.public-item ul li {
-  font-size: 0.84rem;
-  color: var(--texte-light);
-  padding: 5px 0;
-  border-bottom: 1px solid var(--creme-dark);
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
+.aroma-callout p {
+  font-size: 0.88rem;
+  color: var(--texte-doux);
+  line-height: 1.75;
+  text-align: justify;
+  hyphens: auto;
 }
-.public-item ul li:last-child { border-bottom: none; }
-.public-item ul li::before { content: '✦'; color: var(--dore); font-size: 0.6rem; margin-top: 5px; flex-shrink: 0; }
 
-/* ─── FAMILLES ÉMOTIONNELLES ─── */
-.familles-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 48px;
+/* ─── BANDE FLEURS DE BACH ─── */
+.bach-band {
+  background: var(--petrole);
+  padding: 80px 0;
 }
-.famille-card {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: var(--radius);
-  padding: 22px 16px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
-.famille-card:hover {
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(196,162,101,0.4);
-  transform: translateY(-3px);
-}
-.famille-emoji { font-size: 1.8rem; margin-bottom: 8px; }
-.famille-name {
+.bach-band .section-label { color: var(--dore-clair); margin-bottom: 12px; }
+.bach-title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--creme);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
   font-weight: 400;
+  color: var(--creme);
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.bach-text {
+  font-size: 0.95rem;
+  color: rgba(250,247,242,0.82);
+  line-height: 1.8;
+  max-width: 680px;
+  margin-bottom: 48px;
+  text-align: justify;
+  hyphens: auto;
+}
+.bach-pastilles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.bach-pastille {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(196,162,101,0.35);
+  color: var(--creme);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
+}
+.bach-pastille:hover {
+  background: rgba(196,162,101,0.2);
+  border-color: var(--dore-clair);
 }
 
-/* ─── SUB TABS (Réflexologie) ─── */
+/* ─── SOUS-ONGLETS RÉFLEXOLOGIE ─── */
 .sub-tabs-bar {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 12px;
   margin-bottom: 40px;
 }
-@media(max-width:640px){ .sub-tabs-bar { grid-template-columns: repeat(2,1fr); } }
 .sub-tab-btn {
   background: var(--blanc);
-  border: 1.5px solid var(--creme-dark);
+  border: 1.5px solid var(--creme-sombre);
   border-radius: 16px;
   padding: 18px 12px 14px;
   font-family: var(--font-body);
   font-size: 0.82rem;
   font-weight: 400;
-  color: var(--texte-light);
+  color: var(--texte-doux);
   cursor: pointer;
-  position: relative;
   transition: all 0.25s ease;
   display: flex;
   flex-direction: column;
@@ -478,933 +238,421 @@ nav .container { display: flex; align-items: center; justify-content: space-betw
   gap: 5px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(27,77,92,0.04);
+  border-width: 1.5px;
+  border-style: solid;
 }
-.sub-tab-btn .stb-emoji { font-size: 1.6rem; line-height: 1; }
-.sub-tab-btn .stb-title { font-weight: 600; font-size: 0.88rem; color: var(--bleu-petrole); }
-.sub-tab-btn .stb-sub { font-size: 0.72rem; color: var(--texte-light); opacity: 0.8; line-height: 1.3; }
-.sub-tab-btn::after { display: none; }
-.sub-tab-btn:hover { background: var(--creme-dark); border-color: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(27,77,92,0.1); }
-.sub-tab-btn.active { background: var(--bleu-petrole); border-color: var(--bleu-petrole); box-shadow: 0 6px 20px rgba(27,77,92,0.25); transform: translateY(-2px); }
-.sub-tab-btn.active .stb-title, .sub-tab-btn.active .stb-sub { color: rgba(250,247,242,0.85); }
-.sub-tab-btn.active .stb-emoji { filter: brightness(1.2); }
-/* photo sous-onglet */
-.reflex-photo { width:100%; height:300px; object-fit:cover; border-radius:var(--radius); margin-top:32px; box-shadow:0 10px 32px rgba(27,77,92,0.08); display:block; }
-@media(max-width:768px){ .reflex-photo { height:220px; } }
+.sub-tab-btn .stb-emoji { font-size: 1.5rem; line-height: 1; }
+.sub-tab-btn .stb-title { font-weight: 600; font-size: 0.86rem; color: var(--petrole); }
+.sub-tab-btn .stb-sub { font-size: 0.7rem; color: var(--texte-doux); opacity: 0.8; line-height: 1.3; }
+.sub-tab-btn:hover {
+  background: var(--creme-sombre);
+  border-color: var(--petrole);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(27,77,92,0.1);
+}
+.sub-tab-btn.active {
+  background: var(--petrole);
+  border-color: var(--petrole);
+  box-shadow: 0 6px 20px rgba(27,77,92,0.25);
+  transform: translateY(-2px);
+}
+.sub-tab-btn.active .stb-title,
+.sub-tab-btn.active .stb-sub { color: rgba(250,247,242,0.85); }
 .sub-tab-content { display: none; }
 .sub-tab-content.active { display: block; }
 
-/* ─── REFLEX LAYOUT ─── */
-.reflex-layout {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 56px;
-  align-items: start;
+/* ─── CONTENU SOUS-ONGLET ─── */
+.reflex-photo {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 36px;
+  box-shadow: 0 10px 32px rgba(27,77,92,0.08);
+  display: block;
 }
-.reflex-svg-wrap { text-align: center; }
-.reflex-legend {
-  margin-top: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.74rem;
-  color: var(--texte-light);
-}
-.legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.treat-list { list-style: none; }
-.treat-list li {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  font-size: 0.88rem;
-  color: var(--texte);
-  padding: 8px 0;
-  border-bottom: 1px solid var(--creme-dark);
-}
-.treat-list li:last-child { border-bottom: none; }
-.treat-list li::before { content: '→'; color: var(--vert-sauge); flex-shrink: 0; margin-top: 2px; }
-.reflex-sub-label {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--bleu-petrole);
-  margin: 24px 0 12px;
-}
-
-/* ─── BUTTONS ─── */
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--bleu-petrole); color: var(--creme);
-  padding: 16px 36px; border-radius: 50px;
-  font-family: var(--font-body); font-size: 0.9rem; font-weight: 500;
-  text-decoration: none; transition: all 0.3s ease; letter-spacing: 0.3px;
-}
-.btn-primary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(27,77,92,0.2); }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--bleu-petrole); color: var(--creme);
-  padding: 16px 36px; border-radius: 50px;
-  font-family: var(--font-body); font-size: 0.9rem; font-weight: 400;
-  text-decoration: none; transition: all 0.3s ease;
-}
-.btn-secondary:hover { background: var(--bleu-petrole-light); transform: translateY(-2px); }
-
-/* ─── CTA ─── */
-.cta-section {
-  background: linear-gradient(135deg, var(--dore-pale) 0%, var(--creme) 60%);
-  padding: 96px 0;
-  text-align: center;
-}
-.cta-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--bleu-petrole);
-  margin-bottom: 16px;
-}
-.cta-title em { font-style: italic; color: var(--vert-sauge); }
-.cta-section p { font-size: 1rem; color: var(--texte-light); line-height: 1.75; max-width: 520px; margin: 0 auto 40px; }
-.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-/* ─── FOOTER ─── */
-footer {
-  background: var(--bleu-petrole-deep);
-  color: rgba(250,247,242,0.7);
-  padding: 48px 0 32px;
-}
-.footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-.footer-logo { font-family: var(--font-display); font-size: 1.2rem; color: var(--creme); }
-.footer-logo span { color: var(--dore); }
-.footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
-.footer-links a { font-size: 0.8rem; color: rgba(250,247,242,0.7); text-decoration: none; transition: color 0.3s; }
-.footer-links a:hover { color: var(--dore); }
-.footer-copy { font-size: 0.75rem; margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; }
-
-/* ─── RESPONSIVE ─── */
-@media (max-width: 1024px) {
-  .principle-grid { grid-template-columns: 1fr; }
-  .tools-grid { grid-template-columns: repeat(2, 1fr); }
-  .familles-grid { grid-template-columns: repeat(2, 1fr); }
-  .reflex-layout { grid-template-columns: 1fr; gap: 32px; }
-  .reflex-svg-wrap { display: flex; align-items: flex-start; gap: 24px; text-align: left; }
-  .reflex-legend { flex-direction: row; flex-wrap: wrap; gap: 6px 16px; }
-}
-@media (max-width: 768px) {
-  .container { padding: 0 20px; }
-  .tabs-inner { padding: 0 20px; }
-  .nav-links { display: none; }
-  .mobile-toggle { display: flex; }
-  .hero { padding: 120px 0 72px; }
-  .tab-section { padding: 56px 0; }
-  .tools-grid { grid-template-columns: 1fr; }
-  .public-grid { grid-template-columns: 1fr; }
-  .seance-block { padding: 28px 20px; }
-  .familles-grid { grid-template-columns: repeat(2, 1fr); }
-  .cta-buttons { flex-direction: column; align-items: center; }
-  .piliers-grid { grid-template-columns: 1fr !important; }
-  #naturo-bach .principle-grid { grid-template-columns: 1fr; }
-}
-
-/* Texte justifié */
-.principle-text p, .sub-intro, .seance-text p, .reflex-desc, .tool-desc, .hero-sub {
+.reflex-intro {
+  font-size: 0.92rem;
+  color: var(--texte-doux);
+  line-height: 1.8;
+  max-width: 700px;
+  margin-bottom: 36px;
   text-align: justify;
   hyphens: auto;
 }
-
-/* ─── OUTILS INTRO ─── */
-.outils-intro {
-  font-family: var(--font-display); font-size: 1.15rem;
-  font-style: italic; color: var(--texte-light);
-  line-height: 1.8; max-width: 680px;
-  margin-bottom: 36px; text-align: justify; hyphens: auto;
+.reflex-rubriques {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.reflex-rubrique {
+  background: var(--creme-sombre);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+}
+.reflex-rubrique h4 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--petrole);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.reflex-rubrique ul {
+  list-style: none;
+}
+.reflex-rubrique ul li {
+  font-size: 0.84rem;
+  color: var(--texte-doux);
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(27,77,92,0.07);
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+.reflex-rubrique ul li:last-child { border-bottom: none; }
+.reflex-rubrique ul li::before {
+  content: '→';
+  color: var(--sauge);
+  font-size: 0.75rem;
+  margin-top: 3px;
+  flex-shrink: 0;
 }
 
-/* ─── TAB PHOTOS ─── */
-.tab-photo {
-  width: 100%; height: 280px; object-fit: cover;
-  border-radius: var(--radius); margin-bottom: 32px;
-  box-shadow: 0 12px 40px rgba(27,77,92,0.08);
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .tools-grid { grid-template-columns: repeat(2, 1fr); }
+  .reflex-rubriques { grid-template-columns: 1fr; }
 }
-@media (max-width: 768px) { .tab-photo { height: 200px; } }
-
-/* ─── FOOTER RDV ─── */
-.footer-rdv-btn {
-  display: inline-flex; align-items: center;
-  background: var(--dore); color: var(--bleu-petrole-deep) !important;
-  padding: 10px 24px; border-radius: 50px;
-  font-size: 0.82rem; font-weight: 600;
-  text-decoration: none; white-space: nowrap;
-  transition: background 0.3s;
+@media (max-width: 768px) {
+  .intro-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .sub-tabs-bar { grid-template-columns: repeat(2, 1fr); }
+  .tabs-inner { padding: 14px 20px; }
+  .tab-section { padding: 56px 0; }
+  .bach-band { padding: 60px 0; }
+  .reflex-photo { height: 220px; }
 }
-.footer-rdv-btn:hover { background: #B8934F; }
-.info-legale{background:var(--creme-dark,#F0EBE3);padding:24px 0;border-top:1px solid rgba(27,77,92,.08)}
-.info-legale p{font-size:.8rem;color:var(--texte-light,#5A6E68);line-height:1.7;max-width:900px;margin:0 auto}
-.info-legale strong{color:var(--bleu-petrole,#1B4D5C)}
-.analyses-normales{background:var(--bleu-petrole);padding:72px 0}
-.analyses-normales h2{font-family:var(--font-display);font-size:clamp(1.6rem,3vw,2.2rem);color:var(--creme);margin-bottom:24px;line-height:1.3}
-.analyses-normales h2 em{color:var(--dore-light);font-style:italic}
-.analyses-normales p{font-size:.95rem;line-height:1.8;color:rgba(250,247,242,.85);margin-bottom:16px;max-width:780px}
-.analyses-cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
-.btn-secondary-light{background:transparent;border:1.5px solid rgba(250,247,242,.5);color:var(--creme);padding:12px 28px;border-radius:var(--radius-sm);text-decoration:none;font-size:.9rem;transition:all .2s}
-.btn-secondary-light:hover{border-color:var(--creme);background:rgba(250,247,242,.1)}
 </style>
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<style>.nav-logo-img{height:48px;display:block}@media(max-width:768px){.nav-logo-img{height:40px}}</style>
 </head>
 <body>
 
-<!-- ══════ NAV ══════ -->
-<nav id="nav">
-  <div class="container">
-    <a href="/" class="logo">
-      <img src="/logo-horizontal.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" class="nav-logo-img">
-    </a>
-    <ul class="nav-links">
-      <li><a href="/">Accueil</a></li>
-      <li><a href="/about">À propos</a></li>
-      <li><a href="/methode" class="active">Méthode</a></li>
-      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
-      <li><a href="/audit">Bilan Horizon Santé</a></li>
-      <li><a href="/publications">Publications</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-    <button class="mobile-toggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+<!-- INJECT:NAV -->
 
-<!-- ══════ HERO ══════ -->
-<section class="hero">
+<!-- ══════ PAGE HERO ══════ -->
+<section class="page-hero">
   <div class="container">
-    <div class="hero-inner animate-in">
-      <div class="hero-badge">
-        Naturopathie · Réflexologie
-      </div>
-      <h1>La Méthode <em>Horizon & Équilibre</em></h1>
-      <p class="hero-sub">Deux approches complémentaires, une même lecture du terrain</p>
+    <div class="page-hero-inner animate-in">
+      <div class="page-hero-badge">Naturopathie &amp; Réflexologie</div>
+      <h1>La méthode</h1>
+      <p class="page-hero-sub">Deux approches complémentaires pour accompagner le terrain en profondeur.</p>
     </div>
   </div>
 </section>
 
-<!-- ══════ TABS BAR ══════ -->
-<p style="text-align:center;font-size:0.78rem;color:var(--texte-light);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;opacity:0.7">
-  ↓ Sélectionnez une approche pour en découvrir les détails
-</p>
+<!-- ══════ INTRODUCTION ══════ -->
+<section class="section section-creme">
+  <div class="container">
+    <div class="intro-grid">
+      <div class="intro-card animate-in">
+        <div class="intro-card-label">Approche 1</div>
+        <h3>Naturopathie</h3>
+        <p>Une lecture globale du terrain : alimentation, sommeil, digestion, émotions et mode de vie. La naturopathie identifie les déséquilibres et soutient les ressources naturelles d'autorégulation du corps avec des outils adaptés à chaque personne.</p>
+      </div>
+      <div class="intro-card animate-in" style="transition-delay:0.1s">
+        <div class="intro-card-label">Approche 2</div>
+        <h3>Réflexologie</h3>
+        <p>Un travail par le toucher sur les zones réflexes des pieds, des mains, du visage ou du crâne. La réflexologie favorise la détente profonde, stimule les fonctions d'élimination et agit sur les systèmes nerveux et hormonal de façon douce et ciblée.</p>
+      </div>
+    </div>
+    <p class="intro-lien animate-in">Les deux approches se combinent naturellement : l'une travaille sur le terrain intérieur, l'autre agit par le toucher réflexe.</p>
+  </div>
+</section>
+
+<!-- ══════ ONGLETS ══════ -->
 <div class="tabs-bar" id="tabsBar">
   <div class="tabs-inner">
-    <button class="tab-btn active" onclick="showTab('naturo', this)">🌿 Naturopathie</button>
-    <button class="tab-btn" onclick="showTab('reflex', this)">🤲 Réflexologie</button>
+    <button class="tab-btn active" onclick="showTab('naturo', this)">Naturopathie</button>
+    <button class="tab-btn" onclick="showTab('reflex', this)">Réflexologie</button>
   </div>
 </div>
 
 <main>
 
 <!-- ══════════════════════════════════════════ -->
-<!-- TAB 1 — NATUROPATHIE                      -->
+<!-- TAB 1 — NATUROPATHIE                       -->
 <!-- ══════════════════════════════════════════ -->
 <div id="tab-naturo" class="tab-content active">
 
-<!-- ══════ QUAND LES ANALYSES SONT NORMALES ══════ -->
-<section class="analyses-normales">
-  <div class="container">
-    <h2>Quand les analyses sont normales,<br>mais que les symptômes <em>persistent</em></h2>
-    <p>Beaucoup de familles arrivent au cabinet après un long parcours : bilans sanguins normaux, examens rassurants, et pourtant des troubles bien réels qui gâchent le quotidien. Une fatigue qui ne passe pas, un ventre gonflé ou douloureux, des nuits hachées, une peau qui réagit, des rhumes à répétition, des maux de tête, une anxiété diffuse.</p>
-    <p>Ces troubles, que l'on appelle « fonctionnels », sont au cœur de la naturopathie et de la réflexologie. Plutôt que de regarder un organe isolé, Arielle observe le fonctionnement global : digestion, élimination, système nerveux, sommeil, alimentation, rythme de vie et émotions. C'est souvent dans les liens entre ces dimensions que se trouvent les pistes pour aller mieux.</p>
-    <p>Arielle intervient une fois l'avis médical obtenu, ou en parallèle du suivi en cours. Elle ne pose pas de diagnostic et ne modifie aucun traitement : elle aide le corps à retrouver son équilibre et accompagne la personne dans des changements concrets et durables.</p>
-    <div class="analyses-cta">
-      <a href="/audit" class="btn-primary">Faire le Bilan Horizon Santé</a>
-      <a href="/contact" class="btn-secondary-light">Prendre rendez-vous</a>
-    </div>
-  </div>
-</section>
-
-  <!-- C'EST QUOI -->
-  <div class="tab-section">
+  <!-- Introduction terrain -->
+  <section class="tab-section tab-section-alt">
     <div class="container">
-      <img src="Naturo%202.jpg"
-           alt="Mains préparant des herbes médicinales dans un bol, étagères d'apothicaire en arrière-plan"
-           class="tab-photo" loading="lazy">
       <div class="section-label">La naturopathie</div>
-      <p class="sub-intro" style="margin-bottom:16px">L'Organisation mondiale de la santé classe la naturopathie parmi les médecines traditionnelles et complémentaires. En France, elle s'exerce comme une pratique de prévention et d'éducation à la santé : la naturopathe aide chacun à comprendre son fonctionnement et à ajuster son hygiène de vie (alimentation, sommeil, gestion du stress, activité physique, plantes) pour soutenir les capacités naturelles d'équilibre du corps.</p>
-      <div class="principle-grid animate-in">
-        <div>
-          <h2 class="sub-heading">Comprendre le <em>terrain</em>,<br>pas seulement ce qui se voit</h2>
-          <p class="sub-intro">La naturopathie est une approche de terrain qui considère l'être humain dans sa globalité : corps, émotions, mode de vie.</p>
-          <div class="principle-text">
-            <p>Sa philosophie fondamentale : <strong>le corps possède des ressources d'adaptation et d'autorégulation</strong>. Le rôle de la praticienne est de créer les conditions pour que ces ressources s'expriment pleinement.</p>
-            <p>Plutôt que de se concentrer sur les manifestations visibles, la naturopathie cherche à renforcer le <strong>terrain</strong>, cet ensemble de prédispositions biologiques, émotionnelles et environnementales qui détermine notre état de santé global.</p>
-            <p>C'est une approche de <strong>prévention et d'accompagnement</strong>, complémentaire à la médecine conventionnelle, adaptée à tous les âges, et particulièrement précieuse chez l'enfant et l'adolescent, dont l'organisme est en plein développement.</p>
-          </div>
-        </div>
-        <div class="principle-callout">
-          <blockquote>
-            « Le corps n'est pas une machine à réparer. C'est un système vivant à accompagner. La naturopathie lui donne les ressources pour se réguler lui-même. »
-          </blockquote>
-        </div>
-      </div>
+      <h2 class="section-title">Comprendre le <em>terrain</em></h2>
+      <p class="section-intro">La naturopathie est une approche globale qui considère l'être humain dans sa totalité : corps, émotions, mode de vie. Elle cherche à identifier les déséquilibres qui freinent la vitalité et à soutenir les ressources naturelles d'autorégulation de l'organisme. Ce n'est pas une médecine de symptômes, c'est une lecture du terrain. Plutôt que de supprimer ce qui se voit, la praticienne accompagne la personne vers les conditions qui permettent à son corps de retrouver son équilibre. Une approche de prévention, complémentaire à la médecine, adaptée à tous les âges.</p>
     </div>
-  </div>
+  </section>
 
-  <!-- LES OUTILS -->
-  <div class="tab-section tab-section-alt">
+  <!-- 7 outils -->
+  <section class="tab-section">
     <div class="container">
       <div class="section-label">Les outils</div>
-      <h2 class="sub-heading">Les approches pour <em>nourrir le terrain</em></h2>
-      <p class="outils-intro">
-        Chaque outil est une fenêtre sur la vitalité. Alimentation, plantes, aromathérapie, fleurs de Bach : tout converge vers le même objectif : soutenir les ressources d'autorégulation de l'organisme.
-      </p>
+      <h2 class="section-title">Nourrir le terrain avec les <em>bons leviers</em></h2>
       <div class="tools-grid">
         <div class="tool-card animate-in">
           <div class="tool-icon">🥗</div>
-          <div class="tool-name">Nutrition & micronutrition</div>
-          <p class="tool-desc">L'alimentation comme premier soutien à la vitalité. Identifier les déséquilibres, les intolérances, adapter les apports pour chaque profil.</p>
+          <div class="tool-name">Alimentation &amp; micronutrition</div>
+          <p class="tool-desc">Premier levier de vitalité : l'alimentation adaptée au terrain, aux intolérances et aux besoins de chaque âge, complétée si besoin par une micronutrition ciblée.</p>
         </div>
-        <div class="tool-card animate-in" style="transition-delay:0.05s">
+        <div class="tool-card animate-in" style="transition-delay:0.06s">
           <div class="tool-icon">🌿</div>
           <div class="tool-name">Phytothérapie</div>
-          <p class="tool-desc">Les plantes médicinales pour soutenir les fonctions physiologiques : immunité, digestion, sommeil, équilibre nerveux.</p>
+          <p class="tool-desc">Les plantes médicinales pour soutenir les fonctions physiologiques : immunité, digestion, sommeil, équilibre nerveux, adaptées à l'âge et au profil.</p>
         </div>
-        <div class="tool-card animate-in" style="transition-delay:0.1s">
-          <div class="tool-icon">🪴</div>
-          <div class="tool-name">Gemmothérapie</div>
-          <p class="tool-desc">Les bourgeons et jeunes pousses, riches en facteurs de croissance. Action sur le drainage et la régénération cellulaire.</p>
-        </div>
-        <div class="tool-card animate-in" style="transition-delay:0.15s">
-          <div class="tool-icon">🔬</div>
-          <div class="tool-name">Micronutrition ciblée</div>
-          <p class="tool-desc">Les oligo-éléments et minéraux essentiels au bon fonctionnement enzymatique, identifiés selon le terrain de chaque personne accompagnée.</p>
-        </div>
-        <div class="tool-card animate-in" style="transition-delay:0.2s">
+        <div class="tool-card animate-in" style="transition-delay:0.12s">
           <div class="tool-icon">🌸</div>
           <div class="tool-name">Aromathérapie</div>
-          <p class="tool-desc">Les extraits aromatiques pour leurs propriétés apaisantes et tonifiantes, manipulés avec prudence et toujours adaptés à l'âge et au terrain.</p>
+          <p class="tool-desc">Les huiles essentielles pour leurs propriétés apaisantes, tonifiantes ou assainissantes, utilisées avec précaution, toujours adaptées à l'âge et au terrain.</p>
         </div>
-        <div class="tool-card animate-in" style="transition-delay:0.25s">
+        <div class="tool-card animate-in" style="transition-delay:0.18s">
           <div class="tool-icon">🌼</div>
           <div class="tool-name">Fleurs de Bach</div>
-          <p class="tool-desc">Trente-huit préparations florales pour accompagner les états émotionnels : peur, incertitude, découragement, manque de confiance. Un langage pour nommer ce qui se passe à l'intérieur.</p>
+          <p class="tool-desc">38 élixirs floraux pour accompagner les états émotionnels : peur, incertitude, découragement, hypersensibilité. Un outil doux, adapté à tous les âges.</p>
         </div>
-        <div class="tool-card animate-in" style="transition-delay:0.3s">
+        <div class="tool-card animate-in" style="transition-delay:0.24s">
           <div class="tool-icon">💧</div>
-          <div class="tool-name">Hydrothérapie</div>
-          <p class="tool-desc">L'eau comme outil de soutien : bains, douches alternées, bains de pieds, pour stimuler la circulation et favoriser la détente.</p>
+          <div class="tool-name">Hydrologie &amp; balnéologie</div>
+          <p class="tool-desc">L'eau sous toutes ses formes : bains thermiques, bains de pieds, applications locales. Un soutien simple et accessible pour activer les fonctions d'élimination.</p>
+        </div>
+        <div class="tool-card animate-in" style="transition-delay:0.30s">
+          <div class="tool-icon">🌬</div>
+          <div class="tool-name">Techniques de respiration et relaxation</div>
+          <p class="tool-desc">Cohérence cardiaque, visualisation, exercices de régulation du système nerveux autonome pour retrouver calme et ancrage au quotidien.</p>
+        </div>
+        <div class="tool-card animate-in" style="transition-delay:0.36s">
+          <div class="tool-icon">📖</div>
+          <div class="tool-name">Education à l'hygiène de vie</div>
+          <p class="tool-desc">Rythmes de vie, sommeil, activité physique, environnement : la praticienne aide chacun à comprendre les leviers concrets qui influencent son état de santé.</p>
         </div>
       </div>
-      <img src="naturo%204.jpg"
-           alt="Ingrédients naturels et flacons — préparation d'un accompagnement naturopathique"
-           style="width:100%;height:260px;object-fit:cover;border-radius:var(--radius);box-shadow:0 12px 40px rgba(27,77,92,0.08);margin-top:40px;display:block" loading="lazy">
-    </div>
-  </div>
 
-  <!-- AROMATHÉRAPIE -->
-  <div class="tab-section">
-    <div class="container" style="max-width:900px">
-      <div class="section-label">L'aromathérapie</div>
-      <h2 class="sub-heading" style="margin-bottom:32px">Une puissance qui appelle<br><em>la prudence</em></h2>
-      <div class="seance-block animate-in">
-        <div class="seance-step">
-          <div class="seance-num">🌸</div>
-          <div class="seance-text">
-            <strong>Ce que c'est</strong>
-            <p>L'aromathérapie utilise les extraits aromatiques issus de plantes : feuilles, fleurs, écorces, racines. Ce sont des concentrés d'une puissance considérable : quelques gouttes peuvent représenter l'équivalent de plusieurs kilos de plante fraîche. C'est précisément cette concentration qui fait leur intérêt, et qui impose un cadre d'utilisation strict.</p>
-          </div>
-        </div>
-        <div class="seance-step">
-          <div class="seance-num">✨</div>
-          <div class="seance-text">
-            <strong>Ce que ça peut apporter</strong>
-            <p>Sur le plan physique, les extraits aromatiques sont traditionnellement utilisés pour soutenir les fonctions respiratoires, digestives et cutanées, et pour accompagner le confort musculaire.</p>
-            <p>Sur le plan nerveux et émotionnel, l'olfaction est le seul de nos sens à rejoindre directement les zones du cerveau liées à la mémoire et aux émotions, sans passer par un relais intermédiaire. C'est ce qui explique qu'une odeur puisse modifier un état intérieur en quelques secondes, et c'est pourquoi l'aromathérapie est un outil intéressant pour accompagner l'agitation, la préparation au sommeil ou les moments de tension. Chez l'enfant, cette voie olfactive est particulièrement réceptive, et c'est presque toujours celle que je privilégie.</p>
-          </div>
-        </div>
-        <div class="seance-step">
-          <div class="seance-num">🛡️</div>
-          <div class="seance-text">
-            <strong>Le cadre que je pose</strong>
-            <p>C'est un outil que je manipule avec beaucoup de prudence, et c'est la raison pour laquelle vous ne trouverez sur ce site aucun nom d'extrait ni aucun mode d'emploi.</p>
-            <p>Les extraits aromatiques ne conviennent pas à tous les âges, pas à toutes les situations, et certains sont formellement déconseillés chez le nourrisson, le jeune enfant, la femme enceinte ou allaitante. Ils peuvent également interagir avec des traitements en cours. Une recommandation aromatique n'a de sens qu'individuelle, posée après un échange complet, en connaissance de l'âge, du terrain et de ce qui est déjà pris par ailleurs. C'est ce travail-là que je fais en séance, et c'est ce qui la distingue d'une recherche sur internet.</p>
-          </div>
-        </div>
+      <!-- Aromathérapie encart -->
+      <div class="aroma-callout animate-in">
+        <h3>Aromathérapie : des huiles essentielles avec précaution</h3>
+        <p>Les huiles essentielles sont de puissants concentrés biochimiques. Elles ne sont jamais utilisées à la légère, notamment chez l'enfant, la femme enceinte ou la personne âgée. Chaque utilisation tient compte du terrain, de l'âge, des éventuelles contre-indications et du mode d'administration. La prudence fait partie de la pratique : moins, c'est souvent mieux.</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- FLEURS DE BACH — composante de la naturopathie -->
-  <div class="tab-section tab-section-dark" id="naturo-bach">
+  <!-- Fleurs de Bach — bande sombre -->
+  <section class="bach-band">
     <div class="container">
-      <div class="section-label" style="color:var(--dore)">Les fleurs de Bach</div>
-      <div class="principle-grid animate-in">
-        <div>
-          <h2 class="sub-heading" style="color:var(--creme)">38 préparations pour<br><em style="color:var(--dore-light)">nommer ce qui se passe à l'intérieur</em></h2>
-          <div class="principle-text" style="color:rgba(250,247,242,0.85)">
-            <p><strong style="color:var(--creme)">Ce que c'est</strong><br>
-            Mises au point dans les années 1930 par Edward Bach, médecin britannique, les fleurs de Bach sont trente-huit préparations florales, chacune associée à un état intérieur précis : le découragement, la peur du noir, la difficulté à s'adapter à un changement, le besoin de tout contrôler, la timidité qui empêche de se faire entendre.</p>
-            <p><strong style="color:var(--creme)">Ce que j'observe en cabinet</strong><br>
-            Ce n'est pas un effet spectaculaire : c'est un apaisement de fond, et surtout un <strong style="color:var(--dore-light)">langage</strong>. Un enfant de sept ans ne sait pas toujours dire « je suis anxieux à l'idée de retourner à l'école ». Mais quand on lui décrit un état — « c'est quand on a un peu peur mais qu'on ne sait pas trop de quoi » — il reconnaît. Le travail avec les fleurs de Bach commence là : nommer ce qui se passe à l'intérieur. Pour beaucoup d'enfants et d'adolescents, c'est déjà une grande partie du chemin.</p>
-            <p>Sur le plan du quotidien, les familles rapportent le plus souvent un climat émotionnel plus stable : des soirées moins tendues, des transitions mieux vécues, une capacité à traverser une période de changement sans que tout l'équilibre familial vacille.</p>
-          </div>
-        </div>
-        <div class="principle-callout" style="background:linear-gradient(135deg, var(--bleu-petrole-deep), var(--bleu-petrole))">
-          <blockquote>
-            « Les Fleurs de Bach ne s'adressent pas au corps physique mais à l'âme et aux émotions qui le troublent. »
-            <cite style="display:block;margin-top:16px;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--dore);font-style:normal;font-family:var(--font-body)">— Dr Edward Bach</cite>
-          </blockquote>
-        </div>
-      </div>
-
-      <!-- Sept familles -->
-      <div style="margin-top:56px">
-        <h3 style="font-family:var(--font-display);font-size:1.6rem;color:var(--creme);font-weight:400;margin-bottom:8px">Sept familles, <em>trente-huit nuances</em></h3>
-        <p style="color:rgba(250,247,242,0.65);font-size:0.95rem;margin-bottom:0;line-height:1.8">Bach a regroupé les états intérieurs en sept grandes familles. Chaque famille correspond à un vécu intérieur — le travail se fait à la racine, pas en surface.</p>
-      </div>
-      <div class="familles-grid">
-        <div class="famille-card animate-in">
-          <div class="famille-emoji">😰</div>
-          <div class="famille-name">Peur</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Craintes, angoisses, phobies</p>
-        </div>
-        <div class="famille-card animate-in" style="transition-delay:0.05s">
-          <div class="famille-emoji">😶</div>
-          <div class="famille-name">Incertitude</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Doutes, indécision, manque de confiance</p>
-        </div>
-        <div class="famille-card animate-in" style="transition-delay:0.1s">
-          <div class="famille-emoji">😔</div>
-          <div class="famille-name">Manque d'intérêt</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Rêverie, passé, absentéisme intérieur</p>
-        </div>
-        <div class="famille-card animate-in" style="transition-delay:0.15s">
-          <div class="famille-emoji">🤍</div>
-          <div class="famille-name">Solitude</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Isolement, repli, incompréhension</p>
-        </div>
-        <div class="famille-card animate-in" style="transition-delay:0.2s">
-          <div class="famille-emoji">🤯</div>
-          <div class="famille-name">Hypersensibilité</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Influence des autres, pensées intrusives</p>
-        </div>
-        <div class="famille-card animate-in" style="transition-delay:0.25s">
-          <div class="famille-emoji">😤</div>
-          <div class="famille-name">Découragement</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Désespoir, culpabilité, sentiment d'échec</p>
-        </div>
-        <div class="famille-card animate-in" style="transition-delay:0.3s">
-          <div class="famille-emoji">🤝</div>
-          <div class="famille-name">Souci des autres</div>
-          <p style="font-size:0.77rem;color:rgba(250,247,242,0.72);margin-top:6px;line-height:1.5">Surprotection, impatience, tolérance</p>
-        </div>
-      </div>
-
-      <!-- Comment je travaille avec -->
-      <div style="margin-top:48px;background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:32px 40px">
-        <h3 style="font-family:var(--font-display);font-size:1.4rem;color:var(--creme);font-weight:400;margin-bottom:16px">Comment je travaille avec</h3>
-        <p style="color:rgba(250,247,242,0.85);line-height:1.85;margin-bottom:12px">Par la conversation et l'observation, j'identifie avec la famille (et avec l'enfant quand il est en âge de participer) les états qui dominent le moment présent. Une sélection resserrée est composée, puis réévaluée à chaque séance, parce qu'un état émotionnel n'est jamais figé.</p>
-        <p style="color:rgba(250,247,242,0.55);line-height:1.85;font-size:0.88rem">Les fleurs de Bach s'inscrivent dans un accompagnement global. Elles ne remplacent ni un suivi psychologique, ni un traitement médical, et ne constituent pas une réponse à une situation de détresse.</p>
+      <div class="section-label">Fleurs de Bach</div>
+      <h2 class="bach-title">Les Fleurs de Bach</h2>
+      <p class="bach-text">Mises au point dans les années 1930 par le médecin Edward Bach, les élixirs floraux sont 38 préparations à base de fleurs sauvages. Chacune correspond à un état émotionnel précis. Ils ne visent pas les symptômes physiques mais l'état intérieur : la peur du lendemain, le découragement face à un effort long, la difficulté à poser des limites, la surcharge émotionnelle. En naturopathie, ils sont utilisés en complément des autres outils pour aider la personne à traverser une période difficile ou à stabiliser une réaction émotionnelle récurrente. Doux, sans contre-indication propre, ils s'intègrent facilement dans les programmes des enfants comme des adultes.</p>
+      <div class="bach-pastilles">
+        <span class="bach-pastille">Crainte</span>
+        <span class="bach-pastille">Incertitude</span>
+        <span class="bach-pastille">Manque d'intérêt pour le présent</span>
+        <span class="bach-pastille">Solitude</span>
+        <span class="bach-pastille">Hypersensibilité</span>
+        <span class="bach-pastille">Découragement</span>
+        <span class="bach-pastille">Souci excessif des autres</span>
       </div>
     </div>
-  </div>
-
-  <!-- EN SÉANCE -->
-  <div class="tab-section">
-    <div class="container" style="max-width:880px">
-      <div class="section-label">En séance avec moi</div>
-      <h2 class="sub-heading" style="margin-bottom:32px">Comment se passe<br><em>un accompagnement</em> ?</h2>
-      <div class="seance-block animate-in">
-        <div class="seance-step">
-          <div class="seance-num">01</div>
-          <div class="seance-text">
-            <strong>Bilan initial : 1h30</strong>
-            <p>Anamnèse complète : histoire de vie, habitudes alimentaires, antécédents, rythmes. Évaluation du terrain physique et émotionnel. Proposition d'un programme personnalisé.</p>
-          </div>
-        </div>
-        <div class="seance-step">
-          <div class="seance-num">02</div>
-          <div class="seance-text">
-            <strong>Programme personnalisé</strong>
-            <p>Alliance d'alimentation adaptée, de plantes et de compléments ciblés selon les besoins identifiés. Chaque programme est unique et évolutif.</p>
-          </div>
-        </div>
-        <div class="seance-step">
-          <div class="seance-num">03</div>
-          <div class="seance-text">
-            <strong>Suivi toutes les 3 à 4 semaines</strong>
-            <p>Ajustement du programme selon l'évolution. Le corps change : le programme s'adapte. Un accompagnement sur la durée pour aller en profondeur.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CE QUE ÇA ACCOMPAGNE -->
-  <div class="tab-section tab-section-alt">
-    <div class="container">
-      <div class="section-label">Ce que ça accompagne</div>
-      <h2 class="sub-heading" style="margin-bottom:32px">Selon <em>chaque âge</em></h2>
-      <div class="public-grid">
-        <div class="public-item animate-in">
-          <div class="public-item-age">0 à 3 ans · Bébés</div>
-          <div class="public-item-title">🍼 Premiers équilibres</div>
-          <ul>
-            <li>Coliques, pleurs du soir, ventre tendu</li>
-            <li>Reflux et régurgitations</li>
-            <li>Constipation, transit irrégulier</li>
-            <li>Sommeil difficile, réveils fréquents</li>
-            <li>Peau sèche ou eczéma</li>
-            <li>Agitation difficile à apaiser, tensions corporelles</li>
-          </ul>
-        </div>
-        <div class="public-item animate-in" style="transition-delay:0.1s">
-          <div class="public-item-age">4 à 12 ans · Enfants</div>
-          <div class="public-item-title">🌱 Fondations</div>
-          <ul>
-            <li>Rhumes, otites ou angines à répétition</li>
-            <li>Mal au ventre fréquent, constipation, digestion difficile</li>
-            <li>Troubles du sommeil, peurs du soir</li>
-            <li>Anxiété, angoisse de séparation, émotions qui débordent</li>
-            <li>Agitation, difficultés de concentration</li>
-            <li>Allergies saisonnières, peau réactive</li>
-          </ul>
-        </div>
-        <div class="public-item animate-in" style="transition-delay:0.2s">
-          <div class="public-item-age">13 à 17 ans · Adolescents</div>
-          <div class="public-item-title">🌀 Transitions</div>
-          <ul>
-            <li>Acné et peau réactive</li>
-            <li>Stress des examens, pression scolaire, trous de mémoire</li>
-            <li>Sommeil décalé, fatigue persistante</li>
-            <li>Règles douloureuses ou irrégulières</li>
-            <li>Confiance en soi, rapport au corps</li>
-          </ul>
-        </div>
-        <div class="public-item animate-in" style="transition-delay:0.3s">
-          <div class="public-item-age">Adultes · 18 ans et plus</div>
-          <div class="public-item-title">⚡ Ancrage</div>
-          <ul>
-            <li>Stress, charge mentale, épuisement</li>
-            <li>Troubles du sommeil, réveils nocturnes</li>
-            <li>Fatigue qui ne passe pas malgré des analyses normales</li>
-            <li>Digestion difficile, ballonnements, côlon irritable</li>
-            <li>Infections à répétition, immunité fragile</li>
-            <li>Transitions hormonales : préménopause, ménopause</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  </section>
 
 </div><!-- /tab-naturo -->
 
-
-
 <!-- ══════════════════════════════════════════ -->
-<!-- TAB 3 — RÉFLEXOLOGIE                      -->
+<!-- TAB 2 — RÉFLEXOLOGIE                       -->
 <!-- ══════════════════════════════════════════ -->
 <div id="tab-reflex" class="tab-content">
 
-  <div class="tab-section">
+  <section class="tab-section tab-section-alt">
     <div class="container">
-      <img src="Reflexo%20cranienne%202.jpg"
-           alt="Praticienne en réflexologie crânienne, mains posées sur la tête d'une personne accompagnée allongée"
-           class="tab-photo" loading="lazy">
       <div class="section-label">La réflexologie</div>
-      <h2 class="sub-heading" style="margin-bottom:8px">Le corps <em>parle</em><br>à travers ses zones réflexes</h2>
-      <p class="sub-intro">Chaque organe, chaque partie du corps possède une zone réflexe : sur les pieds, les mains, le visage ou le crâne. Stimuler ces zones, c'est réveiller l'organe correspondant.</p>
-      <p class="sub-intro" style="margin-top:12px">
-        La réflexologie s'adapte à <strong>tous les âges, dès la naissance</strong>.
-        Chez le nourrisson et le bébé, une pression infime suffit : les zones réflexes sont
-        déjà pleinement actives et la réponse est remarquablement rapide. C'est une approche
-        douce, qui peut accompagner toute la famille dès la naissance.
-      </p>
+      <h2 class="section-title">Agir par le <em>toucher réflexe</em></h2>
+      <p class="section-intro">La réflexologie est une pratique manuelle qui s'appuie sur les correspondances entre des zones précises du corps (pieds, mains, visage, crâne) et les organes ou systèmes internes. Par des pressions spécifiques et dosées, elle favorise la détente profonde, stimule les fonctions d'élimination et soutient l'équilibre nerveux et hormonal. Elle est adaptée à tous les âges, du nourrisson à la personne âgée, avec une intensité et une technique toujours ajustées.</p>
 
-      <p class="sub-intro" style="margin-top:12px">La réflexologie est une technique manuelle de détente profonde, adaptée à tous les âges dès la naissance. Par des pressions précises sur les zones réflexes des pieds, des mains, du visage ou du crâne, elle favorise le relâchement du système nerveux, soutient les fonctions d'élimination et aide le corps à retrouver son équilibre. Elle est particulièrement appréciée en cas de stress, de troubles du sommeil, d'inconforts digestifs et de tensions.</p>
-
-      <!-- SOUS-ONGLETS -->
-      <p style="text-align:center;font-size:0.78rem;color:var(--texte-light);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px;opacity:0.7">Sélectionnez un type pour en découvrir les détails</p>
+      <!-- Sous-onglets -->
       <div class="sub-tabs-bar">
         <button class="sub-tab-btn active" onclick="showSubTab('plantaire', this)">
           <span class="stb-emoji">🦶</span>
           <span class="stb-title">Plantaire</span>
-          <span class="stb-sub">Via les pieds</span>
+          <span class="stb-sub">Pieds</span>
         </button>
         <button class="sub-tab-btn" onclick="showSubTab('palmaire', this)">
-          <span class="stb-emoji">🖐️</span>
+          <span class="stb-emoji">✋</span>
           <span class="stb-title">Palmaire</span>
-          <span class="stb-sub">Via les mains</span>
+          <span class="stb-sub">Mains</span>
         </button>
         <button class="sub-tab-btn" onclick="showSubTab('faciale', this)">
-          <span class="stb-emoji">😌</span>
+          <span class="stb-emoji">🌸</span>
           <span class="stb-title">Faciale</span>
-          <span class="stb-sub">Via le visage</span>
+          <span class="stb-sub">Visage</span>
         </button>
         <button class="sub-tab-btn" onclick="showSubTab('cranienne', this)">
-          <span class="stb-emoji">🧠</span>
+          <span class="stb-emoji">🌀</span>
           <span class="stb-title">Crânienne</span>
-          <span class="stb-sub">Via le crâne</span>
+          <span class="stb-sub">Crâne</span>
         </button>
       </div>
 
-      <!-- PLANTAIRE -->
+      <!-- Sous-onglet Plantaire -->
       <div id="sub-plantaire" class="sub-tab-content active">
-        <div class="reflex-layout">
-          <div class="reflex-svg-wrap">
-            <svg viewBox="0 0 100 230" width="130" xmlns="http://www.w3.org/2000/svg">
-              <path d="M38,222 Q12,202 18,155 L20,82 Q22,32 38,20 Q50,10 62,20 Q72,30 70,82 L72,155 Q78,202 52,222 Z" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
-              <ellipse cx="50" cy="38" rx="16" ry="18" fill="#1B4D5C" opacity="0.72"/>
-              <text x="50" y="38" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Tête</text>
-              <ellipse cx="49" cy="90" rx="18" ry="24" fill="#8FA98B" opacity="0.72"/>
-              <text x="49" y="90" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Thorax</text>
-              <ellipse cx="49" cy="142" rx="19" ry="22" fill="#C4A265" opacity="0.72"/>
-              <text x="49" y="142" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Digestion</text>
-              <ellipse cx="50" cy="188" rx="21" ry="18" fill="#2A6B7E" opacity="0.68"/>
-              <text x="50" y="188" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Pelvis</text>
-            </svg>
-            <div class="reflex-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Tête & sinus</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Thorax & poumons</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Digestion & foie</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Pelvis & émonctoires</div>
-            </div>
+        <img src="/reflexo%20plantaire.jpg" alt="Réflexologie plantaire, séance sur les pieds" class="reflex-photo" loading="lazy">
+        <p class="reflex-intro">La réflexologie plantaire est la forme la plus connue. La totalité du corps se retrouve cartographiée sur la plante des pieds. Des pressions précises exercées sur ces zones permettent d'agir à distance sur les organes et les fonctions correspondantes, sans toucher directement les zones concernées.</p>
+        <div class="reflex-rubriques">
+          <div class="reflex-rubrique">
+            <h4>Pour qui</h4>
+            <ul>
+              <li>Dès la naissance, avec une pression très douce</li>
+              <li>Enfants, adolescents et adultes</li>
+              <li>Personnes en période de fatigue ou de stress</li>
+            </ul>
           </div>
-          <div>
-            <h3 class="sub-heading">Réflexologie <em>plantaire</em></h3>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">La voûte plantaire est une véritable carte du corps. En travaillant des points précis sous le pied, on stimule les organes correspondants et favorise leur drainage et leur rééquilibrage.</p>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Les pieds concentrent des milliers de terminaisons nerveuses, ce qui les rend particulièrement réactifs pour ce travail réflexe.</p>
-            <div class="reflex-sub-label">Le geste</div>
-            <p style="font-size:0.88rem;color:var(--texte-light);line-height:1.7;margin-bottom:12px">Pressions précises avec le pouce sur la voûte plantaire et les orteils, selon une carte de zones réflexes qui couvre l'ensemble des organes. La pression est ferme mais jamais douloureuse — une zone sensible signale simplement un organe à accompagner.</p>
-            <div class="reflex-sub-label">Le déroulé</div>
-            <ul class="treat-list">
-              <li>Durée : 45 à 60 minutes, personne allongée</li>
-              <li>Sensation de chaleur et de circulation pendant la séance</li>
-              <li>Légèreté, détente profonde et parfois somnolence après</li>
-              <li>Un relâchement général souvent ressenti dès la première séance</li>
+          <div class="reflex-rubrique">
+            <h4>Bénéfices</h4>
+            <ul>
+              <li>Détente profonde du système nerveux</li>
+              <li>Soutien de la digestion et du transit</li>
+              <li>Amélioration de la qualité du sommeil</li>
             </ul>
-            <div class="reflex-sub-label">Ce que ça apporte</div>
-            <ul class="treat-list">
-              <li>Sensation de relâchement général profond</li>
-              <li>Soutien du confort digestif</li>
-              <li>Aide à la récupération quand la fatigue s'installe</li>
-              <li>Détente physique et mentale durable</li>
-              <li>Renforcement du terrain, soutien de l'immunité</li>
-            </ul>
-            <div class="reflex-sub-label">Pour qui</div>
-            <ul class="treat-list">
-              <li>Tous les âges, dès les premiers mois de vie</li>
-              <li>Technique de référence en début d'accompagnement</li>
-              <li>Particulièrement adaptée pour démarrer un accompagnement en profondeur</li>
+          </div>
+          <div class="reflex-rubrique">
+            <h4>Comment ca se passe</h4>
+            <ul>
+              <li>La personne est allongée ou installée confortablement</li>
+              <li>Pressions avec les pouces sur les zones réflexes</li>
+              <li>45 min à 1h selon l'âge (30 min pour l'enfant)</li>
             </ul>
           </div>
         </div>
-        <img src="reflexo%20plantaire.jpg" alt="Réflexologie plantaire — mains accompagnant les pieds d'un bébé" class="reflex-photo" loading="lazy">
-      </div><!-- /sub-plantaire -->
+      </div>
 
-      <!-- PALMAIRE -->
+      <!-- Sous-onglet Palmaire -->
       <div id="sub-palmaire" class="sub-tab-content">
-        <div class="reflex-layout">
-          <div class="reflex-svg-wrap">
-            <svg viewBox="0 0 100 200" width="120" xmlns="http://www.w3.org/2000/svg">
-              <rect x="22" y="85" width="56" height="96" rx="10" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
-              <rect x="24" y="22" width="11" height="66" rx="5.5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
-              <rect x="38" y="14" width="11" height="74" rx="5.5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
-              <rect x="52" y="17" width="11" height="70" rx="5.5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
-              <rect x="66" y="27" width="10" height="60" rx="5" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.2"/>
-              <rect x="25" y="23" width="9" height="26" rx="4.5" fill="#2A6B7E" opacity="0.65"/>
-              <rect x="39" y="15" width="9" height="26" rx="4.5" fill="#2A6B7E" opacity="0.65"/>
-              <rect x="53" y="18" width="9" height="26" rx="4.5" fill="#2A6B7E" opacity="0.65"/>
-              <rect x="67" y="28" width="8" height="23" rx="4" fill="#2A6B7E" opacity="0.65"/>
-              <ellipse cx="50" cy="108" rx="20" ry="13" fill="#1B4D5C" opacity="0.68"/>
-              <text x="50" y="108" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Thorax</text>
-              <ellipse cx="50" cy="133" rx="22" ry="14" fill="#C4A265" opacity="0.68"/>
-              <text x="50" y="133" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Digestion</text>
-              <ellipse cx="50" cy="160" rx="22" ry="15" fill="#8FA98B" opacity="0.68"/>
-              <text x="50" y="160" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Pelvis</text>
-            </svg>
-            <div class="reflex-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Tête & cerveau</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Thorax & cœur</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Digestion</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Pelvis</div>
-            </div>
+        <img src="/reflexo%20palmaire.jpg" alt="Réflexologie palmaire, séance sur les mains" class="reflex-photo" loading="lazy">
+        <p class="reflex-intro">La réflexologie palmaire travaille sur les mains, qui portent une carte réflexe similaire à celle des pieds. Elle est particulièrement adaptée lorsque les pieds sont inaccessibles ou douloureux, et appréciée pour son accessibilité : certaines pressions peuvent ensuite être pratiquées en autonomie.</p>
+        <div class="reflex-rubriques">
+          <div class="reflex-rubrique">
+            <h4>Pour qui</h4>
+            <ul>
+              <li>Adultes et adolescents</li>
+              <li>Personnes ne souhaitant pas enlever leurs chaussures</li>
+              <li>En complément d'un suivi plantaire</li>
+            </ul>
           </div>
-          <div>
-            <h3 class="sub-heading">Réflexologie <em>palmaire</em></h3>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">Comme pour le pied, la paume porte une carte réflexe complète du corps. La réflexologie palmaire est plus douce, idéale pour les enfants, et peut s'auto-pratiquer entre les séances.</p>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Elle est particulièrement utilisée pour l'apaisement émotionnel et nerveux, les mains étant directement reliées au système nerveux autonome.</p>
-            <div class="reflex-sub-label">Le geste</div>
-            <p style="font-size:0.88rem;color:var(--texte-light);line-height:1.7;margin-bottom:12px">Pressions douces avec le pouce et l'index sur la paume et les doigts. La main porte une carte réflexe complète du corps — moins de zones à travailler, mais une réactivité nerveuse directe. Le geste est plus accessible que le plantaire, et peut être partiellement transmis au parent.</p>
-            <div class="reflex-sub-label">Le déroulé</div>
-            <ul class="treat-list">
-              <li>Durée : 30 à 45 minutes</li>
-              <li>Pression douce, très accessible, même pour les enfants agités</li>
-              <li>Sensation de chaleur dans les mains et dans le corps</li>
-              <li>Apaisement souvent rapide, ressenti dès la séance</li>
+          <div class="reflex-rubrique">
+            <h4>Bénéfices</h4>
+            <ul>
+              <li>Relâchement des tensions en quelques minutes</li>
+              <li>Soutien du système nerveux autonome</li>
+              <li>Facilement intégrable en auto-soin</li>
             </ul>
-            <div class="reflex-sub-label">Ce que ça apporte</div>
-            <ul class="treat-list">
-              <li>Apaisement rapide de l'agitation et du stress</li>
-              <li>Préparation au sommeil, soutien des nuits difficiles</li>
-              <li>Accessible pour un enfant qui n'accepte pas le toucher des pieds</li>
-              <li>Quelques points peuvent être appris par le parent et reproduits à la maison entre les séances</li>
-            </ul>
-            <div class="reflex-sub-label">Pour qui</div>
-            <ul class="treat-list">
-              <li>Enfants en bas âge et nourrissons (pression minime suffisante)</li>
-              <li>Enfants qui refusent le toucher des pieds</li>
-              <li>Situations de stress ponctuel, anxiété du soir</li>
-              <li>Familles souhaitant prolonger le travail à la maison</li>
+          </div>
+          <div class="reflex-rubrique">
+            <h4>Comment ca se passe</h4>
+            <ul>
+              <li>Personne assise, les mains posées sur les genoux</li>
+              <li>Pressions avec le pouce sur la paume et les doigts</li>
+              <li>30 à 45 min, souvent combinée à une autre technique</li>
             </ul>
           </div>
         </div>
-        <img src="reflexo%20palmaire.jpg" alt="Réflexologie palmaire — massage doux des mains" class="reflex-photo" loading="lazy">
-      </div><!-- /sub-palmaire -->
+      </div>
 
-      <!-- FACIALE -->
+      <!-- Sous-onglet Faciale -->
       <div id="sub-faciale" class="sub-tab-content">
-        <div class="reflex-layout">
-          <div class="reflex-svg-wrap">
-            <svg viewBox="0 0 100 150" width="120" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="50" cy="75" rx="40" ry="52" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
-              <ellipse cx="50" cy="32" rx="30" ry="18" fill="#1B4D5C" opacity="0.7"/>
-              <text x="50" y="32" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Frontal</text>
-              <ellipse cx="50" cy="62" rx="28" ry="16" fill="#8FA98B" opacity="0.7"/>
-              <text x="50" y="62" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Sinus</text>
-              <ellipse cx="50" cy="88" rx="22" ry="14" fill="#C4A265" opacity="0.7"/>
-              <text x="50" y="88" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Nez</text>
-              <ellipse cx="50" cy="114" rx="28" ry="17" fill="#2A6B7E" opacity="0.7"/>
-              <text x="50" y="114" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7" font-family="sans-serif" font-weight="500">Mâchoire</text>
-            </svg>
-            <div class="reflex-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Zone frontale</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Sinus & yeux</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Nez & pommettes</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Mâchoire & gorge</div>
-            </div>
+        <img src="/reflexo-faciale.jpg" alt="Réflexologie faciale, séance sur le visage" class="reflex-photo" loading="lazy">
+        <p class="reflex-intro">La réflexologie faciale (méthode Dien Chan ou réflexologie faciale occidentale) travaille sur les zones réflexes du visage. Très précise, elle agit sur les tensions de la tête, les sinus, les yeux, et favorise un profond lâcher-prise. Elle est particulièrement appréciée des personnes sujettes aux migraines ou aux troubles du sommeil.</p>
+        <div class="reflex-rubriques">
+          <div class="reflex-rubrique">
+            <h4>Pour qui</h4>
+            <ul>
+              <li>Adultes et adolescents</li>
+              <li>Personnes souffrant de maux de tête ou tensions</li>
+              <li>Difficulté d'endormissement ou sommeil agité</li>
+            </ul>
           </div>
-          <div>
-            <h3 class="sub-heading">Réflexologie <em>faciale</em></h3>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">Le visage est une zone réflexe d'une finesse remarquable. Les points faciaux permettent d'agir sur le physique (sinus, mâchoire, tensions cervicales) et sur le mental (recentrage, clarté).</p>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">La réflexologie faciale est aussi une invitation à reconnaître les tensions stockées dans le visage et à les relâcher en conscience.</p>
-            <div class="reflex-sub-label">Le geste</div>
-            <p style="font-size:0.88rem;color:var(--texte-light);line-height:1.7;margin-bottom:12px">Pressions légères avec les doigts sur des points précis du visage — front, tempes, pommettes, mâchoire. Le visage est une zone réflexe d'une finesse remarquable : chaque point renvoie à un organe ou à un axe nerveux. Aucune douleur, une pression presque imperceptible.</p>
-            <div class="reflex-sub-label">Le déroulé</div>
-            <ul class="treat-list">
-              <li>Durée : 30 à 45 minutes, personne allongée ou semi-allongée</li>
-              <li>Pression très légère avec les doigts</li>
-              <li>Sensation de décompression au niveau des sinus et du crâne</li>
-              <li>Clarté mentale et sentiment de légèreté après la séance</li>
+          <div class="reflex-rubrique">
+            <h4>Bénéfices</h4>
+            <ul>
+              <li>Relâchement rapide des tensions de la nuque et de la tête</li>
+              <li>Soutien des voies respiratoires hautes</li>
+              <li>Détente du système nerveux parasympathique</li>
             </ul>
-            <div class="reflex-sub-label">Ce que ça apporte</div>
-            <ul class="treat-list">
-              <li>Relâchement des tensions du visage et de la mâchoire</li>
-              <li>Sensation de dégagement au niveau des sinus</li>
-              <li>Effet de recentrage et de clarté mentale</li>
-              <li>Apaisement des tensions liées à la suractivité cognitive</li>
-            </ul>
-            <div class="reflex-sub-label">Pour qui</div>
-            <ul class="treat-list">
-              <li>Adolescents : vécue comme moins intrusive que le plantaire</li>
-              <li>Personnes sous forte pression mentale ou scolaire</li>
-              <li>Situations de tension autour de la mâchoire, sinus sensibles aux saisons</li>
+          </div>
+          <div class="reflex-rubrique">
+            <h4>Comment ca se passe</h4>
+            <ul>
+              <li>Personne allongée sur le dos</li>
+              <li>Pressions légères avec les doigts sur le visage</li>
+              <li>30 à 45 min, sans huile essentielle sur le visage</li>
             </ul>
           </div>
         </div>
-        <img src="reflexologie%20faciale.jpg" alt="Réflexologie faciale — mains posées délicatement sur le front" class="reflex-photo" loading="lazy" style="object-position:center 15%">
-      </div><!-- /sub-faciale -->
+      </div>
 
-      <!-- CRÂNIENNE -->
+      <!-- Sous-onglet Crânienne -->
       <div id="sub-cranienne" class="sub-tab-content">
-        <div class="reflex-layout">
-          <div class="reflex-svg-wrap">
-            <svg viewBox="0 0 110 130" width="130" xmlns="http://www.w3.org/2000/svg">
-              <path d="M55,8 Q92,8 97,50 Q100,82 82,106 Q72,122 55,122 Q38,122 26,108 Q14,94 14,68 Q14,28 55,8 Z" fill="#f5f0e8" stroke="#C4A265" stroke-width="1.5"/>
-              <ellipse cx="60" cy="28" rx="26" ry="17" fill="#1B4D5C" opacity="0.7"/>
-              <text x="60" y="28" text-anchor="middle" dominant-baseline="central" fill="white" font-size="7.5" font-family="sans-serif" font-weight="500">Sommet</text>
-              <ellipse cx="84" cy="60" rx="13" ry="22" fill="#8FA98B" opacity="0.7"/>
-              <text x="84" y="60" text-anchor="middle" dominant-baseline="central" fill="white" font-size="6.5" font-family="sans-serif" font-weight="500">Temple</text>
-              <ellipse cx="30" cy="65" rx="15" ry="24" fill="#C4A265" opacity="0.7"/>
-              <text x="30" y="65" text-anchor="middle" dominant-baseline="central" fill="white" font-size="6.5" font-family="sans-serif" font-weight="500">Occiput</text>
-              <ellipse cx="57" cy="100" rx="24" ry="16" fill="#2A6B7E" opacity="0.7"/>
-              <text x="57" y="100" text-anchor="middle" dominant-baseline="central" fill="white" font-size="6.5" font-family="sans-serif" font-weight="500">Zone post.</text>
-            </svg>
-            <div class="reflex-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:#1B4D5C"></div>Sommet</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#8FA98B"></div>Zones temporales</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#C4A265"></div>Zone occipitale</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#2A6B7E"></div>Zone postérieure</div>
-            </div>
+        <img src="/Reflexo%20cranienne.jpg" alt="Réflexologie crânienne, séance sur le crâne" class="reflex-photo" loading="lazy">
+        <p class="reflex-intro">La réflexologie crânienne agit sur les zones réflexes du cuir chevelu. Elle mobilise le système nerveux central, favorise la circulation et procure une détente très profonde. Elle est souvent décrite comme la technique la plus apaisante, avec des effets rapides sur le stress et les tensions mentales.</p>
+        <div class="reflex-rubriques">
+          <div class="reflex-rubrique">
+            <h4>Pour qui</h4>
+            <ul>
+              <li>Adultes, adolescents et enfants à partir de 3 ans</li>
+              <li>Surcharge mentale, hyperactivité, anxiété</li>
+              <li>Personnes épuisées ou en convalescence</li>
+            </ul>
           </div>
-          <div>
-            <h3 class="sub-heading">Réflexologie <em>crânienne</em></h3>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:16px">La technique la plus enveloppante. Des pressions très légères posées sur le crâne invitent le système nerveux à desserrer les tensions profondes qui s'y accumulent. C'est souvent la séance la plus silencieuse — et la plus mémorable.</p>
-            <p style="font-size:0.95rem;color:var(--texte-light);line-height:1.8;margin-bottom:24px">Elle s'adresse aux profils très sollicités mentalement — ceux pour qui la tête ne s'arrête jamais vraiment.</p>
-            <div class="reflex-sub-label">Le geste</div>
-            <p style="font-size:0.88rem;color:var(--texte-light);line-height:1.7;margin-bottom:12px">Pressions très légères, presque imperceptibles, posées avec les deux mains à différents points du crâne : sommet, tempes, occiput, zone postérieure. La pression est douce, immobile, et tenue dans le temps pour permettre au corps de répondre.</p>
-            <div class="reflex-sub-label">Le déroulé</div>
-            <ul class="treat-list">
-              <li>Durée : 45 à 60 minutes</li>
-              <li>Personne allongée, tête légèrement soutenue</li>
-              <li>État méditatif profond fréquent pendant la séance</li>
-              <li>Sensation de légèreté crânienne et de clarté mentale après</li>
+          <div class="reflex-rubrique">
+            <h4>Bénéfices</h4>
+            <ul>
+              <li>Apaisement rapide du mental et du système nerveux</li>
+              <li>Amélioration de la concentration et de l'attention</li>
+              <li>Soutien lors des périodes de forte tension émotionnelle</li>
             </ul>
-            <div class="reflex-sub-label">Ce que ça apporte</div>
-            <ul class="treat-list">
-              <li>Apaisement des états de suractivité mentale</li>
-              <li>Soutien de la qualité du sommeil</li>
-              <li>Relâchement des tensions de la nuque et du crâne</li>
-              <li>État de calme profond pendant et après la séance</li>
-            </ul>
-            <div class="reflex-sub-label">Pour qui</div>
-            <ul class="treat-list">
-              <li>Profils très sollicités mentalement, mental qui ne s'arrête pas</li>
-              <li>Accompagnement d'une période de surmenage ou de forte tension intérieure</li>
-              <li>Enfants et adultes traversant une phase d'agitation intense</li>
+          </div>
+          <div class="reflex-rubrique">
+            <h4>Comment ca se passe</h4>
+            <ul>
+              <li>Personne assise confortablement ou allongée</li>
+              <li>Pressions sur le cuir chevelu selon des points précis</li>
+              <li>30 à 45 min, parfois intégrée en fin de séance combinée</li>
             </ul>
           </div>
         </div>
-        <img src="Reflexo%20cranienne.jpg" alt="Réflexologie crânienne — mains posées avec douceur sur la tête d'une personne accompagnée" class="reflex-photo" loading="lazy">
-      </div><!-- /sub-cranienne -->
+      </div>
 
     </div>
-  </div>
+  </section>
 
 </div><!-- /tab-reflex -->
 
-
 </main>
 
-<!-- ══════ COMMENT LES DEUX SE COMBINENT ══════ -->
-<section style="background:linear-gradient(135deg,var(--bleu-petrole-deep) 0%,var(--bleu-petrole) 100%);padding:80px 0">
-  <div class="container" style="max-width:900px">
-    <div class="section-label" style="color:var(--dore);text-align:center">Les deux piliers ensemble</div>
-    <h2 style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;color:var(--creme);text-align:center;margin-bottom:40px;line-height:1.2">Naturopathie et Réflexologie :<br><em style="color:var(--dore-light)">deux rythmes, une même direction</em></h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:40px">
-      <div style="background:rgba(255,255,255,0.07);border-radius:var(--radius);padding:28px 32px">
-        <div style="font-size:1.5rem;margin-bottom:12px">🌿</div>
-        <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--creme);font-weight:400;margin-bottom:12px">La naturopathie pose le cadre de fond</h3>
-        <p style="font-size:0.88rem;color:rgba(250,247,242,0.75);line-height:1.75">Elle agit sur l'hygiène de vie, l'alimentation, les rythmes. C'est le travail de terrain, celui qui s'installe dans la durée et construit la vitalité.</p>
-      </div>
-      <div style="background:rgba(255,255,255,0.07);border-radius:var(--radius);padding:28px 32px">
-        <div style="font-size:1.5rem;margin-bottom:12px">🤲</div>
-        <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--creme);font-weight:400;margin-bottom:12px">La réflexologie agit sur le ressenti immédiat</h3>
-        <p style="font-size:0.88rem;color:rgba(250,247,242,0.75);line-height:1.75">Elle apporte une détente profonde, relance les fonctions ralenties, aide le corps à lâcher ce qu'il retient. Son effet est souvent ressenti dès la première séance.</p>
-      </div>
-    </div>
-    <div style="background:rgba(196,162,101,0.12);border:1px solid rgba(196,162,101,0.25);border-radius:var(--radius);padding:28px 36px;text-align:center">
-      <p style="color:rgba(250,247,242,0.85);line-height:1.8;font-size:0.95rem">En pratique, une séance peut associer les deux : un temps d'échange naturopathique suivi d'un soin de réflexologie. C'est ce que je propose dans les <strong style="color:var(--dore-light)">séances combinées</strong> — elles permettent d'avancer sur les deux axes en une seule rencontre.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ CTA FINAL ══════ -->
-<section class="cta-section">
-  <div class="container">
-    <div class="section-label" style="text-align:center">Prêt(e) à commencer ?</div>
-    <h2 class="cta-title">
-      Ces deux approches se complètent<br>et <em>s'adaptent à votre situation</em>
-    </h2>
-    <p>Commencez par le Bilan Horizon Santé pour identifier les priorités. Contactez-moi directement pour toute question.</p>
-    <div class="cta-buttons">
-      <a href="/audit" class="btn-primary">Commencer le Bilan Horizon Santé</a>
-      <a href="/contact" class="btn-secondary">Poser une question</a>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ INFO LÉGALE ══════ -->
-<section class="info-legale">
-  <div class="container">
-    <p><strong>Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
-  </div>
-</section>
-
-<!-- ══════ FOOTER ══════ -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
-      <p style="font-size:.85rem;color:rgba(250,247,242,.7);margin-bottom:20px;max-width:480px">Un accompagnement global et doux pour les bébés, les enfants, les adolescents et les adultes, par Arielle de Maistre.</p>
-      <ul class="footer-links">
-        <li><a href="/about">À propos</a></li>
-        <li><a href="/methode">Méthode</a></li>
-        <li><a href="/audit">Bilan Horizon Santé</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="tel:+33651140726">+33 6 51 14 07 26</a></li>
-        <li>Sainte-Consorce (69280)</li>
-      </ul>
-      <a href="/contact" class="footer-rdv-btn">Prendre rendez-vous</a>
-    </div>
-    <div class="footer-copy">
-      © 2026 Horizon & Équilibre | Arielle de Maistre · Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, organisme certifié Qualiopi)
-      <div style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
-        <span style="color:rgba(250,247,242,.7);font-size:.8em">Mentions légales</span>
-      </div>
-    </div>
-  </div>
-</footer>
-
+<!-- INJECT:CTA -->
+<!-- INJECT:DISCLAIMER -->
+<!-- INJECT:FOOTER -->
+<script src="/shared.js"></script>
 <script>
-// ── TABS PRINCIPAUX ──
-function showTab(tabId, btn) {
+function showTab(id, btn) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + tabId).classList.add('active');
-  btn.classList.add('active');
-  // Trigger animation for newly visible elements
-  document.querySelectorAll('#tab-' + tabId + ' .animate-in:not(.visible)').forEach(el => {
-    observer.observe(el);
-  });
-}
-
-// ── SOUS-ONGLETS RÉFLEXOLOGIE ──
-function showSubTab(subId, btn) {
-  document.querySelectorAll('.sub-tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('sub-' + subId).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
 }
 
-// ── ANIMATIONS AU SCROLL ──
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
-document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
-
-// ── NAV SCROLL ──
-const navEl = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  navEl.style.boxShadow = window.scrollY > 40
-    ? '0 4px 30px rgba(27,77,92,0.1)'
-    : '0 1px 30px rgba(27,77,92,0.06)';
-});
-
-// ── MOBILE NAV ──
-document.querySelector('.mobile-toggle').addEventListener('click', () => {
-  const links = document.querySelector('.nav-links');
-  if (links.style.display === 'flex') {
-    links.style.display = 'none';
-  } else {
-    links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';
-  }
-});
+function showSubTab(id, btn) {
+  const parent = btn.closest('.container');
+  parent.querySelectorAll('.sub-tab-content').forEach(t => t.classList.remove('active'));
+  parent.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+  parent.querySelector('#sub-' + id).classList.add('active');
+  btn.classList.add('active');
+}
 </script>
-<script src="/shared.js"></script>
-
 </body>
 </html>

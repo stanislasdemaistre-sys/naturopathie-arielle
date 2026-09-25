@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bilan Horizon Santé | Horizon & Équilibre</title>
+<title>Bilan Horizon Santé | Horizon &amp; Équilibre</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
 <script src="/jspdf.min.js"></script>
 <style>
-:root{--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--do-t:#7F6128;--vs-t:#4E6B48;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px}
+--bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--do-t:#7F6128;--vs-t:#4E6B48;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px
+</style>
+<style>
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
 body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;font-weight:300;min-height:100vh}
 .app{max-width:780px;margin:0 auto;padding:40px 24px 80px}
@@ -132,27 +135,27 @@ nav .nav-container{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;al
 .form-row-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .contact-mini-form input{width:100%;padding:12px 16px;border:1.5px solid var(--cr-d);border-radius:var(--rs);font-family:var(--fb);font-size:.9rem;color:var(--tx);background:var(--cr);outline:none;transition:border-color .3s;box-sizing:border-box}
 .contact-mini-form input:focus{border-color:var(--vs)}
-/* ── HERO BAND PHOTO ── */
+/* Hero bande photo */
 .audit-hero-band{margin:0 -24px 48px;padding:56px 24px 64px;background:url('Fleurs%20de%20bach%202.jpg') center 45%/cover no-repeat;position:relative;border-radius:0 0 48px 48px;overflow:hidden}
 .audit-hero-band::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(15,53,64,.8) 0%,rgba(27,77,92,.65) 50%,rgba(143,169,139,.45) 100%)}
 .audit-hero-band .header{position:relative;z-index:1;margin-bottom:0;animation:none}
 .audit-hero-band .header-logo,.audit-hero-band .header-title{color:#FAF7F2}
 .audit-hero-band .header-title em{color:#D4BA8A}
 .audit-hero-band .header-subtitle{color:rgba(250,247,242,.88)}
-/* ── DÉCOR BOTANIQUE ── */
+/* Décor botanique */
 body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;background:url('Fleurs%20de%20bach%202.jpg') center/cover no-repeat;opacity:.05;pointer-events:none;z-index:0;border-radius:80px 0 0 0}
-/* ── INTRO CARD PHOTO + BOUTON OR ── */
+/* Intro card photo */
 .intro-card-photo{height:160px;background:url('Fleurs%20de%20bach%201.jpg') center 55%/cover no-repeat;border-radius:var(--rl) var(--rl) 0 0;margin:-48px -40px 32px}
 .btn-gold{background:var(--do);color:#0F3540;font-weight:500}
 .btn-gold:hover{background:var(--do-l);transform:translateY(-2px);box-shadow:0 12px 40px rgba(196,162,101,.35)}
-/* ── DOTS PÉTALES ── */
+/* Dots pétales */
 .petale-dots{display:flex;gap:7px;margin-bottom:14px}
 .pdot{flex:1;height:4px;border-radius:4px;background:var(--cr-d);transition:all .4s cubic-bezier(.22,1,.36,1)}
 .pdot.done{opacity:.38}
 .pdot.active{height:8px;margin-top:-2px}
-/* ── BADGE CATÉGORIE COLORÉ ── */
+/* Badge catégorie coloré */
 .progress-cat-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border-radius:50px;font-size:.76rem;font-weight:500;color:#fff;letter-spacing:.3px}
-/* ── QUESTION CARD : BANDE COULEUR PAR CATÉGORIE ── */
+/* Question card : bande couleur par catégorie */
 .question-card{position:relative;overflow:hidden}
 .question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px}
 .question-card.petale-sommeil::before{background:#1B4D5C}
@@ -177,7 +180,7 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
 .question-card.petale-serenite .option-item.selected .option-radio{border-color:#8FA98B;background:#8FA98B}
 .question-card.petale-immunite .option-item.selected .option-radio{border-color:#2A6B7E;background:#2A6B7E}
 .question-card.petale-confiance .option-item.selected .option-radio{border-color:#4E6B48;background:#4E6B48}
-/* Options : animation au hover */
+/* Options animation hover */
 .option-item{padding:18px 22px;transition:all .25s ease}
 .option-item:hover{transform:translateX(3px)}
 @media(max-width:640px){
@@ -207,48 +210,23 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
 <style>.nav-logo-img{height:48px;display:block}@media(max-width:768px){.nav-logo-img{height:40px}}</style>
 </head>
 <body>
-<nav id="auditNav">
-  <div class="nav-container">
-    <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">
-        <svg viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="21" cy="21" r="20" stroke="#1B4D5C" stroke-width="1.5" opacity="0.3"/>
-          <path d="M14 28C14 20 21 12 28 12" stroke="#8FA98B" stroke-width="2" stroke-linecap="round"/>
-          <path d="M12 24C16 24 22 20 22 14" stroke="#C4A265" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="28" cy="12" r="2.5" fill="#8FA98B"/>
-          <circle cx="12" cy="24" r="2" fill="#C4A265"/>
-        </svg>
-      </div>
-      <div class="nav-logo-text">Horizon <span>&</span> Équilibre</div>
-    </a>
-    <ul class="nav-list">
-      <li><a href="/">Accueil</a></li>
-      <li><a href="/about">À propos</a></li>
-      <li><a href="/methode">Méthode</a></li>
-      <li><a href="/tarifs">Tarifs & Accompagnement</a></li>
-      <li><a href="/audit" class="nav-active">Bilan Horizon Santé</a></li>
-      <li><a href="/publications">Publications</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-    <button class="nav-mobile-toggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+
+<!-- INJECT:NAV -->
+
 <div class="app" id="app" style="padding-top:100px">
   <div id="screen-intro">
     <div class="audit-hero-band">
       <div class="header">
-        <div class="header-logo">Horizon <span>&</span> Équilibre</div>
+        <div class="header-logo">Horizon <span>&amp;</span> Equilibre</div>
         <h1 class="header-title">Bilan <em>Horizon Santé</em></h1>
-        <p class="header-subtitle">Un bilan de vitalité pensé pour <strong>toute la famille</strong> — bébés, enfants, adolescents et adultes. En 5 minutes, identifiez les déséquilibres et les leviers naturels pour agir.</p>
+        <p class="header-subtitle">Un bilan de vitalité pensé pour <strong>toute la famille</strong> -- bébés, enfants, adolescents et adultes. En 5 minutes, identifiez les déséquilibres et les leviers naturels pour agir.</p>
       </div>
     </div>
     <div class="intro-card">
       <div class="intro-card-photo"></div>
       <div class="intro-emoji">🌿</div>
       <h2>Bilan de vitalité en 20 questions</h2>
-      <p>Ce questionnaire explore 5 dimensions essentielles : sommeil, éclat, sérénité, immunité et confiance en soi. Il s'adapte à chaque âge — nourrisson, enfant, adolescent ou adulte. Les résultats cartographient l'état de vitalité sur 5 axes et orientent vers des pistes naturelles, douces et personnalisées.</p>
+      <p>Un questionnaire de 20 questions autour de 5 dimensions de la vitalité : le sommeil, la gestion des surcharges, la sérénité, l'immunité et la confiance en soi. Résultat immédiat, gratuit, 5 minutes.</p>
       <div class="intro-details">
         <div class="intro-detail"><div class="icon">🕐</div><span>5 minutes</span></div>
         <div class="intro-detail"><div class="icon">🌸</div><span>20 questions</span></div>
@@ -264,14 +242,20 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
           <option value="C">Adulte (18 ans et plus)</option>
         </select></div>
       </div>
-      <button class="btn btn-gold" onclick="startAudit()">Commencer mon bilan →</button>
+      <div style="margin-bottom:20px;font-size:.82rem;color:#5A6E68;text-align:left;line-height:1.6">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+          <input type="checkbox" id="consentementBilan" style="margin-top:3px;width:15px;height:15px;flex-shrink:0;accent-color:#1B4D5C">
+          <span>J'accepte que les informations saisies soient utilisées pour générer mon bilan personnalisé. Consultez notre <a href="/confidentialite" style="color:#1B4D5C;text-decoration:underline">politique de confidentialité</a>.</span>
+        </label>
+      </div>
+      <button class="btn btn-p btn-gold" onclick="startAudit()">Commencer mon bilan</button>
     </div>
   </div>
   <div id="screen-questions" class="hidden">
     <div class="progress-wrap">
   <div class="petale-dots">
     <div class="pdot" id="pd-sommeil" title="Sommeil"></div>
-    <div class="pdot" id="pd-eclat" title="Éclat"></div>
+    <div class="pdot" id="pd-eclat" title="Eclat"></div>
     <div class="pdot" id="pd-serenite" title="Sérénité"></div>
     <div class="pdot" id="pd-immunite" title="Immunité"></div>
     <div class="pdot" id="pd-confiance" title="Confiance"></div>
@@ -283,39 +267,26 @@ body::after{content:'';position:fixed;bottom:0;right:0;width:280px;height:280px;
   </div>
   <div id="screen-results" class="hidden"></div>
 </div>
-<section style="background:#F0EBE3;padding:24px;border-top:1px solid rgba(27,77,92,.08);font-family:'Outfit',system-ui,sans-serif">
-  <div style="max-width:900px;margin:0 auto">
-    <p style="font-size:.8rem;color:#5A6E68;line-height:1.7"><strong style="color:#1B4D5C">Information importante :</strong> La naturopathie et la réflexologie sont des pratiques de bien-être et de prévention. Elles ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis, un suivi ou un traitement prescrit par un médecin. Arielle de Maistre n'est pas médecin : elle n'interrompt, ne modifie et ne remplace aucun traitement en cours. En cas de symptôme aigu, persistant ou inhabituel, chez l'enfant comme chez l'adulte, il convient de consulter d'abord son médecin traitant ou son pédiatre.</p>
-  </div>
-</section>
-<footer style="background:#0F3540;padding:20px 24px;font-family:'Outfit',system-ui,sans-serif;margin-top:0">
-  <div style="max-width:780px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-    <img src="/logo-horizontal-clair.svg" alt="Horizon &amp; Équilibre — Naturopathie et réflexologie" height="40" style="display:block;margin-bottom:12px">
-    <span style="color:rgba(250,247,242,.7);font-size:.8rem">Sainte-Consorce (69280) · +33 6 51 14 07 26</span>
-    · <a href="/contact" style="display:inline-flex;align-items:center;background:#C4A265;color:#0F3540;padding:7px 18px;border-radius:50px;font-size:.78rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .3s" onmouseover="this.style.background='#B8934F'" onmouseout="this.style.background='#C4A265'">Prendre rendez-vous</a>
-    <div style="display:flex;align-items:center;gap:14px">
-      <span style="color:rgba(250,247,242,.7);font-size:.78rem">Mentions légales</span>
-    </div>
-  </div>
-</footer>
-<script>
-// ═══════════════════════════════════════════════════════════════
-// BILAN HORIZON SANTÉ — V4
-// 3 versions (A: nourrisson, B: enfant/ado, C: adulte)
-// 20 questions par version (4 × 5 pétales)
-// Score 0-12 par pétale | seuils: 0-3 bon / 4-7 surveiller / 8-12 attention
-// ═══════════════════════════════════════════════════════════════
 
-// ── Pétales ──
+<!-- INJECT:DISCLAIMER -->
+<!-- INJECT:FOOTER -->
+
+<script>
+// BILAN HORIZON SANTE -- V4
+// 3 versions (A: nourrisson, B: enfant/ado, C: adulte)
+// 20 questions par version (4 x 5 pétales)
+// Score 0-12 par pétale | seuils: 0-3 bon / 4-7 surveiller / 8-12 attention
+
+// Pétales
 const PETALS = {
   sommeil:{label:'Sommeil',icone:'🌙',bg:'#1B4D5C',
-    description:"Évalue la qualité de la récupération nocturne. Le sommeil conditionne la croissance, la régulation nerveuse et la vitalité globale.",
+    description:"Evalue la qualité de la récupération nocturne. Le sommeil conditionne la croissance, la régulation nerveuse et la vitalité globale.",
     solutions:"Rythmes de vie réguliers, hygiène du coucher, Réflexologie palmaire, accompagnement naturopathique personnalisé."},
-  eclat:{label:'Éclat',icone:'✨',bg:'#C4A265',
+  eclat:{label:'Eclat',icone:'✨',bg:'#C4A265',
     description:"Indicateur du travail des émonctoires (foie, peau, intestins). Un score élevé signale que le corps a du mal à éliminer ses surcharges.",
     solutions:"Soutien naturopathique des émonctoires, hygiène alimentaire, Réflexologie plantaire."},
   serenite:{label:'Sérénité',icone:'🕊️',bg:'#8FA98B',
-    description:"Évalue l'état du système nerveux et la gestion des émotions. Révèle les tensions, inquiétudes ou blocages somatisés.",
+    description:"Evalue l'état du système nerveux et la gestion des émotions. Révèle les tensions, inquiétudes ou blocages somatisés.",
     solutions:"Réflexologie crânienne ou faciale, Fleurs de Bach personnalisées, techniques de respiration."},
   immunite:{label:'Immunité',icone:'🛡️',bg:'#2A6B7E',
     description:"Représente la résistance globale du terrain. Un score élevé se traduit souvent par des épisodes infectieux fréquents et une fatigue persistante.",
@@ -333,7 +304,7 @@ const SUGGESTION = {
   sommeil:"La qualité du sommeil impacte tout le reste. Un ajustement des rythmes de vie et la Réflexologie palmaire peuvent apporter un réconfort immédiat."
 };
 
-// ── Version A : Nourrisson / Jeune enfant (0-5 ans) ──
+// Version A : Nourrisson / Jeune enfant (0-5 ans)
 const QA = [
   {id:'a-som1',petale:'sommeil',texte:"Comment votre enfant s'endort-il le soir ?",
     options:[{t:"Facilement, en moins de 20 minutes",v:0},{t:"Un peu de temps mais sans difficulté majeure",v:1},{t:"Difficile : pleurs, besoin de votre présence prolongée",v:2},{t:"Très difficile : rituels longs ou grande résistance",v:3}]},
@@ -342,9 +313,9 @@ const QA = [
   {id:'a-som3',petale:'sommeil',texte:"La durée totale du sommeil vous semble-t-elle adaptée à son âge ?",
     options:[{t:"Oui, il dort suffisamment",v:0},{t:"En dessous parfois, mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolent en journée",v:2},{t:"Nettement insuffisante : épuisement visible",v:3}]},
   {id:'a-som4',petale:'sommeil',texte:"Comment est son humeur au réveil ?",
-    options:[{t:"Souriant, éveillé, prêt à jouer",v:0},{t:"Un peu grincheux mais ça passe vite",v:1},{t:"Souvent de mauvaise humeur le matin",v:2},{t:"Épuisé ou inconsolable au réveil",v:3}]},
+    options:[{t:"Souriant, éveillé, prêt à jouer",v:0},{t:"Un peu grincheux mais ça passe vite",v:1},{t:"Souvent de mauvaise humeur le matin",v:2},{t:"Epuisé ou inconsolable au réveil",v:3}]},
   {id:'a-ecl1',petale:'eclat',texte:"Comment est l'état de sa peau ?",
-    options:[{t:"Peau douce et nette, sans imperfection",v:0},{t:"Quelques petites rougeurs ou sécheresse localisée",v:1},{t:"Rougeurs fréquentes ou peau réactive",v:2},{t:"Éruptions fréquentes ou peau très réactive",v:3}]},
+    options:[{t:"Peau douce et nette, sans imperfection",v:0},{t:"Quelques petites rougeurs ou sécheresse localisée",v:1},{t:"Rougeurs fréquentes ou peau réactive",v:2},{t:"Eruptions fréquentes ou peau très réactive",v:3}]},
   {id:'a-ecl2',petale:'eclat',texte:"Comment se passent ses selles au quotidien ?",
     options:[{t:"Régulières, bien formées, sans inconfort",v:0},{t:"Quelques irrégularités sans vraie gêne",v:1},{t:"Transit irrégulier : selles dures ou molles fréquemment",v:2},{t:"Très perturbé causant une gêne visible",v:3}]},
   {id:'a-ecl3',petale:'eclat',texte:"Observez-vous des tensions digestives (ballonnements, gaz, douleurs de ventre) ?",
@@ -372,19 +343,19 @@ const QA = [
   {id:'a-conf2',petale:'confiance',texte:"Comment vit-il les séparations (crèche, assistante maternelle, chez les grands-parents) ?",
     options:[{t:"Bien : peu ou pas d'angoisse",v:0},{t:"Quelques larmes au début mais s'apaise vite",v:1},{t:"Séparations très difficiles, pleurs prolongés",v:2},{t:"Impossible de le laisser sans crise importante",v:3}]},
   {id:'a-conf3',petale:'confiance',texte:"Comment se comporte-t-il avec les autres enfants ?",
-    options:[{t:"Spontané, joue facilement avec les autres",v:0},{t:"Observe d'abord mais s'intègre",v:1},{t:"Difficultés à interagir, reste souvent seul",v:2},{t:"Évite les autres ou réactions très intenses",v:3}]},
+    options:[{t:"Spontané, joue facilement avec les autres",v:0},{t:"Observe d'abord mais s'intègre",v:1},{t:"Difficultés à interagir, reste souvent seul",v:2},{t:"Evite les autres ou réactions très intenses",v:3}]},
   {id:'a-conf4',petale:'confiance',texte:"Son développement et sa motricité vous semblent-ils harmonieux pour son âge ?",
     options:[{t:"Oui, bien adapté à son âge",v:0},{t:"Quelques petits décalages dans la normale",v:1},{t:"Certaines acquisitions en retard, maladresse marquée",v:2},{t:"Difficultés notables dans plusieurs domaines",v:3}]}
 ];
 
-// ── Version B : Enfant / Ado (6-17 ans) ──
+// Version B : Enfant / Ado (6-17 ans)
 const QB = [
   {id:'b-som1',petale:'sommeil',texte:"Comment se passent les nuits de votre enfant ?",
     options:[{t:"Il s'endort vite et dort d'une traite toute la nuit",v:0},{t:"L'endormissement prend un peu de temps, mais le sommeil est correct",v:1},{t:"Réveil difficile le matin, il lui faut beaucoup de temps pour émerger",v:2},{t:"Sommeil très agité : réveils multiples ou cauchemars fréquents",v:3}]},
   {id:'b-som2',petale:'sommeil',texte:"Au réveil, quel est son niveau d'énergie ?",
     options:[{t:"Il se lève seul, de bonne humeur, prêt pour la journée",v:0},{t:"Il a besoin d'un petit temps de mise en route mais ça va",v:1},{t:"Il est souvent fatigué même après une nuit complète",v:2},{t:"Il est épuisé au réveil, impossible de le lever sans conflit",v:3}]},
   {id:'b-som3',petale:'sommeil',texte:"Observe-t-on des rituels perturbés autour du coucher ?",
-    options:[{t:"Non, il a un rythme régulier et apaisé",v:0},{t:"Écrans le soir ou coucher un peu tardif, mais ça se gère",v:1},{t:"Il repousse le coucher, a peur du noir ou demande votre présence",v:2},{t:"Le coucher est une source de tension quotidienne",v:3}]},
+    options:[{t:"Non, il a un rythme régulier et apaisé",v:0},{t:"Ecrans le soir ou coucher un peu tardif, mais ça se gère",v:1},{t:"Il repousse le coucher, a peur du noir ou demande votre présence",v:2},{t:"Le coucher est une source de tension quotidienne",v:3}]},
   {id:'b-som4',petale:'sommeil',texte:"La durée de son sommeil est-elle adaptée à son âge ?",
     options:[{t:"Oui, il dort ses heures recommandées",v:0},{t:"Parfois un peu court mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolent en classe",v:2},{t:"Nettement insuffisant : épuisement visible toute la journée",v:3}]},
   {id:'b-ecl1',petale:'eclat',texte:"Comment est l'état de sa peau actuellement ?",
@@ -394,7 +365,7 @@ const QB = [
   {id:'b-ecl3',petale:'eclat',texte:"Remarquez-vous des signes de surcharge (teint, haleine, langue) ?",
     options:[{t:"Teint frais, aucun signe particulier",v:0},{t:"Teint un peu terne par moments, cernes légères",v:1},{t:"Teint brouillé, langue chargée le matin ou mauvaise haleine fréquente",v:2},{t:"Plusieurs signes combinés : teint gris, transpiration forte",v:3}]},
   {id:'b-ecl4',petale:'eclat',texte:"Son niveau d'énergie en journée est-il constant ?",
-    options:[{t:"Oui, énergie stable tout au long de la journée",v:0},{t:"Quelques coups de mou après les repas, mais ça va",v:1},{t:"Fatigue récurrente, difficultés de concentration",v:2},{t:"Épuisement quasi permanent, difficultés à tenir une journée",v:3}]},
+    options:[{t:"Oui, énergie stable tout au long de la journée",v:0},{t:"Quelques coups de mou après les repas, mais ça va",v:1},{t:"Fatigue récurrente, difficultés de concentration",v:2},{t:"Epuisement quasi permanent, difficultés à tenir une journée",v:3}]},
   {id:'b-ser1',petale:'serenite',texte:"Comment réagit-il face à une situation stressante (contrôle, conflit, rentrée) ?",
     options:[{t:"Il gère bien, reste calme et s'adapte rapidement",v:0},{t:"Un peu d'appréhension au début, mais ça passe",v:1},{t:"Inquiet avant les évaluations, signes physiques visibles (maux de ventre, agitation)",v:2},{t:"Blocage complet ou évitement systématique",v:3}]},
   {id:'b-ser2',petale:'serenite',texte:"Comment gère-t-il ses émotions au quotidien ?",
@@ -421,14 +392,14 @@ const QB = [
     options:[{t:"Motivé et curieux, il aime apprendre",v:0},{t:"Quelques matières difficiles mais globalement engagé",v:1},{t:"Démotivé ou grandes difficultés de concentration",v:2},{t:"Refus scolaire, très grandes difficultés ou décrochage",v:3}]}
 ];
 
-// ── Version C : Adulte (18 ans et +) ──
+// Version C : Adulte (18 ans et +)
 const QC = [
   {id:'c-som1',petale:'sommeil',texte:"Comment se passent vos nuits en général ?",
     options:[{t:"Vous vous endormez facilement et dormez bien",v:0},{t:"L'endormissement prend un peu de temps mais c'est correct",v:1},{t:"Nuits entrecoupées ou difficultés d'endormissement régulières",v:2},{t:"Sommeil très perturbé : insomnies ou réveils multiples",v:3}]},
   {id:'c-som2',petale:'sommeil',texte:"Comment vous sentez-vous au réveil ?",
-    options:[{t:"En forme, prêt à démarrer la journée",v:0},{t:"Un peu de temps pour vous mettre en route, mais ça va",v:1},{t:"Encore fatigué après une nuit complète",v:2},{t:"Épuisé dès le réveil, difficile de fonctionner normalement",v:3}]},
+    options:[{t:"En forme, prêt à démarrer la journée",v:0},{t:"Un peu de temps pour vous mettre en route, mais ça va",v:1},{t:"Encore fatigué après une nuit complète",v:2},{t:"Epuisé dès le réveil, difficile de fonctionner normalement",v:3}]},
   {id:'c-som3',petale:'sommeil',texte:"Vos rituels autour du coucher sont-ils équilibrés ?",
-    options:[{t:"Oui, vous vous endormez facilement à heure régulière",v:0},{t:"Écrans le soir ou coucher tardif parfois, mais ça se gère",v:1},{t:"Vous repoussez l'heure du coucher ou avez du mal à décrocher",v:2},{t:"Le coucher est une source d'anxiété ou de tension quotidienne",v:3}]},
+    options:[{t:"Oui, vous vous endormez facilement à heure régulière",v:0},{t:"Ecrans le soir ou coucher tardif parfois, mais ça se gère",v:1},{t:"Vous repoussez l'heure du coucher ou avez du mal à décrocher",v:2},{t:"Le coucher est une source d'anxiété ou de tension quotidienne",v:3}]},
   {id:'c-som4',petale:'sommeil',texte:"La durée de votre sommeil est-elle suffisante ?",
     options:[{t:"Oui, vous dormez suffisamment sans problème",v:0},{t:"Parfois un peu court mais sans impact notable",v:1},{t:"Souvent en manque de sommeil, somnolence en journée",v:2},{t:"Nettement insuffisant : épuisement visible tout au long de la journée",v:3}]},
   {id:'c-ecl1',petale:'eclat',texte:"Comment est l'état de votre peau en ce moment ?",
@@ -438,7 +409,7 @@ const QC = [
   {id:'c-ecl3',petale:'eclat',texte:"Remarquez-vous des signes de surcharge (teint, haleine, langue chargée) ?",
     options:[{t:"Teint frais, aucun signe particulier",v:0},{t:"Teint un peu terne par moments, cernes légères",v:1},{t:"Teint brouillé, langue chargée le matin ou mauvaise haleine fréquente",v:2},{t:"Plusieurs signes combinés : teint gris, transpiration forte",v:3}]},
   {id:'c-ecl4',petale:'eclat',texte:"Votre niveau d'énergie est-il constant tout au long de la journée ?",
-    options:[{t:"Oui, énergie stable",v:0},{t:"Quelques coups de fatigue après les repas mais ça va",v:1},{t:"Fatigue récurrente, difficultés de concentration en milieu d'après-midi",v:2},{t:"Épuisement quasi permanent tout au long de la journée",v:3}]},
+    options:[{t:"Oui, énergie stable",v:0},{t:"Quelques coups de fatigue après les repas mais ça va",v:1},{t:"Fatigue récurrente, difficultés de concentration en milieu d'après-midi",v:2},{t:"Epuisement quasi permanent tout au long de la journée",v:3}]},
   {id:'c-ser1',petale:'serenite',texte:"Comment réagissez-vous face à une situation stressante (échéance, conflit, changement) ?",
     options:[{t:"Vous gérez bien, vous restez calme et vous vous adaptez",v:0},{t:"Un peu d'appréhension au début, mais ça passe",v:1},{t:"Vous vous sentez anxieux avant les événements, signes physiques visibles",v:2},{t:"Blocage ou évitement systématique",v:3}]},
   {id:'c-ser2',petale:'serenite',texte:"Comment gérez-vous vos émotions au quotidien ?",
@@ -460,19 +431,19 @@ const QC = [
   {id:'c-conf2',petale:'confiance',texte:"Comment vous sentez-vous dans vos relations avec les autres ?",
     options:[{t:"Vous avez de bonnes relations et vous vous sentez bien",v:0},{t:"Globalement à l'aise, avec quelques hauts et bas normaux",v:1},{t:"Vous vous sentez souvent à l'écart, ou pas à votre place",v:2},{t:"Isolement marqué ou évitement des interactions",v:3}]},
   {id:'c-conf3',petale:'confiance',texte:"Comment vous situez-vous dans votre rapport à votre corps et à votre image ?",
-    options:[{t:"À l'aise, vous n'y pensez pas particulièrement",v:0},{t:"Quelques remarques sur votre apparence, mais rien d'envahissant",v:1},{t:"Complexes visibles, vous vous comparez souvent ou vous vous dévalorisez",v:2},{t:"Mal-être corporel marqué qui impacte votre quotidien",v:3}]},
+    options:[{t:"A l'aise, vous n'y pensez pas particulièrement",v:0},{t:"Quelques remarques sur votre apparence, mais rien d'envahissant",v:1},{t:"Complexes visibles, vous vous comparez souvent ou vous vous dévalorisez",v:2},{t:"Mal-être corporel marqué qui impacte votre quotidien",v:3}]},
   {id:'c-conf4',petale:'confiance',texte:"Comment qualifieriez-vous votre niveau d'épanouissement dans votre vie en ce moment ?",
     options:[{t:"Globalement épanoui et en accord avec vous-même",v:0},{t:"Quelques zones d'insatisfaction normales",v:1},{t:"Manque de sens ou d'élan régulier, difficulté à vous projeter",v:2},{t:"Sentiment profond d'être hors de votre trajectoire",v:3}]}
 ];
 
-// ── Détection de version selon l'âge ──
+// Détection de version selon l'âge
 function getVersion(age){
   if(age==='A') return 'A';
   if(age==='C') return 'C';
   return 'B';
 }
 
-// ── Élision ──
+// Elision
 function elision(p){
   if(!p) return "de ";
   const c=p.charAt(0).toLowerCase();
@@ -485,7 +456,7 @@ let QUESTIONS=[];
 let activeTooltipPetal=null;
 let state={childName:'',childAge:'',version:'B',clientEmail:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};
 
-// ── Démarrage du bilan ──
+// Démarrage du bilan
 function startAudit(){
   const n=document.getElementById('childName').value.trim();
   if(!n){document.getElementById('childName').style.borderColor='#D4786A';document.getElementById('childName').focus();return;}
@@ -500,39 +471,36 @@ function startAudit(){
 
 function renderQuestion(){
   const q=QUESTIONS[state.currentQ],total=QUESTIONS.length,petal=PETALS[q.petale];
-  document.getElementById('progressStep').textContent=`Question ${state.currentQ+1} / ${total}`;
-  document.getElementById('progressCat').innerHTML=`<span class="progress-cat-badge" style="background:${petal.bg}">${petal.icone} ${petal.label}</span>`;
+  document.getElementById('progressStep').textContent='Question '+(state.currentQ+1)+' / '+total;
+  document.getElementById('progressCat').innerHTML='<span class="progress-cat-badge" style="background:'+petal.bg+'">'+petal.icone+' '+petal.label+'</span>';
   document.getElementById('progressFill').style.width=(state.currentQ/total*100)+'%';
   // Mise à jour des dots pétales
   Object.keys(PETALS).forEach(k=>{
     const dot=document.getElementById('pd-'+k);if(!dot)return;
     const lastIdx=QUESTIONS.map(x=>x.petale).lastIndexOf(k);
     const isDone=lastIdx<state.currentQ,isActive=q.petale===k;
-    dot.className=`pdot${isDone?' done':''}${isActive?' active':''}`;
+    dot.className='pdot'+(isDone?' done':'')+(isActive?' active':'');
     dot.style.background=(isDone||isActive)?PETALS[k].bg:'';
   });
   const sel=state.answers[q.id];
-  document.getElementById('questionContainer').innerHTML=`
-    <div class="question-card slide-enter petale-${q.petale}">
-      <div class="question-petal-badge">${petal.icone} ${petal.label}</div>
-      <div class="question-text">${q.texte}</div>
-      <div class="options-list">
-        ${q.options.map((o,i)=>`<div class="option-item ${sel===i?'selected':''}" onclick="selectOption(${i})">
-          <div class="option-radio"></div>
-          <span class="option-text">${o.t}</span>
-        </div>`).join('')}
-      </div>
-      <div class="question-nav">
-        ${state.currentQ>0?'<button class="btn btn-secondary" onclick="prevQ()">← Précédent</button>':'<div></div>'}
-        <button class="btn btn-primary" onclick="nextQ()" ${sel===undefined?'style="opacity:.4;pointer-events:none"':''}>${state.currentQ===total-1?'Voir les résultats 🌿':'Suivant →'}</button>
-      </div>
-    </div>`;
+  document.getElementById('questionContainer').innerHTML=
+    '<div class="question-card slide-enter petale-'+q.petale+'">' +
+      '<div class="question-petal-badge">'+petal.icone+' '+petal.label+'</div>' +
+      '<div class="question-text">'+q.texte+'</div>' +
+      '<div class="options-list">' +
+        q.options.map(function(o,i){return '<div class="option-item '+(sel===i?'selected':'')+'" onclick="selectOption('+i+')"><div class="option-radio"></div><span class="option-text">'+o.t+'</span></div>';}).join('') +
+      '</div>' +
+      '<div class="question-nav">' +
+        (state.currentQ>0?'<button class="btn btn-s btn-secondary" onclick="prevQ()">Précédent</button>':'<div></div>') +
+        '<button class="btn btn-p btn-primary" onclick="nextQ()" '+(sel===undefined?'style="opacity:.4;pointer-events:none"':'')+'>'+(state.currentQ===total-1?'Voir les résultats':'Suivant')+'</button>' +
+      '</div>' +
+    '</div>';
 }
 function selectOption(i){state.answers[QUESTIONS[state.currentQ].id]=i;renderQuestion();}
 function prevQ(){if(state.currentQ>0){state.currentQ--;renderQuestion();}}
 function nextQ(){if(state.answers[QUESTIONS[state.currentQ].id]===undefined)return;if(state.currentQ<QUESTIONS.length-1){state.currentQ++;renderQuestion();}else showResults();}
 
-// ── SCORING: charge par pétale 0-12 (4 questions × 3 max) ──
+// SCORING: charge par pétale 0-12 (4 questions x 3 max)
 function calcCharges(){
   const c={};
   for(const k of Object.keys(PETALS)){
@@ -552,22 +520,22 @@ function showResults(){
   const cx=190,cy=190,keys=['sommeil','eclat','serenite','immunite','confiance'],angs=[-90,-18,54,126,198];
 
   function ppath(a){const r=72,rad=a*Math.PI/180,r1=rad-.49,r2=rad+.49;
-    return`M ${cx+Math.cos(r1)*38} ${cy+Math.sin(r1)*38} Q ${cx+Math.cos(r1)*(60+r*.7)} ${cy+Math.sin(r1)*(60+r*.7)} ${cx+Math.cos(rad)*(82+r)} ${cy+Math.sin(rad)*(82+r)} Q ${cx+Math.cos(r2)*(60+r*.7)} ${cy+Math.sin(r2)*(60+r*.7)} ${cx+Math.cos(r2)*38} ${cy+Math.sin(r2)*38} Z`;}
+    return'M '+( cx+Math.cos(r1)*38)+' '+(cy+Math.sin(r1)*38)+' Q '+(cx+Math.cos(r1)*(60+r*.7))+' '+(cy+Math.sin(r1)*(60+r*.7))+' '+(cx+Math.cos(rad)*(82+r))+' '+(cy+Math.sin(rad)*(82+r))+' Q '+(cx+Math.cos(r2)*(60+r*.7))+' '+(cy+Math.sin(r2)*(60+r*.7))+' '+(cx+Math.cos(r2)*38)+' '+(cy+Math.sin(r2)*38)+' Z';}
 
   let svg='';
-  keys.forEach((k,i)=>{const c=charges[k],p=PETALS[k],a=angs[i],rad=a*Math.PI/180,o=opac(c),isA=c>=8,s=toScore(c);
+  keys.forEach(function(k,i){const c=charges[k],p=PETALS[k],a=angs[i],rad=a*Math.PI/180,o=opac(c),isA=c>=8,s=toScore(c);
     const ld=82+72*.52,lx=cx+Math.cos(rad)*ld,ly=cy+Math.sin(rad)*ld;
     const sd=82+72*.28,sx=cx+Math.cos(rad)*sd,sy=cy+Math.sin(rad)*sd;
-    svg+=`<g class="petal" onclick="showTip('${k}')">
-      <path d="${ppath(a)}" fill="${p.bg}" opacity="${o}"/><path d="${ppath(a)}" class="petal-outline ${isA?'alert':''}"/>
-      <text class="petal-score-label" x="${sx}" y="${sy}">${s}</text>
-      <text class="petal-name-label" x="${lx}" y="${ly}">${p.label}</text></g>`;});
+    svg+='<g class="petal" onclick="showTip(\''+k+'\')">' +
+      '<path d="'+ppath(a)+'" fill="'+p.bg+'" opacity="'+o+'"/><path d="'+ppath(a)+'" class="petal-outline '+(isA?'alert':'')+'"\/>' +
+      '<text class="petal-score-label" x="'+sx+'" y="'+sy+'">'+s+'<\/text>' +
+      '<text class="petal-name-label" x="'+lx+'" y="'+ly+'">'+p.label+'<\/text><\/g>';});
 
-  const gs=Math.round(keys.reduce((s,k)=>s+toScore(charges[k]),0)/5);state._globalScore=gs;
-  const worst=keys.reduce((w,k)=>charges[k]>charges[w]?k:w,keys[0]);state._worstPetal=worst;
-  const alertP=keys.filter(k=>lvl(charges[k])==='alert'),watchP=keys.filter(k=>lvl(charges[k])==='watch');
+  const gs=Math.round(keys.reduce(function(s,k){return s+toScore(charges[k]);},0)/5);state._globalScore=gs;
+  const worst=keys.reduce(function(w,k){return charges[k]>charges[w]?k:w;},keys[0]);state._worstPetal=worst;
+  const alertP=keys.filter(function(k){return lvl(charges[k])==='alert';}),watchP=keys.filter(function(k){return lvl(charges[k])==='watch';});
 
-  // Émonctoires identifiés selon version
+  // Emonctoires identifiés selon version
   const emonctoires=[];
   if(charges.eclat>=8)emonctoires.push('Foie','Peau','Intestins');
   else if(charges.eclat>=4)emonctoires.push('Surcharges légères');
@@ -578,69 +546,71 @@ function showResults(){
   let msg;
   const prn=state.childName;
   if(state.version==='C'){
-    if(!alertP.length&&watchP.length<=1)msg=`Vos résultats sont encourageants, ${prn}. Votre organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser votre vitalité.`;
-    else if(!alertP.length)msg=`Plusieurs axes méritent votre attention, ${prn}. Un accompagnement naturopathique doux permettrait de rééquilibrer votre terrain en profondeur.`;
-    else msg=`Vos résultats, ${prn}, indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément vos déséquilibres et de proposer un programme adapté.`;
+    if(!alertP.length&&watchP.length<=1)msg='Vos résultats sont encourageants, '+prn+'. Votre organisme fonctionne bien dans l\'ensemble. Quelques ajustements ciblés permettraient d\'optimiser votre vitalité.';
+    else if(!alertP.length)msg='Plusieurs axes méritent votre attention, '+prn+'. Un accompagnement naturopathique doux permettrait de rééquilibrer votre terrain en profondeur.';
+    else msg='Vos résultats, '+prn+', indiquent un besoin d\'accompagnement. Un bilan au cabinet permettrait d\'identifier précisément vos déséquilibres et de proposer un programme adapté.';
   } else {
-    if(!alertP.length&&watchP.length<=1)msg=`Les résultats ${el}${prn} sont encourageants. L'organisme fonctionne bien dans l'ensemble. Quelques ajustements ciblés permettraient d'optimiser la vitalité.`;
-    else if(!alertP.length)msg=`Plusieurs axes méritent attention chez ${prn}. Un accompagnement naturopathique doux permettrait de rééquilibrer le terrain en profondeur.`;
-    else msg=`Les résultats ${el}${prn} indiquent un besoin d'accompagnement. Un bilan au cabinet permettrait d'identifier précisément les déséquilibres et de proposer un programme adapté.`;
+    if(!alertP.length&&watchP.length<=1)msg='Les résultats '+el+prn+' sont encourageants. L\'organisme fonctionne bien dans l\'ensemble. Quelques ajustements ciblés permettraient d\'optimiser la vitalité.';
+    else if(!alertP.length)msg='Plusieurs axes méritent attention chez '+prn+'. Un accompagnement naturopathique doux permettrait de rééquilibrer le terrain en profondeur.';
+    else msg='Les résultats '+el+prn+' indiquent un besoin d\'accompagnement. Un bilan au cabinet permettrait d\'identifier précisément les déséquilibres et de proposer un programme adapté.';
   }
 
-  document.getElementById('screen-results').innerHTML=`
-    <div class="results-wrap">
-      <div class="results-header"><h2>Bilan ${el}<em>${state.childName}</em></h2>
-        <div class="results-child-name">${state.childAge||''} · Réalisé le ${new Date().toLocaleDateString('fr-FR')}</div></div>
-      <div class="fleur-section" id="fleurSection">
-        <div class="fleur-label">Résultats du bilan</div>
-        <div class="fleur-container" id="fleurContainer">
-          <svg class="fleur-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" id="fleurSvg">${svg}
-            <circle cx="${cx}" cy="${cy}" r="32" fill="#FAF7F2" stroke="#B5CBB1" stroke-width="2"/>
-            <text x="${cx}" y="${cy-5}" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="500" fill="#1B4D5C">${gs}</text>
-            <text x="${cx}" y="${cy+12}" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#5A6E68" letter-spacing="1.5">VITALITÉ</text></svg>
-          <div class="fleur-tooltip" id="fleurTooltip"></div></div>
-        <p class="fleur-hint">Cliquez sur un pétale pour voir l'analyse et les pistes</p>
-        <p class="fleur-message">${msg}</p></div>
+  document.getElementById('screen-results').innerHTML=
+    '<div class="results-wrap">' +
+      '<div class="results-header"><h2>Bilan '+el+'<em>'+state.childName+'</em></h2>' +
+        '<div class="results-child-name">'+(state.childAge||'')+' · Réalisé le '+new Date().toLocaleDateString('fr-FR')+'</div></div>' +
+      '<div class="fleur-section" id="fleurSection">' +
+        '<div class="fleur-label">Résultats du bilan</div>' +
+        '<div class="fleur-container" id="fleurContainer">' +
+          '<svg class="fleur-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" id="fleurSvg">'+svg+
+            '<circle cx="'+cx+'" cy="'+cy+'" r="32" fill="#FAF7F2" stroke="#B5CBB1" stroke-width="2"\/>' +
+            '<text x="'+cx+'" y="'+(cy-5)+'" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="500" fill="#1B4D5C">'+gs+'<\/text>' +
+            '<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#5A6E68" letter-spacing="1.5">VITALITE<\/text><\/svg>' +
+          '<div class="fleur-tooltip" id="fleurTooltip"><\/div><\/div>' +
+        '<p class="fleur-hint">Cliquez sur un pétale pour voir l\'analyse et les pistes</p>' +
+        '<p class="fleur-message">'+msg+'<\/p><\/div>' +
 
-      ${(alertP.length||watchP.length)?`<div class="alerts-section"><div class="alerts-title">🌿 Analyse et pistes</div>
-        ${keys.sort((a,b)=>charges[b]-charges[a]).map(k=>{const c=charges[k],p=PETALS[k],l=lvl(c),s=toScore(c);
-          const st=l==='good'?'En équilibre':l==='watch'?'À accompagner':"Zone d'attention";
+      (alertP.length||watchP.length?'<div class="alerts-section"><div class="alerts-title">Analyse et pistes<\/div>' +
+        keys.sort(function(a,b){return charges[b]-charges[a];}).map(function(k){const c=charges[k],p=PETALS[k],l=lvl(c),s=toScore(c);
+          const st=l==='good'?'En équilibre':l==='watch'?'A accompagner':"Zone d'attention";
           const adv=l==='good'?'Maintenir les bonnes habitudes en place.':SUGGESTION[k];
-          return`<div class="alert-item level-${l}"><div class="alert-dot"></div><div class="alert-text">
-            <h4>${p.icone} ${p.label} · ${s}/100 · ${st}</h4><p>${adv}</p></div></div>`;}).join('')}</div>`:''}
+          return'<div class="alert-item level-'+l+'"><div class="alert-dot"><\/div><div class="alert-text">' +
+            '<h4>'+p.icone+' '+p.label+' · '+s+'/100 · '+st+'<\/h4><p>'+adv+'<\/p><\/div><\/div>';}).join('')+'<\/div>':'') +
 
-      ${(alertP.length||watchP.length)?`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--bp),#2E7D7A)"><h3>🌿 Prochaine étape</h3>
-        <p>${state.version==='C'?`Vos résultats indiquent des axes à rééquilibrer, ${prn}. Un premier échange au cabinet permettrait de mieux comprendre d'où viennent ces déséquilibres et de co-construire un programme adapté.`:`Les résultats ${el}${prn} indiquent des axes à rééquilibrer. Un premier échange au cabinet permettrait de mieux comprendre d'où viennent ces déséquilibres et de proposer un programme adapté.`}</p>
-        <button class="btn btn-gold" onclick="window.location='/contact'">${ctaLabel}</button></div>`:`<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>🌿 Bilan encourageant</h3>
-        <p>${state.version==='C'?`Votre bilan montre un bel équilibre global, ${prn}. Un suivi naturopathique léger permettrait de consolider cette dynamique.`:`${prn} montre un bel équilibre global. Un suivi naturopathique léger permettrait de consolider cette dynamique.`}</p>
-        <button class="btn btn-gold" onclick="window.location='/contact'">${ctaLabel}</button></div>`}
+      (alertP.length||watchP.length?
+        '<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--bp),#2E7D7A)"><h3>Prochaine étape</h3>' +
+        '<p>'+(state.version==='C'?'Vos résultats indiquent des axes à rééquilibrer, '+prn+'. Un premier échange au cabinet permettrait de mieux comprendre d\'où viennent ces déséquilibres et de co-construire un programme adapté.':'Les résultats '+el+prn+' indiquent des axes à rééquilibrer. Un premier échange au cabinet permettrait de mieux comprendre d\'où viennent ces déséquilibres et de proposer un programme adapté.')+'<\/p>' +
+        '<button class="btn btn-s btn-gold" onclick="window.location=\'/contact\'">'+ctaLabel+'<\/button><\/div>' :
+        '<div class="oligo-suggestion" style="background:linear-gradient(135deg,var(--vs),#4A6F45)"><h3>Bilan encourageant<\/h3>' +
+        '<p>'+(state.version==='C'?'Votre bilan montre un bel équilibre global, '+prn+'. Un suivi naturopathique léger permettrait de consolider cette dynamique.':prn+' montre un bel équilibre global. Un suivi naturopathique léger permettrait de consolider cette dynamique.')+'<\/p>' +
+        '<button class="btn btn-s btn-gold" onclick="window.location=\'/contact\'">'+ctaLabel+'<\/button><\/div>') +
 
-      <div class="results-cta">
-        <div class="contact-mini-form">
-          <div class="form-row-two">
-            <input type="text" id="resultPrenom" placeholder="Prénom *" />
-            <input type="text" id="resultNom" placeholder="Nom *" />
-          </div>
-          <input type="email" id="resultEmail" placeholder="Email *" />
-        </div>
-        <div class="btn-row">
-          <button class="btn btn-primary" onclick="generatePDF()">📧 Recevoir ma synthèse par mail</button>
-          <button class="btn btn-secondary" onclick="resetAudit()">🔄 Refaire le bilan</button>
-        </div>
-        <p style="margin-top:16px;font-size:.8rem;color:var(--tx-l);text-align:center"><strong>Information importante :</strong> Ces résultats donnent une première orientation de bien-être et de prévention. Ils ne constituent ni un diagnostic, ni un traitement médical, et ne se substituent en aucun cas à un avis ou un suivi médical. En cas de symptôme aigu, persistant ou inhabituel, consultez votre médecin traitant ou votre pédiatre.</p>
-      </div>
-    </div>`;
+      '<div class="results-cta">' +
+        '<div class="contact-mini-form">' +
+          '<div class="form-row-two">' +
+            '<input type="text" id="resultPrenom" placeholder="Prénom *" \/>' +
+            '<input type="text" id="resultNom" placeholder="Nom *" \/>' +
+          '<\/div>' +
+          '<input type="email" id="resultEmail" placeholder="Email *" \/>' +
+        '<\/div>' +
+        '<div class="btn-row">' +
+          '<button class="btn btn-s btn-secondary" onclick="generatePDF()">Recevoir ma synthèse par mail<\/button>' +
+          '<button class="btn btn-secondary" onclick="resetAudit()">Refaire le bilan<\/button>' +
+        '<\/div>' +
+        '<p style="margin-top:16px;font-size:.8rem;color:var(--tx-l);text-align:center"><strong>Information importante :<\/strong> Ces résultats donnent une première orientation de bien-être et de prévention. Ils ne constituent ni un diagnostic, ni un avis médical, et ne se substituent en aucun cas à un suivi médical. En cas de symptôme aigu, persistant ou inhabituel, consultez votre médecin traitant ou votre pédiatre.<\/p>' +
+      '<\/div>' +
+    '<\/div>';
 
-  requestAnimationFrame(()=>{setTimeout(()=>{document.querySelectorAll('.petal').forEach((p,i)=>{p.style.opacity='0';p.style.transition='opacity .8s ease '+(i*.15)+'s';requestAnimationFrame(()=>{p.style.opacity='1';});});},200);});
+  requestAnimationFrame(function(){setTimeout(function(){document.querySelectorAll('.petal').forEach(function(p,i){p.style.opacity='0';p.style.transition='opacity .8s ease '+(i*.15)+'s';requestAnimationFrame(function(){p.style.opacity='1';});});},200);});
 
   // Auto-create CRM data object for interconnection
   window.__auditResult = {
     childName:state.childName, childAge:state.childAge, clientEmail:state.clientEmail, date:new Date().toISOString(),
     charges, globalScore:gs, worstPetal:worst,
-    zones: keys.filter(k=>lvl(charges[k])!=='good').map(k=>({petale:k,charge:charges[k],level:lvl(charges[k])})),
+    zones: keys.filter(function(k){return lvl(charges[k])!=='good';}).map(function(k){return{petale:k,charge:charges[k],level:lvl(charges[k])};;}),
     emonctoires, version:state.version
   };
-  fetch('/api/audit-result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window.__auditResult)}).catch(()=>{});
+  fetch('/api/audit-result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window.__auditResult)}).catch(function(){});
 }
 
 function showTip(k){
@@ -649,16 +619,16 @@ function showTip(k){
   activeTooltipPetal=k;const p=PETALS[k],c=state._charges[k],s=toScore(c),l=lvl(c);
   const lc=l==='good'?'var(--ok)':l==='watch'?'var(--do)':'var(--al)';
   const adv=l==='good'?'Bon équilibre. Maintenir les habitudes en place.':(SUGGESTION[k]);
-  tt.innerHTML=`<div class="tooltip-header"><div class="tooltip-icon" style="background:${p.bg}20">${p.icone}</div>
-    <div class="tooltip-name">${p.label}</div><div class="tooltip-score" style="color:${lc}">${s}/100</div></div>
-    <div class="tooltip-desc">${p.description}</div>
-    <div class="tooltip-solutions"><strong>Pistes :</strong> ${p.solutions}</div>
-    <div class="tooltip-advice ${l}">${adv}</div>`;
+  tt.innerHTML='<div class="tooltip-header"><div class="tooltip-icon" style="background:'+p.bg+'20">'+p.icone+'<\/div>' +
+    '<div class="tooltip-name">'+p.label+'<\/div><div class="tooltip-score" style="color:'+lc+'">'+s+'/100<\/div><\/div>' +
+    '<div class="tooltip-desc">'+p.description+'<\/div>' +
+    '<div class="tooltip-solutions"><strong>Pistes :<\/strong> '+p.solutions+'<\/div>' +
+    '<div class="tooltip-advice '+l+'">'+adv+'<\/div>';
   tt.classList.add('visible');
 }
-document.addEventListener('click',e=>{if(!e.target.closest('.petal')&&!e.target.closest('.fleur-tooltip')){const t=document.getElementById('fleurTooltip');if(t){t.classList.remove('visible');activeTooltipPetal=null;}}});
+document.addEventListener('click',function(e){if(!e.target.closest('.petal')&&!e.target.closest('.fleur-tooltip')){const t=document.getElementById('fleurTooltip');if(t){t.classList.remove('visible');activeTooltipPetal=null;}}});
 
-// ═══ PDF — Format A4 Pro 2 pages ═══
+// PDF -- Format A4 Pro 2 pages
 function generatePDF(){
   if(!window.jspdf){alert('La bibliothèque PDF est en cours de chargement. Réessayez dans quelques secondes.');return;}
   const{jsPDF}=window.jspdf;
@@ -674,9 +644,9 @@ function generatePDF(){
 
   const el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
   const keys=['sommeil','eclat','serenite','immunite','confiance'];
-  const prenom=document.getElementById('resultPrenom')?.value.trim()||'';
-  const nom=document.getElementById('resultNom')?.value.trim()||'';
-  const clientEmail=document.getElementById('resultEmail')?.value.trim()||'';
+  const prenom=document.getElementById('resultPrenom')&&document.getElementById('resultPrenom').value.trim()||'';
+  const nom=document.getElementById('resultNom')&&document.getElementById('resultNom').value.trim()||'';
+  const clientEmail=document.getElementById('resultEmail')&&document.getElementById('resultEmail').value.trim()||'';
   window.__auditResult.clientEmail=clientEmail;
 
   if(!prenom||!nom||!clientEmail){
@@ -691,60 +661,57 @@ function generatePDF(){
   function pcol(c){const l=lvl(c);return l==='good'?{f:BPD,b:null}:l==='watch'?{f:VS,b:null}:{f:VSP,b:DO};}
   function ps3(c){return c<=3?3:c<=7?2:c<=10?1:0;}
 
-  // ═══════════════ PAGE 1 : EN-TÊTE + FLEUR + AXE PRIORITAIRE ═══════════════
+  // PAGE 1 : EN-TETE + FLEUR + AXE PRIORITAIRE
 
   // 1. BANDEAU HEADER (bleu pétrole sombre, 40mm)
   doc.setFillColor(...BPD);doc.rect(0,0,W,40,'F');
   doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,37,W-MX,37);
 
   doc.setFont('times','bold');doc.setFontSize(19);doc.setTextColor(...CR);
-  doc.text('Horizon & Équilibre',MX,17);
+  doc.text('Horizon & Equilibre',MX,17);
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...DO);
   doc.text('Naturopathie · Réflexologie · Fleurs de Bach',MX,25);
   doc.setTextColor(170,205,205);doc.setFontSize(7.5);
   doc.text(new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}),W-MX,17,{align:'right'});
 
-  // 2. TITRE + NOM (espace blanc avant la fleur)
+  // 2. TITRE + NOM
   doc.setFont('times','italic');doc.setFontSize(22);doc.setTextColor(...BP);
   doc.text('Bilan Horizon Santé',W/2,52,{align:'center'});
   doc.setFont('times','normal');doc.setFontSize(12);doc.setTextColor(...TL);
-  doc.text(`Bilan ${el}${state.childName}${state.childAge?' · '+state.childAge:''}`,W/2,62,{align:'center'});
+  doc.text('Bilan '+el+state.childName+(state.childAge?' · '+state.childAge:''),W/2,62,{align:'center'});
   doc.setDrawColor(...DOL);doc.setLineWidth(0.4);doc.line(W/2-22,66,W/2+22,66);
-  // → espace blanc 66→77mm avant la fleur
 
-  // 3. FLEUR DE VITALITÉ — centre fcy=113
+  // 3. FLEUR DE VITALITE
   const fcx=W/2,fcy=113,D=22,R=13;
-  const angs=[-90,-18,54,126,198];
+  const angs2=[-90,-18,54,126,198];
 
-  keys.forEach((k,i)=>{
-    const c=ch[k],a=angs[i]*Math.PI/180;
+  keys.forEach(function(k,i){
+    const c=ch[k],a=angs2[i]*Math.PI/180;
     const px=fcx+Math.cos(a)*D,py=fcy+Math.sin(a)*D;
-    const{f,b}=pcol(c);
-    doc.setFillColor(...f);doc.circle(px,py,R,'F');
-    if(b){doc.setDrawColor(...b);doc.setLineWidth(1.3);doc.circle(px,py,R,'S');}
-    // Score 0-3 affiché dans le pétale
+    const col=pcol(c);
+    doc.setFillColor(...col.f);doc.circle(px,py,R,'F');
+    if(col.b){doc.setDrawColor(...col.b);doc.setLineWidth(1.3);doc.circle(px,py,R,'S');}
     doc.setFont('helvetica','bold');doc.setFontSize(12);
-    doc.setTextColor(...(f===VSP?BP:[255,255,255]));
+    doc.setTextColor(...(col.f===VSP?BP:[255,255,255]));
     doc.text(String(ps3(c)),px,py+1.5,{align:'center'});
-    // Label pétale (extérieur)
     const ld=D+R+7,lx=fcx+Math.cos(a)*ld,ly=fcy+Math.sin(a)*ld;
     doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...TX);
     doc.text(PETALS[k].label.toUpperCase(),lx,ly,{align:'center'});
   });
 
-  // Centre de la fleur (score global)
+  // Centre de la fleur
   doc.setFillColor(...CR);doc.setDrawColor(...VSL);doc.setLineWidth(0.5);doc.circle(fcx,fcy,9,'FD');
   doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text(String(gs),fcx,fcy+1,{align:'center'});
-  doc.setFontSize(5);doc.setTextColor(...TL);doc.text('VITALITÉ',fcx,fcy+5.5,{align:'center'});
+  doc.setFontSize(5);doc.setTextColor(...TL);doc.text('VITALITE',fcx,fcy+5.5,{align:'center'});
 
-  // 4. LÉGENDE QUALITATIVE (sous la fleur)
-  const legY=fcy+D+R+14; // ≈ 162mm
+  // 4. LEGENDE QUALITATIVE
+  const legY=fcy+D+R+14;
   const legItems=[
     {c:BPD,b:null,t:'Bleu Sombre = Force'},
     {c:VS,b:null,t:'Sauge = Attention douce'},
-    {c:VSP,b:DO,t:'Sauge Pâle = Vigilance'}
+    {c:VSP,b:DO,t:'Sauge Pale = Vigilance'}
   ];
-  legItems.forEach((item,i)=>{
+  legItems.forEach(function(item,i){
     const lx=W/2-56+i*56;
     doc.setFillColor(...item.c);doc.circle(lx,legY,2.5,'F');
     if(item.b){doc.setDrawColor(...item.b);doc.setLineWidth(0.5);doc.circle(lx,legY,2.5,'S');}
@@ -752,9 +719,8 @@ function generatePDF(){
     doc.text(item.t,lx+5,legY+1);
   });
 
-  // 5. AXE PRIORITAIRE (hauteur dynamique)
+  // 5. AXE PRIORITAIRE
   let y=legY+11;
-  // Fixer la bonne police AVANT splitTextToSize (hérite sinon de 5.8pt de la légende)
   doc.setFont('helvetica','normal');doc.setFontSize(8);
   const descLines=doc.splitTextToSize(wp.description,CW-18);
   doc.setFontSize(7);
@@ -766,28 +732,28 @@ function generatePDF(){
   doc.setFillColor(...CRD);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
   doc.roundedRect(MX,y,CW,boxH,3,3,'FD');
   doc.setFont('times','bold');doc.setFontSize(11);doc.setTextColor(...BP);
-  doc.text(`${wp.label} : Axe prioritaire`,MX+8,y+7);
+  doc.text(wp.label+' : Axe prioritaire',MX+8,y+7);
   doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TX);
   doc.text(descLines,MX+8,y+14);
   doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...DO);
   doc.text(solLines,MX+8,y+14+descH);
 
-  // ═══════════════ PAGE 2 : SYNTHÈSE + TABLEAU + CONCLUSION ═══════════════
+  // PAGE 2 : SYNTHESE + TABLEAU + CONCLUSION
   doc.addPage();
 
   // Mini bandeau page 2
   doc.setFillColor(...BPD);doc.rect(0,0,W,12,'F');
   doc.setFont('helvetica','normal');doc.setFontSize(6.5);
-  doc.setTextColor(...DO);doc.text('Horizon & Équilibre — Arielle de Maistre',MX,8);
+  doc.setTextColor(...DO);doc.text('Horizon & Equilibre -- Arielle de Maistre',MX,8);
   doc.setTextColor(160,190,190);doc.text('2 / 2',W-MX,8,{align:'right'});
 
   y=MY+2;
 
-  // 6. SYNTHÈSE 5 DIMENSIONS DE VITALITÉ
+  // 6. SYNTHESE 5 DIMENSIONS DE VITALITE
   doc.setFont('times','bold');doc.setFontSize(12);doc.setTextColor(...BP);
   doc.text('Synthèse des 5 dimensions de vitalité',MX,y);y+=7;
 
-  keys.forEach(k=>{
+  keys.forEach(function(k){
     const c=ch[k],s=toScore(c),l=lvl(c);
     const bc=l==='good'?BPD:l==='watch'?VS:[212,120,106];
     doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(...TX);
@@ -800,7 +766,7 @@ function generatePDF(){
   });
   y+=10;
 
-  // 7. TABLEAU MON PLAN DE RÉÉQUILIBRAGE (3 colonnes)
+  // 7. TABLEAU MON PROGRAMME DE VITALITE
   doc.setFont('times','bold');doc.setFontSize(13);doc.setTextColor(...BP);
   doc.text('Mon Programme de Vitalité',MX,y);y+=5;
   doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,y,MX+74,y);y+=6;
@@ -810,7 +776,7 @@ function generatePDF(){
   // Lignes du tableau selon résultats
   const terrainRows=[];
   if(ch.eclat>=4)terrainRows.push([
-    'Éclat & Émonctoires',
+    'Eclat & Emonctoires',
     'Surcharges : foie, intestins, peau',
     'Soutien naturopathique des émonctoires · Réflexologie Plantaire'
   ]);
@@ -820,7 +786,7 @@ function generatePDF(){
     'Réflexologie palmaire · Hygiène du coucher'
   ]);
   if(ch.serenite>=4||ch.confiance>=4)terrainRows.push([
-    'Sérénité & Émotions',
+    'Sérénité & Emotions',
     'Système nerveux à accompagner',
     'Fleurs de Bach · Réflexologie crânienne ou faciale'
   ]);
@@ -831,7 +797,7 @@ function generatePDF(){
   ]);
   if(!terrainRows.length)terrainRows.push([
     'Terrain global',
-    'Équilibre global encourageant',
+    'Equilibre global encourageant',
     'Programme de maintien · Bilan de suivi dans 6 mois'
   ]);
 
@@ -839,16 +805,16 @@ function generatePDF(){
   const tcols=[MX,MX+42,MX+95],tcw=[40,51,75];
   const theads=['Pilier de Vitalité','Observation du Terrain','Action Recommandée'];
   doc.setFillColor(...BP);doc.roundedRect(MX,y,CW,9,2,2,'F');
-  theads.forEach((h,i)=>{
+  theads.forEach(function(h,i){
     doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...CR);
     doc.text(h,tcols[i]+2,y+6);
   });
   y+=9;
 
   // Lignes de données (hauteur dynamique)
-  terrainRows.forEach((row,ri)=>{
-    const rowLines=row.map((cell,i)=>doc.splitTextToSize(cell,tcw[i]-4));
-    const maxL=Math.max(...rowLines.map(l=>l.length));
+  terrainRows.forEach(function(row,ri){
+    const rowLines=row.map(function(cell,i){return doc.splitTextToSize(cell,tcw[i]-4);});
+    const maxL=Math.max(...rowLines.map(function(l){return l.length;}));
     const rh=Math.max(14,maxL*4.5+5);
     doc.setFillColor(...(ri%2===0?CR:CRD));
     doc.rect(MX,y,CW,rh,'F');
@@ -856,7 +822,7 @@ function generatePDF(){
     doc.setDrawColor(210,205,200);
     doc.line(tcols[1],y,tcols[1],y+rh);
     doc.line(tcols[2],y,tcols[2],y+rh);
-    rowLines.forEach((lines,i)=>{
+    rowLines.forEach(function(lines,i){
       doc.setFont('helvetica',i===0?'bold':'normal');doc.setFontSize(6.5);doc.setTextColor(...TX);
       doc.text(lines,tcols[i]+2,y+5);
     });
@@ -877,7 +843,7 @@ function generatePDF(){
   doc.text('Ils ne constituent pas un diagnostic médical.',W/2,y+19,{align:'center'});
   y+=30;
 
-  // 9. LIGNE DE SIGNATURE (bas droite)
+  // 9. LIGNE DE SIGNATURE
   doc.setDrawColor(...TL);doc.setLineWidth(0.3);
   doc.line(W/2+10,y,W-MX,y);
   doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...TL);
@@ -887,19 +853,19 @@ function generatePDF(){
   const fY=H-MY-18;
   doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,fY,W-MX,fY);
   doc.setFont('times','bold');doc.setFontSize(10);doc.setTextColor(...BP);
-  doc.text('Horizon & Équilibre',MX,fY+7);
+  doc.text('Horizon & Equilibre',MX,fY+7);
   doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
   doc.text('Arielle de Maistre | Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, certifié Qualiopi)',MX,fY+12);
-  doc.text('Cabinet de Sainte-Consorce (69280) · +33 6 51 14 07 26 · arielle.de.maistre@gmail.com',MX,fY+17);
+  doc.text('Cabinet de Sainte-Consorce (69280) · +33 6 51 14 07 26 · contact@horizon-equilibre.fr',MX,fY+17);
   doc.setFillColor(...DO);doc.roundedRect(W-MX-52,fY+4,50,12,3,3,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...BPD);
   doc.text('Prendre rendez-vous',W-MX-27,fY+10.5,{align:'center'});
   doc.setFont('helvetica','normal');doc.setFontSize(5.5);
-  doc.text('flux-equilibre.fr/contact',W-MX-27,fY+15.5,{align:'center'});
+  doc.text('horizon-equilibre.fr/contact',W-MX-27,fY+15.5,{align:'center'});
   doc.setFontSize(5.5);doc.setTextColor(...TL);doc.text('Mentions légales : horizon-equilibre.fr/mentions-legales',W/2,H-10,{align:'center'});
 
   // Sauvegarde PDF
-  const filename=`Bilan_Audit_${state.childName}_${new Date().toISOString().slice(0,10)}.pdf`;
+  const filename='Bilan_Audit_'+state.childName+'_'+new Date().toISOString().slice(0,10)+'.pdf';
   doc.save(filename);
 
   // Envoi email si renseigné
@@ -907,20 +873,20 @@ function generatePDF(){
     const pdfBase64=doc.output('datauristring').split(',')[1];
     const r=window.__auditResult;
     fetch('/api/send-audit-pdf',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({...r,pdfBase64})
-    }).then(res=>res.json()).then(d=>{
+      body:JSON.stringify(Object.assign({},r,{pdfBase64:pdfBase64}))
+    }).then(function(res){return res.json();}).then(function(d){
       if(d.ok&&d.sentToClient&&clientEmail){
-        document.getElementById('screen-results').innerHTML=`
-          <div class="success-screen">
-            <div class="success-icon">🌿</div>
-            <h2>Votre bilan a été envoyé !</h2>
-            <p>Un exemplaire PDF a été transmis à <strong>${clientEmail}</strong>.</p>
-            <p class="success-sub">Arielle de Maistre vous répondra personnellement dans les meilleurs délais.</p>
-            <a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet</a>
-            <button class="btn btn-secondary" onclick="resetAudit()" style="margin-top:12px">🔄 Refaire le bilan</button>
-          </div>`;
+        document.getElementById('screen-results').innerHTML=
+          '<div class="success-screen">' +
+            '<div class="success-icon">🌿<\/div>' +
+            '<h2>Votre bilan a été envoyé !<\/h2>' +
+            '<p>Un exemplaire PDF a été transmis à <strong>'+clientEmail+'<\/strong>.<\/p>' +
+            '<p class="success-sub">Arielle de Maistre vous répondra personnellement dans les meilleurs délais.<\/p>' +
+            '<a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet<\/a>' +
+            '<button class="btn btn-secondary" onclick="resetAudit()" style="margin-top:12px">Refaire le bilan<\/button>' +
+          '<\/div>';
       }
-    }).catch(()=>{});
+    }).catch(function(){});
   }catch(e){}
 }
 
@@ -929,17 +895,17 @@ function resetAudit(){state={childName:'',childAge:'',version:'B',clientEmail:''
   document.getElementById('childName').value='';document.getElementById('childAge').value='';
   document.getElementById('labelChildName').textContent="Prénom de l'enfant";
   window.scrollTo({top:0,behavior:'smooth'});}
-document.getElementById('childAge').addEventListener('change',e=>{
+document.getElementById('childAge').addEventListener('change',function(e){
   const v=getVersion(e.target.value);
   if(v==='C'){document.getElementById('labelChildName').textContent='Votre prénom';document.getElementById('childName').placeholder='Ex : Camille';}
   else if(v==='A'){document.getElementById('labelChildName').textContent='Prénom de votre bébé';document.getElementById('childName').placeholder='Ex : Léa';}
   else{document.getElementById('labelChildName').textContent="Prénom de l'enfant";document.getElementById('childName').placeholder='Ex : Léa';}
 });
-document.addEventListener('keydown',e=>{if(document.getElementById('screen-questions').classList.contains('hidden'))return;
+document.addEventListener('keydown',function(e){if(document.getElementById('screen-questions').classList.contains('hidden'))return;
   if(e.key>='1'&&e.key<='4')selectOption(parseInt(e.key)-1);if(e.key==='Enter')nextQ();if(e.key==='ArrowLeft')prevQ();});
 // Nav mobile
 const mobileToggle=document.querySelector('.nav-mobile-toggle');
-if(mobileToggle){mobileToggle.addEventListener('click',()=>{
+if(mobileToggle){mobileToggle.addEventListener('click',function(){
   const nl=document.querySelector('.nav-list');
   if(nl.style.display==='flex'){nl.style.display='';}
   else{nl.style.cssText='display:flex;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:rgba(250,247,242,0.97);backdrop-filter:blur(20px);padding:16px 32px 24px;gap:16px;box-shadow:0 10px 40px rgba(27,77,92,0.1);z-index:99;';}
