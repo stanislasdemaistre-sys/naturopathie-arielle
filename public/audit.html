@@ -841,14 +841,21 @@ async function generatePDF() {
     const DORE_T    = [127, 97, 40];
     const CREME     = [250, 247, 242];
     const TEXTE     = [44, 62, 58];
-    const TEXTE_L   = [90, 110, 104];
+    const TEXTE_L   = [110, 125, 120];
     const BLANC     = [255, 255, 255];
+    const RED       = [192, 69, 58];
+    // Couleurs cartes (fonds très subtils, quasi-blancs)
     const STATE_COLORS = {
-      equilibre:   { bg: [232, 216, 182], border: [196, 162, 101], label: [127, 97, 40] },
-      soutenir:    { bg: [198, 212, 194], border: [143, 169, 139], label: [60, 90, 60] },
-      accompagner: { bg: [244, 210, 202], border: [192, 69, 58],   label: [192, 69, 58] }
+      equilibre:   { bg: [252, 249, 241], border: [196, 162, 101], label: [127, 97, 40] },
+      soutenir:    { bg: [245, 250, 244], border: [128, 160, 123], label: [55, 88, 55] },
+      accompagner: { bg: [253, 243, 240], border: [192, 69, 58],   label: [192, 69, 58] }
     };
-    const RED = [192, 69, 58];
+    // Couleurs pétales fleur (plus vives que les cartes)
+    const PETAL_COLORS = {
+      equilibre:   { bg: [228, 216, 184], border: [196, 162, 101] },
+      soutenir:    { bg: [196, 220, 190], border: [120, 158, 115] },
+      accompagner: { bg: [242, 204, 196], border: [192, 69, 58] }
+    };
     const STATE_LABELS = { equilibre: 'En équilibre', soutenir: 'À soutenir', accompagner: 'À accompagner' };
     function getLevel(score) {
       if (score >= 80) return 'equilibre';
@@ -914,6 +921,24 @@ async function generatePDF() {
       doc.setFontSize(size);
     }
 
+    // ── drawRotEllipse — ellipse tournée (pétales organiques) ─
+    function drawRotEllipse(cx, cy, a, b, angle, style) {
+      const N = 40;
+      const startX = cx + a * Math.cos(angle);
+      const startY = cy + a * Math.sin(angle);
+      const segs = [];
+      for (let i = 1; i <= N; i++) {
+        const t = (i / N) * 2 * Math.PI;
+        const xN = cx + a * Math.cos(t) * Math.cos(angle) - b * Math.sin(t) * Math.sin(angle);
+        const yN = cy + a * Math.cos(t) * Math.sin(angle) + b * Math.sin(t) * Math.cos(angle);
+        const tP = ((i - 1) / N) * 2 * Math.PI;
+        const xP = cx + a * Math.cos(tP) * Math.cos(angle) - b * Math.sin(tP) * Math.sin(angle);
+        const yP = cy + a * Math.cos(tP) * Math.sin(angle) + b * Math.sin(tP) * Math.cos(angle);
+        segs.push([xN - xP, yN - yP]);
+      }
+      doc.lines(segs, startX, startY, [1, 1], style, true);
+    }
+
     // ── drawHeader ───────────────────────────────────────
     function drawHeader() {
       doc.setFillColor(...PETROLE_D);
@@ -963,8 +988,10 @@ async function generatePDF() {
     function drawFleur(y) {
       const cx = MX + 38;
       const cy = y + 33;
-      const D = 20, rx = 13, ry = 11;
-      const angles = {
+      const D = 18;   // distance centre → centre pétale
+      const a = 14;   // demi-grand axe
+      const b = 9;    // demi-petit axe
+      const petalAngles = {
         sommeil:   -Math.PI / 2,
         eclat:     -Math.PI / 2 + 2 * Math.PI / 5,
         serenite:  -Math.PI / 2 + 4 * Math.PI / 5,
@@ -972,42 +999,38 @@ async function generatePDF() {
         confiance: -Math.PI / 2 + 8 * Math.PI / 5
       };
       KEYS.forEach(function(k) {
-        const a = angles[k];
-        const px = cx + Math.cos(a) * D;
-        const py = cy + Math.sin(a) * D;
+        const angle = petalAngles[k];
+        const px = cx + Math.cos(angle) * D;
+        const py = cy + Math.sin(angle) * D;
         const level = levels[k];
-        const sc = STATE_COLORS[level];
-        doc.setFillColor(...sc.bg);
-        doc.ellipse(px, py, rx, ry, 'F');
-        doc.setDrawColor(...sc.border);
+        const pc = PETAL_COLORS[level];
+        doc.setFillColor(...pc.bg);
+        doc.setDrawColor(...pc.border);
         doc.setLineWidth(level === 'accompagner' ? 1.2 : 0.5);
-        doc.ellipse(px, py, rx, ry, 'S');
+        drawRotEllipse(px, py, a, b, angle, 'FD');
+        // Étiquettes au centre du pétale
         setOutfit(5.5, true);
         doc.setTextColor(...PETROLE);
-        doc.text(PETALS[k].label.toUpperCase(), px, py - 2, { align: 'center' });
+        doc.text(PETALS[k].label.toUpperCase(), px, py - 1.5, { align: 'center' });
         setOutfit(5.5, false);
-        doc.setTextColor(...sc.label);
-        doc.text(STATE_LABELS[level], px, py + 3.5, { align: 'center' });
+        const lblColor = level === 'accompagner' ? RED : (level === 'soutenir' ? [55, 88, 55] : [127, 97, 40]);
+        doc.setTextColor(...lblColor);
+        doc.text(STATE_LABELS[level], px, py + 3, { align: 'center' });
       });
-      // Centre : logo ou cercle décoratif
+      // Centre : logo
       doc.setFillColor(...CREME);
       doc.setDrawColor(...DORE);
       doc.setLineWidth(0.6);
       doc.circle(cx, cy, 8.5, 'FD');
       if (logoB64) {
         try { doc.addImage(logoB64, 'PNG', cx - 6.5, cy - 6.5, 13, 13); } catch(e) {}
-      } else {
-        setCormorant(9);
-        doc.setTextColor(...DORE);
-        doc.text('\u2726', cx, cy + 2, { align: 'center' });
       }
-      const legY = cy + D + ry + 5;
+      const legY = cy + D + a + 4;
       setOutfit(5.8, false);
       doc.setTextColor(...TEXTE_L);
-      doc.text('Plus un pétale est doré,', MX, legY, { maxWidth: 74 });
-      doc.text('plus cet aspect est en équilibre.', MX, legY + 3.5, { maxWidth: 74 });
-      doc.text('Un pétale rouge : à accompagner en priorité.', MX, legY + 7, { maxWidth: 74 });
-      return { cx: cx, cy: cy, D: D, ry: ry, legY: legY + 10 };
+      doc.text('Plus un pétale est doré, plus cet aspect est en équilibre.', MX, legY, { maxWidth: 74 });
+      doc.text('Un pétale rouge : à accompagner en priorité.', MX, legY + 3.8, { maxWidth: 74 });
+      return { cx: cx, cy: cy, D: D, a: a, legY: legY + 8 };
     }
 
     // ── drawSynthese (colonne droite) ───────────────────
@@ -1018,26 +1041,26 @@ async function generatePDF() {
 
       const accompagnerList = sorted.filter(function(k) { return levels[k] === 'accompagner'; });
       const equilibreList   = sorted.filter(function(k) { return levels[k] === 'equilibre'; });
-      const soutenirList    = sorted.filter(function(k) { return levels[k] === 'soutenir'; });
 
-      // Phrase points forts — BOLD, large
-      const bons = equilibreList.concat(soutenirList);
-      if (bons.length > 0) {
-        const noms = bons.map(function(k) { return PETALS[k].label.toLowerCase(); });
+      // Phrase points forts — BOLD 13pt, uniquement "En équilibre"
+      if (equilibreList.length > 0) {
+        const noms = equilibreList.map(function(k) { return PETALS[k].label.toLowerCase(); });
         const liste = noms.length > 1
           ? noms.slice(0, -1).join(', ') + ' et ' + noms[noms.length - 1]
           : noms[0];
-        const altPhrase = isAdult
-          ? 'Votre ' + liste + (noms.length > 1 ? ' sont' : ' est') + ' en bon équilibre.'
-          : (pKey === 'A' ? 'Son ' : 'Son ') + liste + (noms.length > 1 ? ' sont' : ' est') + ' en bon équilibre.';
-        setOutfit(10, true);
+        const phrase = equilibreList.length === 5
+          ? (isAdult ? 'Tous vos paramètres sont en équilibre.' : 'Tous ses paramètres sont en équilibre.')
+          : (isAdult
+             ? 'Votre ' + liste + (noms.length > 1 ? ' sont' : ' est') + ' en équilibre.'
+             : 'Son ' + liste + (noms.length > 1 ? ' sont' : ' est') + ' en équilibre.');
+        setOutfit(13, true);
         doc.setTextColor(...PETROLE);
-        const forceLines = doc.splitTextToSize(altPhrase, maxW);
+        const forceLines = doc.splitTextToSize(phrase, maxW);
         doc.text(forceLines, x0, currentY);
-        currentY += forceLines.length * 5 + 3;
+        currentY += forceLines.length * 6 + 3;
       }
 
-      // Synthèse_phrase (rouge Cormorant, proéminente)
+      // Synthèse_phrase — Cormorant 13pt italic rouge (thème le plus chargé)
       if (accompagnerList.length > 0) {
         const mainTheme = accompagnerList[0];
         const synPhrase = t(
@@ -1046,28 +1069,20 @@ async function generatePDF() {
            BILAN_TEXTES[mainTheme].accompagner[pKey].synthese_phrase) || ''
         );
         if (synPhrase) {
-          setCormorant(11);
+          setCormorant(13);
           doc.setTextColor(...RED);
           const synLines = doc.splitTextToSize(synPhrase, maxW);
           doc.text(synLines, x0, currentY);
-          currentY += synLines.length * 5.2 + 4;
+          currentY += synLines.length * 5.8 + 4;
         }
       }
 
-      // Légende pétales
-      setOutfit(7, false);
-      doc.setTextColor(...TEXTE_L);
-      const legTxt = 'Plus un pétale est doré, plus cet aspect est en équilibre. Un pétale rouge signale celui à accompagner en premier.';
-      const legLines = doc.splitTextToSize(legTxt, maxW);
-      doc.text(legLines, x0, currentY);
-      currentY += legLines.length * 3.8 + 3;
-
       // Phrase complémentaire
-      const compPhrase = isAdult
-        ? 'Les petits gestes ci-dessous sont des repères valables pour tous. Une consultation permet d\'aller plus loin : comprendre ce qui est propre à votre situation et vous accompagner sur mesure.'
-        : 'Les petits gestes ci-dessous sont des repères valables pour tous. Une consultation permet d\'aller plus loin : comprendre ce qui est propre à ' + p + ' et l\'accompagner sur mesure.';
       setOutfit(7, false);
       doc.setTextColor(...TEXTE_L);
+      const compPhrase = isAdult
+        ? 'Les petits gestes ci-dessous sont des repères pour tous. Une consultation permet d\'aller plus loin et d\'adapter l\'accompagnement à votre situation.'
+        : 'Les petits gestes ci-dessous sont des repères pour tous. Une consultation permet d\'adapter l\'accompagnement à ' + p + '.';
       const compLines = doc.splitTextToSize(compPhrase, maxW);
       doc.text(compLines, x0, currentY);
       currentY += compLines.length * 3.8 + 2;
@@ -1273,8 +1288,9 @@ async function generatePDF() {
           puce3: t(enc.puce3)
         };
       }
-      const qrW = qrDataUrl ? 24 : 0;
-      const textW = CW - 10 - qrW;
+      const qrSize = 24;
+      const qrReserve = qrDataUrl ? qrSize + 6 : 0;
+      const textW = CW - 10 - qrReserve;
       const introLines = doc.splitTextToSize(encData.intro, textW);
       const p1Lines = doc.splitTextToSize(encData.puce1, textW - 8);
       const p2Lines = doc.splitTextToSize(encData.puce2, textW - 8);
@@ -1288,6 +1304,15 @@ async function generatePDF() {
       doc.setDrawColor(...DORE);
       doc.setLineWidth(0.4);
       doc.roundedRect(MX, encY, CW, encH, 3, 3, 'S');
+      // QR code en haut à droite
+      if (qrDataUrl) {
+        try {
+          doc.addImage(qrDataUrl, 'PNG', MX + CW - qrSize - 4, encY + 5, qrSize, qrSize);
+          setOutfit(5, false);
+          doc.setTextColor(175, 205, 210);
+          doc.text('Prendre rendez-vous', MX + CW - qrSize / 2 - 4, encY + qrSize + 8, { align: 'center' });
+        } catch(e) {}
+      }
       let cy2 = encY + 9;
       setCormorant(13);
       doc.setTextColor(...CREME);
@@ -1316,15 +1341,6 @@ async function generatePDF() {
       doc.textWithLink(TEL_DISPLAY, MX + 6, cy2, { url: TEL_LINK });
       doc.text('  ·  ', MX + 35, cy2);
       doc.textWithLink('Prendre rendez-vous en ligne', MX + 44, cy2, { url: CONTACT_URL });
-      // QR code + label
-      if (qrDataUrl) {
-        try {
-          doc.addImage(qrDataUrl, 'PNG', MX + CW - 26, encY + 6, 22, 22);
-          setOutfit(5.5, false);
-          doc.setTextColor(175, 205, 210);
-          doc.text('Prendre rendez-vous', MX + CW - 15, encY + 30, { align: 'center' });
-        } catch(e) {}
-      }
     }
 
     // ── drawFooter ───────────────────────────────────────
