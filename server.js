@@ -154,25 +154,135 @@ app.get('/api/config/avis', (req, res) => {
   res.json(loadAvis());
 });
 
+// ─── Helper : email détaillé pour la praticienne ──────────────────────────
+function buildPractitionerEmail(body) {
+  const { childName, childAge, profileLabel, globalScore, charges, suggestReflexo,
+          date, clientEmail, reponses, followUpAnswers, prenom, nom } = body;
+
+  const PETAL_NAMES = { sommeil:'Sommeil', eclat:'Éclat', serenite:'Sérénité', immunite:'Immunité', confiance:'Confiance' };
+  const toScore = c => Math.round(Math.max(0, (12 - c) / 12 * 100));
+  const lvl = c => c <= 3 ? 'good' : c <= 6 ? 'watch' : 'alert';
+  const LVL_LABELS = { good:'Équilibre', watch:'À surveiller', alert:'À accompagner' };
+  const LVL_COLORS = { good:'#4E6B48', watch:'#D4860A', alert:'#C0392B' };
+  const LVL_BG     = { good:'#EEF5EC',  watch:'#FEF5E7',  alert:'#FDEDEC' };
+
+  const dateStr = new Date(date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+  const allCharges = charges || {};
+  const petals = Object.keys(allCharges);
+  const sorted = [...petals].sort((a, b) => (allCharges[b] || 0) - (allCharges[a] || 0));
+
+  // Tableau récapitulatif
+  const summaryRows = sorted.map(k => {
+    const c = allCharges[k] || 0;
+    const s = toScore(c);
+    const l = lvl(c);
+    return `<tr style="background:${LVL_BG[l]}">
+      <td style="padding:9px 12px;font-weight:500">${PETAL_NAMES[k]||k}</td>
+      <td style="padding:9px 12px;text-align:center;font-size:16px;font-weight:700;color:#1B4D5C">${s}/100</td>
+      <td style="padding:9px 12px;color:${LVL_COLORS[l]};font-weight:500">${LVL_LABELS[l]}</td>
+    </tr>`;
+  }).join('');
+
+  // Q&A regroupées par thème (même ordre que le tableau)
+  let qaHtml = '';
+  if (reponses && reponses.length) {
+    const byPetal = {};
+    reponses.forEach(r => {
+      if (!byPetal[r.petale]) byPetal[r.petale] = { label: r.theme, questions: [] };
+      byPetal[r.petale].questions.push(r);
+    });
+
+    // Follow-up allergies : extraire toutes les réponses (clés imm3)
+    const followUpList = [];
+    if (followUpAnswers && typeof followUpAnswers === 'object') {
+      Object.values(followUpAnswers).forEach(arr => {
+        if (Array.isArray(arr)) arr.forEach(v => { if (v && v !== 'Non renseigné') followUpList.push(v); });
+      });
+    }
+    const uniqueFollowUp = [...new Set(followUpList)];
+
+    sorted.forEach(k => {
+      const group = byPetal[k];
+      if (!group) return;
+      const c = allCharges[k] || 0;
+      const s = toScore(c);
+      const l = lvl(c);
+      qaHtml += `<div style="margin-bottom:24px">
+        <h3 style="font-family:Georgia,serif;font-size:15px;font-weight:400;color:#1B4D5C;margin:0 0 4px;border-bottom:1px solid #C4A265;padding-bottom:6px">
+          ${PETAL_NAMES[k]||k} <span style="font-size:12px;color:${LVL_COLORS[l]};font-weight:normal">— ${s}/100 · ${LVL_LABELS[l]}</span>
+        </h3>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:6px">`;
+      group.questions.forEach((r, i) => {
+        qaHtml += `<tr style="background:${i%2===0?'#FFFFFF':'#F7F4EE'}">
+          <td style="padding:7px 10px;color:#5A6E68;width:56%;vertical-align:top">${r.question}</td>
+          <td style="padding:7px 10px;font-weight:500;vertical-align:top">${r.reponse || '—'}</td>
+        </tr>`;
+      });
+      qaHtml += '</table>';
+      if (k === 'immunite' && uniqueFollowUp.length > 0) {
+        qaHtml += `<p style="margin:8px 0 0;padding:8px 12px;background:#FEF5E7;border-left:3px solid #D4860A;font-size:12px;color:#5A6E68">
+          <strong>Allergies / intolérances signalées :</strong> ${uniqueFollowUp.join(', ')}
+        </p>`;
+      }
+      qaHtml += '</div>';
+    });
+  }
+
+  const reflexoLine = suggestReflexo
+    ? '<p style="background:#EEF5EC;border-left:3px solid #4E6B48;padding:10px 14px;margin:12px 0 0;font-size:13px"><strong>Réflexologie recommandée</strong> pour ce profil.</p>'
+    : '';
+  const contactLine = [prenom, nom].filter(Boolean).join(' ');
+
+  return `<div style="font-family:Arial,Helvetica,sans-serif;max-width:680px;margin:0 auto;color:#2C3E3A;background:#FAF7F2">
+    <div style="background:#0F3540;padding:28px 32px;text-align:center">
+      <h1 style="color:#FAF7F2;font-size:22px;font-weight:400;margin:0;font-family:Georgia,serif">Horizon &amp; Équilibre</h1>
+      <p style="color:#C4A265;font-size:11px;margin:8px 0 0;letter-spacing:2px;text-transform:uppercase">Bilan Horizon Santé</p>
+    </div>
+    <div style="background:#FAF7F2;padding:24px 32px;border-bottom:1px solid #E8E3DA">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <tr><td style="padding:5px 0;color:#5A6E68;width:140px">Prénom</td><td style="padding:5px 0;font-weight:600;font-size:16px">${childName}</td></tr>
+        <tr><td style="padding:5px 0;color:#5A6E68">Profil</td><td style="padding:5px 0">${profileLabel || childAge}</td></tr>
+        <tr><td style="padding:5px 0;color:#5A6E68">Date</td><td style="padding:5px 0">${dateStr}</td></tr>
+        ${clientEmail ? `<tr><td style="padding:5px 0;color:#5A6E68">Email</td><td style="padding:5px 0"><a href="mailto:${clientEmail}" style="color:#1B4D5C">${clientEmail}</a></td></tr>` : ''}
+        ${contactLine ? `<tr><td style="padding:5px 0;color:#5A6E68">Contact</td><td style="padding:5px 0">${contactLine}</td></tr>` : ''}
+        <tr><td style="padding:10px 0 5px;color:#5A6E68;font-weight:600">Score global</td><td style="padding:10px 0 5px;font-size:22px;font-weight:700;color:#1B4D5C">${globalScore}/100</td></tr>
+      </table>
+      ${reflexoLine}
+    </div>
+    <div style="background:#FFFFFF;padding:24px 32px">
+      <h2 style="font-family:Georgia,serif;color:#1B4D5C;font-size:18px;font-weight:400;margin:0 0 14px">Tableau récapitulatif</h2>
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead><tr style="background:#1B4D5C;color:#FAF7F2">
+          <th style="padding:10px 12px;text-align:left;font-weight:500">Thème</th>
+          <th style="padding:10px 12px;text-align:center;font-weight:500">Vitalité</th>
+          <th style="padding:10px 12px;text-align:left;font-weight:500">Niveau</th>
+        </tr></thead>
+        <tbody>${summaryRows}</tbody>
+      </table>
+    </div>
+    ${qaHtml ? `<div style="background:#FAF7F2;padding:24px 32px;border-top:1px solid #E8E3DA">
+      <h2 style="font-family:Georgia,serif;color:#1B4D5C;font-size:18px;font-weight:400;margin:0 0 20px">Détail des réponses</h2>
+      ${qaHtml}
+    </div>` : ''}
+    <div style="background:#0F3540;padding:16px 32px;text-align:center">
+      <p style="color:rgba(250,247,242,.45);font-size:11px;margin:0">Bilan généré automatiquement · Horizon &amp; Équilibre</p>
+    </div>
+  </div>`;
+}
+
 // ─── Audit result silencieux (scores seuls, sans PDF) ─────────────────────
 app.post('/api/audit-result', express.json(), async (req, res) => {
   try {
-    const { childName, childAge, globalScore, charges, zones, suggestReflexo, date, clientEmail } = req.body;
+    const { childName, childAge, profileLabel, globalScore, charges, zones, suggestReflexo, date, clientEmail } = req.body;
 
     saveAudit({ childName, childAge, globalScore, charges, zones, suggestReflexo: suggestReflexo || false, date, clientEmail: clientEmail || null, hasPdf: false, receivedAt: new Date().toISOString() });
 
+    const dateStr = new Date(date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
     await resend.emails.send({
       from: process.env.RESEND_FROM,
       to: [process.env.CONTACT_EMAIL],
-      subject: `🌿 Nouveau bilan — ${childName} (${childAge})`,
-      html: `<h2>Bilan Horizon Santé</h2>
-        <p><strong>Prénom :</strong> ${childName} — <strong>Âge :</strong> ${childAge}</p>
-        <p><strong>Score global :</strong> ${globalScore}/100</p>
-        <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/12 · Éclat ${charges.eclat}/12 · Sérénité ${charges.serenite}/12 · Immunité ${charges.immunite}/12 · Confiance ${charges.confiance}/12</p>
-        <p><strong>Zones d'alerte :</strong> ${zones.map(z => z.petale + ' (' + z.level + ')').join(', ') || 'aucune'}</p>
-        <p><strong>Réflexologie recommandée :</strong> ${suggestReflexo ? 'oui' : 'non'}</p>
-        ${clientEmail ? `<p><strong>Email client :</strong> ${clientEmail}</p>` : '<p><em>Pas d\'email client renseigné</em></p>'}
-        <p><em>Réalisé le ${new Date(date).toLocaleString('fr-FR')}</em></p>`
+      subject: `Bilan Horizon Santé : ${childName}, ${profileLabel || childAge}, ${dateStr}`,
+      html: buildPractitionerEmail(req.body)
     });
     res.json({ ok: true });
   } catch (err) {
@@ -213,13 +323,9 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     }
 
     const attachment = { filename, content: pdfBuffer, contentType: 'application/pdf' };
-    const summaryHtml = `<h2>Bilan Horizon Santé — ${childName} (${childAge})</h2>
-      <p><strong>Prospect :</strong> ${prenom||''} ${nom||''} · ${clientEmail||'—'}</p>
-      <p><strong>Score global :</strong> ${globalScore}/100</p>
-      <p><strong>Pétales :</strong> Sommeil ${charges.sommeil}/12 · Éclat ${charges.eclat}/12 · Sérénité ${charges.serenite}/12 · Immunité ${charges.immunite}/12 · Confiance ${charges.confiance}/12</p>
-      <p><strong>Zones :</strong> ${zones.map(z => z.petale + ' (' + z.level + ')').join(', ') || 'Aucune zone d\'alerte'}</p>
-      <p><strong>Réflexologie :</strong> ${suggestReflexo ? '✅' : '—'}</p>
-      <p><em>Réalisé le ${new Date(date).toLocaleString('fr-FR')}</em></p>`;
+    const dateStr = new Date(date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+    const practitionerSubject = `Bilan Horizon Santé : ${childName}, ${req.body.profileLabel || childAge}, ${dateStr}`;
+    const summaryHtml = buildPractitionerEmail(req.body);
 
     if (clientEmail) {
       const contactUrl = 'https://naturopathie-arielle-production.up.railway.app/contact';
@@ -256,8 +362,8 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     await resend.emails.send({
       from: process.env.RESEND_FROM,
       to: [process.env.CONTACT_EMAIL],
-      subject: `📋 PDF Bilan — ${prenom||childName} ${nom||''} (${childAge}) — envoyé à ${clientEmail}`,
-      html: summaryHtml + (clientEmail ? `<p><strong>Copie envoyée à :</strong> ${clientEmail}</p>` : '<p><em>Pas d\'email client — PDF non envoyé au client</em></p>'),
+      subject: practitionerSubject,
+      html: summaryHtml,
       attachments: [attachment]
     });
 

@@ -8,7 +8,9 @@
 <link rel="stylesheet" href="/style.css">
 <script src="/jspdf.min.js"></script>
 <style>
+:root{
 --bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--do-t:#7F6128;--vs-t:#4E6B48;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px
+}
 </style>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
@@ -242,7 +244,7 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="26" height="26"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <h3>Confidentiel et gratuit</h3>
-        <p>Vos réponses restent dans votre navigateur. Aucune inscription nécessaire.</p>
+        <p>Vos réponses sont transmises à Arielle de Maistre pour préparer votre accompagnement. Aucune inscription nécessaire.</p>
       </div>
       <div class="audit-pitch-card">
         <div class="audit-pitch-icon">
@@ -277,7 +279,7 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
       <div style="margin-bottom:20px;font-size:.82rem;color:#5A6E68;text-align:left;line-height:1.6">
         <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
           <input type="checkbox" id="consentementBilan" style="margin-top:3px;width:15px;height:15px;flex-shrink:0;accent-color:#1B4D5C">
-          <span>J'accepte que les informations saisies soient utilisées pour générer mon bilan personnalisé. Consultez notre <a href="/confidentialite" style="color:#1B4D5C;text-decoration:underline">politique de confidentialité</a>.</span>
+          <span>J'accepte que mes réponses, qui peuvent inclure des informations de santé, soient transmises à Arielle de Maistre dans le seul but de préparer mon accompagnement. Consultez notre <a href="/confidentialite" style="color:#1B4D5C;text-decoration:underline">politique de confidentialité</a>.</span>
         </label>
       </div>
       <button class="btn btn-p btn-gold" onclick="startAudit()">Commencer mon bilan</button>
@@ -287,7 +289,7 @@ body{font-family:var(--fb);color:var(--tx);background:var(--cr);line-height:1.7;
     <div class="progress-wrap">
   <div class="petale-dots">
     <div class="pdot" id="pd-sommeil" title="Sommeil"></div>
-    <div class="pdot" id="pd-eclat" title="Eclat"></div>
+    <div class="pdot" id="pd-eclat" title="Éclat"></div>
     <div class="pdot" id="pd-serenite" title="Sérénité"></div>
     <div class="pdot" id="pd-immunite" title="Immunité"></div>
     <div class="pdot" id="pd-confiance" title="Confiance"></div>
@@ -314,7 +316,7 @@ const PETALS = {
   sommeil:{label:'Sommeil',icone:'🌙',bg:'#1B4D5C',
     description:"Evalue la qualité de la récupération nocturne. Le sommeil conditionne la croissance, la régulation nerveuse et la vitalité globale.",
     solutions:"Rythmes de vie réguliers, hygiène du coucher, Réflexologie palmaire, accompagnement naturopathique personnalisé."},
-  eclat:{label:'Eclat',icone:'✨',bg:'#C4A265',
+  eclat:{label:'Éclat',icone:'✨',bg:'#C4A265',
     description:"Indicateur du travail des émonctoires (foie, peau, intestins). Un score élevé signale que le corps a du mal à éliminer ses surcharges.",
     solutions:"Soutien naturopathique des émonctoires, hygiène alimentaire, Réflexologie plantaire."},
   serenite:{label:'Sérénité',icone:'🕊️',bg:'#8FA98B',
@@ -334,6 +336,13 @@ const SUGGESTION = {
   serenite:"Le système nerveux est sous tension. La Réflexologie crânienne et les Fleurs de Bach peuvent accompagner le relâchement des tensions.",
   confiance:"L'estime de soi a besoin d'être nourrie. La Réflexologie faciale et les Fleurs de Bach peuvent aider à retrouver ancrage et confiance.",
   sommeil:"La qualité du sommeil impacte tout le reste. Un ajustement des rythmes de vie et la Réflexologie palmaire peuvent apporter un réconfort immédiat."
+};
+
+const PROFILE_LABELS = {
+  'A':  'Bébé ou jeune enfant (0 à 5 ans)',
+  'B1': 'Enfant (6 à 12 ans)',
+  'B2': 'Adolescent (13 à 17 ans)',
+  'C':  'Adulte (18 ans et plus)'
 };
 
 // Version A : Nourrisson / Jeune enfant (0-5 ans)
@@ -366,8 +375,28 @@ const QA = [
     options:[{t:"0 à 1 fois, bonne résistance",v:0},{t:"2 à 3 fois, dans la normale saisonnière",v:1},{t:"4 à 5 fois, souvent enrhumé ou fiévreux",v:2},{t:"Plus de 5 fois, infections à répétition",v:3}]},
   {id:'a-imm2',petale:'immunite',texte:"Comment récupère-t-il après un épisode infectieux ?",
     options:[{t:"Vite, rebondit en quelques jours",v:0},{t:"Quelques jours de plus que la moyenne",v:1},{t:"Convalescence longue, rechutes fréquentes",v:2},{t:"Très longue récupération, fatigue persistante",v:3}]},
-  {id:'a-imm3',petale:'immunite',texte:"Observez-vous des réactions d'hypersensibilité (cutanées, respiratoires, alimentaires) ?",
-    options:[{t:"Aucune",v:0},{t:"Quelques réactions légères bien maîtrisées",v:1},{t:"Réactions régulières nécessitant un suivi",v:2},{t:"Terrain atopique marqué ou intolérances multiples",v:3}]},
+  {id:'a-imm3',petale:'immunite',texte:"Votre enfant présente-t-il des réactions d'allergie ou d'intolérance ?",
+    options:[
+      {t:"Aucune réaction connue",v:0},
+      {t:"Réactions légères et ponctuelles (saisonnières, ou après certains aliments)",v:1},
+      {t:"Réactions fréquentes (nez qui coule, éternuements, eczéma, ventre gonflé ou inconfort après certains aliments)",v:2},
+      {t:"Réactions marquées ou quotidiennes, qui gênent sa vie de tous les jours",v:3}
+    ],
+    followUp:{
+      texte:"De quel type de réactions s'agit-il ? (Plusieurs réponses possibles)",
+      avertissement:"En cas de réaction sévère chez votre enfant (gonflement du visage ou des lèvres, gêne respiratoire), appelez le 15 ou consultez immédiatement un médecin.",
+      options:[
+        "Réactions saisonnières (pollens, graminées)",
+        "Sensibilité aux acariens, à la poussière ou aux animaux",
+        "Intolérance aux produits laitiers",
+        "Intolérance au gluten",
+        "Réactions aux oeufs, fruits à coque ou autre",
+        "Réactions cutanées (eczéma, plaques)",
+        "Inconforts digestifs après les repas",
+        "Je ne sais pas"
+      ]
+    }
+  },
   {id:'a-imm4',petale:'immunite',texte:"Son alimentation est-elle variée et bien acceptée ?",
     options:[{t:"Oui, il mange de tout sans problème",v:0},{t:"Quelques refus ou textures difficiles, mais bonne diversité",v:1},{t:"Alimentation peu variée, refus fréquents",v:2},{t:"Alimentation très restrictive ou troubles de l'alimentation",v:3}]},
   {id:'a-conf1',petale:'confiance',texte:"Comment réagit-il face à un environnement inconnu ?",
@@ -410,8 +439,28 @@ const QB = [
     options:[{t:"0 à 1 fois, il résiste bien",v:0},{t:"2 à 3 fois, dans la normale saisonnière",v:1},{t:"4 à 5 fois, souvent enrhumé ou fatigué",v:2},{t:"Plus de 5 fois, infections à répétition",v:3}]},
   {id:'b-imm2',petale:'immunite',texte:"Comment récupère-t-il après une maladie ou un coup de fatigue ?",
     options:[{t:"Récupération rapide, il rebondit vite",v:0},{t:"Quelques jours de plus que la moyenne",v:1},{t:"Convalescence longue, rechutes fréquentes",v:2},{t:"Fatigue persistante après chaque épisode",v:3}]},
-  {id:'b-imm3',petale:'immunite',texte:"Présente-t-il des signes d'hypersensibilité (allergies, intolérances) ?",
-    options:[{t:"Aucune allergie ni sensibilité connue",v:0},{t:"Réactions légères saisonnières, bien gérées",v:1},{t:"Réactions régulières nécessitant un suivi",v:2},{t:"Terrain atopique marqué ou intolérances multiples",v:3}]},
+  {id:'b-imm3',petale:'immunite',texte:"Votre enfant ou adolescent présente-t-il des réactions d'allergie ou d'intolérance ?",
+    options:[
+      {t:"Aucune réaction connue",v:0},
+      {t:"Réactions légères et ponctuelles (saisonnières, ou après certains aliments)",v:1},
+      {t:"Réactions fréquentes (nez qui coule, éternuements, eczéma, ventre gonflé ou inconfort après certains aliments)",v:2},
+      {t:"Réactions marquées ou quotidiennes, qui gênent sa vie de tous les jours",v:3}
+    ],
+    followUp:{
+      texte:"De quel type de réactions s'agit-il ? (Plusieurs réponses possibles)",
+      avertissement:"En cas de réaction sévère chez votre enfant (gonflement du visage ou des lèvres, gêne respiratoire), appelez le 15 ou consultez immédiatement un médecin.",
+      options:[
+        "Réactions saisonnières (pollens, graminées)",
+        "Sensibilité aux acariens, à la poussière ou aux animaux",
+        "Intolérance aux produits laitiers",
+        "Intolérance au gluten",
+        "Réactions aux oeufs, fruits à coque ou autre",
+        "Réactions cutanées (eczéma, plaques)",
+        "Inconforts digestifs après les repas",
+        "Je ne sais pas"
+      ]
+    }
+  },
   {id:'b-imm4',petale:'immunite',texte:"Son alimentation est-elle variée et équilibrée ?",
     options:[{t:"Oui, il mange de tout sans souci",v:0},{t:"Quelques exclusions mais alimentation globalement variée",v:1},{t:"Alimentation peu variée, beaucoup de refus",v:2},{t:"Très restrictive ou carences visibles",v:3}]},
   {id:'b-conf1',petale:'confiance',texte:"Comment se positionne-t-il face à un défi ou une difficulté ?",
@@ -454,8 +503,28 @@ const QC = [
     options:[{t:"0 à 1 fois, bonne résistance",v:0},{t:"2 à 3 fois, dans la normale saisonnière",v:1},{t:"4 à 5 fois, souvent enrhumé ou fatigué",v:2},{t:"Plus de 5 fois, infections à répétition",v:3}]},
   {id:'c-imm2',petale:'immunite',texte:"Comment récupérez-vous après un épisode infectieux ou un coup de fatigue ?",
     options:[{t:"Rapidement, vous récupérez vite",v:0},{t:"Quelques jours de plus que la normale",v:1},{t:"Convalescence longue, rechutes fréquentes",v:2},{t:"Fatigue persistante après chaque épisode",v:3}]},
-  {id:'c-imm3',petale:'immunite',texte:"Avez-vous des réactions d'hypersensibilité (allergies, intolérances) ?",
-    options:[{t:"Aucune allergie ni sensibilité connue",v:0},{t:"Réactions légères saisonnières, bien gérées",v:1},{t:"Réactions régulières nécessitant une adaptation ou un suivi",v:2},{t:"Terrain atopique marqué ou intolérances multiples",v:3}]},
+  {id:'c-imm3',petale:'immunite',texte:"Avez-vous des réactions d'allergie ou d'intolérance ?",
+    options:[
+      {t:"Aucune réaction connue",v:0},
+      {t:"Réactions légères et ponctuelles (saisonnières, ou après certains aliments)",v:1},
+      {t:"Réactions fréquentes (nez qui coule, éternuements, eczéma, ventre gonflé ou inconfort après certains aliments)",v:2},
+      {t:"Réactions marquées ou quotidiennes, qui vous gênent au quotidien",v:3}
+    ],
+    followUp:{
+      texte:"De quel type de réactions s'agit-il ? (Plusieurs réponses possibles)",
+      avertissement:"En cas de réaction sévère (gonflement du visage, gêne respiratoire), consultez sans attendre un médecin ou appelez le 15.",
+      options:[
+        "Réactions saisonnières (pollens, graminées)",
+        "Sensibilité aux acariens, à la poussière ou aux animaux",
+        "Intolérance aux produits laitiers",
+        "Intolérance au gluten",
+        "Réactions aux oeufs, fruits à coque ou autre",
+        "Réactions cutanées (eczéma, plaques)",
+        "Inconforts digestifs après les repas",
+        "Je ne sais pas"
+      ]
+    }
+  },
   {id:'c-imm4',petale:'immunite',texte:"Votre alimentation est-elle globalement variée et équilibrée ?",
     options:[{t:"Oui, alimentation variée sans restriction",v:0},{t:"Quelques exclusions mais alimentation variée globalement",v:1},{t:"Peu variée, avec beaucoup d'exclusions ou de préférences marquées",v:2},{t:"Très restrictive ou carences visibles",v:3}]},
   {id:'c-conf1',petale:'confiance',texte:"Comment vous positionnez-vous face à un défi ou une difficulté ?",
@@ -486,7 +555,7 @@ function elision(p){
 
 let QUESTIONS=[];
 let activeTooltipPetal=null;
-let state={childName:'',childAge:'',version:'B',clientEmail:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};
+let state={childName:'',childAge:'',version:'B',clientEmail:'',currentQ:0,answers:{},followUpShown:false,followUpAnswers:{},_charges:null,_worstPetal:null,_globalScore:0};
 
 // Démarrage du bilan
 function startAudit(){
@@ -530,7 +599,53 @@ function renderQuestion(){
 }
 function selectOption(i){state.answers[QUESTIONS[state.currentQ].id]=i;renderQuestion();}
 function prevQ(){if(state.currentQ>0){state.currentQ--;renderQuestion();}}
-function nextQ(){if(state.answers[QUESTIONS[state.currentQ].id]===undefined)return;if(state.currentQ<QUESTIONS.length-1){state.currentQ++;renderQuestion();}else showResults();}
+function nextQ(){
+  if(state.answers[QUESTIONS[state.currentQ].id]===undefined)return;
+  var q=QUESTIONS[state.currentQ];
+  // Si la question a un followUp, que la réponse est ≥1 et que le followUp n'a pas encore été montré
+  if(q.followUp && state.answers[q.id]>0 && !state.followUpShown){
+    state.followUpShown=true;
+    renderFollowUp(q);
+    return;
+  }
+  state.followUpShown=false;
+  if(state.currentQ<QUESTIONS.length-1){state.currentQ++;renderQuestion();}
+  else showResults();
+}
+
+function renderFollowUp(q){
+  var fu=q.followUp;
+  document.getElementById('questionContainer').innerHTML=
+    '<div class="question-card slide-enter petale-immunite">'+
+    '<div class="question-petal-badge">'+PETALS.immunite.icone+' Immunité<\/div>'+
+    '<div class="question-text">'+fu.texte+'<\/div>'+
+    '<div style="font-size:.82rem;color:#8B4040;background:#F5E0DC;padding:12px 16px;border-radius:10px;margin-bottom:20px;line-height:1.5">'+
+      '<strong>Important :<\/strong> '+fu.avertissement+
+    '<\/div>'+
+    '<div id="followUpOptions" style="display:flex;flex-direction:column;gap:8px;margin-bottom:28px">'+
+      fu.options.map(function(o,i){
+        return '<label style="display:flex;align-items:flex-start;gap:12px;padding:14px 18px;background:var(--cr,#FAF7F2);border:1.5px solid transparent;border-radius:12px;cursor:pointer">'+
+          '<input type="checkbox" value="'+i+'" style="margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:#1B4D5C">'+
+          '<span style="font-size:.88rem;color:var(--tx,#2C3E3A);line-height:1.4">'+o+'<\/span>'+
+        '<\/label>';
+      }).join('')+
+    '<\/div>'+
+    '<div class="question-nav"><div><\/div>'+
+      '<button class="btn btn-p btn-primary" onclick="submitFollowUp(\''+q.id+'\')">Continuer<\/button>'+
+    '<\/div>'+
+  '<\/div>';
+}
+
+function submitFollowUp(qId){
+  var q=QUESTIONS.find(function(x){return x.id===qId;});
+  var checked=Array.from(document.querySelectorAll('#followUpOptions input:checked')).map(function(el){
+    return q.followUp.options[parseInt(el.value)];
+  });
+  state.followUpAnswers[qId]=checked.length?checked:['Non renseigné'];
+  state.followUpShown=false;
+  state.currentQ++;
+  renderQuestion();
+}
 
 // SCORING: charge par pétale 0-12 (4 questions x 3 max)
 function calcCharges(){
@@ -540,7 +655,7 @@ function calcCharges(){
   }return c;
 }
 // Seuils : 0-3 équilibre | 4-7 à accompagner | 8-12 zone d'attention
-function lvl(c){return c<=3?'good':c<=7?'watch':'alert';}
+function lvl(c){return c<=3?'good':c<=6?'watch':'alert';}
 function opac(c){return c<=3?1.0:c<=7?0.65:0.45;}
 function toScore(c){return Math.round(Math.max(0,(12-c)/12*100));}
 
@@ -590,21 +705,21 @@ function showResults(){
   document.getElementById('screen-results').innerHTML=
     '<div class="results-wrap">' +
       '<div class="results-header"><h2>Bilan '+el+'<em>'+state.childName+'</em></h2>' +
-        '<div class="results-child-name">'+(state.childAge||'')+' · Réalisé le '+new Date().toLocaleDateString('fr-FR')+'</div></div>' +
+        '<div class="results-child-name">'+(PROFILE_LABELS[state.childAge]||'')+' · Réalisé le '+new Date().toLocaleDateString('fr-FR')+'</div></div>' +
       '<div class="fleur-section" id="fleurSection">' +
         '<div class="fleur-label">Résultats du bilan</div>' +
         '<div class="fleur-container" id="fleurContainer">' +
           '<svg class="fleur-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" id="fleurSvg">'+svg+
             '<circle cx="'+cx+'" cy="'+cy+'" r="32" fill="#FAF7F2" stroke="#B5CBB1" stroke-width="2"\/>' +
             '<text x="'+cx+'" y="'+(cy-5)+'" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-weight="500" fill="#1B4D5C">'+gs+'<\/text>' +
-            '<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#5A6E68" letter-spacing="1.5">VITALITE<\/text><\/svg>' +
+            '<text x="'+cx+'" y="'+(cy+12)+'" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#5A6E68" letter-spacing="1.5">VITALITÉ<\/text><\/svg>' +
           '<div class="fleur-tooltip" id="fleurTooltip"><\/div><\/div>' +
         '<p class="fleur-hint">Cliquez sur un pétale pour voir l\'analyse et les pistes</p>' +
         '<p class="fleur-message">'+msg+'<\/p><\/div>' +
 
       (alertP.length||watchP.length?'<div class="alerts-section"><div class="alerts-title">Analyse et pistes<\/div>' +
         keys.sort(function(a,b){return charges[b]-charges[a];}).map(function(k){const c=charges[k],p=PETALS[k],l=lvl(c),s=toScore(c);
-          const st=l==='good'?'En équilibre':l==='watch'?'A accompagner':"Zone d'attention";
+          const st=l==='good'?'En équilibre':l==='watch'?'À surveiller':'À accompagner';
           const adv=l==='good'?'Maintenir les bonnes habitudes en place.':SUGGESTION[k];
           return'<div class="alert-item level-'+l+'"><div class="alert-dot"><\/div><div class="alert-text">' +
             '<h4>'+p.icone+' '+p.label+' · '+s+'/100 · '+st+'<\/h4><p>'+adv+'<\/p><\/div><\/div>';}).join('')+'<\/div>':'') +
@@ -626,8 +741,8 @@ function showResults(){
           '<input type="email" id="resultEmail" placeholder="Email *" \/>' +
         '<\/div>' +
         '<div class="btn-row">' +
-          '<button class="btn btn-s btn-secondary" onclick="generatePDF()">Recevoir ma synthèse par mail<\/button>' +
-          '<button class="btn btn-secondary" onclick="resetAudit()">Refaire le bilan<\/button>' +
+          '<button class="btn btn-gold" onclick="generatePDF()">Recevoir ma synthèse par mail<\/button>' +
+          '<button class="btn btn-s on-creme" onclick="resetAudit()">Refaire le bilan<\/button>' +
         '<\/div>' +
         '<p style="margin-top:16px;font-size:.8rem;color:var(--tx-l);text-align:center"><strong>Information importante :<\/strong> Ces résultats donnent une première orientation de bien-être et de prévention. Ils ne constituent ni un diagnostic, ni un avis médical, et ne se substituent en aucun cas à un suivi médical. En cas de symptôme aigu, persistant ou inhabituel, consultez votre médecin traitant ou votre pédiatre.<\/p>' +
       '<\/div>' +
@@ -642,6 +757,18 @@ function showResults(){
     zones: keys.filter(function(k){return lvl(charges[k])!=='good';}).map(function(k){return{petale:k,charge:charges[k],level:lvl(charges[k])};;}),
     emonctoires, version:state.version
   };
+  window.__auditResult.profileLabel = PROFILE_LABELS[state.childAge] || state.childAge;
+  window.__auditResult.reponses = QUESTIONS.map(function(q) {
+    var idx = state.answers[q.id];
+    return {
+      theme: PETALS[q.petale].label,
+      petale: q.petale,
+      question: q.texte,
+      reponse: idx !== undefined ? q.options[idx].t : '',
+      score_vitalite: toScore(charges[q.petale])
+    };
+  });
+  window.__auditResult.followUpAnswers = state.followUpAnswers || {};
   fetch('/api/audit-result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window.__auditResult)}).catch(function(){});
 }
 
@@ -734,7 +861,7 @@ function generatePDF(){
   // Centre de la fleur
   doc.setFillColor(...CR);doc.setDrawColor(...VSL);doc.setLineWidth(0.5);doc.circle(fcx,fcy,9,'FD');
   doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text(String(gs),fcx,fcy+1,{align:'center'});
-  doc.setFontSize(5);doc.setTextColor(...TL);doc.text('VITALITE',fcx,fcy+5.5,{align:'center'});
+  doc.setFontSize(5);doc.setTextColor(...TL);doc.text('VITALITÉ',fcx,fcy+5.5,{align:'center'});
 
   // 4. LEGENDE QUALITATIVE
   const legY=fcy+D+R+14;
@@ -808,7 +935,7 @@ function generatePDF(){
   // Lignes du tableau selon résultats
   const terrainRows=[];
   if(ch.eclat>=4)terrainRows.push([
-    'Eclat & Emonctoires',
+    'Éclat & Emonctoires',
     'Surcharges : foie, intestins, peau',
     'Soutien naturopathique des émonctoires · Réflexologie Plantaire'
   ]);
@@ -915,14 +1042,14 @@ function generatePDF(){
             '<p>Un exemplaire PDF a été transmis à <strong>'+clientEmail+'<\/strong>.<\/p>' +
             '<p class="success-sub">Arielle de Maistre vous répondra personnellement dans les meilleurs délais.<\/p>' +
             '<a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet<\/a>' +
-            '<button class="btn btn-secondary" onclick="resetAudit()" style="margin-top:12px">Refaire le bilan<\/button>' +
+            '<button class="btn btn-s on-creme" onclick="resetAudit()" style="margin-top:12px">Refaire le bilan<\/button>' +
           '<\/div>';
       }
     }).catch(function(){});
   }catch(e){}
 }
 
-function resetAudit(){state={childName:'',childAge:'',version:'B',clientEmail:'',currentQ:0,answers:{},_charges:null,_worstPetal:null,_globalScore:0};activeTooltipPetal=null;QUESTIONS=[];
+function resetAudit(){state={childName:'',childAge:'',version:'B',clientEmail:'',currentQ:0,answers:{},followUpShown:false,followUpAnswers:{},_charges:null,_worstPetal:null,_globalScore:0};activeTooltipPetal=null;QUESTIONS=[];
   document.getElementById('screen-results').classList.add('hidden');document.getElementById('screen-intro').classList.remove('hidden');
   document.getElementById('childName').value='';document.getElementById('childAge').value='';
   document.getElementById('labelChildName').textContent="Prénom de l'enfant";
