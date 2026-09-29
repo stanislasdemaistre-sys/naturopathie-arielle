@@ -146,6 +146,18 @@ app.get('/publications/:slug', (req, res) => {
   ));
 });
 
+// ─── QR code pour le PDF bilan ─────────────────────────────────────────────
+app.get('/api/qrcode', async (req, res) => {
+  try {
+    const QRCode = require('qrcode');
+    const url = req.query.url || 'https://naturopathie-arielle-production.up.railway.app/contact';
+    const dataUrl = await QRCode.toDataURL(url, { width: 120, margin: 1, color: { dark: '#0F3540', light: '#FFFFFF' } });
+    res.json({ dataUrl });
+  } catch(err) {
+    res.status(500).json({ ok: false });
+  }
+});
+
 // ─── Health check ──────────────────────────────────────────────────────────
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 

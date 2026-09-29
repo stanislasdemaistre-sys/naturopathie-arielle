@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <script src="/jspdf.min.js"></script>
+<script src="/bilan-textes.js"></script>
 <style>
 :root{
 --bp:#1B4D5C;--bp-d:#0F3540;--bp-l:#2A6B7E;--vs:#8FA98B;--vs-l:#B5CBB1;--vs-p:#D6E4D3;--do:#C4A265;--do-l:#D4BA8A;--do-p:#F0E6D2;--cr:#FAF7F2;--cr-d:#F0EBE3;--wh:#FFF;--tx:#2C3E3A;--tx-l:#5A6E68;--do-t:#7F6128;--vs-t:#4E6B48;--al:#D4786A;--al-p:#F5E0DC;--ok:#7BAF6E;--ok-p:#DFF0D8;--fd:'Cormorant Garamond',Georgia,serif;--fb:'Outfit',system-ui,sans-serif;--r:20px;--rs:12px;--rl:32px
@@ -787,266 +788,629 @@ function showTip(k){
 }
 document.addEventListener('click',function(e){if(!e.target.closest('.petal')&&!e.target.closest('.fleur-tooltip')){const t=document.getElementById('fleurTooltip');if(t){t.classList.remove('visible');activeTooltipPetal=null;}}});
 
-// PDF -- Format A4 Pro 2 pages
-function generatePDF(){
-  if(!window.jspdf){alert('La bibliothèque PDF est en cours de chargement. Réessayez dans quelques secondes.');return;}
-  const{jsPDF}=window.jspdf;
-  const doc=new jsPDF({unit:'mm',format:'a4'});
-  const W=210,H=297,MX=20,MY=25,CW=170;
+// PDF -- Bilan Horizon Sante v5 -- 1 page A4 personnalisee
+const FONT_CACHE = {};
+async function loadFont(path) {
+  if (FONT_CACHE[path]) return FONT_CACHE[path];
+  const resp = await fetch(path);
+  const buf = await resp.arrayBuffer();
+  const bytes = new Uint8Array(buf);
+  let binary = '';
+  const CHUNK = 8192;
+  for (let i = 0; i < bytes.length; i += CHUNK) {
+    binary += String.fromCharCode.apply(null, bytes.subarray(i, i + CHUNK));
+  }
+  FONT_CACHE[path] = btoa(binary);
+  return FONT_CACHE[path];
+}
 
-  // Palette
-  const BP=[27,77,92],BPD=[15,53,64],BPL=[42,107,126];
-  const VS=[143,169,139],VSL=[181,203,177],VSP=[214,228,211];
-  const DO=[196,162,101],DOL=[212,186,138],DOP=[240,230,210];
-  const CR=[250,247,242],CRD=[240,235,227];
-  const TX=[44,62,58],TL=[90,110,104];
-
-  const el=elision(state.childName),ch=state._charges,wk=state._worstPetal,wp=PETALS[wk],gs=state._globalScore;
-  const keys=['sommeil','eclat','serenite','immunite','confiance'];
-  const prenom=document.getElementById('resultPrenom')&&document.getElementById('resultPrenom').value.trim()||'';
-  const nom=document.getElementById('resultNom')&&document.getElementById('resultNom').value.trim()||'';
-  const clientEmail=document.getElementById('resultEmail')&&document.getElementById('resultEmail').value.trim()||'';
-  window.__auditResult.clientEmail=clientEmail;
-
-  if(!prenom||!nom||!clientEmail){
+async function generatePDF() {
+  // 1. Valider les champs
+  const prenom = document.getElementById('resultPrenom') ? document.getElementById('resultPrenom').value.trim() : '';
+  const nom = document.getElementById('resultNom') ? document.getElementById('resultNom').value.trim() : '';
+  const clientEmail = document.getElementById('resultEmail') ? document.getElementById('resultEmail').value.trim() : '';
+  if (!prenom || !nom || !clientEmail) {
     alert('Merci de renseigner votre prénom, votre nom et votre email pour recevoir le bilan.');
     return;
   }
+  window.__auditResult.prenom = prenom;
+  window.__auditResult.nom = nom;
+  window.__auditResult.clientEmail = clientEmail;
 
-  window.__auditResult.prenom=prenom;
-  window.__auditResult.nom=nom;
+  // 2. Bouton chargement
+  const btn = document.querySelector('[onclick="generatePDF()"]');
+  const origText = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'Préparation du bilan...'; }
 
-  // Couleur pétale selon niveau : good/watch/alert (/12)
-  function pcol(c){const l=lvl(c);return l==='good'?{f:BPD,b:null}:l==='watch'?{f:VS,b:null}:{f:VSP,b:DO};}
-  function ps3(c){return c<=3?3:c<=7?2:c<=10?1:0;}
+  try {
+    // 3. Init jsPDF
+    if (!window.jspdf) { alert('La bibliothèque PDF est en cours de chargement. Réessayez dans quelques secondes.'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-  // PAGE 1 : EN-TETE + FLEUR + AXE PRIORITAIRE
+    // 4. Constantes
+    const BASE_URL = 'https://naturopathie-arielle-production.up.railway.app';
+    const TEL_DISPLAY = '06 51 14 07 26';
+    const TEL_LINK = 'tel:+33651140726';
+    const CONTACT_URL = BASE_URL + '/contact';
+    const W = 210, H = 297, MX = 14, MY = 10;
+    const CW = W - 2 * MX;
+    const PETROLE   = [27, 77, 92];
+    const PETROLE_D = [15, 53, 64];
+    const DORE      = [196, 162, 101];
+    const DORE_T    = [127, 97, 40];
+    const CREME     = [250, 247, 242];
+    const TEXTE     = [44, 62, 58];
+    const TEXTE_L   = [90, 110, 104];
+    const BLANC     = [255, 255, 255];
+    const STATE_COLORS = {
+      equilibre:   { bg: [232, 216, 182], border: [196, 162, 101], label: [127, 97, 40] },
+      soutenir:    { bg: [198, 212, 194], border: [143, 169, 139], label: [60, 90, 60] },
+      accompagner: { bg: [244, 210, 202], border: [192, 69, 58],   label: [192, 69, 58] }
+    };
+    const RED = [192, 69, 58];
+    const STATE_LABELS = { equilibre: 'En équilibre', soutenir: 'À soutenir', accompagner: 'À accompagner' };
+    function getLevel(score) {
+      if (score >= 80) return 'equilibre';
+      if (score >= 50) return 'soutenir';
+      return 'accompagner';
+    }
 
-  // 1. BANDEAU HEADER (bleu pétrole sombre, 40mm)
-  doc.setFillColor(...BPD);doc.rect(0,0,W,40,'F');
-  doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,37,W-MX,37);
+    // 5. Charger les polices
+    try {
+      const b400i = await loadFont('/fonts/cormorant-garamond-400i.ttf');
+      doc.addFileToVFS('Cormorant-italic.ttf', b400i);
+      doc.addFont('Cormorant-italic.ttf', 'Cormorant', 'italic');
+      const b4 = await loadFont('/fonts/outfit-400.ttf');
+      doc.addFileToVFS('Outfit-normal.ttf', b4);
+      doc.addFont('Outfit-normal.ttf', 'Outfit', 'normal');
+      const b6 = await loadFont('/fonts/outfit-600.ttf');
+      doc.addFileToVFS('Outfit-bold.ttf', b6);
+      doc.addFont('Outfit-bold.ttf', 'Outfit', 'bold');
+    } catch(fe) {
+      // Polices non disponibles : on continue avec les polices par defaut
+    }
 
-  doc.setFont('times','bold');doc.setFontSize(19);doc.setTextColor(...CR);
-  doc.text('Horizon & Equilibre',MX,17);
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...DO);
-  doc.text('Naturopathie · Réflexologie · Fleurs de Bach',MX,25);
-  doc.setTextColor(170,205,205);doc.setFontSize(7.5);
-  doc.text(new Date().toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}),W-MX,17,{align:'right'});
+    // 6. QR code
+    let qrDataUrl = null;
+    try {
+      const qrResp = await fetch('/api/qrcode?url=' + encodeURIComponent(CONTACT_URL));
+      const qrJson = await qrResp.json();
+      qrDataUrl = qrJson.dataUrl;
+    } catch(e) {}
 
-  // 2. TITRE + NOM
-  doc.setFont('times','italic');doc.setFontSize(22);doc.setTextColor(...BP);
-  doc.text('Bilan Horizon Santé',W/2,52,{align:'center'});
-  doc.setFont('times','normal');doc.setFontSize(12);doc.setTextColor(...TL);
-  doc.text('Bilan '+el+state.childName+(state.childAge?' · '+state.childAge:''),W/2,62,{align:'center'});
-  doc.setDrawColor(...DOL);doc.setLineWidth(0.4);doc.line(W/2-22,66,W/2+22,66);
+    // 7. Scores
+    const ch = state._charges;
+    const KEYS = ['sommeil', 'eclat', 'serenite', 'immunite', 'confiance'];
+    const scores = {}, levels = {};
+    KEYS.forEach(function(k) { scores[k] = toScore(ch[k]); levels[k] = getLevel(scores[k]); });
+    const sorted = KEYS.slice().sort(function(a, b) { return scores[a] - scores[b]; });
 
-  // 3. FLEUR DE VITALITE
-  const fcx=W/2,fcy=113,D=22,R=13;
-  const angs2=[-90,-18,54,126,198];
+    const pKey = state.childAge;
+    const p = state.childName;
+    const dP = elision(p) + p;
+    const isAdult = pKey === 'C';
 
-  keys.forEach(function(k,i){
-    const c=ch[k],a=angs2[i]*Math.PI/180;
-    const px=fcx+Math.cos(a)*D,py=fcy+Math.sin(a)*D;
-    const col=pcol(c);
-    doc.setFillColor(...col.f);doc.circle(px,py,R,'F');
-    if(col.b){doc.setDrawColor(...col.b);doc.setLineWidth(1.3);doc.circle(px,py,R,'S');}
-    doc.setFont('helvetica','bold');doc.setFontSize(12);
-    doc.setTextColor(...(col.f===VSP?BP:[255,255,255]));
-    doc.text(String(ps3(c)),px,py+1.5,{align:'center'});
-    const ld=D+R+7,lx=fcx+Math.cos(a)*ld,ly=fcy+Math.sin(a)*ld;
-    doc.setFont('helvetica','normal');doc.setFontSize(5.5);doc.setTextColor(...TX);
-    doc.text(PETALS[k].label.toUpperCase(),lx,ly,{align:'center'});
-  });
+    function t(text) {
+      return (text || '').replace(/\{p\}/g, p).replace(/\{dP\}/g, dP);
+    }
 
-  // Centre de la fleur
-  doc.setFillColor(...CR);doc.setDrawColor(...VSL);doc.setLineWidth(0.5);doc.circle(fcx,fcy,9,'FD');
-  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(...BP);doc.text(String(gs),fcx,fcy+1,{align:'center'});
-  doc.setFontSize(5);doc.setTextColor(...TL);doc.text('VITALITÉ',fcx,fcy+5.5,{align:'center'});
+    // ── Helpers polices ─────────────────────────────────
+    function setCormorant(size) {
+      try { doc.setFont('Cormorant', 'italic'); } catch(e) { doc.setFont('times', 'italic'); }
+      doc.setFontSize(size);
+    }
+    function setOutfit(size, bold) {
+      try { doc.setFont('Outfit', bold ? 'bold' : 'normal'); } catch(e) { doc.setFont('helvetica', bold ? 'bold' : 'normal'); }
+      doc.setFontSize(size);
+    }
 
-  // 4. LEGENDE QUALITATIVE
-  const legY=fcy+D+R+14;
-  const legItems=[
-    {c:BPD,b:null,t:'Bleu Sombre = Force'},
-    {c:VS,b:null,t:'Sauge = Attention douce'},
-    {c:VSP,b:DO,t:'Sauge Pale = Vigilance'}
-  ];
-  legItems.forEach(function(item,i){
-    const lx=W/2-56+i*56;
-    doc.setFillColor(...item.c);doc.circle(lx,legY,2.5,'F');
-    if(item.b){doc.setDrawColor(...item.b);doc.setLineWidth(0.5);doc.circle(lx,legY,2.5,'S');}
-    doc.setFont('helvetica','normal');doc.setFontSize(5.8);doc.setTextColor(...TL);
-    doc.text(item.t,lx+5,legY+1);
-  });
+    // ── drawHeader ───────────────────────────────────────
+    function drawHeader() {
+      doc.setFillColor(...PETROLE_D);
+      doc.rect(0, 0, W, 16, 'F');
+      doc.setDrawColor(...DORE);
+      doc.setLineWidth(0.4);
+      doc.line(0, 16, W, 16);
+      setCormorant(15);
+      doc.setTextColor(...CREME);
+      doc.text('Horizon & Équilibre', MX, 10.5);
+      setOutfit(6.5, false);
+      doc.setTextColor(...DORE);
+      doc.text('NATUROPATHIE · RÉFLEXOLOGIE', MX, 14.5);
+      doc.setTextColor(180, 210, 210);
+      setOutfit(7, false);
+      const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      doc.text(dateStr, W - MX, 10.5, { align: 'right' });
+      return 17;
+    }
 
-  // 5. AXE PRIORITAIRE
-  let y=legY+11;
-  doc.setFont('helvetica','normal');doc.setFontSize(8);
-  const descLines=doc.splitTextToSize(wp.description,CW-18);
-  doc.setFontSize(7);
-  const solLines=doc.splitTextToSize('Pistes : '+wp.solutions,CW-18);
-  const descH=descLines.length*4.2+2;
-  const solH=solLines.length*3.7;
-  const boxH=8+descH+solH+8;
+    // ── drawTitleBlock ───────────────────────────────────
+    function drawTitleBlock(y) {
+      y += 6;
+      setCormorant(22);
+      doc.setTextColor(...PETROLE);
+      const mainTitle = isAdult ? 'Votre bilan' : 'Le bilan ' + dP;
+      doc.text(mainTitle, W / 2, y, { align: 'center' });
+      y += 7;
+      const profileLabel = PROFILE_LABELS[pKey] || pKey;
+      setOutfit(8.5, false);
+      doc.setTextColor(...TEXTE_L);
+      doc.text('Bilan Horizon Santé  ·  ' + profileLabel, W / 2, y, { align: 'center' });
+      y += 4;
+      doc.setDrawColor(...DORE);
+      doc.setLineWidth(0.4);
+      doc.line(W / 2 - 30, y, W / 2 + 30, y);
+      return y + 5;
+    }
 
-  doc.setFillColor(...CRD);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
-  doc.roundedRect(MX,y,CW,boxH,3,3,'FD');
-  doc.setFont('times','bold');doc.setFontSize(11);doc.setTextColor(...BP);
-  doc.text(wp.label+' : Axe prioritaire',MX+8,y+7);
-  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(...TX);
-  doc.text(descLines,MX+8,y+14);
-  doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...DO);
-  doc.text(solLines,MX+8,y+14+descH);
+    // ── drawFleur ────────────────────────────────────────
+    function drawFleur(y) {
+      const cx = MX + 38;
+      const cy = y + 33;
+      const D = 20, rx = 13, ry = 11;
+      const angles = {
+        sommeil:   -Math.PI / 2,
+        eclat:     -Math.PI / 2 + 2 * Math.PI / 5,
+        serenite:  -Math.PI / 2 + 4 * Math.PI / 5,
+        immunite:  -Math.PI / 2 + 6 * Math.PI / 5,
+        confiance: -Math.PI / 2 + 8 * Math.PI / 5
+      };
+      KEYS.forEach(function(k) {
+        const a = angles[k];
+        const px = cx + Math.cos(a) * D;
+        const py = cy + Math.sin(a) * D;
+        const level = levels[k];
+        const sc = STATE_COLORS[level];
+        doc.setFillColor(...sc.bg);
+        doc.ellipse(px, py, rx, ry, 'F');
+        doc.setDrawColor(...sc.border);
+        doc.setLineWidth(level === 'accompagner' ? 1.2 : 0.6);
+        doc.ellipse(px, py, rx, ry, 'S');
+        setOutfit(6, true);
+        doc.setTextColor(...PETROLE);
+        doc.text(PETALS[k].label, px, py - 2, { align: 'center' });
+        setOutfit(5.5, false);
+        doc.setTextColor(...sc.label);
+        doc.text(STATE_LABELS[level], px, py + 3, { align: 'center' });
+      });
+      // Centre
+      doc.setFillColor(...CREME);
+      doc.setDrawColor(...DORE);
+      doc.setLineWidth(0.5);
+      doc.circle(cx, cy, 8, 'FD');
+      setCormorant(8);
+      doc.setTextColor(...DORE);
+      doc.text('\u2726', cx, cy + 1.5, { align: 'center' });
+      // Legende sous la fleur
+      const legY = cy + D + ry + 5;
+      setOutfit(6, false);
+      doc.setTextColor(...TEXTE_L);
+      doc.text('Plus un pétale est doré, plus cet aspect est en équilibre.', MX, legY, { maxWidth: 74 });
+      doc.text('Un pétale rouge signale celui à accompagner en premier.', MX, legY + 3.8, { maxWidth: 74 });
+      return { cx: cx, cy: cy, D: D, ry: ry, legY: legY };
+    }
 
-  // PAGE 2 : SYNTHESE + TABLEAU + CONCLUSION
-  doc.addPage();
+    // ── drawSynthese (colonne droite) ───────────────────
+    function drawSynthese(y, fleurInfo) {
+      const x0 = MX + 80;
+      const maxW = 116;
+      let currentY = y;
 
-  // Mini bandeau page 2
-  doc.setFillColor(...BPD);doc.rect(0,0,W,12,'F');
-  doc.setFont('helvetica','normal');doc.setFontSize(6.5);
-  doc.setTextColor(...DO);doc.text('Horizon & Equilibre -- Arielle de Maistre',MX,8);
-  doc.setTextColor(160,190,190);doc.text('2 / 2',W-MX,8,{align:'right'});
+      const accompagnerList = sorted.filter(function(k) { return levels[k] === 'accompagner'; });
+      const equilibreList   = sorted.filter(function(k) { return levels[k] === 'equilibre'; });
+      const soutenirList    = sorted.filter(function(k) { return levels[k] === 'soutenir'; });
 
-  y=MY+2;
+      // Phrase points forts
+      const bons = equilibreList.concat(soutenirList);
+      if (bons.length > 0) {
+        const noms = bons.map(function(k) { return PETALS[k].label.toLowerCase(); });
+        let liste;
+        if (noms.length > 1) {
+          liste = noms.slice(0, -1).join(', ') + ' et ' + noms[noms.length - 1];
+        } else {
+          liste = noms[0];
+        }
+        const forcePhrase = (isAdult ? 'Votre ' : 'Son ') + liste + (noms.length > 1 ? ' sont' : ' est') + ' en bon équilibre.';
+        setOutfit(8, false);
+        doc.setTextColor(...PETROLE);
+        const forceLines = doc.splitTextToSize(forcePhrase, maxW);
+        doc.text(forceLines, x0, currentY);
+        currentY += forceLines.length * 4.2 + 3;
+      }
 
-  // 6. SYNTHESE 5 DIMENSIONS DE VITALITE
-  doc.setFont('times','bold');doc.setFontSize(12);doc.setTextColor(...BP);
-  doc.text('Synthèse des 5 dimensions de vitalité',MX,y);y+=7;
+      // Synthese_phrase du theme principal (en rouge italique)
+      if (accompagnerList.length > 0) {
+        const mainTheme = accompagnerList[0];
+        const synPhrase = t((BILAN_TEXTES[mainTheme] && BILAN_TEXTES[mainTheme].accompagner && BILAN_TEXTES[mainTheme].accompagner[pKey] && BILAN_TEXTES[mainTheme].accompagner[pKey].synthese_phrase) || '');
+        if (synPhrase) {
+          setCormorant(9);
+          doc.setTextColor(...RED);
+          const synLines = doc.splitTextToSize(synPhrase, maxW);
+          doc.text(synLines, x0, currentY);
+          currentY += synLines.length * 4.5 + 3;
+        }
+      }
 
-  keys.forEach(function(k){
-    const c=ch[k],s=toScore(c),l=lvl(c);
-    const bc=l==='good'?BPD:l==='watch'?VS:[212,120,106];
-    doc.setFont('helvetica','normal');doc.setFontSize(8.5);doc.setTextColor(...TX);
-    doc.text(PETALS[k].label,MX,y+3);
-    doc.setFillColor(228,226,220);doc.roundedRect(MX+36,y-0.5,88,5,2,2,'F');
-    doc.setFillColor(...bc);doc.roundedRect(MX+36,y-0.5,Math.max(2,88*s/100),5,2,2,'F');
-    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(...bc);
-    doc.text(s+'/100',MX+128,y+3);
-    y+=9;
-  });
-  y+=10;
+      // Phrase complementaire
+      const compPhrase = isAdult
+        ? 'Les petits gestes ci-dessous sont des repères valables pour tous. Une consultation permet d\'aller plus loin : comprendre ce qui est propre à votre situation et vous accompagner sur mesure.'
+        : 'Les petits gestes ci-dessous sont des repères valables pour tous. Une consultation permet d\'aller plus loin : comprendre ce qui est propre à ' + p + ' et l\'accompagner sur mesure.';
+      setOutfit(7.5, false);
+      doc.setTextColor(...TEXTE_L);
+      const compLines = doc.splitTextToSize(compPhrase, maxW);
+      doc.text(compLines, x0, currentY);
+      currentY += compLines.length * 3.7 + 2;
 
-  // 7. TABLEAU MON PROGRAMME DE VITALITE
-  doc.setFont('times','bold');doc.setFontSize(13);doc.setTextColor(...BP);
-  doc.text('Mon Programme de Vitalité',MX,y);y+=5;
-  doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,y,MX+74,y);y+=6;
-  doc.setFont('helvetica','italic');doc.setFontSize(7.5);doc.setTextColor(...TL);
-  doc.text('Programme personnalisé basé sur votre profil naturopathique',MX,y);y+=9;
+      const yFleurEnd = fleurInfo.legY + 4;
+      return Math.max(currentY, yFleurEnd);
+    }
 
-  // Lignes du tableau selon résultats
-  const terrainRows=[];
-  if(ch.eclat>=4)terrainRows.push([
-    'Éclat & Emonctoires',
-    'Surcharges : foie, intestins, peau',
-    'Soutien naturopathique des émonctoires · Réflexologie Plantaire'
-  ]);
-  if(ch.sommeil>=4)terrainRows.push([
-    'Récupération & Sommeil',
-    'Qualité du sommeil à soutenir',
-    'Réflexologie palmaire · Hygiène du coucher'
-  ]);
-  if(ch.serenite>=4||ch.confiance>=4)terrainRows.push([
-    'Sérénité & Emotions',
-    'Système nerveux à accompagner',
-    'Fleurs de Bach · Réflexologie crânienne ou faciale'
-  ]);
-  if(ch.immunite>=4)terrainRows.push([
-    'Immunité & Terrain',
-    'Terrain immunitaire à renforcer',
-    'Bilan naturopathique approfondi · Soutien du microbiote'
-  ]);
-  if(!terrainRows.length)terrainRows.push([
-    'Terrain global',
-    'Equilibre global encourageant',
-    'Programme de maintien · Bilan de suivi dans 6 mois'
-  ]);
+    // ── Etiquette etat ──────────────────────────────────
+    function drawStateLabel(level, x, y) {
+      const sc = STATE_COLORS[level];
+      doc.setFillColor(...sc.border);
+      doc.roundedRect(x + 2, y + 2, 36, 5.5, 1.5, 1.5, 'F');
+      setOutfit(5.5, true);
+      doc.setTextColor(...(level === 'accompagner' ? BLANC : sc.label));
+      doc.text(STATE_LABELS[level].toUpperCase(), x + 20, y + 5.5, { align: 'center' });
+    }
 
-  // En-tête du tableau
-  const tcols=[MX,MX+42,MX+95],tcw=[40,51,75];
-  const theads=['Pilier de Vitalité','Observation du Terrain','Action Recommandée'];
-  doc.setFillColor(...BP);doc.roundedRect(MX,y,CW,9,2,2,'F');
-  theads.forEach(function(h,i){
-    doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(...CR);
-    doc.text(h,tcols[i]+2,y+6);
-  });
-  y+=9;
+    // ── drawCard (carte standard) ────────────────────────
+    function drawCard(k, level, x, y, w, h) {
+      const sc = STATE_COLORS[level];
+      doc.setFillColor(...sc.bg);
+      doc.setDrawColor(...sc.border);
+      doc.setLineWidth(level === 'accompagner' ? 1.0 : 0.5);
+      doc.roundedRect(x, y, w, h, 2, 2, 'FD');
+      // Etiquette
+      drawStateLabel(level, x, y);
+      // Nom du theme
+      setOutfit(7.5, true);
+      doc.setTextColor(...PETROLE);
+      doc.text(PETALS[k].label, x + 40, y + 6, { align: 'left' });
+      let cy2 = y + 12;
+      const innerW = w - 8;
+      const texts = BILAN_TEXTES[k] && BILAN_TEXTES[k][level] && BILAN_TEXTES[k][level][pKey];
+      if (texts) {
+        // Observation
+        if (texts.observation) {
+          setOutfit(7, false);
+          doc.setTextColor(...TEXTE);
+          const obsLines = doc.splitTextToSize(t(texts.observation), innerW);
+          doc.text(obsLines, x + 4, cy2);
+          cy2 += obsLines.length * 3.5 + 2;
+        }
+        if (level === 'accompagner') {
+          setOutfit(6.5, true);
+          doc.setTextColor(...RED);
+          const alertLines = doc.splitTextToSize("C'est le point pour lequel un rendez-vous est recommandé.", innerW);
+          doc.text(alertLines, x + 4, cy2);
+          cy2 += alertLines.length * 3.3 + 2;
+          if (texts.cabinet) {
+            setOutfit(6.5, false);
+            doc.setTextColor(...PETROLE);
+            const cabLines = doc.splitTextToSize(t(texts.cabinet), innerW);
+            doc.text(cabLines, x + 4, cy2);
+            cy2 += cabLines.length * 3.3 + 2;
+          }
+          if (texts.geste_attente) {
+            setOutfit(6, true);
+            doc.setTextColor(...DORE_T);
+            doc.text('PETIT GESTE', x + 4, cy2);
+            cy2 += 3.5;
+            setOutfit(6, false);
+            doc.setTextColor(...TEXTE);
+            const gLines = doc.splitTextToSize(t(texts.geste_attente), innerW);
+            doc.text(gLines, x + 4, cy2);
+          }
+        } else if (level === 'soutenir') {
+          if (texts.cabinet) {
+            setOutfit(6.5, false);
+            doc.setTextColor(...PETROLE);
+            const cabLines = doc.splitTextToSize(t(texts.cabinet), innerW);
+            doc.text(cabLines, x + 4, cy2);
+            cy2 += cabLines.length * 3.3 + 2;
+          }
+          if (texts.geste) {
+            setOutfit(6, true);
+            doc.setTextColor(...DORE_T);
+            doc.text('PETIT GESTE', x + 4, cy2);
+            cy2 += 3.5;
+            setOutfit(6, false);
+            doc.setTextColor(...TEXTE);
+            const gLines = doc.splitTextToSize(t(texts.geste), innerW);
+            doc.text(gLines, x + 4, cy2);
+          }
+        } else {
+          // equilibre
+          if (texts.geste) {
+            setOutfit(6, true);
+            doc.setTextColor(...DORE_T);
+            doc.text('PETIT GESTE', x + 4, cy2);
+            cy2 += 3.5;
+            setOutfit(6, false);
+            doc.setTextColor(...TEXTE);
+            const gLines = doc.splitTextToSize(t(texts.geste), innerW);
+            doc.text(gLines, x + 4, cy2);
+          }
+        }
+      }
+    }
 
-  // Lignes de données (hauteur dynamique)
-  terrainRows.forEach(function(row,ri){
-    const rowLines=row.map(function(cell,i){return doc.splitTextToSize(cell,tcw[i]-4);});
-    const maxL=Math.max(...rowLines.map(function(l){return l.length;}));
-    const rh=Math.max(14,maxL*4.5+5);
-    doc.setFillColor(...(ri%2===0?CR:CRD));
-    doc.rect(MX,y,CW,rh,'F');
-    doc.setDrawColor(...VSL);doc.setLineWidth(0.2);doc.rect(MX,y,CW,rh,'S');
-    doc.setDrawColor(210,205,200);
-    doc.line(tcols[1],y,tcols[1],y+rh);
-    doc.line(tcols[2],y,tcols[2],y+rh);
-    rowLines.forEach(function(lines,i){
-      doc.setFont('helvetica',i===0?'bold':'normal');doc.setFontSize(6.5);doc.setTextColor(...TX);
-      doc.text(lines,tcols[i]+2,y+5);
-    });
-    y+=rh;
-  });
-  y+=12;
+    // ── drawAccompagnerCardFull ──────────────────────────
+    function drawAccompagnerCardFull(k, y) {
+      const sc = STATE_COLORS.accompagner;
+      const texts = BILAN_TEXTES[k] && BILAN_TEXTES[k].accompagner && BILAN_TEXTES[k].accompagner[pKey];
+      // Estimer hauteur dynamique
+      let estimH = 14;
+      const innerW = CW - 8;
+      if (texts && texts.observation) {
+        const ol = doc.splitTextToSize(t(texts.observation), innerW);
+        estimH += ol.length * 3.7 + 3;
+      }
+      estimH += 5; // alerte
+      if (texts && texts.consultation) {
+        const cl = doc.splitTextToSize(t(texts.consultation), innerW - 4);
+        estimH += cl.length * 3.5 + 11;
+      }
+      if (texts && texts.geste_attente) {
+        const gl = doc.splitTextToSize(t(texts.geste_attente), innerW);
+        estimH += gl.length * 3.5 + 8;
+      }
+      estimH = Math.max(estimH, 46);
 
-  // Sécurité anti-overflow avant conclusion
-  if(y>H-MY-72){doc.addPage();doc.setFillColor(...BPD);doc.rect(0,0,W,12,'F');y=MY;}
+      doc.setFillColor(...sc.bg);
+      doc.setDrawColor(...sc.border);
+      doc.setLineWidth(1.2);
+      doc.roundedRect(MX, y, CW, estimH, 2, 2, 'FD');
 
-  // 8. CONCLUSION
-  doc.setFillColor(...DOP);doc.setDrawColor(...DOL);doc.setLineWidth(0.3);
-  doc.roundedRect(MX,y,CW,22,3,3,'FD');
-  doc.setFont('times','italic');doc.setFontSize(10);doc.setTextColor(...BP);
-  doc.text("Un premier pas vers l'équilibre.",W/2,y+8,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
-  doc.text('Ces résultats orientent vers un accompagnement personnalisé au cabinet.',W/2,y+14,{align:'center'});
-  doc.text('Ils ne constituent pas un diagnostic médical.',W/2,y+19,{align:'center'});
-  y+=30;
+      // Etiquette pleine largeur
+      drawStateLabel('accompagner', MX, y);
+      // Nom
+      setOutfit(8, true);
+      doc.setTextColor(...PETROLE);
+      doc.text(PETALS[k].label, MX + 42, y + 6, { align: 'left' });
 
-  // 9. LIGNE DE SIGNATURE
-  doc.setDrawColor(...TL);doc.setLineWidth(0.3);
-  doc.line(W/2+10,y,W-MX,y);
-  doc.setFont('helvetica','italic');doc.setFontSize(7);doc.setTextColor(...TL);
-  doc.text('Signature de la praticienne',W-MX,y+5,{align:'right'});
+      let cy2 = y + 13;
+      if (texts) {
+        // Observation
+        if (texts.observation) {
+          setOutfit(7.5, false);
+          doc.setTextColor(...TEXTE);
+          const obsLines = doc.splitTextToSize(t(texts.observation), innerW);
+          doc.text(obsLines, MX + 4, cy2);
+          cy2 += obsLines.length * 3.8 + 2;
+        }
+        // Phrase alerte
+        setOutfit(7, true);
+        doc.setTextColor(...RED);
+        const alertLines = doc.splitTextToSize("C'est le point pour lequel un rendez-vous avec Arielle est recommandé.", innerW);
+        doc.text(alertLines, MX + 4, cy2);
+        cy2 += alertLines.length * 3.5 + 3;
 
-  // 10. FOOTER (ancré en bas de page)
-  const fY=H-MY-18;
-  doc.setDrawColor(...DO);doc.setLineWidth(0.4);doc.line(MX,fY,W-MX,fY);
-  doc.setFont('times','bold');doc.setFontSize(10);doc.setTextColor(...BP);
-  doc.text('Horizon & Equilibre',MX,fY+7);
-  doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(...TL);
-  doc.text('Arielle de Maistre | Naturopathe certifiée FEDE · Formée en réflexologie (Mélodie des Sens, certifié Qualiopi)',MX,fY+12);
-  doc.text('Cabinet de Sainte-Consorce (69280) · +33 6 51 14 07 26 · contact@horizon-equilibre.fr',MX,fY+17);
-  doc.setFillColor(...DO);doc.roundedRect(W-MX-52,fY+4,50,12,3,3,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(6.5);doc.setTextColor(...BPD);
-  doc.text('Prendre rendez-vous',W-MX-27,fY+10.5,{align:'center'});
-  doc.setFont('helvetica','normal');doc.setFontSize(5.5);
-  doc.text('horizon-equilibre.fr/contact',W-MX-27,fY+15.5,{align:'center'});
-  doc.setFontSize(5.5);doc.setTextColor(...TL);doc.text('Mentions légales : horizon-equilibre.fr/mentions-legales',W/2,H-10,{align:'center'});
+        // Bloc consultation
+        if (texts.consultation) {
+          // Mini bandeau blanc "CE QU'UNE CONSULTATION APPORTERAIT"
+          doc.setFillColor(...BLANC);
+          const consultLines = doc.splitTextToSize(t(texts.consultation), innerW - 4);
+          const consultH = consultLines.length * 3.5 + 12;
+          doc.roundedRect(MX + 3, cy2 - 2, CW - 6, consultH, 1.5, 1.5, 'F');
+          setOutfit(5.5, true);
+          doc.setTextColor(...PETROLE_D);
+          doc.text('CE QU\'UNE CONSULTATION APPORTERAIT', MX + 6, cy2 + 2.5);
+          cy2 += 6;
+          setOutfit(7, false);
+          doc.setTextColor(...TEXTE);
+          doc.text(consultLines, MX + 6, cy2);
+          cy2 += consultLines.length * 3.5 + 6;
+        }
 
-  // Sauvegarde PDF
-  const filename='Bilan_Audit_'+state.childName+'_'+new Date().toISOString().slice(0,10)+'.pdf';
-  doc.save(filename);
+        // Geste attente
+        if (texts.geste_attente) {
+          setOutfit(6, true);
+          doc.setTextColor(...DORE_T);
+          doc.text('EN ATTENDANT LE RENDEZ-VOUS', MX + 4, cy2);
+          cy2 += 3.8;
+          setOutfit(7, false);
+          doc.setTextColor(...TEXTE);
+          const gLines = doc.splitTextToSize(t(texts.geste_attente), innerW);
+          doc.text(gLines, MX + 4, cy2);
+          cy2 += gLines.length * 3.5;
+        }
+      }
+      return cy2 + 3;
+    }
 
-  // Envoi email si renseigné
-  try{
-    const pdfBase64=doc.output('datauristring').split(',')[1];
-    const r=window.__auditResult;
-    fetch('/api/send-audit-pdf',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(Object.assign({},r,{pdfBase64:pdfBase64}))
-    }).then(function(res){return res.json();}).then(function(d){
-      if(d.ok&&d.sentToClient&&clientEmail){
-        document.getElementById('screen-results').innerHTML=
+    // ── estimateCardHeight ───────────────────────────────
+    function estimateCardHeight(k, level) {
+      if (level === 'equilibre') return 28;
+      if (level === 'soutenir') return 34;
+      return 38;
+    }
+
+    // ── drawCards ────────────────────────────────────────
+    function drawCards(y) {
+      const accompagnerCards = sorted.filter(function(k) { return levels[k] === 'accompagner'; });
+      const otherCards       = sorted.filter(function(k) { return levels[k] !== 'accompagner'; });
+      let currentY = y + 3;
+
+      if (accompagnerCards.length > 0) {
+        currentY = drawAccompagnerCardFull(accompagnerCards[0], currentY);
+        currentY += 3;
+      }
+
+      const secondaryAcc = accompagnerCards.slice(1);
+      const allOther = secondaryAcc.concat(otherCards);
+      const colW = 86;
+      const gap = CW - 2 * colW;
+
+      for (let i = 0; i < allOther.length; i += 2) {
+        const k1 = allOther[i];
+        const k2 = allOther[i + 1];
+        const h1 = estimateCardHeight(k1, levels[k1]);
+        const h2 = k2 ? estimateCardHeight(k2, levels[k2]) : 0;
+        const rowH = Math.max(h1, h2);
+        drawCard(k1, levels[k1], MX, currentY, colW, rowH);
+        if (k2) drawCard(k2, levels[k2], MX + colW + gap, currentY, colW, rowH);
+        currentY += rowH + 3;
+      }
+      return currentY;
+    }
+
+    // ── drawEncadre ──────────────────────────────────────
+    function drawEncadre(y, qrDataUrl) {
+      const accompagnerList = sorted.filter(function(k) { return levels[k] === 'accompagner'; });
+      const allEquilibre = accompagnerList.length === 0;
+
+      let encData;
+      if (allEquilibre) {
+        const eq = BILAN_TEXTES.encadre.equilibre;
+        const titreEq = isAdult ? 'Un bilan de prévention' : t(eq.titre_enfant || 'Un bilan de prévention pour {p}');
+        encData = {
+          titre: titreEq,
+          intro: t(eq.intro),
+          puce1: t(isAdult ? eq.puce1_adulte : eq.puce1_enfant),
+          puce2: t(eq.puce2),
+          puce3: t(eq.puce3)
+        };
+      } else {
+        const enc = BILAN_TEXTES.encadre[pKey];
+        encData = {
+          titre: t(enc.titre),
+          intro: t(enc.intro),
+          puce1: t(enc.puce1),
+          puce2: t(enc.puce2),
+          puce3: t(enc.puce3)
+        };
+      }
+
+      // Calculer hauteur de l'encadre
+      const innerW = CW - 8 - (qrDataUrl ? 22 : 0);
+      const introLines = doc.splitTextToSize(encData.intro, innerW);
+      const p1Lines = doc.splitTextToSize(encData.puce1, innerW);
+      const p2Lines = doc.splitTextToSize(encData.puce2, innerW);
+      const p3Lines = doc.splitTextToSize(encData.puce3, innerW);
+      const totalLines = introLines.length + p1Lines.length + p2Lines.length + p3Lines.length;
+      const encH = 10 + totalLines * 3.5 + 22 + 8;
+
+      // Placer l'encadre : si y > 222, compresser
+      const encY = Math.min(y, 225);
+
+      doc.setFillColor(...PETROLE_D);
+      doc.roundedRect(MX, encY, CW, encH, 4, 4, 'F');
+      doc.setDrawColor(...DORE);
+      doc.setLineWidth(0.4);
+      doc.roundedRect(MX, encY, CW, encH, 4, 4, 'S');
+
+      let cy2 = encY + 8;
+      setCormorant(13);
+      doc.setTextColor(...CREME);
+      doc.text(encData.titre, MX + 6, cy2);
+      cy2 += 6;
+
+      setOutfit(7.5, false);
+      doc.setTextColor(220, 216, 210);
+      doc.text(introLines, MX + 6, cy2);
+      cy2 += introLines.length * 3.5 + 3;
+
+      // Puces avec carre dore
+      [[p1Lines, encData.puce1], [p2Lines, encData.puce2], [p3Lines, encData.puce3]].forEach(function(pair) {
+        const lines = pair[0];
+        doc.setFillColor(...DORE);
+        doc.rect(MX + 6, cy2 - 2.2, 2, 2, 'F');
+        setOutfit(7, false);
+        doc.setTextColor(...CREME);
+        doc.text(lines, MX + 10, cy2);
+        cy2 += lines.length * 3.5 + 1.5;
+      });
+
+      cy2 += 3;
+      // Ligne de contact
+      setOutfit(7, false);
+      doc.setTextColor(190, 220, 220);
+      doc.text('Au cabinet de Sainte-Consorce, en visio ou à domicile', MX + 6, cy2);
+      cy2 += 4.5;
+
+      setOutfit(7.5, true);
+      doc.setTextColor(...DORE);
+      doc.textWithLink(TEL_DISPLAY, MX + 6, cy2, { url: TEL_LINK });
+      doc.text('  ·  ', MX + 35, cy2);
+      doc.textWithLink('Prendre rendez-vous en ligne', MX + 44, cy2, { url: CONTACT_URL });
+
+      // QR code
+      if (qrDataUrl) {
+        try {
+          doc.addImage(qrDataUrl, 'PNG', MX + CW - 24, encY + 6, 20, 20);
+        } catch(e) {}
+      }
+    }
+
+    // ── drawFooter ───────────────────────────────────────
+    function drawFooter() {
+      const fY = 280;
+      doc.setDrawColor(...DORE);
+      doc.setLineWidth(0.3);
+      doc.line(MX, fY, W - MX, fY);
+      setOutfit(6, false);
+      doc.setTextColor(...TEXTE_L);
+      doc.text('Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue · Sainte-Consorce (69280)', MX, fY + 4);
+      setOutfit(5.5, false);
+      const disc = 'Ce bilan est une première orientation de bien-être et de prévention, établie à partir de vos réponses. Il ne constitue ni un diagnostic, ni un avis médical, et ne remplace pas un suivi par votre médecin.';
+      const discLines = doc.splitTextToSize(disc, CW);
+      doc.text(discLines, MX, fY + 9);
+    }
+
+    // 8. Construire le PDF
+    let y = 0;
+    y = drawHeader();
+    y = drawTitleBlock(y);
+
+    // Section 2 colonnes : fleur + synthese
+    const fleurInfo = drawFleur(y);
+    const yAfterSynthese = drawSynthese(y, fleurInfo);
+    y = yAfterSynthese + 3;
+
+    // Cartes
+    y = drawCards(y);
+
+    // Encadre final
+    drawEncadre(y, qrDataUrl);
+
+    // Footer
+    drawFooter();
+
+    // 9. Sauvegarder
+    const filename = 'Bilan_Horizon_Sante_' + p + '_' + new Date().toISOString().slice(0, 10) + '.pdf';
+    doc.save(filename);
+
+    // 10. Envoyer a l'API
+    const pdfBase64 = doc.output('datauristring').split(',')[1];
+    const r = window.__auditResult;
+    fetch('/api/send-audit-pdf', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({}, r, { pdfBase64: pdfBase64 }))
+    }).then(function(res) { return res.json(); }).then(function(d) {
+      if (d.ok && d.sentToClient && clientEmail) {
+        document.getElementById('screen-results').innerHTML =
           '<div class="success-screen">' +
-            '<div class="success-icon">🌿<\/div>' +
-            '<h2>Votre bilan a été envoyé !<\/h2>' +
-            '<p>Un exemplaire PDF a été transmis à <strong>'+clientEmail+'<\/strong>.<\/p>' +
-            '<p class="success-sub">Arielle de Maistre vous répondra personnellement dans les meilleurs délais.<\/p>' +
-            '<a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet<\/a>' +
-            '<button class="btn btn-s on-creme" onclick="resetAudit()" style="margin-top:12px">Refaire le bilan<\/button>' +
+          '<div class="success-icon">🌿<\/div>' +
+          '<h2>Votre bilan a été envoyé !<\/h2>' +
+          '<p>Un exemplaire PDF a été transmis à <strong>' + clientEmail + '<\/strong>.<\/p>' +
+          '<p class="success-sub">Arielle de Maistre vous répondra personnellement dans les meilleurs délais.<\/p>' +
+          '<a href="/contact" class="btn btn-gold success-rdv">Prendre rendez-vous au cabinet<\/a>' +
+          '<button class="btn btn-s on-creme" onclick="resetAudit()" style="margin-top:12px">Refaire le bilan<\/button>' +
           '<\/div>';
       }
-    }).catch(function(){});
-  }catch(e){}
+    }).catch(function() {});
+
+  } catch(err) {
+    console.error('PDF generation error:', err);
+    alert('Une erreur est survenue lors de la génération du bilan. Veuillez réessayer.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = origText; }
+  }
 }
 
 function resetAudit(){state={childName:'',childAge:'',version:'B',clientEmail:'',currentQ:0,answers:{},followUpShown:false,followUpAnswers:{},_charges:null,_worstPetal:null,_globalScore:0};activeTooltipPetal=null;QUESTIONS=[];
