@@ -867,9 +867,18 @@ async function generatePDF() {
       const b6 = await loadFont('/fonts/outfit-600.ttf');
       doc.addFileToVFS('Outfit-bold.ttf', b6);
       doc.addFont('Outfit-bold.ttf', 'Outfit', 'bold');
-    } catch(fe) {
-      // Polices non disponibles : on continue avec les polices par defaut
-    }
+    } catch(fe) {}
+
+    // 5b. Logo emblème (pour en-tête et centre fleur)
+    let logoB64 = null;
+    try {
+      const lr = await fetch('/site-internet/favicon-192px.png');
+      const lb = await lr.arrayBuffer();
+      const lby = new Uint8Array(lb);
+      let lbin = '';
+      for (let i = 0; i < lby.length; i += 8192) lbin += String.fromCharCode.apply(null, lby.subarray(i, i + 8192));
+      logoB64 = btoa(lbin);
+    } catch(e) {}
 
     // 6. QR code
     let qrDataUrl = null;
@@ -908,31 +917,37 @@ async function generatePDF() {
     // ── drawHeader ───────────────────────────────────────
     function drawHeader() {
       doc.setFillColor(...PETROLE_D);
-      doc.rect(0, 0, W, 16, 'F');
+      doc.rect(0, 0, W, 17, 'F');
       doc.setDrawColor(...DORE);
       doc.setLineWidth(0.4);
-      doc.line(0, 16, W, 16);
+      doc.line(0, 17, W, 17);
+      // Logo circulaire
+      let textX = MX;
+      if (logoB64) {
+        try { doc.addImage(logoB64, 'PNG', MX, 1.5, 13, 13); } catch(e) {}
+        textX = MX + 15.5;
+      }
       setCormorant(15);
       doc.setTextColor(...CREME);
-      doc.text('Horizon & Équilibre', MX, 10.5);
+      doc.text('Horizon & Équilibre', textX, 10.5);
       setOutfit(6.5, false);
       doc.setTextColor(...DORE);
-      doc.text('NATUROPATHIE · RÉFLEXOLOGIE', MX, 14.5);
-      doc.setTextColor(180, 210, 210);
+      doc.text('NATUROPATHIE · RÉFLEXOLOGIE', textX, 14.5);
       setOutfit(7, false);
+      doc.setTextColor(170, 205, 210);
       const dateStr = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
       doc.text(dateStr, W - MX, 10.5, { align: 'right' });
-      return 17;
+      return 18;
     }
 
     // ── drawTitleBlock ───────────────────────────────────
     function drawTitleBlock(y) {
       y += 6;
-      setCormorant(22);
+      setCormorant(24);
       doc.setTextColor(...PETROLE);
       const mainTitle = isAdult ? 'Votre bilan' : 'Le bilan ' + dP;
       doc.text(mainTitle, W / 2, y, { align: 'center' });
-      y += 7;
+      y += 8;
       const profileLabel = PROFILE_LABELS[pKey] || pKey;
       setOutfit(8.5, false);
       doc.setTextColor(...TEXTE_L);
@@ -940,8 +955,8 @@ async function generatePDF() {
       y += 4;
       doc.setDrawColor(...DORE);
       doc.setLineWidth(0.4);
-      doc.line(W / 2 - 30, y, W / 2 + 30, y);
-      return y + 5;
+      doc.line(W / 2 - 28, y, W / 2 + 28, y);
+      return y + 6;
     }
 
     // ── drawFleur ────────────────────────────────────────
@@ -965,176 +980,177 @@ async function generatePDF() {
         doc.setFillColor(...sc.bg);
         doc.ellipse(px, py, rx, ry, 'F');
         doc.setDrawColor(...sc.border);
-        doc.setLineWidth(level === 'accompagner' ? 1.2 : 0.6);
+        doc.setLineWidth(level === 'accompagner' ? 1.2 : 0.5);
         doc.ellipse(px, py, rx, ry, 'S');
-        setOutfit(6, true);
+        setOutfit(5.5, true);
         doc.setTextColor(...PETROLE);
-        doc.text(PETALS[k].label, px, py - 2, { align: 'center' });
+        doc.text(PETALS[k].label.toUpperCase(), px, py - 2, { align: 'center' });
         setOutfit(5.5, false);
         doc.setTextColor(...sc.label);
-        doc.text(STATE_LABELS[level], px, py + 3, { align: 'center' });
+        doc.text(STATE_LABELS[level], px, py + 3.5, { align: 'center' });
       });
-      // Centre
+      // Centre : logo ou cercle décoratif
       doc.setFillColor(...CREME);
       doc.setDrawColor(...DORE);
-      doc.setLineWidth(0.5);
-      doc.circle(cx, cy, 8, 'FD');
-      setCormorant(8);
-      doc.setTextColor(...DORE);
-      doc.text('\u2726', cx, cy + 1.5, { align: 'center' });
-      // Legende sous la fleur
+      doc.setLineWidth(0.6);
+      doc.circle(cx, cy, 8.5, 'FD');
+      if (logoB64) {
+        try { doc.addImage(logoB64, 'PNG', cx - 6.5, cy - 6.5, 13, 13); } catch(e) {}
+      } else {
+        setCormorant(9);
+        doc.setTextColor(...DORE);
+        doc.text('\u2726', cx, cy + 2, { align: 'center' });
+      }
       const legY = cy + D + ry + 5;
-      setOutfit(6, false);
+      setOutfit(5.8, false);
       doc.setTextColor(...TEXTE_L);
-      doc.text('Plus un pétale est doré, plus cet aspect est en équilibre.', MX, legY, { maxWidth: 74 });
-      doc.text('Un pétale rouge signale celui à accompagner en premier.', MX, legY + 3.8, { maxWidth: 74 });
-      return { cx: cx, cy: cy, D: D, ry: ry, legY: legY };
+      doc.text('Plus un pétale est doré,', MX, legY, { maxWidth: 74 });
+      doc.text('plus cet aspect est en équilibre.', MX, legY + 3.5, { maxWidth: 74 });
+      doc.text('Un pétale rouge : à accompagner en priorité.', MX, legY + 7, { maxWidth: 74 });
+      return { cx: cx, cy: cy, D: D, ry: ry, legY: legY + 10 };
     }
 
     // ── drawSynthese (colonne droite) ───────────────────
     function drawSynthese(y, fleurInfo) {
       const x0 = MX + 80;
-      const maxW = 116;
+      const maxW = W - MX - x0;
       let currentY = y;
 
       const accompagnerList = sorted.filter(function(k) { return levels[k] === 'accompagner'; });
       const equilibreList   = sorted.filter(function(k) { return levels[k] === 'equilibre'; });
       const soutenirList    = sorted.filter(function(k) { return levels[k] === 'soutenir'; });
 
-      // Phrase points forts
+      // Phrase points forts — BOLD, large
       const bons = equilibreList.concat(soutenirList);
       if (bons.length > 0) {
         const noms = bons.map(function(k) { return PETALS[k].label.toLowerCase(); });
-        let liste;
-        if (noms.length > 1) {
-          liste = noms.slice(0, -1).join(', ') + ' et ' + noms[noms.length - 1];
-        } else {
-          liste = noms[0];
-        }
-        const forcePhrase = (isAdult ? 'Votre ' : 'Son ') + liste + (noms.length > 1 ? ' sont' : ' est') + ' en bon équilibre.';
-        setOutfit(8, false);
+        const liste = noms.length > 1
+          ? noms.slice(0, -1).join(', ') + ' et ' + noms[noms.length - 1]
+          : noms[0];
+        const altPhrase = isAdult
+          ? 'Votre ' + liste + (noms.length > 1 ? ' sont' : ' est') + ' en bon équilibre.'
+          : (pKey === 'A' ? 'Son ' : 'Son ') + liste + (noms.length > 1 ? ' sont' : ' est') + ' en bon équilibre.';
+        setOutfit(10, true);
         doc.setTextColor(...PETROLE);
-        const forceLines = doc.splitTextToSize(forcePhrase, maxW);
+        const forceLines = doc.splitTextToSize(altPhrase, maxW);
         doc.text(forceLines, x0, currentY);
-        currentY += forceLines.length * 4.2 + 3;
+        currentY += forceLines.length * 5 + 3;
       }
 
-      // Synthese_phrase du theme principal (en rouge italique)
+      // Synthèse_phrase (rouge Cormorant, proéminente)
       if (accompagnerList.length > 0) {
         const mainTheme = accompagnerList[0];
-        const synPhrase = t((BILAN_TEXTES[mainTheme] && BILAN_TEXTES[mainTheme].accompagner && BILAN_TEXTES[mainTheme].accompagner[pKey] && BILAN_TEXTES[mainTheme].accompagner[pKey].synthese_phrase) || '');
+        const synPhrase = t(
+          (BILAN_TEXTES[mainTheme] && BILAN_TEXTES[mainTheme].accompagner &&
+           BILAN_TEXTES[mainTheme].accompagner[pKey] &&
+           BILAN_TEXTES[mainTheme].accompagner[pKey].synthese_phrase) || ''
+        );
         if (synPhrase) {
-          setCormorant(9);
+          setCormorant(11);
           doc.setTextColor(...RED);
           const synLines = doc.splitTextToSize(synPhrase, maxW);
           doc.text(synLines, x0, currentY);
-          currentY += synLines.length * 4.5 + 3;
+          currentY += synLines.length * 5.2 + 4;
         }
       }
 
-      // Phrase complementaire
+      // Légende pétales
+      setOutfit(7, false);
+      doc.setTextColor(...TEXTE_L);
+      const legTxt = 'Plus un pétale est doré, plus cet aspect est en équilibre. Un pétale rouge signale celui à accompagner en premier.';
+      const legLines = doc.splitTextToSize(legTxt, maxW);
+      doc.text(legLines, x0, currentY);
+      currentY += legLines.length * 3.8 + 3;
+
+      // Phrase complémentaire
       const compPhrase = isAdult
         ? 'Les petits gestes ci-dessous sont des repères valables pour tous. Une consultation permet d\'aller plus loin : comprendre ce qui est propre à votre situation et vous accompagner sur mesure.'
         : 'Les petits gestes ci-dessous sont des repères valables pour tous. Une consultation permet d\'aller plus loin : comprendre ce qui est propre à ' + p + ' et l\'accompagner sur mesure.';
-      setOutfit(7.5, false);
+      setOutfit(7, false);
       doc.setTextColor(...TEXTE_L);
       const compLines = doc.splitTextToSize(compPhrase, maxW);
       doc.text(compLines, x0, currentY);
-      currentY += compLines.length * 3.7 + 2;
+      currentY += compLines.length * 3.8 + 2;
 
-      const yFleurEnd = fleurInfo.legY + 4;
-      return Math.max(currentY, yFleurEnd);
+      return Math.max(currentY, fleurInfo.legY + 2);
     }
 
-    // ── Etiquette etat ──────────────────────────────────
-    function drawStateLabel(level, x, y) {
+    // ── drawCardHeader ───────────────────────────────────
+    function drawCardHeader(k, level, x, y, w) {
       const sc = STATE_COLORS[level];
-      doc.setFillColor(...sc.border);
-      doc.roundedRect(x + 2, y + 2, 36, 5.5, 1.5, 1.5, 'F');
+      // Point coloré gauche
+      doc.setFillColor(...(level === 'accompagner' ? RED : sc.border));
+      doc.circle(x + 6, y + 6.8, 2.2, 'F');
+      // Nom du thème
+      setOutfit(8.5, true);
+      doc.setTextColor(...PETROLE);
+      doc.text(PETALS[k].label, x + 10.5, y + 8);
+      // Badge pill à droite
+      const badgeLabel = STATE_LABELS[level];
+      const badgeW = badgeLabel.length * 1.9 + 7;
+      const badgeX = x + w - badgeW - 3;
+      doc.setFillColor(...(level === 'accompagner' ? RED : sc.border));
+      doc.roundedRect(badgeX, y + 3.5, badgeW, 5.5, 1.5, 1.5, 'F');
       setOutfit(5.5, true);
-      doc.setTextColor(...(level === 'accompagner' ? BLANC : sc.label));
-      doc.text(STATE_LABELS[level].toUpperCase(), x + 20, y + 5.5, { align: 'center' });
+      doc.setTextColor(...(level === 'equilibre' ? [127, 97, 40] : BLANC));
+      doc.text(badgeLabel, badgeX + badgeW / 2, y + 7.2, { align: 'center' });
     }
 
-    // ── drawCard (carte standard) ────────────────────────
+    // ── calcCardHeight ───────────────────────────────────
+    function calcCardHeight(k, level, w) {
+      const innerW = w - 10;
+      const texts = BILAN_TEXTES[k] && BILAN_TEXTES[k][level] && BILAN_TEXTES[k][level][pKey];
+      let h = 14;
+      if (texts && texts.observation) {
+        h += doc.splitTextToSize(t(texts.observation), innerW).length * 3.7 + 2;
+      }
+      if (level === 'soutenir' && texts && texts.cabinet) {
+        h += doc.splitTextToSize(t(texts.cabinet), innerW).length * 3.7 + 2;
+      }
+      const geste = (texts && (texts.geste || texts.geste_attente)) || '';
+      if (geste) {
+        const pgW = doc.getTextWidth('PETIT GESTE  ');
+        h += doc.splitTextToSize(t(geste), Math.max(innerW - pgW, 20)).length * 3.7 + 5;
+      }
+      return Math.max(h, 30);
+    }
+
+    // ── drawCard (carte demi-largeur) ────────────────────
     function drawCard(k, level, x, y, w, h) {
       const sc = STATE_COLORS[level];
+      const innerW = w - 10;
+      const texts = BILAN_TEXTES[k] && BILAN_TEXTES[k][level] && BILAN_TEXTES[k][level][pKey];
       doc.setFillColor(...sc.bg);
       doc.setDrawColor(...sc.border);
-      doc.setLineWidth(level === 'accompagner' ? 1.0 : 0.5);
+      doc.setLineWidth(0.5);
       doc.roundedRect(x, y, w, h, 2, 2, 'FD');
-      // Etiquette
-      drawStateLabel(level, x, y);
-      // Nom du theme
-      setOutfit(7.5, true);
-      doc.setTextColor(...PETROLE);
-      doc.text(PETALS[k].label, x + 40, y + 6, { align: 'left' });
-      let cy2 = y + 12;
-      const innerW = w - 8;
-      const texts = BILAN_TEXTES[k] && BILAN_TEXTES[k][level] && BILAN_TEXTES[k][level][pKey];
-      if (texts) {
-        // Observation
-        if (texts.observation) {
-          setOutfit(7, false);
-          doc.setTextColor(...TEXTE);
-          const obsLines = doc.splitTextToSize(t(texts.observation), innerW);
-          doc.text(obsLines, x + 4, cy2);
-          cy2 += obsLines.length * 3.5 + 2;
-        }
-        if (level === 'accompagner') {
-          setOutfit(6.5, true);
-          doc.setTextColor(...RED);
-          const alertLines = doc.splitTextToSize("C'est le point pour lequel un rendez-vous est recommandé.", innerW);
-          doc.text(alertLines, x + 4, cy2);
-          cy2 += alertLines.length * 3.3 + 2;
-          if (texts.cabinet) {
-            setOutfit(6.5, false);
-            doc.setTextColor(...PETROLE);
-            const cabLines = doc.splitTextToSize(t(texts.cabinet), innerW);
-            doc.text(cabLines, x + 4, cy2);
-            cy2 += cabLines.length * 3.3 + 2;
-          }
-          if (texts.geste_attente) {
-            setOutfit(6, true);
-            doc.setTextColor(...DORE_T);
-            doc.text('PETIT GESTE', x + 4, cy2);
-            cy2 += 3.5;
-            setOutfit(6, false);
-            doc.setTextColor(...TEXTE);
-            const gLines = doc.splitTextToSize(t(texts.geste_attente), innerW);
-            doc.text(gLines, x + 4, cy2);
-          }
-        } else if (level === 'soutenir') {
-          if (texts.cabinet) {
-            setOutfit(6.5, false);
-            doc.setTextColor(...PETROLE);
-            const cabLines = doc.splitTextToSize(t(texts.cabinet), innerW);
-            doc.text(cabLines, x + 4, cy2);
-            cy2 += cabLines.length * 3.3 + 2;
-          }
-          if (texts.geste) {
-            setOutfit(6, true);
-            doc.setTextColor(...DORE_T);
-            doc.text('PETIT GESTE', x + 4, cy2);
-            cy2 += 3.5;
-            setOutfit(6, false);
-            doc.setTextColor(...TEXTE);
-            const gLines = doc.splitTextToSize(t(texts.geste), innerW);
-            doc.text(gLines, x + 4, cy2);
-          }
-        } else {
-          // equilibre
-          if (texts.geste) {
-            setOutfit(6, true);
-            doc.setTextColor(...DORE_T);
-            doc.text('PETIT GESTE', x + 4, cy2);
-            cy2 += 3.5;
-            setOutfit(6, false);
-            doc.setTextColor(...TEXTE);
-            const gLines = doc.splitTextToSize(t(texts.geste), innerW);
-            doc.text(gLines, x + 4, cy2);
-          }
-        }
+      drawCardHeader(k, level, x, y, w);
+      let cy2 = y + 13;
+      if (texts && texts.observation) {
+        setOutfit(7, false);
+        doc.setTextColor(...TEXTE);
+        const obsLines = doc.splitTextToSize(t(texts.observation), innerW);
+        doc.text(obsLines, x + 5, cy2);
+        cy2 += obsLines.length * 3.7 + 2;
+      }
+      if (level === 'soutenir' && texts && texts.cabinet) {
+        setOutfit(7, true);
+        doc.setTextColor(...PETROLE);
+        const cabLines = doc.splitTextToSize(t(texts.cabinet), innerW);
+        doc.text(cabLines, x + 5, cy2);
+        cy2 += cabLines.length * 3.7 + 2;
+      }
+      const geste = texts && (texts.geste || texts.geste_attente);
+      if (geste) {
+        setOutfit(6, true);
+        doc.setTextColor(...DORE_T);
+        const pgLabel = 'PETIT GESTE';
+        doc.text(pgLabel, x + 5, cy2);
+        const pgW = doc.getTextWidth(pgLabel + '  ');
+        setOutfit(6.5, false);
+        doc.setTextColor(...TEXTE);
+        const gLines = doc.splitTextToSize(t(geste), Math.max(innerW - pgW, 20));
+        doc.text(gLines, x + 5 + pgW, cy2);
       }
     }
 
@@ -1142,91 +1158,70 @@ async function generatePDF() {
     function drawAccompagnerCardFull(k, y) {
       const sc = STATE_COLORS.accompagner;
       const texts = BILAN_TEXTES[k] && BILAN_TEXTES[k].accompagner && BILAN_TEXTES[k].accompagner[pKey];
-      // Estimer hauteur dynamique
-      let estimH = 14;
-      const innerW = CW - 8;
-      if (texts && texts.observation) {
-        const ol = doc.splitTextToSize(t(texts.observation), innerW);
-        estimH += ol.length * 3.7 + 3;
-      }
-      estimH += 5; // alerte
+      const innerW = CW - 10;
+      // Calcul hauteur dynamique
+      let h = 14;
+      if (texts && texts.observation) h += doc.splitTextToSize(t(texts.observation), innerW).length * 3.8 + 2;
+      h += doc.splitTextToSize("C'est le point pour lequel un rendez-vous avec Arielle est recommandé.", innerW).length * 3.8 + 4;
       if (texts && texts.consultation) {
-        const cl = doc.splitTextToSize(t(texts.consultation), innerW - 4);
-        estimH += cl.length * 3.5 + 11;
+        h += doc.splitTextToSize(t(texts.consultation), innerW - 6).length * 3.6 + 15;
       }
       if (texts && texts.geste_attente) {
-        const gl = doc.splitTextToSize(t(texts.geste_attente), innerW);
-        estimH += gl.length * 3.5 + 8;
+        const pgW = doc.getTextWidth('EN ATTENDANT LE RENDEZ-VOUS  ');
+        h += doc.splitTextToSize(t(texts.geste_attente), Math.max(innerW - pgW, 30)).length * 3.6 + 6;
       }
-      estimH = Math.max(estimH, 46);
-
+      h = Math.max(h, 50);
+      // Fond + contour
       doc.setFillColor(...sc.bg);
       doc.setDrawColor(...sc.border);
-      doc.setLineWidth(1.2);
-      doc.roundedRect(MX, y, CW, estimH, 2, 2, 'FD');
-
-      // Etiquette pleine largeur
-      drawStateLabel('accompagner', MX, y);
-      // Nom
-      setOutfit(8, true);
-      doc.setTextColor(...PETROLE);
-      doc.text(PETALS[k].label, MX + 42, y + 6, { align: 'left' });
-
+      doc.setLineWidth(1.0);
+      doc.roundedRect(MX, y, CW, h, 2, 2, 'FD');
+      drawCardHeader(k, 'accompagner', MX, y, CW);
       let cy2 = y + 13;
-      if (texts) {
-        // Observation
-        if (texts.observation) {
-          setOutfit(7.5, false);
-          doc.setTextColor(...TEXTE);
-          const obsLines = doc.splitTextToSize(t(texts.observation), innerW);
-          doc.text(obsLines, MX + 4, cy2);
-          cy2 += obsLines.length * 3.8 + 2;
-        }
-        // Phrase alerte
-        setOutfit(7, true);
-        doc.setTextColor(...RED);
-        const alertLines = doc.splitTextToSize("C'est le point pour lequel un rendez-vous avec Arielle est recommandé.", innerW);
-        doc.text(alertLines, MX + 4, cy2);
-        cy2 += alertLines.length * 3.5 + 3;
-
-        // Bloc consultation
-        if (texts.consultation) {
-          // Mini bandeau blanc "CE QU'UNE CONSULTATION APPORTERAIT"
-          doc.setFillColor(...BLANC);
-          const consultLines = doc.splitTextToSize(t(texts.consultation), innerW - 4);
-          const consultH = consultLines.length * 3.5 + 12;
-          doc.roundedRect(MX + 3, cy2 - 2, CW - 6, consultH, 1.5, 1.5, 'F');
-          setOutfit(5.5, true);
-          doc.setTextColor(...PETROLE_D);
-          doc.text('CE QU\'UNE CONSULTATION APPORTERAIT', MX + 6, cy2 + 2.5);
-          cy2 += 6;
-          setOutfit(7, false);
-          doc.setTextColor(...TEXTE);
-          doc.text(consultLines, MX + 6, cy2);
-          cy2 += consultLines.length * 3.5 + 6;
-        }
-
-        // Geste attente
-        if (texts.geste_attente) {
-          setOutfit(6, true);
-          doc.setTextColor(...DORE_T);
-          doc.text('EN ATTENDANT LE RENDEZ-VOUS', MX + 4, cy2);
-          cy2 += 3.8;
-          setOutfit(7, false);
-          doc.setTextColor(...TEXTE);
-          const gLines = doc.splitTextToSize(t(texts.geste_attente), innerW);
-          doc.text(gLines, MX + 4, cy2);
-          cy2 += gLines.length * 3.5;
-        }
+      if (texts && texts.observation) {
+        setOutfit(7.5, false);
+        doc.setTextColor(...TEXTE);
+        const obsLines = doc.splitTextToSize(t(texts.observation), innerW);
+        doc.text(obsLines, MX + 5, cy2);
+        cy2 += obsLines.length * 3.8 + 1;
       }
-      return cy2 + 3;
-    }
-
-    // ── estimateCardHeight ───────────────────────────────
-    function estimateCardHeight(k, level) {
-      if (level === 'equilibre') return 28;
-      if (level === 'soutenir') return 34;
-      return 38;
+      // Phrase alerte (inline, rouge)
+      setOutfit(7.5, false);
+      doc.setTextColor(...RED);
+      const alertLines = doc.splitTextToSize("C'est le point pour lequel un rendez-vous avec Arielle est recommandé.", innerW);
+      doc.text(alertLines, MX + 5, cy2);
+      cy2 += alertLines.length * 3.8 + 4;
+      // Bloc consultation (boîte blanche)
+      if (texts && texts.consultation) {
+        const consultLines = doc.splitTextToSize(t(texts.consultation), innerW - 6);
+        const boxH = consultLines.length * 3.6 + 12;
+        doc.setFillColor(...BLANC);
+        doc.setDrawColor(215, 208, 200);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(MX + 4, cy2 - 3, CW - 8, boxH, 2, 2, 'FD');
+        setOutfit(5.5, true);
+        doc.setTextColor(...PETROLE_D);
+        doc.text('CE QU\'UNE CONSULTATION APPORTERAIT', MX + 8, cy2 + 2);
+        cy2 += 7;
+        setOutfit(7, false);
+        doc.setTextColor(...TEXTE);
+        doc.text(consultLines, MX + 8, cy2);
+        cy2 += consultLines.length * 3.6 + 6;
+      }
+      // EN ATTENDANT inline
+      if (texts && texts.geste_attente) {
+        setOutfit(6, true);
+        doc.setTextColor(180, 130, 50);
+        const eatLabel = 'EN ATTENDANT LE RENDEZ-VOUS';
+        doc.text(eatLabel, MX + 5, cy2);
+        const eatW = doc.getTextWidth(eatLabel + '  ');
+        setOutfit(7, false);
+        doc.setTextColor(...TEXTE);
+        const gLines = doc.splitTextToSize(t(texts.geste_attente), Math.max(innerW - eatW, 30));
+        doc.text(gLines, MX + 5 + eatW, cy2);
+        cy2 += gLines.length * 3.6;
+      }
+      return y + h + 4;
     }
 
     // ── drawCards ────────────────────────────────────────
@@ -1234,26 +1229,22 @@ async function generatePDF() {
       const accompagnerCards = sorted.filter(function(k) { return levels[k] === 'accompagner'; });
       const otherCards       = sorted.filter(function(k) { return levels[k] !== 'accompagner'; });
       let currentY = y + 3;
-
       if (accompagnerCards.length > 0) {
         currentY = drawAccompagnerCardFull(accompagnerCards[0], currentY);
-        currentY += 3;
       }
-
       const secondaryAcc = accompagnerCards.slice(1);
       const allOther = secondaryAcc.concat(otherCards);
       const colW = 86;
       const gap = CW - 2 * colW;
-
       for (let i = 0; i < allOther.length; i += 2) {
         const k1 = allOther[i];
         const k2 = allOther[i + 1];
-        const h1 = estimateCardHeight(k1, levels[k1]);
-        const h2 = k2 ? estimateCardHeight(k2, levels[k2]) : 0;
+        const h1 = calcCardHeight(k1, levels[k1], colW);
+        const h2 = k2 ? calcCardHeight(k2, levels[k2], colW) : 0;
         const rowH = Math.max(h1, h2);
         drawCard(k1, levels[k1], MX, currentY, colW, rowH);
         if (k2) drawCard(k2, levels[k2], MX + colW + gap, currentY, colW, rowH);
-        currentY += rowH + 3;
+        currentY += rowH + 4;
       }
       return currentY;
     }
@@ -1262,17 +1253,15 @@ async function generatePDF() {
     function drawEncadre(y, qrDataUrl) {
       const accompagnerList = sorted.filter(function(k) { return levels[k] === 'accompagner'; });
       const allEquilibre = accompagnerList.length === 0;
-
       let encData;
       if (allEquilibre) {
         const eq = BILAN_TEXTES.encadre.equilibre;
-        const titreEq = isAdult ? 'Un bilan de prévention' : t(eq.titre_enfant || 'Un bilan de prévention pour {p}');
         encData = {
-          titre: titreEq,
+          titre: isAdult ? 'Un bilan de prévention' : t(eq.titre_enfant || 'Un bilan de prévention pour {p}'),
           intro: t(eq.intro),
-          puce1: t(isAdult ? eq.puce1_adulte : eq.puce1_enfant),
-          puce2: t(eq.puce2),
-          puce3: t(eq.puce3)
+          puce1: t(isAdult ? (eq.puce1_adulte || '') : (eq.puce1_enfant || '')),
+          puce2: t(eq.puce2 || ''),
+          puce3: t(eq.puce3 || '')
         };
       } else {
         const enc = BILAN_TEXTES.encadre[pKey];
@@ -1284,64 +1273,56 @@ async function generatePDF() {
           puce3: t(enc.puce3)
         };
       }
-
-      // Calculer hauteur de l'encadre
-      const innerW = CW - 8 - (qrDataUrl ? 22 : 0);
-      const introLines = doc.splitTextToSize(encData.intro, innerW);
-      const p1Lines = doc.splitTextToSize(encData.puce1, innerW);
-      const p2Lines = doc.splitTextToSize(encData.puce2, innerW);
-      const p3Lines = doc.splitTextToSize(encData.puce3, innerW);
-      const totalLines = introLines.length + p1Lines.length + p2Lines.length + p3Lines.length;
-      const encH = 10 + totalLines * 3.5 + 22 + 8;
-
-      // Placer l'encadre : si y > 222, compresser
-      const encY = Math.min(y, 225);
-
+      const qrW = qrDataUrl ? 24 : 0;
+      const textW = CW - 10 - qrW;
+      const introLines = doc.splitTextToSize(encData.intro, textW);
+      const p1Lines = doc.splitTextToSize(encData.puce1, textW - 8);
+      const p2Lines = doc.splitTextToSize(encData.puce2, textW - 8);
+      const p3Lines = doc.splitTextToSize(encData.puce3, textW - 8);
+      const encH = 10 + 7 + introLines.length * 3.6 + 4
+                 + (p1Lines.length + p2Lines.length + p3Lines.length) * 3.6 + 6
+                 + 4 + 5 + 4;
+      const encY = Math.min(y + 2, 228);
       doc.setFillColor(...PETROLE_D);
-      doc.roundedRect(MX, encY, CW, encH, 4, 4, 'F');
+      doc.roundedRect(MX, encY, CW, encH, 3, 3, 'F');
       doc.setDrawColor(...DORE);
       doc.setLineWidth(0.4);
-      doc.roundedRect(MX, encY, CW, encH, 4, 4, 'S');
-
-      let cy2 = encY + 8;
+      doc.roundedRect(MX, encY, CW, encH, 3, 3, 'S');
+      let cy2 = encY + 9;
       setCormorant(13);
       doc.setTextColor(...CREME);
       doc.text(encData.titre, MX + 6, cy2);
-      cy2 += 6;
-
+      cy2 += 7;
       setOutfit(7.5, false);
-      doc.setTextColor(220, 216, 210);
+      doc.setTextColor(210, 206, 200);
       doc.text(introLines, MX + 6, cy2);
-      cy2 += introLines.length * 3.5 + 3;
-
-      // Puces avec carre dore
-      [[p1Lines, encData.puce1], [p2Lines, encData.puce2], [p3Lines, encData.puce3]].forEach(function(pair) {
-        const lines = pair[0];
+      cy2 += introLines.length * 3.6 + 4;
+      // Puces rondes
+      [p1Lines, p2Lines, p3Lines].forEach(function(lines) {
         doc.setFillColor(...DORE);
-        doc.rect(MX + 6, cy2 - 2.2, 2, 2, 'F');
+        doc.circle(MX + 8, cy2 - 1.3, 1.3, 'F');
         setOutfit(7, false);
         doc.setTextColor(...CREME);
-        doc.text(lines, MX + 10, cy2);
-        cy2 += lines.length * 3.5 + 1.5;
+        doc.text(lines, MX + 12, cy2);
+        cy2 += lines.length * 3.6 + 2;
       });
-
       cy2 += 3;
-      // Ligne de contact
       setOutfit(7, false);
-      doc.setTextColor(190, 220, 220);
+      doc.setTextColor(175, 205, 210);
       doc.text('Au cabinet de Sainte-Consorce, en visio ou à domicile', MX + 6, cy2);
       cy2 += 4.5;
-
       setOutfit(7.5, true);
       doc.setTextColor(...DORE);
       doc.textWithLink(TEL_DISPLAY, MX + 6, cy2, { url: TEL_LINK });
       doc.text('  ·  ', MX + 35, cy2);
       doc.textWithLink('Prendre rendez-vous en ligne', MX + 44, cy2, { url: CONTACT_URL });
-
-      // QR code
+      // QR code + label
       if (qrDataUrl) {
         try {
-          doc.addImage(qrDataUrl, 'PNG', MX + CW - 24, encY + 6, 20, 20);
+          doc.addImage(qrDataUrl, 'PNG', MX + CW - 26, encY + 6, 22, 22);
+          setOutfit(5.5, false);
+          doc.setTextColor(175, 205, 210);
+          doc.text('Prendre rendez-vous', MX + CW - 15, encY + 30, { align: 'center' });
         } catch(e) {}
       }
     }
@@ -1354,11 +1335,11 @@ async function generatePDF() {
       doc.line(MX, fY, W - MX, fY);
       setOutfit(6, false);
       doc.setTextColor(...TEXTE_L);
-      doc.text('Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue · Sainte-Consorce (69280)', MX, fY + 4);
+      doc.text('Arielle de Maistre · Naturopathe certifiée FEDE · Réflexologue · Sainte-Consorce (69280)', W / 2, fY + 4, { align: 'center' });
       setOutfit(5.5, false);
       const disc = 'Ce bilan est une première orientation de bien-être et de prévention, établie à partir de vos réponses. Il ne constitue ni un diagnostic, ni un avis médical, et ne remplace pas un suivi par votre médecin.';
       const discLines = doc.splitTextToSize(disc, CW);
-      doc.text(discLines, MX, fY + 9);
+      doc.text(discLines, W / 2, fY + 9, { align: 'center' });
     }
 
     // 8. Construire le PDF
