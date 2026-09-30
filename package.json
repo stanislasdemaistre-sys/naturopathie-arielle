@@ -12,6 +12,7 @@
     "jspdf": "^4.2.1",
     "nodemailer": "^8.0.2",
     "prisma": "^5.0.0",
+    "puppeteer": "^22.15.0",
     "qrcode": "^1.5.4",
     "resend": "^6.9.4"
   },
