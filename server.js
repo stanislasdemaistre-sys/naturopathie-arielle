@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const { Resend } = require('resend');
+const SITE_CONFIG = require('./config/site.js');
 
 // Prisma : disponible si DATABASE_URL est configurée
 let prisma = null;
@@ -16,8 +17,23 @@ if (process.env.DATABASE_URL) {
   }
 }
 
+// ─── Constantes dérivées de la config + env ────────────────────────────────
+const SITE_URL = process.env.SITE_URL || SITE_CONFIG.SITE_URL;
+// Adresse de réception des bilans (configurable indépendamment de l'email public)
+const PRACTITIONER_EMAIL = process.env.PRACTITIONER_EMAIL || process.env.CONTACT_EMAIL;
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// ─── Redirection Railway → domaine définitif (301) ─────────────────────────
+app.use((req, res, next) => {
+  const host = req.hostname || '';
+  if (host.endsWith('.railway.app') || host.endsWith('.up.railway.app')) {
+    return res.redirect(301, SITE_URL + req.url);
+  }
+  next();
+});
+
 const AUDITS_FILE = path.join(__dirname, 'data', 'audits.json');
 const AVIS_FILE = path.join(__dirname, 'config', 'avis.json');
 
@@ -33,14 +49,25 @@ const FOOTER     = fs.readFileSync(path.join(__dirname, 'partials/footer.html'),
 const CTA        = fs.readFileSync(path.join(__dirname, 'partials/cta.html'), 'utf8');
 const DISCLAIMER = fs.readFileSync(path.join(__dirname, 'partials/disclaimer.html'), 'utf8');
 
-function buildPage(filePath, { activePath = '/', noCta = false } = {}) {
+function buildPage(filePath, { activePath = '/', noCta = false, canonicalPath = null } = {}) {
   const html = fs.readFileSync(filePath, 'utf8');
   const nav = NAV.replace(`href="${activePath}"`, `href="${activePath}" class="active"`);
+  const canonFull = SITE_URL + (canonicalPath || activePath);
+  // Remplace l'ancienne URL Railway partout dans la page (canonique, JSON-LD, etc.)
+  const canonicalTag = `<link rel="canonical" href="${canonFull}">`;
+  const ogUrlTag = `<meta property="og:url" content="${canonFull}">`;
   return html
     .replace('<!-- INJECT:NAV -->', nav)
     .replace('<!-- INJECT:CTA -->', noCta ? '' : CTA)
     .replace('<!-- INJECT:DISCLAIMER -->', DISCLAIMER)
-    .replace('<!-- INJECT:FOOTER -->', FOOTER);
+    .replace('<!-- INJECT:FOOTER -->', FOOTER)
+    // Injecte ou remplace le canonical
+    .replace(/<link rel="canonical"[^>]*>\n?/g, '')
+    // Injecte ou remplace og:url
+    .replace(/<meta property="og:url"[^>]*>\n?/g, '')
+    .replace('</head>', `${canonicalTag}\n${ogUrlTag}\n</head>`)
+    // Remplace toutes les anciennes URLs Railway par SITE_URL
+    .replace(/https:\/\/naturopathie-arielle-production\.up\.railway\.app/g, SITE_URL);
 }
 
 function loadAudits() {
@@ -70,7 +97,11 @@ app.get('/jspdf.min.js', (req, res) => {
 // ─── robots.txt ────────────────────────────────────────────────────────────
 app.get('/robots.txt', (req, res) => {
   res.type('text/plain').send(
-    'User-agent: *\nAllow: /\nSitemap: https://naturopathie-arielle-production.up.railway.app/sitemap.xml\n'
+    `User-agent: *\nAllow: /\n` +
+    `# Fichiers techniques de signature mail — ne pas indexer\n` +
+    `Disallow: /logo-signature.png\n` +
+    `Disallow: /signature-finale.html\n` +
+    `Sitemap: ${SITE_URL}/sitemap.xml\n`
   );
 });
 
@@ -84,7 +115,7 @@ function isPublished(dateStr) {
 }
 
 app.get('/sitemap.xml', (req, res) => {
-  const base = 'https://naturopathie-arielle-production.up.railway.app';
+  const base = SITE_URL;
   const today = new Date().toISOString().slice(0, 10);
   const publishedArticleUrls = ARTICLES
     .filter(a => isPublished(a.date))
@@ -94,11 +125,13 @@ app.get('/sitemap.xml', (req, res) => {
     { loc: '/about', priority: '0.8', changefreq: 'monthly' },
     { loc: '/methode', priority: '0.8', changefreq: 'monthly' },
     { loc: '/tarifs', priority: '0.8', changefreq: 'monthly' },
+    { loc: '/rendez-vous', priority: '0.9', changefreq: 'monthly' },
     { loc: '/bilan', priority: '0.7', changefreq: 'monthly' },
     { loc: '/publications', priority: '0.8', changefreq: 'weekly' },
     ...publishedArticleUrls,
     { loc: '/contact', priority: '0.7', changefreq: 'monthly' },
     { loc: '/mentions-legales', priority: '0.3', changefreq: 'yearly' },
+    { loc: '/cgv', priority: '0.3', changefreq: 'yearly' },
     { loc: '/confidentialite', priority: '0.3', changefreq: 'yearly' },
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -123,8 +156,16 @@ app.get('/bilan',     (req, res) => res.send(buildPage(path.join(__dirname, 'pub
 app.get('/contact',   (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'contact.html'),                    { activePath: '/contact', noCta: true })));
 app.get('/crm',       (req, res) => res.sendFile(path.join(__dirname, 'public', 'crm.html')));
 
+// Page rendez-vous (injecte VISIO_BOOKING_ACTIVE côté serveur)
+app.get('/rendez-vous', (req, res) => {
+  let html = buildPage(path.join(__dirname, 'public', 'rendez-vous.html'), { activePath: '/rendez-vous', noCta: true });
+  html = html.replace('<!-- INJECT:VISIO_ACTIVE -->', SITE_CONFIG.VISIO_BOOKING_ACTIVE ? 'true' : 'false');
+  res.send(html);
+});
+
 // Pages légales
 app.get('/mentions-legales', (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'mentions-legales.html'),    { activePath: '/mentions-legales', noCta: true })));
+app.get('/cgv',              (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'cgv.html'),                 { activePath: '/cgv', noCta: true })));
 app.get('/confidentialite',  (req, res) => res.send(buildPage(path.join(__dirname, 'public', 'confidentialite.html'),     { activePath: '/confidentialite',  noCta: true })));
 
 // Redirect /guides → /publications (301 permanent)
@@ -142,7 +183,7 @@ app.get('/publications/:slug', (req, res) => {
   }
   res.send(buildPage(
     path.join(__dirname, 'public', 'publications', `${req.params.slug}.html`),
-    { activePath: '/publications' }
+    { activePath: '/publications', canonicalPath: `/publications/${req.params.slug}` }
   ));
 });
 
@@ -150,7 +191,7 @@ app.get('/publications/:slug', (req, res) => {
 app.get('/api/qrcode', async (req, res) => {
   try {
     const QRCode = require('qrcode');
-    const url = req.query.url || 'https://naturopathie-arielle-production.up.railway.app/contact';
+    const url = req.query.url || `${SITE_URL}/rendez-vous`;
     const dataUrl = await QRCode.toDataURL(url, { width: 120, margin: 1, color: { dark: '#0F3540', light: '#FFFFFF' } });
     res.json({ dataUrl });
   } catch(err) {
@@ -292,7 +333,7 @@ app.post('/api/audit-result', express.json(), async (req, res) => {
     const dateStr = new Date(date).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
     await resend.emails.send({
       from: process.env.RESEND_FROM,
-      to: [process.env.CONTACT_EMAIL],
+      to: [PRACTITIONER_EMAIL],
       subject: `Bilan Horizon Santé : ${childName}, ${profileLabel || childAge}, ${dateStr}`,
       html: buildPractitionerEmail(req.body)
     });
@@ -340,7 +381,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     const summaryHtml = buildPractitionerEmail(req.body);
 
     if (clientEmail) {
-      const contactUrl = 'https://naturopathie-arielle-production.up.railway.app/contact';
+      const rdvUrl = `${SITE_URL}/rendez-vous`;
       const clientHtml = `
 <div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;color:#2C3E3A">
   <div style="background:#1B4D5C;padding:32px;text-align:center">
@@ -354,10 +395,10 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Analyse de la synthèse</h3>
     <p>Les scores obtenus permettent d'identifier les zones d'équilibre et les points de vigilance qui nécessitent un soutien. Les recommandations mentionnées dans le rapport constituent de premières pistes en hygiène de vie pour accompagner votre enfant au quotidien.</p>
     <h3 style="color:#1B4D5C;border-bottom:1px solid #C4A265;padding-bottom:8px">Prochaines étapes</h3>
-    <p>Ce bilan gagne à être complété par une consultation au cabinet afin de définir un programme de vitalité précis et adapté à son terrain. Lors du Bilan Initial (90 min), nous pourrons approfondir ces résultats et établir un programme naturopathique personnalisé.</p>
-    <p>Pour toute question ou pour convenir d'un rendez-vous au cabinet de Sainte-Consorce, je vous invite à me contacter directement via le formulaire de mon site :<br>
-    <a href="${contactUrl}" style="color:#1B4D5C;font-weight:600">${contactUrl}</a></p>
-    <p style="margin-top:32px">Sincères salutations,</p>
+    <p>Ce bilan gagne à être complété par une consultation au cabinet afin de définir un programme personnalisé et adapté. Lors du premier bilan naturopathique (1h30), Arielle pourra approfondir ces résultats et co-construire un programme naturopathique sur mesure.</p>
+    <p>Pour prendre rendez-vous au cabinet de Sainte-Consorce ou en visio :<br>
+    <a href="${rdvUrl}" style="color:#1B4D5C;font-weight:600">${rdvUrl}</a></p>
+    <p style="margin-top:32px">Bien à vous,</p>
     <p style="font-size:.85rem;color:#5A6E68">Arielle de Maistre<br>Naturopathe · Réflexologue<br>Cabinet de Sainte-Consorce (69280)</p>
   </div>
 </div>`;
@@ -373,7 +414,7 @@ app.post('/api/send-audit-pdf', express.json({ limit: '10mb' }), async (req, res
 
     await resend.emails.send({
       from: process.env.RESEND_FROM,
-      to: [process.env.CONTACT_EMAIL],
+      to: [PRACTITIONER_EMAIL],
       subject: practitionerSubject,
       html: summaryHtml,
       attachments: [attachment]
@@ -534,8 +575,8 @@ async function buildBilanHtml(data) {
   // Tri par charge décroissante
   const sorted = PETAL_ORDER.slice().sort((a, b) => (charges[b] || 0) - (charges[a] || 0));
 
-  // QR code (SVG inline)
-  const contactUrl = 'https://naturopathie-arielle-production.up.railway.app/contact';
+  // QR code (SVG inline) → pointe vers /rendez-vous
+  const contactUrl = `${SITE_URL}/rendez-vous`;
   let qrRaw = await QRCode.toString(contactUrl, { type: 'svg', width: 84, margin: 0, color: { dark: '#1b4d5c', light: '#FAF7F2' } });
   // Supprimer l'en-tête XML/DOCTYPE
   qrRaw = qrRaw.replace(/<\?xml[^?]*\?>/i, '').replace(/<!DOCTYPE[^>]*>/i, '').trim();
@@ -615,7 +656,7 @@ async function buildBilanHtml(data) {
     ctaPuce3 = fillText(encTexts.puce3 || '', childName);
   }
 
-  const waysHtml = `<p class="ways">Au cabinet de Sainte-Consorce, en visio ou à domicile &nbsp;·&nbsp; <a href="tel:+33651140726">06\u202f51\u202f14\u202f07\u202f26</a> &nbsp;·&nbsp; <a href="${contactUrl}">Prendre rendez-vous en ligne</a></p>`;
+  const waysHtml = `<p class="ways">Au cabinet de Sainte-Consorce, en visio ou à domicile &nbsp;·&nbsp; <a href="tel:+33651140726">06\u202f51\u202f14\u202f07\u202f26</a> &nbsp;·&nbsp; <a href="${SITE_URL}/rendez-vous">Prendre rendez-vous en ligne</a></p>`;
 
   const ctaHtml = `<div class="cta"><div style="flex:1">
 <h2>${ctaTitre}</h2>
@@ -769,7 +810,7 @@ app.post('/api/bilan-pdf', express.json({ limit: '2mb' }), async (req, res) => {
 
     // Email au client (avec PDF)
     if (clientEmail) {
-      const contactUrl = 'https://naturopathie-arielle-production.up.railway.app/contact';
+      const rdvUrl = `${SITE_URL}/rendez-vous`;
       const clientHtml = `<div style="font-family:Georgia,serif;max-width:600px;margin:0 auto;color:#2C3E3A">
   <div style="background:#1B4D5C;padding:32px;text-align:center">
     <h1 style="color:#FAF7F2;font-size:1.6rem;font-weight:400;margin:0">Horizon &amp; Équilibre</h1>
@@ -778,8 +819,8 @@ app.post('/api/bilan-pdf', express.json({ limit: '2mb' }), async (req, res) => {
   <div style="padding:32px;background:#FAF7F2">
     <p>Bonjour ${prenom || ''},</p>
     <p>Veuillez trouver en pièce jointe la synthèse du Bilan Horizon Santé réalisé pour <strong>${childName}</strong>.</p>
-    <p>Ce document présente l'état de vitalité selon cinq axes et des pistes concrètes pour chacun d'eux. Pour aller plus loin et définir un programme personnalisé, je vous invite à prendre rendez-vous au cabinet :</p>
-    <p><a href="${contactUrl}" style="color:#1B4D5C;font-weight:600">${contactUrl}</a></p>
+    <p>Ce document présente l'état de vitalité selon cinq axes et des pistes concrètes pour chacun d'eux. Pour aller plus loin et définir un programme personnalisé, vous pouvez prendre rendez-vous au cabinet de Sainte-Consorce ou en visio :</p>
+    <p><a href="${rdvUrl}" style="color:#1B4D5C;font-weight:600">${rdvUrl}</a></p>
     <p style="margin-top:32px">Bien à vous,</p>
     <p style="font-size:.85rem;color:#5A6E68">Arielle de Maistre<br>Naturopathe · Réflexologue<br>Cabinet de Sainte-Consorce (69280)</p>
   </div>
@@ -797,7 +838,7 @@ app.post('/api/bilan-pdf', express.json({ limit: '2mb' }), async (req, res) => {
     // Email à Arielle (résumé + PDF)
     await resend.emails.send({
       from: process.env.RESEND_FROM,
-      to: [process.env.CONTACT_EMAIL],
+      to: [PRACTITIONER_EMAIL],
       subject,
       html: buildPractitionerEmail(body),
       attachments: [attachment]

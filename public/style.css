@@ -219,6 +219,25 @@ a { color: inherit; }
 .nav-links a:hover::after,
 .nav-links a.active::after { width: 100%; }
 .nav-links a.active { color: var(--dore); }
+/* Bouton CTA dans la nav */
+.nav-links .nav-rdv-btn {
+  background: var(--petrole);
+  color: var(--creme) !important;
+  padding: 9px 20px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease !important;
+}
+.nav-links .nav-rdv-btn::after { display: none !important; }
+.nav-links .nav-rdv-btn:hover {
+  background: var(--petrole-clair, #2A6B7E) !important;
+  color: var(--creme) !important;
+  transform: translateY(-1px);
+}
+.nav-links .nav-rdv-btn.active {
+  background: var(--dore) !important;
+  color: var(--petrole-fonce) !important;
+}
 .mobile-toggle {
   display: none;
   flex-direction: column;
