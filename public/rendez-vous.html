@@ -333,7 +333,7 @@
           <div class="seance-duration">30 min</div>
           <div class="seance-price">40&nbsp;€</div>
           <p class="seance-desc">Pression douce adaptée à l'âge. La technique est choisie en séance selon les besoins et les préférences de l'enfant.</p>
-          <button class="btn-reserver" onclick="openCal('reflexo-enfant')">Réserver</button>
+          <button class="btn-reserver" onclick="openCal('reflexologie-enfant')">Réserver</button>
         </div>
 
         <div class="seance-card animate-in" style="transition-delay:0.24s">
@@ -342,7 +342,7 @@
           <div class="seance-duration">1h</div>
           <div class="seance-price">65&nbsp;€</div>
           <p class="seance-desc">Séance complète. La technique est choisie ensemble : drainage, apaisement, recentrage ou soutien du sommeil.</p>
-          <button class="btn-reserver" onclick="openCal('reflexologie-ado-adulte-13-ans-au-cabinet')">Réserver</button>
+          <button class="btn-reserver" onclick="openCal('reflexologie-adulte-cabinet')">Réserver</button>
         </div>
 
         <div class="seance-card animate-in" style="transition-delay:0.30s">
@@ -351,7 +351,7 @@
           <div class="seance-duration">1h30</div>
           <div class="seance-price">90&nbsp;€</div>
           <p class="seance-desc">Échange naturopathique et ajustement du programme, suivi d'une séance complète de réflexologie. Les deux approches en une seule rencontre.</p>
-          <button class="btn-reserver" onclick="openCal('seance-combinee-adulte-au-cabinet')">Réserver</button>
+          <button class="btn-reserver" onclick="openCal('seance-combinee-adulte-cabinet')">Réserver</button>
         </div>
 
         <div class="seance-card animate-in" style="transition-delay:0.36s">
@@ -360,7 +360,7 @@
           <div class="seance-duration">1h</div>
           <div class="seance-price">75&nbsp;€</div>
           <p class="seance-desc">Échange naturopathique et séance de réflexologie adaptée à l'enfant, en une seule consultation.</p>
-          <button class="btn-reserver" onclick="openCal('seance-combinee-enfant-au-cabinet')">Réserver</button>
+          <button class="btn-reserver" onclick="openCal('seance-combinee-enfant-cabinet')">Réserver</button>
         </div>
 
       </div>
@@ -386,7 +386,7 @@
           <div class="seance-price">80&nbsp;€</div>
           <p class="seance-desc">Même contenu qu'au cabinet, en visioconférence. Règlement en ligne sécurisé au moment de la réservation.</p>
           <div id="visio-btn-0">
-            <button class="btn-reserver" onclick="openCal('premier-bilan-naturopathique-en-visio')">Réserver</button>
+            <button class="btn-reserver" onclick="openCal('bilan-visio')">Réserver</button>
           </div>
         </div>
 
@@ -397,7 +397,7 @@
           <div class="seance-price">60&nbsp;€</div>
           <p class="seance-desc">Séance de suivi en visioconférence. Règlement en ligne sécurisé au moment de la réservation.</p>
           <div id="visio-btn-1">
-            <button class="btn-reserver" onclick="openCal('suivi-naturopathique-en-visio')">Réserver</button>
+            <button class="btn-reserver" onclick="openCal('suivi-adulte-visio')">Réserver</button>
           </div>
         </div>
 
@@ -454,47 +454,56 @@
 
 <script>
 // ─── Intégration Cal.com (chargement différé au premier clic) ───────────────
+// Principe : on crée le stub Cal AVANT de charger embed.js,
+// on met en file init/ui/modal, puis embed.js traite la file → popup au 1er clic.
 var VISIO_BOOKING_ACTIVE = <!-- INJECT:VISIO_ACTIVE -->;
-var calScriptState = 'idle'; // idle | loading | ready
+var calState = 'idle'; // idle | loading | ready
 
 function openCal(slug) {
   var fullLink = 'horizonetequilibre/' + slug;
-  if (calScriptState === 'ready' && window.Cal) {
-    window.Cal('modal', { calLink: fullLink });
+
+  // Déjà prêt : appel direct
+  if (calState === 'ready') {
+    try { window.Cal('modal', { calLink: fullLink }); }
+    catch(e) { window.open('https://cal.com/' + fullLink, '_blank'); }
     return;
   }
-  if (calScriptState === 'loading') {
-    // Script en cours de chargement : en attente de l'événement
-    document.addEventListener('_calReady', function handler() {
-      document.removeEventListener('_calReady', handler);
-      window.Cal('modal', { calLink: fullLink });
-    });
-    return;
-  }
-  // Premier clic : charger le script
-  calScriptState = 'loading';
-  var s = document.createElement('script');
-  s.src = 'https://app.cal.com/embed/embed.js';
-  s.async = true;
-  s.onload = function() {
-    try {
-      (function(C,A,L){var p=function(a,ar){a.q.push(ar)};var d=C.document;C.Cal=C.Cal||function(){var cal=C.Cal;var ar=arguments;if(!cal.loaded){cal.ns={};cal.q=cal.q||[];d.head.appendChild(d.createElement('script')).src=A;cal.loaded=true}if(ar[0]===L){var api=function(){p(api,arguments)};var namespace=ar[1];api.q=api.q||[];typeof namespace==='string'?(cal.ns[namespace]=api)&&p(api,ar):p(cal,ar);return}p(cal,ar)}})(window,'https://app.cal.com/embed/embed.js','init');
-      Cal('init', { origin: 'https://cal.com' });
-      Cal('ui', {
-        theme: 'light',
-        cssVarsPerTheme: { light: { 'cal-brand': '#1B4D5C' } },
-        hideEventTypeDetails: false,
-        layout: 'month_view'
-      });
-    } catch(e) { /* Cal déjà initialisé */ }
-    calScriptState = 'ready';
-    document.dispatchEvent(new Event('_calReady'));
-    try { window.Cal('modal', { calLink: fullLink }); } catch(e) {
-      window.open('https://cal.com/' + fullLink, '_blank');
+
+  // Chargement en cours : le stub est encore actif, on ajoute la modale en file
+  if (calState === 'loading') {
+    if (window.Cal) {
+      try { window.Cal('modal', { calLink: fullLink }); } catch(e) {}
     }
+    return;
+  }
+
+  calState = 'loading';
+
+  // 1) Créer le stub Cal (rôle de l'IIFE officielle, sans charger le script)
+  window.Cal = window.Cal || function() {
+    (window.Cal.q = window.Cal.q || []).push(arguments);
   };
+  window.Cal.q   = window.Cal.q   || [];
+  window.Cal.ns  = window.Cal.ns  || {};
+
+  // 2) Mettre les appels en file AVANT le chargement du script
+  //    embed.js traitera cette file dès son exécution → popup s'ouvre au 1er clic
+  Cal('init', { origin: 'https://cal.com' });
+  Cal('ui', {
+    theme: 'light',
+    cssVarsPerTheme: { light: { 'cal-brand': '#1B4D5C' } },
+    hideEventTypeDetails: false,
+    layout: 'month_view'
+  });
+  Cal('modal', { calLink: fullLink });
+
+  // 3) Charger embed.js (contrôlé ici pour onload/onerror)
+  var s = document.createElement('script');
+  s.src   = 'https://app.cal.com/embed/embed.js';
+  s.async = true;
+  s.onload = function() { calState = 'ready'; };
   s.onerror = function() {
-    calScriptState = 'idle';
+    calState = 'idle';
     window.open('https://cal.com/' + fullLink, '_blank');
   };
   document.head.appendChild(s);

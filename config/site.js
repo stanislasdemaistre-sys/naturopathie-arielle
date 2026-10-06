@@ -44,7 +44,7 @@ const SEANCES = {
       nom:   'Réflexologie enfant (jusqu\'à 12 ans)',
       duree: '30 min',
       tarif: 40,
-      slug:  'reflexo-enfant',
+      slug:  'reflexologie-enfant',
       icon:  '🌿',
       desc:  'Pression douce adaptée à l\'âge. La technique est choisie en séance selon les besoins et les préférences de l\'enfant.'
     },
@@ -52,7 +52,7 @@ const SEANCES = {
       nom:   'Réflexologie ado et adulte (13 ans et +)',
       duree: '1h',
       tarif: 65,
-      slug:  'reflexologie-ado-adulte-13-ans-au-cabinet',
+      slug:  'reflexologie-adulte-cabinet',
       icon:  '🤲',
       desc:  'Séance complète. La technique est choisie ensemble : drainage, apaisement, recentrage ou soutien du sommeil.'
     },
@@ -60,7 +60,7 @@ const SEANCES = {
       nom:   'Séance combinée adulte (13 ans et +)',
       duree: '1h30',
       tarif: 90,
-      slug:  'seance-combinee-adulte-au-cabinet',
+      slug:  'seance-combinee-adulte-cabinet',
       icon:  '✨',
       desc:  'Échange naturopathique et ajustement du programme, suivi d\'une séance complète de réflexologie. Les deux approches en une rencontre.'
     },
@@ -68,7 +68,7 @@ const SEANCES = {
       nom:   'Séance combinée enfant (jusqu\'à 12 ans)',
       duree: '1h',
       tarif: 75,
-      slug:  'seance-combinee-enfant-au-cabinet',
+      slug:  'seance-combinee-enfant-cabinet',
       icon:  '🌱',
       desc:  'Échange naturopathique et séance de réflexologie adaptée à l\'enfant, en une seule consultation.'
     }
@@ -78,7 +78,7 @@ const SEANCES = {
       nom:   'Premier bilan naturopathique',
       duree: '1h30',
       tarif: 80,
-      slug:  'premier-bilan-naturopathique-en-visio',
+      slug:  'bilan-visio',
       icon:  '🌱',
       desc:  'Même contenu qu\'au cabinet, en visioconférence. Règlement en ligne sécurisé au moment de la réservation.'
     },
@@ -86,7 +86,7 @@ const SEANCES = {
       nom:   'Suivi naturopathique adulte (13 ans et +)',
       duree: '1h',
       tarif: 60,
-      slug:  'suivi-naturopathique-en-visio',
+      slug:  'suivi-adulte-visio',
       icon:  '🌿',
       desc:  'Séance de suivi en visioconférence. Règlement en ligne sécurisé au moment de la réservation.'
     },
