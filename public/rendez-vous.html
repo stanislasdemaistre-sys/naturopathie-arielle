@@ -287,13 +287,22 @@
 <div class="section section-creme">
   <div class="container">
 
+    <!-- ── Onglets Cabinet / Visio ── -->
+    <div class="rdv-tabs animate-in" style="margin-bottom:40px">
+      <button class="rdv-tab active" id="tab-cabinet" onclick="switchTab('cabinet')">🏥 Au cabinet</button>
+      <button class="rdv-tab" id="tab-visio" onclick="switchTab('visio')">💻 En visio</button>
+    </div>
+
+    <!-- ── Panel Cabinet ── -->
+    <div id="panel-cabinet">
+
     <!-- ── Bloc Au cabinet ── -->
-    <div style="margin-bottom:56px">
+    <div>
       <div class="rdv-block-header animate-in">
         <div class="rdv-block-icon">🏥</div>
         <div>
           <div class="rdv-block-title">Au cabinet</div>
-          <div class="rdv-block-sub">7 chemin du Maure, Sainte-Consorce (69280) · Adresse exacte dans l'e-mail de confirmation</div>
+          <div class="rdv-block-sub">Sainte-Consorce (69280) · Adresse exacte transmise par e-mail de confirmation</div>
         </div>
         <div class="rdv-payment-badge">Règlement sur place : CB, chèque ou espèces</div>
       </div>
@@ -366,8 +375,20 @@
       </div>
     </div>
 
+    <!-- ── Séance à domicile ── -->
+    <div class="rdv-box animate-in" style="margin-top:24px">
+      <h3>Séance à domicile</h3>
+      <p>Arielle peut se déplacer à domicile sur demande, à Sainte-Consorce, Vaugneray, Sainte-Foy-lès-Lyon, Tassin-la-Demi-Lune, Écully et Dardilly. Une majoration de 8&nbsp;€ s'applique au tarif de la séance.</p>
+      <a href="/contact" class="btn-p" style="display:inline-flex">Me contacter</a>
+    </div>
+
+    </div><!-- /panel-cabinet -->
+
+    <!-- ── Panel Visio ── -->
+    <div id="panel-visio" style="display:none">
+
     <!-- ── Bloc En visio ── -->
-    <div style="margin-bottom:56px">
+    <div>
       <div class="rdv-block-header animate-in">
         <div class="rdv-block-icon">💻</div>
         <div>
@@ -420,12 +441,7 @@
       </div>
     </div>
 
-    <!-- ── Encadré Domicile ── -->
-    <div class="rdv-box animate-in">
-      <h3>Séance à domicile</h3>
-      <p>Arielle peut se déplacer à domicile sur demande, à Sainte-Consorce, Vaugneray, Sainte-Foy-lès-Lyon, Tassin-la-Demi-Lune, Écully et Dardilly. Une majoration de 8&nbsp;€ s'applique au tarif de la séance.</p>
-      <a href="/contact" class="btn-p" style="display:inline-flex">Me contacter</a>
-    </div>
+    </div><!-- /panel-visio -->
 
     <!-- ── Encadré Préparer votre séance ── -->
     <div class="rdv-box animate-in" style="border-color:var(--sauge)">
@@ -507,6 +523,14 @@ function openCal(slug) {
     window.open('https://cal.com/' + fullLink, '_blank');
   };
   document.head.appendChild(s);
+}
+
+// ─── Onglets Cabinet / Visio ──────────────────────────────────────────────
+function switchTab(tab) {
+  document.getElementById('tab-cabinet').className = 'rdv-tab' + (tab === 'cabinet' ? ' active' : '');
+  document.getElementById('tab-visio').className   = 'rdv-tab' + (tab === 'visio'   ? ' active' : '');
+  document.getElementById('panel-cabinet').style.display = tab === 'cabinet' ? '' : 'none';
+  document.getElementById('panel-visio').style.display   = tab === 'visio'   ? '' : 'none';
 }
 
 // ─── Gestion VISIO_BOOKING_ACTIVE ─────────────────────────────────────────
